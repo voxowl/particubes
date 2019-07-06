@@ -15,7 +15,7 @@ FROM golang:1.8.3-alpine
 
 COPY go /go
 WORKDIR /go/src/website
-# RUN go install
+RUN go install
 
 # -----------------------
 # COPY CONTENT
