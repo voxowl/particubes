@@ -1,6 +1,6 @@
 # particubes.com
 
-FROM golang:1.8.3-alpine
+FROM golang:1.12.6-alpine3.10
 
 # -----------------------
 # INSTALL GIT (for `go get`)
