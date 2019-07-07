@@ -63,7 +63,7 @@ var (
 	errDecUnreadByteUnknown         = errors.New("cannot unread - reason unknown")
 	errMaxDepthExceeded             = errors.New("maximum decoding depth exceeded")
 
-	errBytesDecReaderCannotUnread = errors.New("cannot unread last byte read")
+	// errBytesDecReaderCannotUnread = errors.New("cannot unread last byte read")
 )
 
 type decDriver interface {
@@ -82,7 +82,7 @@ type decDriver interface {
 
 	// DecodeNaked will decode primitives (number, bool, string, []byte) and RawExt.
 	// For maps and arrays, it will not do the decoding in-band, but will signal
-	// the decoder, so that is done later, by setting the decNaked.valueType field.
+	// the decoder, so that is done later, by setting the fauxUnion.valueType field.
 	//
 	// Note: Numbers are decoded as int64, uint64, float64 only (no smaller sized number types).
 	// for extensions, DecodeNaked must read the tag and the []byte if it exists.
@@ -501,7 +501,7 @@ func (d *Decoder) kInterfaceNaked(f *codecFnInfo) (rvn reflect.Value) {
 	case valueTypeTime:
 		rvn = n.rt()
 	default:
-		panicv.errorf("kInterfaceNaked: unexpected valueType: %d", n.v)
+		halt.errorf("kInterfaceNaked: unexpected valueType: %d", n.v)
 	}
 	return
 }
@@ -1089,44 +1089,6 @@ func (d *Decoder) kMap(f *codecFnInfo, rv reflect.Value) {
 	}
 
 	d.mapEnd()
-
-}
-
-// decNaked is used to keep track of the primitives decoded.
-// Without it, we would have to decode each primitive and wrap it
-// in an interface{}, causing an allocation.
-// In this model, the primitives are decoded in a "pseudo-atomic" fashion,
-// so we can rest assured that no other decoding happens while these
-// primitives are being decoded.
-//
-// maps and arrays are not handled by this mechanism.
-// However, RawExt is, and we accommodate for extensions that decode
-// RawExt from DecodeNaked, but need to decode the value subsequently.
-// kInterfaceNaked and swallow, which call DecodeNaked, handle this caveat.
-//
-// However, decNaked also keeps some arrays of default maps and slices
-// used in DecodeNaked. This way, we can get a pointer to it
-// without causing a new heap allocation.
-//
-// kInterfaceNaked will ensure that there is no allocation for the common
-// uses.
-
-type decNaked struct {
-	// r RawExt // used for RawExt, uint, []byte.
-
-	// primitives below
-	u uint64
-	i int64
-	f float64
-	l []byte
-	s string
-
-	// ---- cpu cache line boundary?
-	t time.Time
-	b bool
-
-	// state
-	v valueType
 }
 
 // Decoder reads and decodes an object from an input stream in a supported format.
@@ -1139,8 +1101,6 @@ type decNaked struct {
 // This is the idiomatic way to use.
 type Decoder struct {
 	panicHdl
-	// hopefully, reduce derefencing cost by laying the decReader inside the Decoder.
-	// Try to put things that go together to fit within a cache line (8 words).
 
 	d decDriver
 
@@ -1156,7 +1116,7 @@ type Decoder struct {
 	decRd
 
 	// ---- cpu cache line boundary?
-	n decNaked
+	n fauxUnion
 
 	hh  Handle
 	err error
@@ -1278,7 +1238,7 @@ func (d *Decoder) ResetBytes(in []byte) {
 	d.resetCommon()
 }
 
-func (d *Decoder) naked() *decNaked {
+func (d *Decoder) naked() *fauxUnion {
 	return &d.n
 }
 
@@ -2029,7 +1989,7 @@ func decReadFull(r io.Reader, bs []byte) (n uint, err error) {
 	return
 }
 
-func decNakedReadRawBytes(dr decDriver, d *Decoder, n *decNaked, rawToString bool) {
+func fauxUnionReadRawBytes(dr decDriver, d *Decoder, n *fauxUnion, rawToString bool) {
 	if rawToString {
 		n.v = valueTypeString
 		n.s = string(dr.DecodeBytes(d.b[:], true))
