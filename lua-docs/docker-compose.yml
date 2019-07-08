@@ -10,14 +10,3 @@ services:
       - 80:80
     stdin_open: true
     tty: true
-
-    # DEV
-    # volumes:
-    #   - ./content:/www
-    #   - ./go:/go
-    # command: "ash"
-
-    # PROD
-    environment:
-      - GIN_MODE=release
-      - VIRTUAL_HOST=docs.particubes.com
