@@ -12,7 +12,11 @@ The global environment contains default values, and it is not possible to create
 - Enum
 - Event
 - [EventType](/reference/EventType)
+- DidReceiveEvent
+- Number3
+- Jump
 - [Local](/reference/Local)
 - Player
 - [PlayerMode](/reference/PlayerMode)
+- Tick
 - [Server](/reference/Server)
