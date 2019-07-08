@@ -25,7 +25,7 @@ As mentioned above, Lua by itself defines a syntax. But it allows Particubes Eng
 
 In other words, it means that some functions and variables are already defined. You don't see them all in the initial script, but you can and will have to use them in order to obtain what you want.
 
-💡 All variables and functions defined in the **sandbox** have names that start with uppercase characters. You can't use names starting with uppercase characters for your own definitions. It makes things easier. All instances starting with an uppercase character are documented on this website. (see [index](/reference/sandbox-index))
+💡 All variables and functions defined in the **sandbox** have names that start with uppercase characters. You can't use names starting with uppercase characters for your own definitions. It makes things easier. All instances starting with an uppercase character are documented on this website. (see [index](/reference))
 
 Here's a script that assigns random jump functions to incoming players:
 
