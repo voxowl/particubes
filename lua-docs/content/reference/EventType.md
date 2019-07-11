@@ -3,9 +3,9 @@ description: Particubes
 keywords: particubes, game, mobile, scripting, cube, voxel, world
 ---
 
-# EventType
+# EventType (Enum)
 
-This is an enum (link to enum type) table containing the different event type.
+This is an Enum table containing the different event type.
 
 Values are:
 - PlayerArrived : triggered when a player has joined the server

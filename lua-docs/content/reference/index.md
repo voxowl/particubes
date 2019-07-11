@@ -5,17 +5,18 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 # Sandbox index
 
-The global environment contains default values, and it is not possible to create new values in it. If you want to create your own values, you can store them in the `Local.Game` and `Server.Game` tables.
+Here are all the objects and types available in the Lua sandbox.
 
-- Block
-- Enum
-- Event
+- [Block](/reference/Block)
+- [Enum](/reference/Enum)
+- [Event](/reference/Event)
 - [EventType](/reference/EventType)
 - DidReceiveEvent
-- Number3
+- [Global Environment](/reference/GlobalEnvironment)
+- [Number3](/reference/Number3)
 - Jump
 - [Local](/reference/Local)
-- Player
+- [Player](/reference/Player)
 - [PlayerMode](/reference/PlayerMode)
-- Tick
+- [Tick](/reference/Tick)
 - [Server](/reference/Server)
