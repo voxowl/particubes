@@ -32,7 +32,7 @@ When the script runs locally (on player's device), `Player.IsLocal` is true for 
 
 `Player.Jump` is triggered when jumping. `nil` by default, it has to be defined for players to jump! 
 
-Since the `Player.Function` is triggered by each player locally, it only only makes sense to define it for the local player.
+Since the `Player.Jump` is triggered by each player locally, it only only makes sense to define it for the local player.
 
 Different `Jump` functions assigned randomly when players join the game:
 
