@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gdevillele/calvados"
 )
 
@@ -31,5 +33,10 @@ func main() {
 
 	c.AddPreprocessorFunc(CreateRedirectionsFromFrontmatter)
 
-	c.Run(":80")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "80"
+	}
+
+	c.Run(":" + port)
 }
