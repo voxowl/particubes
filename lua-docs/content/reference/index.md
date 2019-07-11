@@ -12,6 +12,7 @@ Here are all the objects and types available in the Lua sandbox.
 - [Event](/reference/Event)
 - [EventType](/reference/EventType)
 - DidReceiveEvent
+- [Global Environment](/reference/GlobalEnvironment)
 - [Number3](/reference/Number3)
 - Jump
 - [Local](/reference/Local)
