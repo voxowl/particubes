@@ -170,6 +170,7 @@ only screen and (min-device-pixel-ratio: 2) {
 
 #container #content {
   /*background-color: #ccc;*/
+  padding-bottom: 20px;
 }
 
 #container #content ul {
