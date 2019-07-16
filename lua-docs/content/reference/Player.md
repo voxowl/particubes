@@ -117,3 +117,7 @@ player:Say("Hello everyone!")
 ### Velocity (Number3)
 
 *// TODO*
+
+### BlockUnderneath ([Block](/reference/block))
+
+Returns the [Block](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.
