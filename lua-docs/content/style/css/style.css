@@ -1,16 +1,31 @@
 
+@font-face {
+    font-family: 'Roboto';
+    src: url('/style/fonts/Roboto-Light.woff2') format('woff2'),
+        url('/style/fonts/Roboto-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('/style/fonts/Raleway-Regular.woff2') format('woff2'),
+        url('/style/fonts/Raleway-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html {
-  font-size: 62.5%;
+  font-size: 14px;
+  line-height: 22px;
+  font-family: "Raleway", cursive;
+
   padding: 0;
   margin: 0;
 }
 
 body {
   background-color: #eee;
-  font-size: 1.4rem;
-  line-height: 1.6;
-  font-weight: 400;
-  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -23,20 +38,54 @@ div, ul, li, ol{
 p, h1, h2, h3, h4, h5, form, img {
   padding: 0;
   margin: 0;
-  padding-bottom: 2rem;
+  padding-bottom: 10px;
+}
+
+#content ul {
+  
+    padding-bottom: 10px;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+h2, h3 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h1:first-child {
+  padding-top: 0 !important;
 }
 
 pre {
   margin: 0;
-  margin-bottom: 2rem;
 }
 
-.hljs {padding: 10px !important;}
+p code {
+  font-size: 14px;
+  background-color: #EEEEEE;
+  color: #2E4C7E;
+  padding: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 4px;
+  border: 1px solid #CCCCCC;
+  margin-right: 1px;
+}
+
+.hljs {
+  padding: 10px !important;
+  margin-bottom: 10px;
+}
 
 form input {
   padding: 0;
   margin: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
 
@@ -75,7 +124,7 @@ img {
 /* SECTIONS */
 
 #container > div {
-  padding: 2rem;
+  padding: 20px;
   padding-bottom: 0;
 }
 
@@ -86,11 +135,11 @@ img {
 #container #header h1 {
   line-height: 80px;
   padding-left: 100px;
-  font-size: 2rem;
+  font-size: 20px;
   background-image: url("/style/img/icon.png");
   background-repeat: no-repeat;
   background-position: left top;
-  padding-bottom: 2rem;
+  padding-bottom: 20px;
   background-size: 80px 80px;
 }
 
@@ -107,7 +156,7 @@ only screen and (min-device-pixel-ratio: 2) {
 
 #container #menu {
   border-bottom: thin dashed #aaa;
-  padding-top: 1rem;
+  padding-top: 10px;
   background-color: #f7f7f7;
 }
 
@@ -115,19 +164,20 @@ only screen and (min-device-pixel-ratio: 2) {
   display: inline-block;
   margin: 0;
   padding: 0;
-  padding-bottom: 1rem;
-  margin-right: 2rem;
+  padding-bottom: 10px;
+  margin-right: 20px;
 }
 
 #container #content {
   /*background-color: #ccc;*/
+  padding-bottom: 20px;
 }
 
 #container #content ul {
   padding: 0;
   margin: 0;
-  padding-bottom: 2rem;
-  margin-left: 2rem;
+  padding-bottom: 10px;
+  margin-left: 10px;
 }
 
 #container #content ul ul {
@@ -135,8 +185,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 #container #content ul li {
-  margin-left: 2rem;
-
+  margin-left: 20px;
 }
 
 #container #content img {
@@ -149,11 +198,11 @@ only screen and (min-device-pixel-ratio: 2) {
 #container #footer {
   border-top: thin dashed #aaa;
   background-color: #f7f7f7;
-  padding-top: 1rem;
+  padding-top: 10px;
 }
 
-#container #footer > p, h1, h2, h3, h4, h5, form, img {
-  padding-bottom: 1rem;
+#container #footer > p {
+  padding-bottom: 10px;
 }
 
 form {
@@ -171,14 +220,14 @@ form input {
 
 form input[type="text"] {
     border: none;
-    padding: 1rem;
+    padding: 10px;
     background-color: #ddd;
     border: thin solid #aaa;
 }
 
 form input[type="submit"] {
     border: none;
-    padding: 1rem;
+    padding: 10px;
     background-color: #3588fe;
     cursor: pointer;
     color: #fff;
@@ -186,7 +235,7 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
     border: none;
-    padding: 1rem;
+    padding: 10px;
     background-color: #2874e0;
     cursor: pointer;
     color: #fff;
