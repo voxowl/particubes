@@ -8,6 +8,7 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 Here are all the objects and types available in the Lua sandbox.
 
 - [Block](/reference/Block)
+- [Config](/reference/Config)
 - [Enum](/reference/Enum)
 - [Event](/reference/Event)
 - [EventType](/reference/EventType)
@@ -15,7 +16,6 @@ Here are all the objects and types available in the Lua sandbox.
 - [Global Environment](/reference/GlobalEnvironment)
 - [Number3](/reference/Number3)
 - Jump
-- [Local](/reference/Local)
 - [Player](/reference/Player)
 - [PlayerMode](/reference/PlayerMode)
 - [Tick](/reference/Tick)
