@@ -6,7 +6,5 @@ services:
       dockerfile: Dockerfile
     container_name: lua-docs
     restart: always
-    ports:
-      - 80:80
     stdin_open: true
     tty: true

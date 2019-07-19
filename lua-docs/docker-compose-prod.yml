@@ -1,6 +1,12 @@
 version: '3.1'
 services:
+      
   lua-docs:
     environment:
       - GIN_MODE=release
-      - VIRTUAL_HOST=docs.particubes.comdev
+      - VIRTUAL_HOST=docs.particubes.com
+
+networks:
+  default:
+    external:
+      name: websites
