@@ -5,65 +5,64 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 # Introduction
 
-In Particubes, all experiences are scripted with a language called [Lua](https://www.lua.org). You can always see the script that's been generated for your own worlds, from the pause menu. You can also edit scripts of worlds created by others as long as you've been given the right to do so.
+In Particubes, all rules and behaviors in the games you play are scripted with a language called [Lua](https://www.lua.org).
 
-Lua defines a syntax. For example, functions are written this way: 
+A default Lua script is generated when you create a world, you can open it from the pause menu.
 
-```lua
--- doSomething does something <- comment
-function doSomething(argument1)
-	-- implementation
-end
-```
+The author of a world can allow other users to see the script.
 
-Lua is easy to learn, don't worry if you never used it. You'll be able to define custom behaviors for your world in minutes. ☺️
+Lua is easy to learn, don't worry if you never used it. You'll be able to define custom behaviors for your worlds in minutes. ☺️
 
-# The Lua Sandbox
+### Quick example: How to jump higher?
 
-As mentioned above, Lua by itself defines a syntax. But it allows Particubes Engine developers to create a **sandbox**. The sandbox is the environment in which your script is going to be executed. 
+- Locate the `defaultJump` function in the generated script:
 
-In other words, it means that some functions and variables are already defined. You don't see them all in the initial script, but you can and will have to use them in order to obtain what you want.
-
-💡 All variables and functions defined in the **sandbox** have names that start with uppercase characters. You can't use names starting with uppercase characters for your own definitions. It makes things easier. All instances starting with an uppercase character are documented on this website. (see [index](/reference))
-
-Here's a script that assigns random jump functions to incoming players:
-
-```lua
-
--- jump functions
-
-function normalJump(player)
-    if player.IsOnGround then
-        player.Velocity.Y = 120
-    end
-end
-
-function bigJump(player)
-    if player.IsOnGround then
-        player.Velocity.Y = 600
-    end
-end
-
--- Everything that's in "Local" runs player devices (locally).
--- Each player will execute the same script.
--- Local.DidReceiveEvent is called when an event arrives on the device.
--- It can comes from the server or from other players.
-Local.DidReceiveEvent = function(event)
-
-	if event.Type == EventType.PlayerAdded then
-		local player = event.Player
-		-- Only set Jump function if added player is the local one.
-		-- Each player will execute this part for himself.
-		if player.IsLocal then
-			local r = math.random()
-			-- It's unfair, but each player gets a random
-			-- jump function in my game! :p
-			if r < 0.5 then 
-                player.Jump = normalJump
-			else 
-                player.Jump = bigJump
-			end
+	```lua
+	-- function triggered when pressing jump key
+	function defaultJump(player)
+		-- Test if player is on ground before changing velocity,
+		-- otherwise, player could jump while in the air. :D
+		if player.IsOnGround then
+			player.Velocity.Y = Config.DefaultJumpStrength
 		end
+	end
+	```
+- Edit this line: 
+
+	```lua
+	player.Velocity.Y = Config.DefaultJumpStrength * 3 -- jump higher!
+	```
+- Use "Publish" button
+
+	The game will restart for all connected players, and everyone will now jump higher. 🙂
+	
+💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers.
+
+
+# Scripting environment
+
+The script runs in an environment that contains predefined functions and variables. It allows developers to do powerful things and focus on gameplay without worrying about things like networking, storage, 3D rendering, etc.
+
+💡 All variables and functions defined in the environment have names that start with uppercase characters (like `Config`). You can't use names starting with uppercase characters for your own definitions. It makes things easier. All instances starting with an uppercase character are documented here. (see [index](/reference))
+
+### Example: fall detection
+
+These lines can be seen in the generated script. They're used to check if the player fell off the world. In that case, the player is dropped above center and an event is dispatched to inform others.
+
+```lua
+-- Create custom event to inform others when dying.
+EventType:New('playerDied')
+
+-- Player represents the local player.
+-- Player.Tick function is called 30 times per second.
+Player.Tick = function(dt)
+	-- Check if player's vertical position is < -300
+	if Player.Position.Y < -300 then
+		-- Dispatch event to inform others
+		Player:DispatchEvent(EventType.playerDied)
+		-- Call Player's dropAboveCenter function (defined below)
+		-- to move back to the center of the world.
+		Player:dropAboveCenter()
 	end
 end
 ```

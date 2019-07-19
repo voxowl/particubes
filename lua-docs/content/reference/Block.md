@@ -9,7 +9,7 @@ Usually represents one block in the map. But could also represent a block for an
 
 ## Fields
 
-### ID (Integer, read-only)
+### Id (Integer, read-only)
 
 Identifies the block type (used as color index). Two blocks with the exact same color have the same `Id`.
 
