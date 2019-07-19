@@ -24,7 +24,7 @@ Unique player id for played game. A different id can be attributed after reconne
 
 When the script runs locally (on player's device), `Player.IsLocal` is true for local player only.
 
-### IsOnGround (Boolean)
+### IsOnGround (Boolean, read-only)
 
 `Player.IsOnground` is true if there's a block underneath `Player`'s feet.
 
@@ -32,58 +32,45 @@ When the script runs locally (on player's device), `Player.IsLocal` is true for 
 
 `Player.Jump` is triggered when jumping. `nil` by default, it has to be defined for players to jump! 
 
-Since the `Player.Jump` is triggered by each player locally, it only only makes sense to define it for the local player.
-
 Different `Jump` functions assigned randomly when players join the game:
 
 ```lua
+Player.DidReceiveEvent = function(event)
 
-Local.DidReceiveEvent = function(event)
-    
-	if event.Type == EventType.PlayerAdded then
-		local player = event.Player
-        
-		-- Assign random jump function to local player. Unfair but fun!
-		if player.IsLocal then
-			local r = math.random()
-			if r < 0.33 then
-				player.Jump = doubleJump    
-			elseif r < 0.66 then 
-				player.Jump = bigJump
-			else 
-				player.Jump = defaultJump
-			end
-		end
-	end 
-	
+if event.Type == EventType.Joined then
+	-- Assign random jump function, unfair but fun! ^^
+	local r = math.random()
+	if r < 0.33 then
+		Player.Jump = doubleJump    
+	elseif r < 0.66 then 
+		Player.Jump = bigJump
+	else 
+		Player.Jump = defaultJump
+	end
 end
 
 function defaultJump(player)
-    if player.IsOnGround then
-        player.Velocity.Y = Local.Config.DefaultJumpStrength
-    end
+	if player.IsOnGround then
+		player.Velocity.Y = Local.Config.DefaultJumpStrength
+	end
 end
 
 function bigJump(player)
-    if player.IsOnGround then
-        player.Velocity.Y = 600
-    end
+	if player.IsOnGround then
+		player.Velocity.Y = Local.Config.DefaultJumpStrength * 3
+	end
 end
 
 function doubleJump(player)
-    if player.IsOnGround then
-        player.Velocity.Y = Local.Config.DefaultJumpStrength
-        jumpCounter = 1
-    elseif jumpCounter == 1 then
-        player.Velocity.Y = Local.Config.DefaultJumpStrength * 1.5
-        jumpCounter = 2
-    end
+	if player.IsOnGround then
+		player.Velocity.Y = Local.Config.DefaultJumpStrength
+		jumpCounter = 1
+	elseif jumpCounter == 1 then
+		player.Velocity.Y = Local.Config.DefaultJumpStrength * 1.5
+		jumpCounter = 2
+	end
 end
 ```
-
-### Mode (PlayerMode)
-
-*// TODO*
 
 ### Position (Number3)
 
@@ -98,7 +85,6 @@ player.X = 300
 player.Y = 300
 player.Z = 300
 ```
-
 
 ### Rotation (Number3)
 
@@ -116,8 +102,18 @@ player:Say("Hello everyone!")
 
 ### Velocity (Number3)
 
-*// TODO*
+`Player`'s velocity (speed + direction).
 
-### BlockUnderneath ([Block](/reference/block))
+Different ways to set it:
+
+```lua
+Player.Velocity = { 300, 300, 300 }
+Player.Velocity = { X = 300, Y = 300, Z = 300 }
+Player.Velocity.X = 300
+Player.Velocity.Y = 300
+Player.Velocity.Z = 300
+```
+
+### BlockUnderneath ([Block](/reference/block)) (read-only)
 
 Returns the [Block](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.
