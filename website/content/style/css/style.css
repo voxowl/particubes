@@ -1,0 +1,264 @@
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/style/fonts/Roboto-Light.woff2') format('woff2'),
+        url('/style/fonts/Roboto-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('/style/fonts/Raleway-Regular.woff2') format('woff2'),
+        url('/style/fonts/Raleway-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+  font-size: 14px;
+  line-height: 22px;
+  font-family: "Raleway", cursive;
+
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #eee;
+  margin: 0;
+  padding: 0;
+}
+
+div, ul, li, ol{
+  padding: 0;
+  margin: 0;
+}
+
+p, h1, h2, h3, h4, h5, form, img {
+  padding: 0;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+#content ul {
+  
+    padding-bottom: 10px;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+h2, h3 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h1:first-child {
+  padding-top: 0 !important;
+}
+
+pre {
+  margin: 0;
+}
+
+p code {
+  font-size: 14px;
+  background-color: #EEEEEE;
+  color: #2E4C7E;
+  padding: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 4px;
+  border: 1px solid #CCCCCC;
+  margin-right: 1px;
+}
+
+.hljs {
+  padding: 10px !important;
+  margin-bottom: 10px;
+}
+
+form input {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+
+a {
+  color: #3282E5;
+  text-decoration: none;
+}
+
+a.big-button {
+  display: block;
+  background-color: #3282E5;
+  color: #FFF;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  width: max-content;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+h1 a {
+  color: #000;
+}
+
+h1 a:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+}
+
+#container {
+  max-width: 800px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  box-shadow: 0px 2px 2px #aaa;
+  padding: 0;
+}
+
+/* SECTIONS */
+
+#container > div {
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+#container #header {
+  background-color: #395A8E;
+}
+
+#container #header #header-content p {
+  color: #FFF;
+}
+
+#container #header #header-content h1 a {
+  color: #FFF;
+}
+
+#container #header #header-content {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: #FFF !important;
+}
+
+#container #header #header-content td {
+  padding-left: 20px;
+}
+
+#container #header #header-content td:first-child {
+  padding-left: 0px;
+}
+
+
+#container #header #header-content img {
+  width: 100px;
+  height: 100px;
+}
+
+#container #menu {
+  border-bottom: thin dashed #aaa;
+  padding-top: 10px;
+  background-color: #f7f7f7;
+}
+
+#container #menu ul li, #container #footer ul li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  margin-right: 20px;
+}
+
+#container #content {
+  padding-bottom: 20px;
+}
+
+#container #content ul {
+  padding: 0;
+  margin: 0;
+  padding-bottom: 20px;
+  margin-left: 20px;
+}
+
+#container #content ul ul {
+  padding-bottom: 0;
+}
+
+#container #content ul li {
+  margin-left: 20px;
+
+}
+
+#container #content img {
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#container #footer {
+  background-color: #f7f7f7;
+  padding-top: 10px;
+}
+
+#container #footer > p, h1, h2, h3, h4, h5, form, img {
+  padding-bottom: 10px;
+}
+
+form {
+  position: relative;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form input {
+  font-size: 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+  
+}
+
+form input[type="text"] {
+    border: none;
+    padding: 10px;
+    background-color: #ddd;
+    border: thin solid #aaa;
+}
+
+form input[type="submit"] {
+    border: none;
+    padding: 10px;
+    background-color: #3588fe;
+    cursor: pointer;
+    color: #fff;
+}
+
+form input[type="submit"]:hover {
+    border: none;
+    padding: 10px;
+    background-color: #2874e0;
+    cursor: pointer;
+    color: #fff;
+}
+
+.clear {
+  clear: both;
+}

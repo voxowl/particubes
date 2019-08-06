@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title>{{ .title }}</title>
+		{{ if .metaKeywords }}<meta name="keywords" content="{{ .metaKeywords }}">{{ end }}
+		{{ if .metaDescription }}<meta name="description" content="{{ .metaDescription }}">{{ end }}
+
+		<!-- CSS -->
+  		<link rel="stylesheet" href="/style/css/style.css">
+  		<link rel="stylesheet" href="/style/highlight/atom-one-dark.css">
+
+  		 <!-- Mobile Specific Metas -->
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  		<!-- FAVICON -->
+		<link rel="icon" type="image/png" href="/style/img/favicon.png">
+
+		<!-- JS -->
+		<script src="/js/highlight.pack.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+		
+	</head>
+	<body>
+	    
+		<div id="container">
+			<div id="header">
+				<table id="header-content">
+					<tr>
+					<td><img src="/style/img/logo.png" alt="" srcset="/style/img/logo@2x.png 2x"></td>
+					<td>
+						<h1><a href="/">Particubes</a></h1>
+						<p>Cube based games for everyone.</p>
+					</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- <div id="menu">
+				<nav>
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/changelog">Changelog</a></li>
+						<li><a href="/todo">Todo List</a></li>
+					</ul>
+				</nav>
+			</div> -->
+
+			<div id="content">
+				{{ .content }}
+			</div>
+
+			<div id="footer">
+				<ul>
+					<li><a href="https://twitter.com/particubes">Follow us on Twitter</a></li><!--
+					--><li><a href="https://www.instagram.com/particubes/">Follow us on Instagram</a></li><!--
+					--><li><a href="https://discord.gg/NbpdAkv">Join us on Discord</a></li>
+				</ul>
+			</div>
+		</div>
+
+    </body>
+</html>
