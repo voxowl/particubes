@@ -1,0 +1,10 @@
+version: '3.1'
+services:
+  particubes-dot-com:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: particubes-dot-com
+    restart: always
+    stdin_open: true
+    tty: true
