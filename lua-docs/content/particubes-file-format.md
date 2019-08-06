@@ -32,8 +32,7 @@ A chunk can contain anything, including child chunks.
 	|Bytes|Type|Value|
 	|-----|----|-----|
 	|1|uint8|chunk identifier: 1|
-	|4|uint32|chunk size: 4 + image data size |
-	|4|uint32 |image data size|
+	|4|uint32|chunk size: image data size |
 	|1|data size|image data|
 	
 - Palette
@@ -91,11 +90,22 @@ A chunk can contain anything, including child chunks.
 		|4|uint32|chunk size: max number of blocks in boundaries x 1 (uint8)|
 		|1 x nb blocks|uint8|nb blocks is shape's width x height x depth (includes empty blocks)|
 		
-	- Shape Palette
+	- Shape Name (optional)
+		
+		The name of the shape.
+		
+		|Bytes|Type|Value|
+		|-----|----|-----|
+		|1|uint8|chunk identifier: 12|
+		|4|uint32|chunk size: 1 + name len|
+		|1|uint8|name len (max: 255)|
+		|name len|chars|name|
+	
+	- Shape Palette (optional)
 		
 		Custom palette for current shape. Idea for later, not supported in V5.
 
-	- Shape Point
+	- Shape Point (optional)
 
 		Point of interest within shape. Can be used to connect shapes together.
 		
@@ -125,6 +135,18 @@ A chunk can contain anything, including child chunks.
 	|4|float|pitch (up/down)|
 	|4|float|roll|
 	
+- Rendering options
+
+	General rendering options
+	
+	|Bytes|Type|Value|
+	|-----|----|-----|
+	|1|uint8|chunk identifier: 10|
+	|4|uint32|chunk size: 3|
+	|1|uint8|global illumination enabled (1 or 0)|
+	|1|uint8|directional light enabled (1 or 0)|
+	|1|uint8|ambient occlusion (1 or 0)|
+
 - Directional light
 
 	Directional light information.
@@ -132,10 +154,8 @@ A chunk can contain anything, including child chunks.
 	|Bytes|Type|Value|
 	|-----|----|-----|
 	|1|uint8|chunk identifier: 10|
-	|4|uint32|chunk size: 11|
-	|1|uint8|enabled (1 or 0)|
-	|1|uint8|light locked (1 or 0)|
-	|1|uint8|ambient occlusion (1 or 0)|
+	|4|uint32|chunk size: 9|
+	|1|uint8|locked (1 or 0)|
 	|4|float|yaw (right/left)|
 	|4|float|pitch (up/down)|
 	
