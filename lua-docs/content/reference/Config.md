@@ -13,7 +13,15 @@ Contains values used by Particubes Engine when running the script. Some values a
 
 The default jump strength, applied to `Player.Velocity.Y` when jumping in most games.
 
-It's usually a good thing to apply multiples of `Config. DefaultJumpStrength` when defining jump functions.
+It's usually a good thing to apply multiples of `Config.DefaultJumpStrength` when defining jump functions. Like this:
+
+```lua 
+Player.Jump = function(player)
+    if player.IsOnGround then
+        player.Velocity.Y = Config.DefaultJumpStrength * 3
+    end
+end
+```
 
 ## Define your own fields
 

@@ -3,12 +3,32 @@ description: Particubes
 keywords: particubes, game, mobile, scripting, cube, voxel, world
 ---
 
-# EventType (Enum)
+# EventType
 
-This is an Enum table containing the different event type.
+Describes the type of an [Event](/reference/Event). Some EventTypes are predefined, but you can also define your owns using `EventType.New()`.
 
-Values are:
-- PlayerArrived : triggered when a player has joined the server
-- PlayerRemoved : triggered when a player has left the server 
-- PlayerDied : triggered when a player died (TODO: remove this. Death will be a game-specific thing.)
-- GameEvent : a custom game event
+A good practice is to store your types within `EventType`, where predefined ones are located:
+
+```lua
+EventType.myCustomEventType = Eventype.New()
+```
+
+It's totally fine though to store them elsewhere:
+
+```lua
+local myCustomEventType = Eventype.New()
+```
+
+### Predefined event types
+
+- `EventType.PlayerJoined`
+
+	Received when local player joins the game.
+
+- `EventType.OtherPlayerJoined`
+
+	Received when non local player joins the game.
+
+- `EventType.PlayerRemoved` 
+
+	Received when a player leaves the game.
