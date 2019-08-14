@@ -41,7 +41,7 @@ Lua is easy to learn, don't worry if you never used it. You'll be able to define
 
 # Scripting environment
 
-The script runs in an environment that contains predefined functions and variables. It allows developers to do powerful things and focus on gameplay without worrying about things like networking, storage, 3D rendering, etc.
+The script runs in an environment that contains predefined functions and variables. It allows developers to do powerful things and focus on gameplay without worrying about things like collisions, networking, storage, 3D rendering, etc.
 
 💡 All variables and functions defined in the environment have names that start with uppercase characters (like `Config`). You can't use names starting with uppercase characters for your own definitions. It makes things easier. All instances starting with an uppercase character are documented here. (see [index](/reference))
 

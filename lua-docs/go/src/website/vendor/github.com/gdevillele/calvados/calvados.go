@@ -388,6 +388,7 @@ func (calva *Calvados) ReplyMardown(c *gin.Context, httpStatus int, resourcePath
 		"metaKeywords":    pageKeywords,    // string (can be empty)
 		"metaDescription": pageDescription, // string (can be empty)
 		"config":          calva.config,
+		"resourcePath":    strings.TrimPrefix(resourcePath, "/www"),
 	}
 
 	if params != nil {
