@@ -169,7 +169,24 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 #container #content {
+  position: relative;
   padding-bottom: 20px;
+}
+
+#container #content a.edit-markdown {
+  display: block;
+  padding: 5px;
+  background-color: #DDD;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 4px;
+  color: #000;
+}
+
+#container #content a.edit-markdown:hover {
+  text-decoration: none;
+  background-color: #CCC;
 }
 
 #container #content ul {
