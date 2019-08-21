@@ -13,6 +13,6 @@ Here are all the objects and types available in the scripting environment.
 - [EventType](/reference/EventType)
 - [GameMaster](/reference/GameMaster)
 - [Number3](/reference/Number3)
-- OtherPlayers
+- [OtherPlayers](/reference/OtherPlayers)
 - [Player](/reference/Player)
-- Players
+- [Players](/reference/Players)
