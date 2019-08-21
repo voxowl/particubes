@@ -5,47 +5,61 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 # Player
 
-Object representing a player, someone who's connected to the game.
+`Player` is a global variable that represents the local player.
 
-- Caps fields are read-only (expect for exceptions)
-- Lowercase fields are free to use (read/write)
+It also defines an object to represent any connected player.
 
 ## Fields
+
+### BlockUnderneath ([Block](/reference/Block)) (read-only)
+
+Returns the [Block](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.
+
+### Give (Function)
+
+Gives an item to the `Player`. The parameter has to be the ID of an holdable item. (items can be browsed in the gallery)
+
+```lua
+Player:Give("rainbow-sword-level-10")
+```
 
 ### Id (Integer, read-only)
 
 Unique player id for played game. A different id can be attributed after reconnection.
 
-### Username (String, read-only)
-
-`Player`'s account username.
-
-### IsLocal (Boolean, read-only)
-
-When the script runs locally (on player's device), `Player.IsLocal` is true for local player only.
-
 ### IsOnGround (Boolean, read-only)
 
-`Player.IsOnground` is true if there's a block underneath `Player`'s feet.
+`Player.IsOnground` is true if there's a block right underneath `Player`'s feet.
 
 ### Jump (Function)
 
-`Player.Jump` is triggered when jumping. `nil` by default, it has to be defined for players to jump! 
+`Player.Jump` is triggered when jumping. `nil` by default, it has to be defined for players to jump!
+
+```lua
+	-- function triggered when pressing jump key
+	Player.Jump = function(player)
+		-- Test if player is on ground before changing velocity,
+		-- otherwise, player could jump while in the air. :D
+		if player.IsOnGround then
+			player.Velocity.Y = Config.DefaultJumpStrength
+		end
+	end
+```
 
 Different `Jump` functions assigned randomly when players join the game:
 
 ```lua
 Player.DidReceiveEvent = function(event)
-
-if event.Type == EventType.Joined then
-	-- Assign random jump function, unfair but fun! ^^
-	local r = math.random()
-	if r < 0.33 then
-		Player.Jump = doubleJump    
-	elseif r < 0.66 then 
-		Player.Jump = bigJump
-	else 
-		Player.Jump = defaultJump
+	if event.Type == EventType.Joined then
+		-- Assign random jump function, unfair but fun! ^^
+		local r = math.random()
+		if r < 0.33 then
+			Player.Jump = doubleJump    
+		elseif r < 0.66 then 
+			Player.Jump = bigJump
+		else 
+			Player.Jump = defaultJump
+		end
 	end
 end
 
@@ -72,7 +86,7 @@ function doubleJump(player)
 end
 ```
 
-### Position (Number3)
+### Position ([Number3](/reference/Number3))
 
 `Player`'s absolute world position.
 
@@ -86,9 +100,19 @@ player.Y = 300
 player.Z = 300
 ```
 
-### Rotation (Number3)
+### Rotation ([Number3](/reference/Number3))
 
-*// TODO*
+`Player`'s rotation. (`Y` value is not considered)
+
+Different ways to set it:
+
+```lua
+-- x = 0 and z = 1 means facing north
+player.Position = { 0, 0, 1 }
+player.Position = { X = 0, Z = 1 }
+player.X = 0
+player.Z = 1
+```
 
 ### Say (Function)
 
@@ -100,7 +124,11 @@ How to use it:
 player:Say("Hello everyone!")
 ```
 
-### Velocity (Number3)
+### Username (String, read-only)
+
+`Player`'s account username. Usernames are unique.
+
+### Velocity ([Number3](/reference/Number3))
 
 `Player`'s velocity (speed + direction).
 
@@ -113,7 +141,3 @@ Player.Velocity.X = 300
 Player.Velocity.Y = 300
 Player.Velocity.Z = 300
 ```
-
-### BlockUnderneath ([Block](/reference/block)) (read-only)
-
-Returns the [Block](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.

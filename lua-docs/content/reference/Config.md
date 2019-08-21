@@ -5,7 +5,9 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 # Config
 
-Contains values used by Particubes Engine when running the script. Some values are read-only and can be used in your own functions. Others can be updated.
+Contains predefined values used when running the script. Some values are read-only and can be used in your own functions. Others can be updated.
+
+You can also use `Config` to store your own configuration values.
 
 ## Fields
 
