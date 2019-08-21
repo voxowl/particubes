@@ -16,16 +16,25 @@ myNumber3 = { X = 1, Y = 2, Z = 3 }
 myNumber3 = { 1, 2, 3 }
 ```
 
+## Constructors
+
+### New (Function)
+
+This is how you create a `Number3`: 
+
+```lua
+local n3 = Number3.New()
+n3 = { 1, 2, 3 }
+
+-- Initial values can directly be passed to New():
+local n3 = Number3.New(1, 2, 3)
+```
+
 ## Fields
 
-### X
+### X (Number)
 
-Number (floating value)
+### Y (Number)
 
-### Y
+### Z (Number)
 
-Number (floating value)
-
-### Z
-
-Number (floating value)

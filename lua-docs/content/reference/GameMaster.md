@@ -9,7 +9,7 @@ The `GameMaster` acts as an organizer for the game.
 
 For example, if your game requires a minimum amount of players, it's a good idea to use the `GameMaster` to count and trigger game start.
 
-You could use a [Player](/reference/Player) for that instead. But what if your designed game master [Player](/reference/Player) leaves the game? 😅
+You could use a [Player](/reference/Player) for that instead. But what if your chosen game master [Player](/reference/Player) leaves the game? 😅
 
 ## Fields
 
@@ -73,7 +73,7 @@ The smallest time interval possible is `"50ms"`
 
 ### Tick (Function)
 
-💡 If you're **not** an experienced developer, `GameMaster.Timer` is easier to use if you want to schedule operations.
+💡 If you're **not** an experienced developer, `GameMaster.Timer` is probably easier to use if you want to schedule operations.
 
 `GameMaster.Tick` can be defined and will then be triggers 20 times per seconds. The time elapsed between 2 ticks is passed in parameter, in seconds, with millisecond precision. The value will not always be `0.05` as `GameMaster.Tick` calls are not perfectly regular.
 
@@ -83,13 +83,13 @@ GameMaster.elapsed = 0.0
 
 GameMaster.Tick = function(delta)
 	-- increase value of GameMaster.elapsed
-	GameMaster.elapsed += delta
+	GameMaster.elapsed = GameMaster.elapsed + delta
 	-- check if it's been 60 seconds
 	if GameMaster.elapsed >= 60 then
 		print("It's been 1 minute!")
 		-- decrement 60 seconds instead of setting it to 0
 		-- to keep remaining milliseconds.
-		GameMaster.elapsed -= 60
+		GameMaster.elapsed = GameMaster.elapsed - 60
 	end
 end
 ```

@@ -7,6 +7,10 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 Events are objects that can be sent to other [Player](/reference/Player)s and/or [GameMaster](/reference/GameMaster).
 
+## Constructors
+
+### New (Function)
+
 This is how you create and send an event: 
 
 ```lua
