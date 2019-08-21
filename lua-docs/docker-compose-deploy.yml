@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+    lua-docs:
+        image: $IMG
+        container_name: lua-docs
+        restart: always
+        stdin_open: true
+        tty: true
+        environment:
+            - GIN_MODE=release
+            - VIRTUAL_HOST=docs.particubes.com
+
+networks:
+    default:
+        external:
+            name: websites
