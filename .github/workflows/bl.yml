@@ -1,0 +1,16 @@
+name: Blocklayer
+
+on: pull_request
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy with Blocklayer
+        uses: blocklayerhq/actions@alpha-2
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          api_key: "${{ secrets.BL_API_KEY }}"
+          pipeline: "example-pipeline-pr-${PR_NUMBER}"
+          clone: example-pipeline
+          inputs: -o environment=example-pipeline-pr-${PR_NUMBER} -o git_ref=${{ github.sha }}
