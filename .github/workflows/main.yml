@@ -1,0 +1,18 @@
+name: Blocklayer
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Deploy with Blocklayer
+      uses: blocklayerhq/actions@alpha-2
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        api_key: "${{ secrets.BL_API_KEY }}"
+        pipeline: "docs.particubes.com-pr-${PR_NUMBER}"
+        clone: "docs.particubes.com"
+        inputs: -o environment=docs.particubes.com-pr-${PR_NUMBER} -o git_ref=${{ github.sha }}
