@@ -124,6 +124,16 @@ How to use it:
 player:Say("Hello everyone!")
 ```
 
+### Swap (Function)
+
+Takes no argument, swaps held items.
+
+How to use it:
+
+```lua
+player:Swap()
+```
+
 ### Username (String, read-only)
 
 `Player`'s account username. Usernames are unique.
