@@ -1,6 +1,6 @@
 name: Blocklayer
 
-on: [pull_request]
+on: [pull_request,push]
 
 jobs:
   build:
@@ -15,4 +15,4 @@ jobs:
         api_key: "${{ secrets.BL_API_KEY }}"
         pipeline: "docs.particubes.com-pr-${PR_NUMBER}"
         clone: "docs.particubes.com"
-        inputs: -o environment=docs.particubes.com-pr-${PR_NUMBER} -o git_ref=${{ github.sha }}
+        inputs: -o git_ref=${{ github.sha }}
