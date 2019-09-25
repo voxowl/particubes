@@ -4,16 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'particubes-dot-com/*'
-      - 'particubes-dot-com/*/*'
-      - 'particubes-dot-com/*/*/*'
-      - 'particubes-dot-com/*/*/*/*'
-      - 'particubes-dot-com/*/*/*/*/*'
-      - 'particubes-dot-com/*/*/*/*/*/*'
-      - 'particubes-dot-com/*/*/*/*/*/*/*'
-      - 'particubes-dot-com/*/*/*/*/*/*/*/*'
-      - 'particubes-dot-com/*/*/*/*/*/*/*/*/*'
 
 jobs:
   build:
