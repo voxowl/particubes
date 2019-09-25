@@ -26,42 +26,35 @@
 		
 	</head>
 	<body>
-	    
-		<div id="container">
-			<div id="header">
-				<table id="header-content">
-					<tr>
-					<td><img src="/style/img/logo.png" alt="" srcset="/style/img/logo@2x.png 2x"></td>
-					<td>
-						<h1><a href="/">Particubes</a></h1>
-						<p>Cube based games for everyone.</p>
-					</td>
-					</tr>
-				</table>
-			</div>
 
-			<!-- <div id="menu">
-				<nav>
+		<div id="page">
+
+			<div id="header">
+				<nav id="header-content">
 					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/changelog">Changelog</a></li>
-						<li><a href="/todo">Todo List</a></li>
+						<li><img src="/style/img/logo.png" alt="" srcset="/style/img/logo@2x.png 2x"></li>
+						<li><a href="/">Particubes</a></li>
+						<li><a href="https://docs.particubes.com">Scripting Docs</a></li>
 					</ul>
 				</nav>
-			</div> -->
-
-			<div id="content">
-				{{ .content }}
+			</div>
+		    
+			<div id="container-wrapper">
+				<div id="container">
+					<div id="content">
+						{{ .content }}
+					</div>
+				</div>
 			</div>
 
 			<div id="footer">
 				<ul>
-					<li><a href="https://twitter.com/particubes">Follow us on Twitter</a></li><!--
-					--><li><a href="https://www.instagram.com/particubes/">Follow us on Instagram</a></li><!--
-					--><li><a href="https://discord.gg/NbpdAkv">Join us on Discord</a></li>
+					<li><a href="https://twitter.com/particubes">Twitter</a></li><!--
+					--><li><a href="https://www.instagram.com/particubes/">Instagram</a></li><!--
+					--><li><a href="https://discord.gg/NbpdAkv">Discord</a></li>
 				</ul>
 			</div>
-		</div>
 
+		</div> <!-- page -->
     </body>
 </html>

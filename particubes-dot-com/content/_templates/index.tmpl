@@ -26,63 +26,99 @@
 		
 	</head>
 	<body>
-	    
-		<div id="container">
-			<div id="header">
-				<table id="header-content">
-					<tr>
-					<td><img src="/style/img/logo.png" alt="" srcset="/style/img/logo@2x.png 2x"></td>
-					<td>
-						<h1><a href="/">Particubes</a></h1>
-						<p>Cube based games for everyone.</p>
-					</td>
-					</tr>
-				</table>
-			</div>
+		<div id="page">
 
-			<!-- <div id="menu">
-				<nav>
+			<div id="header">
+				<nav id="header-content">
 					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/changelog">Changelog</a></li>
-						<li><a href="/todo">Todo List</a></li>
+						<li><a href="/"><img src="/style/img/logo.png" alt="" srcset="/style/img/logo@2x.png 2x"></a></li><!--
+						--><li class="large-display-only"><a href="/">Particubes</a></li><!--
+						--><li class="large-display-only"><a href="https://docs.particubes.com">Scripting Docs</a></li>
 					</ul>
 				</nav>
-			</div> -->
-
-			<div id="content">
-				<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
-				<p>Particubes is a platform dedicated to <strong>voxel games</strong>, games made out of little cubes.</p>
-
-<p>Many different kinds of games for players. Magical tools for creative minds to produce &amp; publish content (maps, items, avatars &amp; code).</p>
-
-<p>Particubes is <strong>not released yet</strong>. It will be available on <strong>iOS</strong>, <strong>Android</strong>, <strong>Windows</strong> and <strong>Mac</strong> devices.</p>
-
-<p>Here's a quick presentation of what we have so far:</p>
-
-<center><iframe style="border-radius: 5px;" width="420" height="236" src="https://www.youtube.com/embed/ryttJKvmFPY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
-
-<h3><a name="voxel-editor" class="anchor" href="#voxel-editor" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Voxel editor</h3>
-
-<p>We already published a simple voxel editor for iOS devices. It will be merged with the new application in the future. You can download it <a href="https://itunes.apple.com/app/id1299143207?mt=8" rel="nofollow">here</a>, and here's the <a href="/changelog" rel="nofollow">changelog</a>.</p>
-<h3><a name="beta-program" class="anchor" href="#beta-program" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-Beta program</h3>
-
-<p>Particubes is in a very early and experimental phase of development. You can help us, joining our beta program! We need feedback to do it right. Just fill out this form:</p>
-
-<p><a class="big-button" href="https://airtable.com/shr19FppC46PsvywY" rel="nofollow">Particubes - Beta Testers Program</a></p>
-				<!-- {{ .content }} -->
 			</div>
+
+			<div id="container-wrapper">
+				<div id="container">
+					<div id="content">
+						<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
+
+						<center><video muted autoplay loop width="480px" height="270px">
+							<source src="/video/web-pres-480x270.mp4" type="video/mp4">
+						</video></center>
+						
+						<h2>What&#39;s Particubes?</h2>
+
+						<p><strong>Particubes</strong> is a platform dedicated to <strong>voxel games</strong>, games made out of little cubes.</p>
+
+						<ul class="features">
+							<li class="feature">
+								<h3>🕹 Players</h3>
+								<p>Explore many different games and experiences built by others, using your own custom avatar. Play with your friends, on mobile and desktop devices.</p>
+							</li>
+
+							<li class="feature">
+								<h3>⛏ Builders</h3>
+								<p>Use simple yet powerful tools to craft and publish game items, worlds, avatars & outfits. Shared assets can be used by other builders and coders.</p>
+							</li>
+
+							<li class="feature">
+								<h3>🤓 Coders</h3>
+								<p>Customize game code sample scripts, publish assignable actions, or script a full game from scratch! Show it to your friends, all they need to join the game is your invite link.</p>
+							</li>
+
+						</ul>
+
+						<h2>How to get started?</h2>
+
+						<p>Particubes is <strong>not released yet</strong>. It will be available on <strong>iOS</strong>, <strong>Android</strong>, <strong>Windows</strong> and <strong>Mac</strong> devices.</p>
+
+						<p>We're still in a very early phase of development and we could really use your help! Just fill out this form if you're interested in joining our <strong>Beta Testers Program</strong>:</p>
+
+						<p><a class="big-button" href="https://airtable.com/shr19FppC46PsvywY" rel="nofollow">Beta testers program</a></p>
+
+						<h2>Access plans</h2>
+
+						<ul class="features">
+							<li class="feature">
+								<h3>🌳 Free</h3>
+								<ul> 
+									<li>Play with others for 5 hours a week</li>
+									<li>Unlimited time for creation</li>
+								</ul>
+
+								<p class="price">$0 / month</p>
+
+							</li>
+
+							<li class="feature">
+								<h3>⭐️ Premium</h3>
+								<ul>
+									<li>Unlimited time to play</li>
+									<li>Post chat messages</li>
+									<li>Free coins every month</li>
+									<li><i>Premium</i> badge on your profile</li>
+									<li>Published creations considered safe much faster</li>
+								</ul>
+								
+								<p class="price">$0 / month</p>
+
+								<p class="secondary">Price will increase, up to <strong>$5 per month</strong> as Particubes becomes more stable and complete. Your subscription will remain unchanged though if you joined earlier.</p>
+							</li>
+						</ul>
+
+					</div> <!-- {{ .content }} -->
+				</div>
+			</div> <!-- container-wrapper -->
 
 			<div id="footer">
 				<ul>
-					<li><a href="https://twitter.com/particubes">Follow us on Twitter</a></li><!--
-					--><li><a href="https://www.instagram.com/particubes/">Follow us on Instagram</a></li><!--
-					--><li><a href="https://discord.gg/NbpdAkv">Join us on Discord</a></li>
+					<li><a href="https://twitter.com/particubes">Twitter</a></li><!--
+					--><li><a href="https://www.instagram.com/particubes/">Instagram</a></li><!--
+					--><li><a href="https://discord.gg/NbpdAkv">Discord</a></li>
 				</ul>
 			</div>
-		</div>
 
+		</div> <!-- page -->
     </body>
 </html>
