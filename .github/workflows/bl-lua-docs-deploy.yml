@@ -6,6 +6,14 @@ on:
       - master
     paths:
       - 'lua-docs/*'
+      - 'lua-docs/*/*'
+      - 'lua-docs/*/*/*'
+      - 'lua-docs/*/*/*/*'
+      - 'lua-docs/*/*/*/*/*'
+      - 'lua-docs/*/*/*/*/*/*'
+      - 'lua-docs/*/*/*/*/*/*/*'
+      - 'lua-docs/*/*/*/*/*/*/*/*'
+      - 'lua-docs/*/*/*/*/*/*/*/*/*'
 
 jobs:
   build:
