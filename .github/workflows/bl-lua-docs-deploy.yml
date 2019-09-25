@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'lua-docs/*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy with Blocklayer
+    - name: Deploy docs.particubes.com with Blocklayer
       uses: blocklayerhq/actions@alpha-2
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
