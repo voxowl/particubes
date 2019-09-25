@@ -6,22 +6,53 @@ keywords:
 - particubes, game, mobile, ios, metal, cube, voxel, creation, editor
 ---
 
-Particubes is a platform dedicated to **voxel games**, games made out of little cubes. 
+## What's Particubes?
 
-Many different kinds of games for players. Magical tools for creative minds to produce & publish content (maps, items, avatars & code).
+**Particubes** is a platform dedicated to **voxel games**, games made out of little cubes.
+
+#### 🕹 Players
+
+Explore many different games and experiences built by others, using your own custom avatar. Play with your friends, on mobile and desktop devices.
+
+#### ⛏ Builders
+
+Use simple yet powerful tools to craft and publish game items, worlds, avatars & outfits. Shared assets can be used by other builders and coders.
+
+#### 🤓 Coders
+
+Customize game code sample scripts, publish assignable actions, or script a full game from scratch! Show it to your friends, all they need to join the game is your invite link.
+
+**Creators** get **powerful tools** to make and publish items, worlds, avatars and code (can be small action snippets or full game code).
+
+## How to get started?
 
 Particubes is **not released yet**. It will be available on **iOS**, **Android**, **Windows** and **Mac** devices.
 
-Here's a quick presentation of what we have so far:
-
-<img src="/img/presentation-video.png" alt="test" srcset="/img/presentation-video@2x.png 2x"/>
-
-### Voxel editor
-
-We already published a simple voxel editor for iOS devices. It will be merged with the new application in the future. You can download it [here](https://itunes.apple.com/app/id1299143207?mt=8), and here's the [changelog](/changelog).
-
 ### Beta program
 
-Particubes is in a very early and experimental phase of development. You can help us, joining our beta program! We need feedback to do it right. Just fill out this form:
+Particubes is not released yet. It will be available on iOS, Android, Windows and Mac devices.
 
-<a class="big-button" href="https://airtable.com/shr19FppC46PsvywY">Particubes - Beta Testers Program</a>
+We're still in a very early phase of development and we could really use your help! Just fill out this form if you're interested in joining our Beta Testers Program:
+
+<a class="big-button" href="https://airtable.com/shr19FppC46PsvywY">Beta testers program</a>
+
+## Access plans
+
+#### 🌳 Free
+
+- Play with others for 5 hours a week
+- Unlimited time for creation
+- $0 / month
+
+#### ⭐️ Premium
+
+- Unlimited time to play
+- Post chat messages
+- Free coins every month
+- Premium badge on your profile
+- Published creations considered safe much faster
+- $0 / month
+
+> Price will increase, up to $5 per month as Particubes becomes more stable and complete. Your subscription will remain unchanged though if you joined earlier.
+
+
