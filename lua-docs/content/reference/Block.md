@@ -7,7 +7,20 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 Usually represents one block in the map. But could also represent a block for any shape in the game.
 
-## Fields
+## Class Field
+
+### New (Function, read-only)
+
+Creates and returns a new Block instance.
+
+Arguments are:
+
+- block id
+- x
+- y
+- z
+
+## Instance Fields
 
 ### Id (Integer, read-only)
 
@@ -24,4 +37,3 @@ Y position (in map or shape space).
 ### Z (Integer, read-only)
 
 Z position (in map or shape space).
-
