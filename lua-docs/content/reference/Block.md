@@ -15,10 +15,17 @@ Creates and returns a new Block instance.
 
 Arguments are:
 
-- block id
-- x
-- y
-- z
+- block id (int)
+- x (int) (optional)
+- y (int) (optional)
+- z (int) (optional)
+
+This function can be called with either 1 argument or 4.
+
+```
+local b1 = Block.New(id);
+local b2 = Block.New(id, x, y, z);
+```
 
 ## Instance Fields
 
