@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  download-dot-particubes:
+    image: halverneus/static-file-server
+    container_name: download-dot-particubes
+    restart: always
+    expose:
+      - "80"
+    environment:
+      - PORT=80
+      - FOLDER=/content
+    stdin_open: true
+    tty: true
