@@ -1,0 +1,12 @@
+version: '3.1'
+services:      
+  download-dot-particubes:
+    environment:
+      - VIRTUAL_HOST=download.particubes.com
+    volumes:
+      - /download.particubes.com:/content
+
+networks:
+  default:
+    external:
+      name: websites
