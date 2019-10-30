@@ -29,6 +29,8 @@ func main() {
 
 	c.SetRedirection("/get", "https://itunes.apple.com/app/id1299143207?mt=8")
 
+	c.SetRedirection("/download-mac-alpha", "https://download.particubes.com/Particubes-0.0.1-2.dmg")
+
 	c.AddPreprocessorFunc(CreateRedirectionsFromFrontmatter)
 
 	c.Run(":80")
