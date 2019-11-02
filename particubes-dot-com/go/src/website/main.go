@@ -31,6 +31,8 @@ func main() {
 
 	c.SetRedirection("/download-mac-alpha", "https://download.particubes.com/Particubes-0.0.2.dmg")
 
+	c.SetRedirection("/discord", "https://discord.gg/NbpdAkv")
+
 	c.AddPreprocessorFunc(CreateRedirectionsFromFrontmatter)
 
 	c.Run(":80")
