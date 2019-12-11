@@ -18,4 +18,5 @@ Here are all the objects and types available in the scripting environment.
 - [OtherPlayers](/reference/OtherPlayers)
 - [Player](/reference/Player)
 - [Players](/reference/Players)
-
+- [Resources](/reference/Resources)
+- [R](/reference/Resources)
