@@ -177,6 +177,6 @@ GameMaster.DidReceiveEvent = function(event)
         end
 
         -- print message in all player consoles
-        print(senderName .. " died " .. player.count .. " times.")
+        print(player.Username .. " died " .. player.count .. " times.")
     end
 end
