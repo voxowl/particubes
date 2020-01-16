@@ -17,14 +17,14 @@ Import (
 )
 
 -- Events are objects that can be sent to other players, 
--- and/or to the GameMaster.
+-- and/or to the Server.
 -- There are pre-defined event types, documented here:
 -- https://docs.particubes.com/reference/EventType
 -- We can declare custom ones this way:
 EventType.playerDied = EventType:New()
 
 -- Set the map
--- (R is a shortcut for Resources)
+-- (R is a shortcut for Shared.Resources)
 Map.Set(R.aduermael.hills)
 
 -- Note: All variables starting with an uppercase character
@@ -33,14 +33,14 @@ Map.Set(R.aduermael.hills)
 -- You can define your own variables, as long as the
 -- name doens't start with an uppercase character.
 
--- Player is a globally exposed variable, it represents
--- the local player.
--- Player.Jump is nil (non existent) by default but we
+-- Local.Player represents the local player.
+-- (it has a global "Player" shortcut)
+-- Local.Player.Jump is nil (non existent) by default but we
 -- can assign a function, defining how the players jumps
 -- in the game. 
 -- NOTE: players can jump differently based on the item
 -- they're holding for example.
-Player.Jump = function (player)
+Local.Player.Jump = function (player)
     -- Test if player is on ground before changing velocity,
     -- otherwise, player could jump while in the air. :D
     if player.IsOnGround then
@@ -48,13 +48,13 @@ Player.Jump = function (player)
     end
 end
 
--- Player can be used to store custom fields.
+-- Local.Player can be used to store custom fields.
 -- Let's use this to set a few state properties:
-Player.itemIndex = 1
+Local.Player.itemIndex = 1
 
 -- Config is also exposed by the engine, it contains 
 -- a few pre-configured values.
--- (like Config.DefaultJumpStrength, used in Player.Jump)
+-- (like Config.DefaultJumpStrength, used in Local.Player.Jump)
 -- We can also use it to store our own things:
 Config.items = {nil, R.pen, R.pickaxe}
 
@@ -63,26 +63,20 @@ Config.items = {nil, R.pen, R.pickaxe}
 -- A better system will be introduced soon.
 Config.colorIndex = 15
 
--- This function can be called to drop Player above
+-- This function can be called to drop the local player above
 -- the center of the map.
-function dropAboveCenter()
-    Player.Position = { Map.Width * 0.5, Map.Height  + 10, Map.Depth * 0.5 }
-    Player.Rotation = { 0, 0, 0 }
-    Player.Velocity = { 0, 0, 0 }
+Local.dropAboveCenter = function()
+    Local.Player.Position = { Map.Width * 0.5, Map.Height  + 10, Map.Depth * 0.5 }
+    Local.Player.Rotation = { 0, 0, 0 }
+    Local.Player.Velocity = { 0, 0, 0 }
 end
 
--- We can call it right now!
--- Function calls at the root level in the script
--- are executed when the script is loaded.
-dropAboveCenter()
-
--- Define primary action function
+-- Define primary action function for the local Player
 -- (left click on desktop, primary action button on mobile)
-Player.PrimaryAction = function(player)
+Local.Player.PrimaryAction = function(player)
     local impact = player:CastRay()
     if impact.Block ~= nil then
-        local holdItem = Config.items[Player.itemIndex]
-
+        local holdItem = Config.items[player.itemIndex]
         if holdItem == R.pen then -- add blocks when holding the pen
             local b = Block.New(Config.colorIndex, 0, 0, 0)
             impact.Block:AddNeighbor(b, impact.FaceTouched)
@@ -92,51 +86,53 @@ Player.PrimaryAction = function(player)
     end
 end
 
--- PrimaryActionRelease can be defined and is triggered
+-- Player.PrimaryActionRelease can be defined and is triggered
 -- when the primary action input gets released.
-Player.PrimaryActionRelease = nil
+Local.Player.PrimaryActionRelease = nil
 
 -- Define secondary action function
 -- (right click on desktop, secondary action button on mobile)
-Player.SecondaryAction = function(player) 
+Local.Player.SecondaryAction = function(player) 
     player.itemIndex = player.itemIndex + 1
     if player.itemIndex > #Config.items then 
         player.itemIndex = 1 
     end
-    Player:Give(Config.items[player.itemIndex])
+    player:Give(Config.items[player.itemIndex])
 end
 
 -- SecondaryActionRelease can be defined and is triggered
 -- when the secondary action input gets released.
-Player.SecondaryActionRelease = nil
+Local.Player.SecondaryActionRelease = nil
 
--- Player.Tick is called continuously, 30 times per second.
+-- Local.Tick is called continuously, 30 times per second.
 -- In this sample script, we're using it to detect if the 
 -- player is falling from the map.
-Player.Tick = function(dt)
-    if Player.Position.Y < -200 then
+Local.Tick = function(dt)
+    if Local.Player.Position.Y < -200 then
         local e = Event.New(EventType.playerDied)
-        e:SendTo(GameMaster)
-        Player.Velocity.Y = 0
-        -- Player.Say posts a message in the chat
-        Player:Say('Nooooo! 😵')
+        e:SendTo(Server)
+        Local.Player.Velocity.Y = 0
+        -- Local.Player.Say posts a message in the chat
+        Local.Player:Say('Nooooo! 😵')
         -- Bring the player back above center
-        dropAboveCenter()
+        Local.dropAboveCenter()
     end
 end
 
--- Player.DidReceiveEvent is triggered when an event 
--- is received. (sent by the GameMaster or another player)
+-- Local.Player.DidReceiveEvent is triggered when an event 
+-- is received. (sent by the Server or another player)
 -- Pre-defined event types (the ones starting with uppercase characters)
 -- are documented here: https://docs.particubes.com/reference/EventType
-Player.DidReceiveEvent = function(event)
+Local.Player.DidReceiveEvent = function(event)
     if event.Type == EventType.PlayerJoined then
-        welcomeMessage(Player)
+        Local.welcomeMessage(Local.Player)
+        -- set player position above the center of the map
+        Local.dropAboveCenter()
         -- this will be done automatically soon
         -- no need to worry about this line
-        Player.Mode = PlayerMode.Playing
+        Local.Player.Mode = PlayerMode.Playing
     elseif event.Type == EventType.OtherPlayerJoined then
-        welcomeMessage(event.Player)
+        Local.welcomeMessage(event.Player)
     elseif event.Type == EventType.PlayerRemoved then
         print(event.Player.Username .. ' is gone.')
     else
@@ -145,25 +141,25 @@ Player.DidReceiveEvent = function(event)
 end
 
 -- This function builds and displays random welcome messages
-function welcomeMessage(player) 
+Local.welcomeMessage = function(player) 
     local welcomeMessages = { " is here.", " just landed.", " joined the party.", " appeared.", " has arrived."}
     local randomIndex = math.random(1, #welcomeMessages)
     print(player.Username .. welcomeMessages[randomIndex])
 end
 
--- The GameMaster is responsible for coordination.
+-- The Server is responsible for coordination.
 -- In this example, it simply counts when players 
 -- fall off the map.
 
--- Nothing to do in GameMaster.Tick
-GameMaster.Tick = nil
+-- Nothing to do in Server.Tick
+Server.Tick = nil
 
--- GameMaster.DidReceiveEvent is triggered when an event 
--- is received by the GameMaster.
+-- Server.DidReceiveEvent is triggered when an event 
+-- is received by the Server.
 -- Pre-defined event types (the ones starting with uppercase characters)
 -- are documented here: https://docs.particubes.com/reference/EventType
 -- But custom events arrive here as well.
-GameMaster.DidReceiveEvent = function(event)
+Server.DidReceiveEvent = function(event)
     if event.Type == EventType.playerDied then
         
         local player = event.Sender
