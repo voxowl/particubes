@@ -34,7 +34,6 @@ Map.Set(R.aduermael.hills)
 -- name doens't start with an uppercase character.
 
 -- Local.Player represents the local player.
--- (it has a global "Player" shortcut)
 -- Local.Player.Jump is nil (non existent) by default but we
 -- can assign a function, defining how the players jumps
 -- in the game. 
@@ -66,14 +65,15 @@ Config.colorIndex = 15
 -- This function can be called to drop the local player above
 -- the center of the map.
 Local.dropAboveCenter = function()
-    Local.Player.Position = { Map.Width * 0.5, Map.Height  + 10, Map.Depth * 0.5 }
-    Local.Player.Rotation = { 0, 0, 0 }
-    Local.Player.Velocity = { 0, 0, 0 }
+    Player.Position = { Map.Width * 0.5, Map.Height  + 10, Map.Depth * 0.5 }
+    Player.Rotation = { 0, 0, 0 }
+    Player.Velocity = { 0, 0, 0 }
 end
 
 -- Define primary action function for the local Player
 -- (left click on desktop, primary action button on mobile)
-Local.Player.PrimaryAction = function(player)
+-- Note that "Player" is a shortcut for "Local.Player"
+Player.PrimaryAction = function(player)
     local impact = player:CastRay()
     if impact.Block ~= nil then
         local holdItem = Config.items[player.itemIndex]
@@ -88,11 +88,11 @@ end
 
 -- Player.PrimaryActionRelease can be defined and is triggered
 -- when the primary action input gets released.
-Local.Player.PrimaryActionRelease = nil
+Player.PrimaryActionRelease = nil
 
 -- Define secondary action function
 -- (right click on desktop, secondary action button on mobile)
-Local.Player.SecondaryAction = function(player) 
+Player.SecondaryAction = function(player) 
     player.itemIndex = player.itemIndex + 1
     if player.itemIndex > #Config.items then 
         player.itemIndex = 1 
@@ -102,18 +102,18 @@ end
 
 -- SecondaryActionRelease can be defined and is triggered
 -- when the secondary action input gets released.
-Local.Player.SecondaryActionRelease = nil
+Player.SecondaryActionRelease = nil
 
 -- Local.Tick is called continuously, 30 times per second.
 -- In this sample script, we're using it to detect if the 
 -- player is falling from the map.
 Local.Tick = function(dt)
-    if Local.Player.Position.Y < -200 then
+    if Player.Position.Y < -200 then
         local e = Event.New(EventType.playerDied)
         e:SendTo(Server)
-        Local.Player.Velocity.Y = 0
+        Player.Velocity.Y = 0
         -- Local.Player.Say posts a message in the chat
-        Local.Player:Say('Nooooo! 😵')
+        Player:Say('Nooooo! 😵')
         -- Bring the player back above center
         Local.dropAboveCenter()
     end
@@ -123,14 +123,14 @@ end
 -- is received. (sent by the Server or another player)
 -- Pre-defined event types (the ones starting with uppercase characters)
 -- are documented here: https://docs.particubes.com/reference/EventType
-Local.Player.DidReceiveEvent = function(event)
+Player.DidReceiveEvent = function(event)
     if event.Type == EventType.PlayerJoined then
-        Local.welcomeMessage(Local.Player)
+        Local.welcomeMessage(Player)
         -- set player position above the center of the map
         Local.dropAboveCenter()
         -- this will be done automatically soon
         -- no need to worry about this line
-        Local.Player.Mode = PlayerMode.Playing
+        Player.Mode = PlayerMode.Playing
     elseif event.Type == EventType.OtherPlayerJoined then
         Local.welcomeMessage(event.Player)
     elseif event.Type == EventType.PlayerRemoved then
