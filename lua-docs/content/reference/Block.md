@@ -23,8 +23,8 @@ Arguments are:
 This function can be called with either 1 argument or 4.
 
 ```
-local b1 = Block.New(id);
-local b2 = Block.New(id, x, y, z);
+local b1 = Block.New(id)
+local b2 = Block.New(id, x, y, z)
 ```
 
 ## Instance Fields

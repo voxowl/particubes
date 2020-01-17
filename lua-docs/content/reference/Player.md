@@ -15,12 +15,14 @@ It also defines an object to represent any connected player.
 
 Returns the [Block](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.
 
-### Give (Function)
+### Give (Function, read-only)
 
 Gives an item to the `Player`. The parameter has to be the ID of an holdable item. (items can be browsed in the gallery)
 
 ```lua
-Player:Give("rainbow-sword-level-10")
+Import("aduermael.rainbow_sword")
+
+Player:Give(R.aduermael.rainbow_sword)
 ```
 
 ### Id (Integer, read-only)
