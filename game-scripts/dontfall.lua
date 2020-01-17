@@ -35,18 +35,9 @@ Local.Player.firedOnce = false
 Local.Player.fireDT = 0.0
 
 -- Local.Player represents the local player.
--- Local.Player.Jump is nil (non existent) by default but we
--- can assign a function, defining how the players jumps
--- in the game. 
--- NOTE: players can jump differently based on the item
--- they're holding for example.
-Local.Player.Jump = function (player)
-    -- Test if player is on ground before changing velocity,
-    -- otherwise, player could jump while in the air. :D
-    if player.IsOnGround then
-      player.Velocity.Y = Config.DefaultJumpStrength
-    end
-end
+-- Local.Player.Jump is nil (non existent) by default.
+-- In this game, a player cannot decide to jump.
+Local.Player.Jump = nil
 
 -- Left click / primary action
 Player.PrimaryAction = function(player)
@@ -91,7 +82,7 @@ Local.Tick = function(dt)
     end
     -- auto jump
     if Player.BlockUnderneath ~= nil then
-       Player:Jump()
+        Local.privateJump(Player)
         local u = Player.BlockUnderneath
         Block.New(1, u.X + 1, u.Y, u.Z):Remove()
         Block.New(1, u.X - 1, u.Y, u.Z):Remove()
@@ -152,4 +143,12 @@ Local.welcomeMessage = function(player)
     local welcomeMessages = { " is here.", " just landed.", " joined the party.", " appeared.", " has arrived."}
     local randomIndex = math.random(1, #welcomeMessages)
     print(player.Username .. welcomeMessages[randomIndex])
+end
+
+-- Private jump function that cannot be triggered by the player,
+-- but only by the game
+Local.privateJump = function(player) 
+    if player.IsOnGround then
+      player.Velocity.Y = Config.DefaultJumpStrength
+    end
 end
