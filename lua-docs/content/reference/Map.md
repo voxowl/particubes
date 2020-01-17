@@ -9,20 +9,19 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 ## Fields
 
-### Width (Integer, read-only)
+### AddBlock (Function, read-only)
 
-Returns the map's width, measured in cubes.
+Adds a block to the Map.
 
-```
-local myMapWidth = Map.Width
-```
-
-### Height (Integer, read-only)
-
-Returns the map's height, measured in cubes.
+It can by used in two ways:
 
 ```
-local myMapHeight = Map.Height
+Map.AddBlock(id, x, y, z)
+```
+
+```
+local newBlock = Block.New(id, x, y, z)
+Map.AddBlock(newBlock)
 ```
 
 ### Depth (Integer, read-only)
@@ -31,6 +30,14 @@ Returns the map's depth, measured in cubes.
 
 ```
 local myMapDepth = Map.Depth
+```
+
+### Height (Integer, read-only)
+
+Returns the map's height, measured in cubes.
+
+```
+local myMapHeight = Map.Height
 ```
 
 ### Scale (Float, read-only)
@@ -56,4 +63,12 @@ without changing the scale of it.
 ```
 Map.Set("myMap.particubes")
 Map.Set("myMap.particubes", 8)
+```
+
+### Width (Integer, read-only)
+
+Returns the map's width, measured in cubes.
+
+```
+local myMapWidth = Map.Width
 ```
