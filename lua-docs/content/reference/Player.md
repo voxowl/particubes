@@ -15,6 +15,18 @@ It also defines an object to represent any connected player.
 
 Returns the [Block](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.
 
+### CastRay (Function)
+
+Casts a ray from player's position, returns an [Impact](/reference/Impact) object if it hits something, `nil` otherwise.
+
+```lua
+local impact = Player: CastRay()
+
+if impact ~= nil then
+	print(impact)
+end
+```
+
 ### Give (Function, read-only)
 
 Gives an item to the `Player`. The parameter has to be the ID of an holdable item. (items can be browsed in the gallery)
