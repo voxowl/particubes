@@ -1,4 +1,9 @@
--- Hi! Welcome to the current default script!
+-- Hi!
+-- 
+-- This is a variant of the default script. It has been modified in order 
+-- to allow "autofire" when maintaining the primary action button down.
+-- This allow adding and removing cubes rapidly.
+--
 -- Lines that start with "--" are comments. 
 -- Comments aren't considered when running the code,
 -- it's a good thing to use them to leave notes for
@@ -60,25 +65,29 @@ Local.items = {nil, R.pen, R.pickaxe, R.gdevillele.pan}
 -- A better system will be introduced soon.
 Local.pinkColorIndex = 31
 
+-- Fire rate for adding or removing cubes
+-- ("Player" is a shortcut for "Local.Player")
+Player.fireRate = 0.1 -- in seconds
+Player.triggerOn = false
+Player.firedOnce = false -- set to true when the auto-fire did fire at least once
+Player.fireDT = 0.0
+
 -- Define primary action function for the local Player
 -- (left click on desktop, primary action button on mobile)
 -- Note that "Player" is a shortcut for "Local.Player"
 Player.PrimaryAction = function(player)
-    local impact = player:CastRay()
-    if impact.Block ~= nil then
-        local holdItem = Local.items[player.itemIndex]
-        if holdItem == R.pen then -- add blocks when holding the pen
-            local b = Block.New(Local.pinkColorIndex, 0, 0, 0)
-            impact.Block:AddNeighbor(b, impact.FaceTouched)
-        elseif holdItem == R.pickaxe then -- remove blocks when holding the pickaxe
-            impact.Block:Remove()
-        end
-    end
+    Player.triggerOn = true
+    Player.firedOnce = false
 end
 
 -- Player.PrimaryActionRelease can be defined and is triggered
 -- when the primary action input gets released.
-Player.PrimaryActionRelease = nil
+Player.PrimaryActionRelease = function(player)
+    if Player.firedOnce == false then
+        Local.fire()
+    end
+    Player.triggerOn = false
+end
 
 -- Define secondary action function
 -- (right click on desktop, secondary action button on mobile)
@@ -116,6 +125,16 @@ Local.Tick = function(dt)
             end
         end
     end
+
+    -- auto-fire
+    if Player.triggerOn then
+        Player.fireDT = Player.fireDT + dt
+        if Player.fireDT > Player.fireRate then
+            Player.fireDT = Player.fireDT - Player.fireRate
+            Player.firedOnce = true
+            Local.fire()
+        end 
+    end
 end
 
 -- Local.Player.DidReceiveEvent is triggered when an event 
@@ -151,6 +170,20 @@ Local.dropAboveCenter = function()
     Player.Position = { Map.Width * 0.5, Map.Height  + 10, Map.Depth * 0.5 }
     Player.Rotation = { 0, 0, 0 }
     Player.Velocity = { 0, 0, 0 }
+end
+
+-- Used for primay action
+Local.fire = function()
+    local impact = Player:CastRay()
+    if impact.Block ~= nil then
+        local heldItem = Local.items[Player.itemIndex]
+        if heldItem == R.pen then -- add blocks when holding the pen
+            local b = Block.New(Local.pinkColorIndex, 0, 0, 0)
+            impact.Block:AddNeighbor(b, impact.FaceTouched)
+        elseif heldItem == R.pickaxe then -- remove blocks when holding the pickaxe
+            impact.Block:Remove()
+        end
+    end
 end
 
 -- The Server is responsible for coordination.
