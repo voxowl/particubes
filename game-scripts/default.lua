@@ -13,7 +13,8 @@
 Import (
     "aduermael.hills", -- item used as map
     "pen", 
-    "pickaxe"
+    "pickaxe",
+    "gdevillele.pan"
 )
 
 -- Events are objects that can be sent to other players, 
@@ -48,27 +49,16 @@ Local.Player.Jump = function (player)
 end
 
 -- Local.Player can be used to store custom fields.
--- Let's use this to set a few state properties:
+-- Let's use this to store the index of the item currently held by the player.
 Local.Player.itemIndex = 1
 
--- Config is also exposed by the engine, it contains 
--- a few pre-configured values.
--- (like Config.DefaultJumpStrength, used in Local.Player.Jump)
--- We can also use it to store our own things:
-Config.items = {nil, R.pen, R.pickaxe}
+-- List of items the player can hold
+Local.items = {nil, R.pen, R.pickaxe, R.gdevillele.pan}
 
 -- For now, colors can only be refered by their index in the default palette.
 -- You can try different ones from 0 to 95.
 -- A better system will be introduced soon.
-Config.colorIndex = 15
-
--- This function can be called to drop the local player above
--- the center of the map.
-Local.dropAboveCenter = function()
-    Player.Position = { Map.Width * 0.5, Map.Height  + 10, Map.Depth * 0.5 }
-    Player.Rotation = { 0, 0, 0 }
-    Player.Velocity = { 0, 0, 0 }
-end
+Local.pinkColorIndex = 31
 
 -- Define primary action function for the local Player
 -- (left click on desktop, primary action button on mobile)
@@ -76,9 +66,9 @@ end
 Player.PrimaryAction = function(player)
     local impact = player:CastRay()
     if impact.Block ~= nil then
-        local holdItem = Config.items[player.itemIndex]
+        local holdItem = Local.items[player.itemIndex]
         if holdItem == R.pen then -- add blocks when holding the pen
-            local b = Block.New(Config.colorIndex, 0, 0, 0)
+            local b = Block.New(Local.pinkColorIndex, 0, 0, 0)
             impact.Block:AddNeighbor(b, impact.FaceTouched)
         elseif holdItem == R.pickaxe then -- remove blocks when holding the pickaxe
             impact.Block:Remove()
@@ -94,10 +84,10 @@ Player.PrimaryActionRelease = nil
 -- (right click on desktop, secondary action button on mobile)
 Player.SecondaryAction = function(player) 
     player.itemIndex = player.itemIndex + 1
-    if player.itemIndex > #Config.items then 
+    if player.itemIndex > #Local.items then 
         player.itemIndex = 1 
     end
-    player:Give(Config.items[player.itemIndex])
+    player:Give(Local.items[player.itemIndex])
 end
 
 -- SecondaryActionRelease can be defined and is triggered
@@ -116,6 +106,15 @@ Local.Tick = function(dt)
         Player:Say('Nooooo! 😵')
         -- Bring the player back above center
         Local.dropAboveCenter()
+    elseif Player.IsOnGround then
+        local heldItem = Local.items[Local.Player.itemIndex]
+        if heldItem == R.gdevillele.pan then -- change color on ground if player is holding the pan
+            local u = Player.BlockUnderneath
+            if u.Id ~= pinkColorIndex then
+                local newBlock = Block.New(Local.pinkColorIndex)
+                u:Replace(newBlock)
+            end
+        end
     end
 end
 
@@ -140,11 +139,18 @@ Player.DidReceiveEvent = function(event)
     end
 end
 
--- This function builds and displays random welcome messages
+-- This function displays random welcome messages
 Local.welcomeMessage = function(player) 
     local welcomeMessages = { " is here.", " just landed.", " joined the party.", " appeared.", " has arrived."}
     local randomIndex = math.random(1, #welcomeMessages)
     print(player.Username .. welcomeMessages[randomIndex])
+end
+
+-- This function drops the local player above the center of the map
+Local.dropAboveCenter = function()
+    Player.Position = { Map.Width * 0.5, Map.Height  + 10, Map.Depth * 0.5 }
+    Player.Rotation = { 0, 0, 0 }
+    Player.Velocity = { 0, 0, 0 }
 end
 
 -- The Server is responsible for coordination.
