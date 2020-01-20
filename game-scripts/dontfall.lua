@@ -28,6 +28,16 @@ Map.Set(R.aduermael.dont_fall_2)
 -- Config is also exposed by the engine, it contains 
 -- a few pre-configured values. (like Config.DefaultJumpStrength)
 -- We can also use it to store our own things:
+Config.breakableBlock = Block.New(68) -- to identify blocks that can be broken
+Config.lavaBlock = Block.New(25) -- to identify lava blocks
+Config.spawnAreas = {
+    {{x = 18, z = 3}, {x = 36, z = 24}},
+    {{x = 5, z = 26}, {x = 11, z = 32}},
+    {{x = 4, z = 40}, {x = 23, z = 55}},
+    {{x = 44, z = 44}, {x = 57, z = 57}},
+    {{x = 47, z = 19}, {x = 60, z = 33}}
+}
+
 Config.fireRate = 0.1
 
 Local.Player.triggerOn = false
@@ -61,11 +71,8 @@ end
 -- player jump when touching the ground, and to auto-fire.
 Local.Tick = function(dt)
     -- test for local player death
-    if Player.Position.Y < -300 then
-        local e = Event.New(EventType.playerDied)
-        e:SendTo(Server)
-        Player.Velocity.Y = 0
-        Local.dropAboveCenter()
+    if Player.Position.Y < -200 then
+        Local.die()
     end
     -- auto-fire
     if Player.triggerOn then
@@ -76,34 +83,40 @@ Local.Tick = function(dt)
             Player.firedOnce = true
             local impact = Player:CastRay()
             if impact.Block ~= nil then
-               impact.Block:Remove() 
+               Local.removeBreakableBlock(impact.Block.X, impact.Block.Y, impact.Block.Z)
             end
         end 
     end
     -- auto jump
     if Player.BlockUnderneath ~= nil then
+        
         Local.privateJump(Player)
+        
         local u = Player.BlockUnderneath
-        Block.New(1, u.X + 1, u.Y, u.Z):Remove()
-        Block.New(1, u.X - 1, u.Y, u.Z):Remove()
-        Block.New(1, u.X, u.Y, u.Z + 1):Remove()
-        Block.New(1, u.X, u.Y, u.Z - 1):Remove()
-        Block.New(1, u.X + 1, u.Y, u.Z + 1):Remove()
-        Block.New(1, u.X - 1, u.Y, u.Z + 1):Remove()
-        Block.New(1, u.X + 1, u.Y, u.Z - 1):Remove()
-        Block.New(1, u.X - 1, u.Y, u.Z - 1):Remove()
-        u:Remove()
+        
+        if u.Id == Config.lavaBlock.Id then
+            Local.die()
+        else
+            Local.removeBreakableBlock(u.X + 1, u.Y, u.Z)
+            Local.removeBreakableBlock(u.X - 1, u.Y, u.Z)
+            Local.removeBreakableBlock(u.X, u.Y, u.Z + 1)
+            Local.removeBreakableBlock(u.X, u.Y, u.Z - 1)
+            Local.removeBreakableBlock(u.X + 1, u.Y, u.Z + 1)
+            Local.removeBreakableBlock(u.X - 1, u.Y, u.Z + 1)
+            Local.removeBreakableBlock(u.X + 1, u.Y, u.Z - 1)
+            Local.removeBreakableBlock(u.X - 1, u.Y, u.Z - 1)
+            Local.removeBreakableBlock(u.X, u.Y, u.Z)
+        end
     end
 end
 
 -- 
 Player.DidReceiveEvent = function(event)
     if event.Type == EventType.PlayerJoined then
-        
         Local.welcomeMessage(Player)
         
         -- spawn player
-        Local.dropAboveCenter()
+        Local.spawn()
         
         -- this will be done automatically soon
         -- no need to worry about this line
@@ -123,17 +136,55 @@ end
 --
 Server.Tick = nil
 
---
-Server.DidReceiveEvent = nil
+-- Server.DidReceiveEvent is triggered when an event 
+-- is received by the Server.
+-- Pre-defined event types (the ones starting with uppercase characters)
+-- are documented here: https://docs.particubes.com/reference/EventType
+-- But custom events arrive here as well.
+Server.DidReceiveEvent = function(event)
+    if event.Type == EventType.playerDied then
+        local player = event.Sender
 
---
--- custom functions
---
+        -- start counter at 1 if it's never been initialized
+        if player.count == nil then
+            player.count = 1
+        else
+            -- increment
+            player.count = player.count + 1
+        end
+
+        -- print message in all player consoles
+        if player.count == 1 then
+            print("☠️ " .. player.Username .. " died once.")
+        else 
+            print("☠️ " .. player.Username .. " died " .. player.count .. " times.")
+        end
+    end
+end
+
+-- Removes block at given coords if the block is breakable
+function Local.removeBreakableBlock(x, y, z)
+    local b = Map.GetBlock(x, y, z)
+    if b.Id == Config.breakableBlock.Id then
+        b:Remove()
+    end
+end
+
+-- Called when touching lava or falling off the map
+Local.die = function()
+    local e = Event.New(EventType.playerDied)
+    e:SendTo(Server)
+    Local.spawn()
+end
 
 -- Drops player above center of the map
 -- (combine player's Username with random suffix)
-Local.dropAboveCenter = function()
-    Player.Position = { Map.Width * 0.5, Map.Height + 5, Map.Depth * 0.5 }
+Local.spawn = function()
+    local area = math.random(1, #Config.spawnAreas)
+    local x = math.random(Config.spawnAreas[area][1].x, Config.spawnAreas[area][2].x)
+    local z = math.random(Config.spawnAreas[area][1].z, Config.spawnAreas[area][2].z)
+    
+    Player.Position = { x, Map.Height - 5, z }
     Player.Rotation = { 0, 0, 0 }
     Player.Velocity = { 0, 0, 0 }
 end
