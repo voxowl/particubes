@@ -7,4 +7,4 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 `OtherPlayers` is an array of [Player](/reference/Player)s that contains all players except the local one.
 
-`OtherPlayers` is not available to the [GameMaster](/reference/GameMaster), because it doesn't make sense! 🙂
+`OtherPlayers` is not available to the [Server](/reference/Server), because it wouldn't make sense! 🙂

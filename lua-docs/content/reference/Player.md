@@ -5,9 +5,11 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 # Player
 
-`Player` is a global variable that represents the local player.
+Object to represent any connected player.
 
-It also defines an object to represent any connected player.
+`Player` is also a global variable that is an alias to `Local.Player`, representing the local player.
+
+Some fields are specific to the local player only.
 
 ## Fields
 
@@ -29,7 +31,7 @@ end
 
 ### Give (Function, read-only)
 
-Gives an item to the `Player`. The parameter has to be the ID of an holdable item. (items can be browsed in the gallery)
+Gives an item to the `Player`. The parameter has to be an holdable item. (items can be browsed in the gallery)
 
 ```lua
 Import("aduermael.rainbow_sword")
@@ -92,10 +94,10 @@ end
 function doubleJump(player)
 	if player.IsOnGround then
 		player.Velocity.Y = Local.Config.DefaultJumpStrength
-		jumpCounter = 1
-	elseif jumpCounter == 1 then
+		player.jumpCounter = 1
+	elseif player.jumpCounter == 1 then
 		player.Velocity.Y = Local.Config.DefaultJumpStrength * 1.5
-		jumpCounter = 2
+		player.jumpCounter = 2
 	end
 end
 ```
