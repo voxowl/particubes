@@ -5,7 +5,7 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 # Event
 
-Events are objects that can be sent to other [Player](/reference/Player)s and/or [GameMaster](/reference/GameMaster).
+Events are objects that can be sent to other [Players](/reference/Players) and/or [Server](/reference/Server).
 
 ## Constructors
 
@@ -27,7 +27,7 @@ myEvent:SendTo(OtherPlayers)
 
 Can only be set on creation, when calling `Event.New(eventType)`. 
 
-Useful to test what kind of event just arrived in `Player.DidReceiveEvent` or `GameMaster.DidReceiveEvent`:
+Useful to test what kind of event just arrived in `Player.DidReceiveEvent` or `Server.DidReceiveEvent`:
 
 ```lua
 Player.DidReceiveEvent = function(event)
@@ -39,11 +39,11 @@ end
 
 Predefined and custom event types are documented [here](/reference/EventType).
 
-### Sender ([Player](/reference/Player) or [GameMaster](/reference/GameMaster), read-only)
+### Sender ([Player](/reference/Player) or [Server](/reference/Server), read-only)
 
 Who sent the event.
 
-### Recipients (array of [Player](/reference/Player) and/or [GameMaster](/reference/GameMaster), read-only)
+### Recipients (array of [Player](/reference/Player) and/or [Server](/reference/Server), read-only)
 
 `event.Recipients` cannot be set directly. Recipients are being set when calling `event:SendTo(...)`.
 
@@ -62,7 +62,7 @@ local myEvent = Event.New(eventType)
 myEvent.stringValue = "someValue"
 myEvent.numberValue = 3.14
 myEvent.booleanValue = true
-myEvent:SendTo(GameMaster)
+myEvent:SendTo(Server)
 ```
 
 ### SendTo (Function, read-only)
@@ -76,26 +76,26 @@ myEvent:SendTo(OtherPlayers)
 -- send to all players (including self)
 myEvent:SendTo(Players)
 
--- send to GameMaster
-myEvent:SendTo(GameMaster)
+-- send to Server
+myEvent:SendTo(Server)
 
 -- send to specific players
 -- ("player1" & "player2" here are stored references)
 myEvent:SendTo(player1, player2)
 ```
 
-💡 The `GameMaster` can intercept all events. It's usually not necessary to do things like this: 
+💡 The `Server` can intercept all events. It's usually not necessary to do things like this: 
 
 ```lua
-myEvent:SendTo(Players, GameMaster)
+myEvent:SendTo(Players, Server)
 ```
 
 ### Cancel (Function, read-only)
 
-`event:Cancel()` is only available to the `GameMaster`. It can be used to catch events and stop them before they reach [Player](/reference/Player) recipients:
+`event:Cancel()` is only available to the `Server`. It can be used to catch events and stop them before they reach [Player](/reference/Player) recipients:
 
 ```lua
-GameMaster.DidReceiveEvent = function(event)
+Server.DidReceiveEvent = function(event)
 	if event.Type == myEventType then
 		event:Cancel()
 	end
