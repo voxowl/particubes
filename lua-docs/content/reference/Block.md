@@ -15,7 +15,7 @@ Creates and returns a new Block instance.
 
 Arguments are:
 
-- block id (int)
+- color id (int)
 - x (int) (optional)
 - y (int) (optional)
 - z (int) (optional)
@@ -49,7 +49,7 @@ Z position (in map or shape space).
 
 `anExistingBlock:AddNeighbour(newBlock, faceTouched)`
 
-This function adds a new block in an existing block's parent shape. 
+This function adds a new block in an existing block's parent shape.
 
 **newBlock**
 
@@ -58,6 +58,8 @@ Describes what block needs to be added (only the color is used)
 **faceTouched**
 
 Indicates the face of the existing block against which the new cube should be positioned. (example: `Block.FACE_LEFT`)
+
+This index is returned when using functions such as [Player.CastRay](/reference/Player#CastRay).
 
 ### Remove (Function, read-only)
 

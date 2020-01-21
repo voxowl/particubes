@@ -57,7 +57,7 @@ end
 
 ### Say (Function, read-only) 👷‍♀️COMING SOON👷‍♂️
 
-`Server.Say` can be used to say things, as the [GameMaster](/reference/GameMaster). Players will see something like this in the console: `Server: <message>`. 
+`Server.Say` can be used to say things, as the [Server](/reference/Server). Players will see something like this in the console: `Server: <message>`. 
 
 ```lua
 Server.DidReceiveEvent = function(event)
