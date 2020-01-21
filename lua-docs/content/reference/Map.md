@@ -52,6 +52,8 @@ local myMapScale = Map.Scale
 
 Function to define the world map.
 
+⚠️ Currently, the map can only be set once, before the game starts. But it should be possible to load more than one map and set them dynamically in the future.
+
 Parameters:
 
 - map name (string)
