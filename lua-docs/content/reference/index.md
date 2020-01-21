@@ -11,7 +11,6 @@ Here are all the objects and types available in the scripting environment.
 - [Config](/reference/Config)
 - [Event](/reference/Event)
 - [EventType](/reference/EventType)
-- [GameMaster](/reference/GameMaster)
 - [Impact](/reference/Impact)
 - [Import](/reference/Import)
 - [Map](/reference/Map)
@@ -21,3 +20,4 @@ Here are all the objects and types available in the scripting environment.
 - [Players](/reference/Players)
 - [Resources](/reference/Resources)
 - [R](/reference/Resources)
+- [Server](/reference/Server)
