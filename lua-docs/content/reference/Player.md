@@ -17,6 +17,19 @@ Some fields are specific to the local player only.
 
 Returns the [Block](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.
 
+### BlocksUnderneath ([Block\[\]](/reference/Block)) (read-only)
+
+Returns an array of [Blocks](/reference/block) the player is standing on. Returns `nil` if `Player.IsOnGround == false`.
+
+```lua
+local blocks = Player.BlocksUnderneath
+for index, value in ipairs(blocks) do 
+    -- greenColorIndex is a block previously defined
+    local newBlock = Block.New(Local.greenColorIndex)
+    value:Replace(newBlock)
+end
+```
+
 ### CastRay (Function)
 
 Casts a ray from player's position, returns an [Impact](/reference/Impact) object if it hits something, `nil` otherwise.
