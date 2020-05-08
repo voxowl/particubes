@@ -9,13 +9,70 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 ## Fields
 
+### Action1 (Function)
+
+Can be null.
+
+### Action1Release (Function)
+
+Can be null.
+
+### Action2 (Function)
+
+Can be null.
+
+### Action2Release (Function)
+
+Can be null.
+
+### Action3 (Function)
+
+Can be null.
+
+### Action3Release (Function)
+
+Can be null.
+
+### DirectionDidChange (Function)
+
+Can be null.
+
+```lua
+-- obtain the direction toward which the player wants to be moved
+Local.DirectionDidChange = function(x, y)
+	if x > 0 then
+		print("player wants to go left")
+	elseif x < 0 then
+		print("player wants to go right")
+	end
+	
+	if y > 0 then
+		print("player wants to go forward")
+	elseif y < 0 then
+		print("player wants to go backward")
+	end
+end
+```
+
 ### Player ([Player](/reference/Player)) (read-only)
 
 `Local.Player` represents the local [Player](/reference/Player).
 
+### PointerDown (Function)
+
+Can be null.
+
+### PointerMove (Function)
+
+Can be null.
+
+### PointerUp (Function)
+
+Can be null.
+
 ### Tick (Function)
 
-`Local.Tick` can be defined and will then be triggers ~30 times per seconds. The time elapsed between 2 ticks is passed in parameter, in seconds, with millisecond precision. The value will not always be `0.033` as `Local.Tick ` calls are not perfectly regular.
+`Local.Tick` can be defined and will then be triggered ~30 times per seconds. The time elapsed between 2 ticks is passed in parameter, in seconds, with millisecond precision. The value will not always be `0.033` as `Local.Tick ` calls are not perfectly regular.
 
 ```lua
 -- User defined variable
