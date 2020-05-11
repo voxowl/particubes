@@ -33,3 +33,27 @@ Local.Tick = function(delta)
 	end
 end
 ```
+
+### PointerDown (Function)
+
+`Local.PointerDown` is triggered when the user clicks or touches the screen while on pointer mode and not clicking on a button. The parameters represent the x and y screen coordinates where the click or touch has been made.
+
+```lua
+Local.PointerDown = function(x, y)
+	print("Press in x = ", x, ", y = ", y)
+end
+```
+
+### PointerUp (Function)
+
+`Local.PointerUp` is triggered when the user stops pressing the left mouse button or the screen while on pointer mode and not clicking on a button. The parameters represent the x and y screen coordinates where the user has stopped pressing.
+
+### PointerMove (Function)
+
+`Local.PointerMove` is called every tick if a movement has been applied to the pointer between calls of `Local.PointerDown` and `Local.PointerUp`. The parameters give the final x and y coordinates and the x and y difference between the current call and the previous one.
+
+```lua
+Local.PointerMove = function(x, y, dx, dy)
+	print("Pointer has moved from x = ", x - dx, ", y = ", y - dy, " to x = ", x, ", y = ", y)
+end
+```
