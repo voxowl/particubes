@@ -29,94 +29,96 @@
 		<div id="page">
 
 			<div id="header">
-				<nav id="header-content">
+				<!-- <nav id="header-content">
 					<ul>
-						<li><a href="/"><img src="/style/img/logo.png" alt="" srcset="/style/img/logo@2x.png 2x"></a></li><!--
-						--><li class="large-display-only"><a href="/">Particubes</a></li><!--
-						--><li class="large-display-only"><a href="https://docs.particubes.com">Scripting Docs</a></li>
+						<li><a href="/"><img src="/style/img/logo.png" alt="" srcset="/style/img/logo@2x.png 2x"></a></li>
+						<li class="large-display-only"><a href="/">Particubes</a></li>
+						<li class="large-display-only"><a href="https://docs.particubes.com">Scripting Docs</a></li>
 					</ul>
-				</nav>
+				</nav> -->
 			</div>
 
-			<div id="container-wrapper">
-				<div id="container">
-					<div id="content">
-						<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
-
-						<center><video muted autoplay loop playsinline width="480px" height="270px">
-							<source src="/video/web-pres-480x270.mp4" type="video/mp4">
-						</video></center>
-						
-						<h2>What&#39;s Particubes?</h2>
-
-						<p><strong>Particubes</strong> is a platform dedicated to <strong>voxel games</strong>, games made out of little cubes.</p>
-
-						<ul class="features">
-							<li class="feature">
-								<h3>🕹 Players</h3>
-								<p>Explore many different games and experiences built by others, using your own custom avatar. Play with your friends, on mobile and desktop devices.</p>
-							</li>
-
-							<li class="feature">
-								<h3>⛏ Builders</h3>
-								<p>Use simple yet powerful tools to craft and publish game items, worlds, avatars & outfits. Shared assets can be used by other builders and coders.</p>
-							</li>
-
-							<li class="feature">
-								<h3>🤓 Coders</h3>
-								<p>Customize game code sample scripts, publish assignable actions, or script a full game from scratch! Show it to your friends, all they need to join the game is your invite link.</p>
-							</li>
-
-						</ul>
-
-						<h2>How to get started?</h2>
-
-						<p>Particubes is <strong>not released yet</strong>. It will be available on <strong>iOS</strong>, <strong>Android</strong>, <strong>Windows</strong> and <strong>Mac</strong> devices.</p>
-
-						<p>We're still in a very early phase of development and we could really use your help! Just fill out this form if you're interested in joining our <strong>Beta Testers Program</strong>:</p>
-
-						<p><a class="big-button" href="https://airtable.com/shr19FppC46PsvywY" rel="nofollow">Beta testers program</a></p>
-
-						<h2>Access plans</h2>
-
-						<ul class="features">
-							<li class="feature">
-								<h3>🌳 Free</h3>
-								<ul> 
-									<li>Play with others for 5 hours a week</li>
-									<li>Unlimited time for creation</li>
-								</ul>
-
-								<p class="price">$0 / month</p>
-
-							</li>
-
-							<li class="feature">
-								<h3>⭐️ Premium</h3>
-								<ul>
-									<li>Unlimited time to play</li>
-									<li>Post chat messages</li>
-									<li>Free coins every month</li>
-									<li><i>Premium</i> badge on your profile</li>
-									<li>Published creations considered safe much faster</li>
-								</ul>
-								
-								<p class="price">$0 / month</p>
-
-								<p class="secondary">Price will increase, up to <strong>$5 per month</strong> as Particubes becomes more stable and complete. Your subscription will remain unchanged though if you joined earlier.</p>
-							</li>
-						</ul>
-
-					</div> <!-- {{ .content }} -->
+			<div id="media-container">
+				<div id="media">
+					<div id="subscribe">
+						<form>
+							<input type="text" name="" placeholder="email">
+							<input type="submit" name="" value="Beta sign-up">
+							<div class="clear"></div>
+						</form>
+					</div>
 				</div>
-			</div> <!-- container-wrapper -->
+			</div>
 
-			<div id="footer">
+			<div id="content">
+				<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
+
+				<!-- <center><video muted autoplay loop playsinline width="480px" height="270px">
+					<source src="/video/web-pres-480x270.mp4" type="video/mp4">
+				</video></center> -->
+				
+				<div id="what">
+					<h2>What is Particubes?</h2>
+					
+					<p>Particubes is a place to hang out, play, build and share multiplayer experiences in which everything is made out of cubes.</p>
+
+					<p>The app runs on iOS, Android, Windows, Mac and Linux devices.</p>
+				</div>
+
+				<ul class="features">
+					<li class="feature">
+						<h3>🕹 Players</h3>
+						<p>Explore many different games and experiences all built by the community, using your own custom avatar. Play with your friends, on mobile and desktop devices.</p>
+					</li>
+
+					<li class="feature">
+						<h3>⛏ Builders</h3>
+						<p>Use simple yet powerful tools to craft and publish game items, worlds, avatars & outfits. Shared assets can be used by other builders and coders, and you get rewarded when they do.</p>
+					</li>
+
+					<li class="feature">
+						<h3>🤓 Coders</h3>
+						<p>Customize game code sample scripts, publish assignable actions, or script a full game from scratch! Show it to your friends, all they need to join the game is your invite link.</p>
+					</li>
+
+				</ul>
+
+				<div class="subscribe">
+
+					<p>Connecting to all game servers is free but there's going to be a per-week access time limit for non-premium accounts.<br />First 1000 registered users will get  unlimited premium access for free, sign up now! (you'll be #X)</p>
+					<form>
+						<input type="text" name="" placeholder="email">
+						<input type="submit" name="" value="Beta sign-up">
+						<div class="clear"></div>
+					</form>
+				</div>
+				
+
+			</div> <!-- {{ .content }} -->
+
+			<div id="social">
 				<ul>
+					<li>Follow us</a></li>
 					<li><a href="https://twitter.com/particubes">Twitter</a></li><!--
 					--><li><a href="https://www.instagram.com/particubes/">Instagram</a></li><!--
 					--><li><a href="https://discord.gg/NbpdAkv">Discord</a></li>
 				</ul>
+			</div>
+
+			<div id="footer">
+
+				<div id="voxowl-logo">
+
+				</div>
+
+				<div id="footer-links">
+					<p><a href="https://twitter.com/particubes">Privacy</a> - <a href="https://www.instagram.com/particubes/">Contact</a> - <a href="https://discord.gg/NbpdAkv">Press</a></p>
+				</div>
+
+				<div id="copyright">
+					<p>©2020 VOXOWL INC. ALL RIGHTS RESERVED.</p>
+				</div>
+
 			</div>
 
 		</div> <!-- page -->

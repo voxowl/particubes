@@ -192,76 +192,96 @@ img {
 #header {
   position: relative;
   background-color: #24292E; 
-  height: 76px;
+  height: 10px;
 }
 
-#header #header-content {
-  height: 56px;
-  padding: 10px;
+#media-container {
+  position: relative;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
 
-#header p {
-  color: #FFF;
-}
-
-#header h1 a {
-  color: #FFF;
-}
-
-#header img {
-  float: left;
-  width: 56px;
-  height: 56px;
-}
-
-#header ul, #footer ul {
-  margin: 0;
-  padding: 0;
-  text-align: center;
+#media {
+  position: relative;
   width: 100%;
+  /*height: 56.25%;*/
+  padding-top: 56.25%;
+  background-color: #F00;
 }
 
-#header ul li, #footer ul li {
-  display: inline-block;
-  vertical-align: middle;
-  height: 56px;
-  line-height: 56px;
-  margin: 0;
-  padding: 0;
-  padding-left: 20px;
+#subscribe {
+  position: absolute;
+  width: 100%;
+  /*left: 50%;*/
+  bottom: 10%;
 }
 
-#header ul li:first-child, #footer ul li:first-child {
-  padding-left: 0;
+#subscribe form {
+  display: table;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  /*left: -50%;*/
+  /*width: 400px;*/
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
 }
 
-#header ul li {
-  color: #FFF;
+#subscribe form input {
+  display: table-cell;
+  font-size: 1.5rem;
+  border-radius: 0px;
 }
 
-#container #menu {
-  border-bottom: thin dashed #aaa;
-  padding-top: 10px;
-  background-color: #f7f7f7;
+.space-cell {
+    display: table-cell;
+    width: 20px;
 }
 
-#container #content {
-  padding-bottom: 20px;
+#subscribe form input[type="text"] {
+    padding: 15px;
+    background-color: #ddd;
+    border: 4px solid #00F;
+    outline: none;
+    width: 250px;
 }
 
-#container #content img {
+#subscribe form input[type="submit"] {
+    border: 4px solid #00F;
+    padding: 15px;
+    background-color: #3588fe;
+    cursor: pointer;
+    color: #fff;
+    outline: none;
+    margin-left: 10px;
+}
+
+#subscribe form input[type="submit"]:hover {
+    background-color: #2874e0;
+    cursor: pointer;
+    color: #fff;
+}
+
+#content {
+  margin: 20px;
+}
+
+#content img {
   max-width: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-#container #content ul.features {
+#content #what {
+  padding-bottom: 20px;
+}
+
+#content ul.features {
   display: table;
   width: 100%;
-  border-spacing: 10px;
+  border-spacing: 0px;
   border-collapse: separate;
   margin-left: 0;
   padding-left: 0;
@@ -269,13 +289,13 @@ img {
   table-layout: fixed;
 }
 
-li.feature {
+#content li.feature {
   display: table-cell;
-  border-radius: 3px;
-  box-shadow: 0px 0px 2px rgba(36, 41, 46, 0.4);
+  /*border-radius: 3px;*/
+  box-shadow: 0px 0px 1px rgba(36, 41, 46, 0.4);
 }
 
-.feature {
+#content li.feature {
   padding: 20px;
   background-color: #F7F7F7;
 }
@@ -285,57 +305,50 @@ li.feature {
 }
 
 @media (max-width: 700px) {
-  li.feature {
+  
+  #content li.feature {
     display: block;
     margin-bottom: 20px;
   }
-  li.feature:last-child { margin-bottom: 0; }
+
+  #content li.feature:last-child { margin-bottom: 0; }
 
   .large-display-only { display: none !important; }
 }
 
-#footer {
+#social {
   width: 100%;
-  background-color: #F7F7F7;
+  background-color: #333;
   padding: 0;
 }
 
-form {
-  position: relative;
-  width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-form input {
-  font-size: 1.5rem;
+#social ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
   width: 100%;
-  border-radius: 5px;
-  
 }
 
-form input[type="text"] {
-    border: none;
-    padding: 10px;
-    background-color: #ddd;
-    border: thin solid #aaa;
+#social ul li {
+  display: inline-block;
+  vertical-align: middle;
+  height: 56px;
+  line-height: 56px;
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
 }
 
-form input[type="submit"] {
-    border: none;
-    padding: 10px;
-    background-color: #3588fe;
-    cursor: pointer;
-    color: #fff;
+#social ul li:first-child {
+  margin-left: 0;
 }
 
-form input[type="submit"]:hover {
-    border: none;
-    padding: 10px;
-    background-color: #2874e0;
-    cursor: pointer;
-    color: #fff;
+#footer {
+  width: 100%;
+  background-color: #111;
+  padding: 0;
 }
+
 
 .clear {
   clear: both;
