@@ -4,7 +4,10 @@ services:
     environment:
       - VIRTUAL_HOST=download.particubes.com
     volumes:
-      - /home/adrien/download.particubes.content:/content:ro
+      - content:/content:ro
+
+volumes: 
+  content:
 
 networks:
   default:
