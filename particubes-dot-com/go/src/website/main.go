@@ -2,6 +2,10 @@ package main
 
 import (
 	"calvados"
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 // preprocessor function
@@ -17,6 +21,12 @@ func CreateRedirectionsFromFrontmatter(c *calvados.Calvados) error {
 		c.SetRedirection(alias, canonical)
 	}
 	return nil
+}
+
+// beta form handling route
+func HandleBetaForm(c *gin.Context, calva *calvados.Calvados) {
+	fmt.Println("💥 HandleBetaForm 💥")
+	c.JSON(http.StatusOK, gin.H{})
 }
 
 //
@@ -35,6 +45,8 @@ func main() {
 	c.SetRedirection("/discord-fr", "https://discord.gg/xVSqdJu")
 
 	c.AddPreprocessorFunc(CreateRedirectionsFromFrontmatter)
+
+	c.AddCustomRoute(calvados.NewCustomRoute("POST", "/beta/form", HandleBetaForm))
 
 	c.Run(":80")
 }
