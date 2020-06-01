@@ -35,7 +35,7 @@ html {
 
 body {
   position: relative;
-  background-color: #FFF;
+  background-color: #222;
   color: #000; 
   min-height: 100%;
   min-width: 100%;
@@ -151,25 +151,7 @@ img {
   max-width: 100%;
 }
 
-#container-wrapper {
-  width: 100%;
-  background-color: #FFF;
-}
-
-#container {
-  max-width: 800px;
-  margin: 0;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0;
-}
-
 /* SECTIONS */
-
-#container > div {
-  padding: 20px;
-  padding-bottom: 0;
-}
 
 #header {
   position: relative;
@@ -226,28 +208,49 @@ img {
     width: 20px;
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(0, 0, 0, 0.6);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgba(0, 0, 0, 0.6);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: rgba(0, 0, 0, 0.6);
+}
+
 .subscribe form input[type="text"] {
     padding: 15px;
-    background-color: #ddd;
-    border: 4px solid #00F;
+    color: #FFF;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 4px solid rgba(0, 0, 0, 0.6);
     outline: none;
     width: 250px;
 }
 
 .subscribe form input[type="submit"] {
-    border: 4px solid #00F;
+    border-top: 4px solid #BEFF00;
+    border-right: 4px solid #BEFF00;
+    border-bottom: 4px solid #688C00;
+    border-left: 4px solid #688C00;
+    background-color: #A1D900;
+    color: #476A01;
     padding: 15px;
-    background-color: #3588fe;
     cursor: pointer;
-    color: #fff;
     outline: none;
     margin-left: 10px;
 }
 
 .subscribe form input[type="submit"]:hover {
-    background-color: #2874e0;
+    border-top: 4px solid #BEFF00;
+    border-right: 4px solid #BEFF00;
+    border-bottom: 4px solid #7BA600;
+    border-left: 4px solid #7BA600;
+    background-color: #B4F200;
     cursor: pointer;
-    color: #fff;
+    color: #5A8600;
 }
 
 #content {
@@ -256,6 +259,14 @@ img {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+#content h2 {
+  font-size: 48px;
+}
+
+#content h3 {
+  font-size: 40px; 
 }
 
 #content img {
@@ -295,8 +306,6 @@ img {
 
 #content li.feature {
   display: table-cell;
-  /*border-radius: 3px;*/
-  box-shadow: 0px 0px 1px rgba(36, 41, 46, 0.4);
 }
 
 #content li.feature {
@@ -324,6 +333,7 @@ img {
   width: 100%;
   background-color: #333;
   padding: 0;
+  color: #BBB;
 }
 
 #social ul {
@@ -348,8 +358,22 @@ img {
 }
 
 #footer {
-  width: 100%;
-  background-color: #111;
+  text-align: center;
+  background-color: #222;
+  padding: 20px;
+  color: #555;
+}
+
+#footer a {
+  color: #999;
+}
+
+#footer a:hover {
+  color: #CCC;
+}
+
+#footer p {
+  margin: 0;
   padding: 0;
 }
 
