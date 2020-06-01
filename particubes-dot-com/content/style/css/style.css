@@ -1,5 +1,13 @@
 
 @font-face {
+    font-family: 'monogram';
+    src: url('/style/fonts/monogram_extended-webfont.woff2') format('woff2'),
+         url('/style/fonts/monogram_extended-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*@font-face {
     font-family: 'Roboto';
     src: url('/style/fonts/Roboto-Light.woff2') format('woff2'),
         url('/style/fonts/Roboto-Light.woff') format('woff');
@@ -13,12 +21,12 @@
         url('/style/fonts/Raleway-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+}*/
 
 html {
-  font-size: 16px;
+  font-size: 32px;
   line-height: 24px;
-  font-family: "Raleway", cursive;
+  font-family: "monogram", sans-serif;
   padding: 0;
   margin: 0;
   height: 100%;
@@ -94,35 +102,8 @@ p.secondary {
   color: rgba(36, 41, 46, 0.6);;
 }
 
-p.price {
-  font-size: 20px;
-  line-height: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-weight: bold;
-  font-family: "Roboto", sans-serif;
-  color: #E55887;
-}
-
-h1 {
-  font-family: "Roboto", sans-serif;
-}
-
 pre {
   margin: 0;
-}
-
-p code {
-  font-size: 14px;
-  background-color: #EEEEEE;
-  color: #2E4C7E;
-  padding: 1px;
-  padding-left: 3px;
-  padding-right: 3px;
-  border-radius: 4px;
-  border: 1px solid #CCCCCC;
-  margin-right: 1px;
 }
 
 .hljs {
@@ -131,9 +112,10 @@ p code {
 }
 
 form input {
+  font-family: "monogram", sans-serif;
+  font-size: 32px;
   padding: 0;
   margin: 0;
-  margin-bottom: 10px;
 }
 
 a {
@@ -210,14 +192,20 @@ img {
   background-color: #F00;
 }
 
-#subscribe {
+.over-media {
   position: absolute;
   width: 100%;
   /*left: 50%;*/
   bottom: 10%;
 }
 
-#subscribe form {
+.subscribe {
+  /*position: absolute;
+  width: 100%;
+  bottom: 10%;*/
+}
+
+.subscribe form {
   display: table;
   position: relative;
   margin-left: auto;
@@ -228,9 +216,8 @@ img {
   /*margin-right: auto;*/
 }
 
-#subscribe form input {
+.subscribe form input {
   display: table-cell;
-  font-size: 1.5rem;
   border-radius: 0px;
 }
 
@@ -239,7 +226,7 @@ img {
     width: 20px;
 }
 
-#subscribe form input[type="text"] {
+.subscribe form input[type="text"] {
     padding: 15px;
     background-color: #ddd;
     border: 4px solid #00F;
@@ -247,7 +234,7 @@ img {
     width: 250px;
 }
 
-#subscribe form input[type="submit"] {
+.subscribe form input[type="submit"] {
     border: 4px solid #00F;
     padding: 15px;
     background-color: #3588fe;
@@ -257,14 +244,18 @@ img {
     margin-left: 10px;
 }
 
-#subscribe form input[type="submit"]:hover {
+.subscribe form input[type="submit"]:hover {
     background-color: #2874e0;
     cursor: pointer;
     color: #fff;
 }
 
 #content {
-  margin: 20px;
+  position: relative;
+  width:100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #content img {
@@ -275,17 +266,30 @@ img {
 }
 
 #content #what {
-  padding-bottom: 20px;
+  margin: 20px;
+}
+
+#content #features {
+  /*margin: 20px;*/
+}
+
+#content #early-access {
+  margin: 20px;
+  margin-top: 0px;
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #content ul.features {
   display: table;
   width: 100%;
-  border-spacing: 0px;
+  border-spacing: 20px;
   border-collapse: separate;
-  margin-left: 0;
-  padding-left: 0;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
+  margin-top: -20px;
   table-layout: fixed;
 }
 
@@ -297,7 +301,7 @@ img {
 
 #content li.feature {
   padding: 20px;
-  background-color: #F7F7F7;
+  background-color: #AAA;
 }
 
 .large-display-only {
