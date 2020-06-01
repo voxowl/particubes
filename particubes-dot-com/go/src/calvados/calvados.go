@@ -134,7 +134,9 @@ func (calva *Calvados) Run(hostAndPort string) error {
 	router.Use(static.ServeRoot("/style", "/style"))
 
 	for _, customRoute := range calva.customRoutes {
-		switch method := customRoute.method; method {
+		customRoute := customRoute // this is needed to avoid closures sharing the variable
+		method := customRoute.method
+		switch method {
 		case "GET":
 			router.GET(customRoute.path, func(c *gin.Context) {
 				customRoute.function(c, calva)
