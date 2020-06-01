@@ -148,9 +148,8 @@ func (calva *Calvados) Run(hostAndPort string) error {
 		}
 	}
 
-	router.GET("/*path", calva.replyForPath)
-
-	router.NoRoute(calva.replyNotFound)
+	// catches all other paths
+	router.NoRoute(calva.replyForPath)
 
 	return router.Run(hostAndPort)
 }
@@ -202,7 +201,7 @@ func (c *Calvados) loadTemplates(r *gin.Engine) error {
 
 //
 func (calva *Calvados) replyForPath(c *gin.Context) {
-	requestPath := c.Param("path")
+	requestPath := c.Request.URL.Path
 	logrus.Println("request path:", requestPath)
 	requestPathEndsWithSlash := strings.HasSuffix(requestPath, "/")
 	// WARNING: this call, removes the trailing '/' if there is any
