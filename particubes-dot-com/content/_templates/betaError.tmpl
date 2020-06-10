@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title>{{ .title }}</title>
+		{{ if .metaKeywords }}<meta name="keywords" content="{{ .metaKeywords }}">{{ end }}
+		{{ if .metaDescription }}<meta name="description" content="{{ .metaDescription }}">{{ end }}
+
+		<!-- CSS -->
+  		<link rel="stylesheet" href="/style/css/style.css">
+  		<link rel="stylesheet" href="/style/highlight/atom-one-dark.css">
+
+  		 <!-- Mobile Specific Metas -->
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  		<!-- FAVICON -->
+		<link rel="icon" type="image/png" href="/style/img/favicon.png">
+
+		<!-- JS -->
+		<script src="/js/highlight.pack.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+		
+	</head>
+	<body>
+		<div id="page">
+
+			<div id="content">
+				<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
+
+				<!-- <center><video muted autoplay loop playsinline width="480px" height="270px">
+					<source src="/video/web-pres-480x270.mp4" type="video/mp4">
+				</video></center> -->
+				
+				<div id="what">
+					<h1>{{ .title }}</h1>
+					
+					{{ if .error }}
+					<p>{{ .error }}</p>
+					{{ end }}
+
+					<p>You can try again:</p>
+					<div id="early-access">
+						<div class="subscribe">
+							<p>First 1000 registered users will get  unlimited premium access for free!<br />Sign up now! (you'll be #X)</p>
+							<form>
+								<input type="text" name="email" placeholder="email" value="{{ .email }}">
+								<input type="submit" name="" value="Beta sign-up">
+								<div class="clear"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+			<div id="social">
+				<ul>
+					<li>Follow us</a></li><!--
+					--><li><a href="https://twitter.com/particubes">Twitter</a></li><!--
+					--><li><a href="https://www.instagram.com/particubes/">Instagram</a></li><!--
+					--><li><a href="https://discord.gg/NbpdAkv">Discord</a></li>
+				</ul>
+			</div>
+
+			<div id="footer">
+
+				<div id="voxowl-logo">
+
+				</div>
+
+				<div id="footer-links">
+					<p><a href="https://twitter.com/particubes">Privacy</a> - <a href="https://www.instagram.com/particubes/">Contact</a> - <a href="https://discord.gg/NbpdAkv">Press</a></p>
+				</div>
+
+				<div id="copyright">
+					<p>©2020 VOXOWL INC. ALL RIGHTS RESERVED.</p>
+				</div>
+
+			</div>
+
+		</div> <!-- page -->
+    </body>
+</html>
