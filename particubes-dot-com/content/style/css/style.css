@@ -397,6 +397,10 @@ img {
   background-color: #00A1A9 !important;
 }
 
+.highlight {
+  color: #4DEF49;
+}
+
 .topSpace {
   margin-top: 20px !important;
 }
