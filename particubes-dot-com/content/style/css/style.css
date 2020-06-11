@@ -151,9 +151,27 @@ img {
   top: 50%;
   left: 50%;
   width: 500px;
-  height: 98;
+  height: 98px;
   margin-left: -250px;
-  margin-top: -49;
+  margin-top: -49px;
+}
+
+#simple-title-header {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+}
+
+#simple-title-header {
+  text-align: center;
+}
+
+#page #simple-title-header a img {
+  display: inline !important;
+  width: 500px;
+  height: 98px;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .over-media {
@@ -268,6 +286,7 @@ img {
 
 #content h2 {
   font-size: 48px;
+  line-height: 38px;
   text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -275,6 +294,22 @@ img {
   font-size: 48px; 
   line-height: 38px;
   text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glitter {
+  padding-left: 60px;
+  background-image: url("/style/img/glitter@2x.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 46px 38px;
+}
+
+.error {
+  padding-left: 52px;
+  background-image: url("/style/img/error@2x.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 38px 38px;
 }
 
 #content .play h3 {
@@ -311,12 +346,14 @@ img {
 #content #what {
   margin: 20px;
   margin-top: 0px;
+  margin-bottom: 0px;
   padding: 20px;
   background-color: #555;
 }
 
 #content #features {
   /*margin: 20px;*/
+  margin-top: 20px;
 }
 
 #content #early-access {
@@ -358,6 +395,10 @@ img {
 
 .code {
   background-color: #00A1A9 !important;
+}
+
+.topSpace {
+  margin-top: 20px !important;
 }
 
 .large-display-only {
