@@ -304,6 +304,14 @@ img {
   background-size: 46px 38px;
 }
 
+.privacy {
+  padding-left: 60px;
+  background-image: url("/style/img/coders-icon@2x.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 46px 38px;
+}
+
 .error {
   padding-left: 52px;
   background-image: url("/style/img/error@2x.png");

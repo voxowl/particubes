@@ -6,9 +6,9 @@ keywords:
 
 ## Privacy Policy
 
-Last updated: November 29, 2016
+Last updated: June 11, 2020
 
-Broom LLC ("us", "we", or "our") operates the Particubes mobile application (the "Service").
+Voxowl INC ("us", "we", or "our") operates the Particubes application (the "Service").
 
 This page informs you of our policies regarding the collection, use and disclosure of Personal Information when you use our Service.
 
@@ -22,7 +22,7 @@ While using our Service, we may ask you to provide us with certain personally id
 
 #### Log Data
 
-When you access the Service by or through a mobile device, we may collect certain information automatically, including, but not limited to, the type of mobile device you use, your mobile device unique ID, the IP address of your mobile device, your mobile operating system, the type of mobile Internet browser you use and other statistics ("Log Data").
+When you access the Service by or through any device, we may collect certain information automatically, including, but not limited to, the type of device you use, your device unique ID, the IP address of your device, your operating system, the type of Internet browser you use and other statistics ("Log Data").
 
 In addition, we may use third party services such as Google Analytics that collect, monitor and analyze this type of information in order to increase our Service's functionality. These third party service providers have their own privacy policies addressing how they use such information.
 
@@ -50,7 +50,7 @@ We will disclose your Personal Information where required to do so by law or sub
 
 #### Business Transaction
 
-If Broom LLC is involved in a merger, acquisition or asset sale, your Personal Information may be transferred as a business asset. In such cases, we will provide notice before your Personal Information is transferred and/or becomes subject to a different Privacy Policy.
+If Voxowl INC is involved in a merger, acquisition or asset sale, your Personal Information may be transferred as a business asset. In such cases, we will provide notice before your Personal Information is transferred and/or becomes subject to a different Privacy Policy.
 
 #### Security
 
@@ -72,15 +72,9 @@ Our Service may contain links to other sites that are not operated by us. If you
 
 We have no control over, and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
 
-#### Children's Privacy
-
-Only persons age 18 or older have permission to access our Service. Our Service does not address anyone under the age of 13 ("Children").
-
-We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you learn that your Children have provided us with Personal Information, please contact us. If we become aware that we have collected Personal Information from a children under age 13 without verification of parental consent, we take steps to remove that information from our servers.
-
 #### Changes To This Privacy Policy
 
-This Privacy Policy is effective as of November 29, 2016 and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.
+This Privacy Policy is effective as of June 11, 2020 and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.
 
 We reserve the right to update or change our Privacy Policy at any time and you should check this Privacy Policy periodically. Your continued use of the Service after we post any modifications to the Privacy Policy on this page will constitute your acknowledgment of the modifications and your consent to abide and be bound by the modified Privacy Policy.
 
