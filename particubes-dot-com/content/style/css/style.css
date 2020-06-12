@@ -142,7 +142,9 @@ img {
   width: 100%;
   /*height: 56.25%;*/
   padding-top: 56.25%;
-  background-color: #F00;
+  /*background-color: #F00;*/
+  background-image: url("/style/img/ingame-header.png");
+  background-size: 100% 100%;
 }
 
 #media img {
