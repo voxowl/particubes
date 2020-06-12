@@ -42,6 +42,15 @@
 					{{ end }}
 				</div>
 
+				{{ if .email }}
+				<div id="early-access" class="topSpace">
+					<div class="subscribe">
+						<p>First <span class="highlight">1000</span> registered users will get  unlimited premium access for free!<br />Sign up now! (you'll be <span class="highlight">#X</span>)</p>
+						{{ template "form" . }}
+					</div>
+				</div>
+				{{ end }}
+
 			</div> <!-- {{ .content }} -->
 
 			{{ template "social" }}
