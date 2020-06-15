@@ -2,7 +2,7 @@
 description: Particubes
 sender-name: Particubes
 sender-email: noreply@particubes.com
-title: "🔑 Particubes - Confirm your e-mail address!"
+title: "✉️ Particubes - Confirm your e-mail address!"
 ---
 
 Hi there,
