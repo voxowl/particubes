@@ -181,20 +181,16 @@ img {
 
 #simple-title-header {
   position: relative;
-  width: 100%;
+  width: auto;
+  margin: 0;
   padding: 20px;
-}
-
-#simple-title-header {
   text-align: center;
 }
 
 #page #simple-title-header a img {
-  display: inline !important;
+  display: inline-block; !important;
+  max-width: 100%;
   width: 500px;
-  height: 98px;
-  margin-left: auto !important;
-  margin-right: auto !important;
 }
 
 .small-screen {
