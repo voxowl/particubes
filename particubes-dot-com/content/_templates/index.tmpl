@@ -33,7 +33,7 @@
 			<div id="media">
 				<img src="/style/img/title@2x.png" />
 
-				<div class="subscribe over-media">
+				<div class="subscribe-over-media">
 					{{ template "form" . }}
 				</div>
 			</div>
@@ -44,6 +44,12 @@
 				<!-- <center><video muted autoplay loop playsinline width="480px" height="270px">
 					<source src="/video/web-pres-480x270.mp4" type="video/mp4">
 				</video></center> -->
+
+				<div class="early-access small-screen">
+					<div class="subscribe">
+						{{ template "form" . }}
+					</div>
+				</div>
 				
 				<div id="what">
 					<h2 class="glitter">What is Particubes?</h2>
@@ -72,7 +78,7 @@
 					</ul>
 				</div>
 
-				<div id="early-access">
+				<div class="early-access">
 					<div class="subscribe">
 						<p>First <span class="highlight">1000</span> registered users will get  unlimited premium access for free!<br />Sign up now! (you'll be <span class="highlight">#{{ .nextTester }}</span>)</p>
 						{{ template "form" . }}

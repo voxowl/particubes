@@ -28,6 +28,15 @@ body {
   padding: 0;
 }
 
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+     -webkit-appearance: none;
+     -webkit-border-radius: 0;
+     border-radius: 0;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #000;
   opacity: 1; /* Firefox */
@@ -75,6 +84,18 @@ h1, h2, h3, h4, h5 {
   margin: 0;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 48px;
+  line-height: 38px;
+  text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  font-size: 48px; 
+  line-height: 38px;
+  text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 video {
@@ -176,14 +197,11 @@ img {
   margin-right: auto !important;
 }
 
-.over-media {
-  position: absolute;
-  width: 100%;
-  /*left: 50%;*/
-  bottom: 10%;
+.small-screen {
+  display: none;
 }
 
-#early-access .subscribe {
+.early-access .subscribe {
     margin: 20px;
     margin-top: 0;
     margin-bottom: 0;
@@ -191,33 +209,52 @@ img {
     background-color: #555;
 }
 
+.early-access.small-screen .subscribe {
+  margin-bottom: 20px;
+}
+
+.subscribe-over-media form {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  text-align: center;
+}
+
 .subscribe form {
-  display: table;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center;
 }
 
 .subscribe form input {
-  display: table-cell;
-  border-radius: 0px;
+  display: inline-block;
+  width: auto;
+  min-width: 20px;
+  margin: 0;
 }
 
-.space-cell {
-    display: table-cell;
-    width: 20px;
-}
-
-.subscribe form input[type="text"] {
+.subscribe form input[type="text"],
+.subscribe-over-media form input[type="text"] {
     padding: 15px;
     color: #FFF;
     background-color: rgba(0, 0, 0, 0.6);
     border: 4px solid rgba(0, 0, 0, 0.6);
     outline: none;
-    width: 250px;
 }
 
-.subscribe form input[type="submit"] {
+.subscribe form input[type="text"] {
+  width: 250px;
+}
+
+.subscribe-over-media form input[type="text"] {
+  width: 250px;
+  display: inline-block;
+}
+
+.subscribe-over-media form input[type="submit"] {
+  display: inline-block;
+}
+
+.subscribe form input[type="submit"],
+.subscribe-over-media form input[type="submit"] {
     border-top: 4px solid #BEFF00;
     border-right: 4px solid #BEFF00;
     border-bottom: 4px solid #688C00;
@@ -253,27 +290,41 @@ img {
     margin-top: -30px;
   }
 
-  #media .subscribe form {
+  .subscribe-over-media {
     display: none;
   }
 
-  .subscribe form input {
-    display: table-row;
-    border-radius: 0px;
+  .small-screen {
+    display: block;
   }
 
-  .space-cell {
+  .subscribe form input {
     display: block;
-    width: 20px;
   }
 
   .subscribe form input[type="text"] {
-
+    width: 100%;
   }
 
   .subscribe form input[type="submit"] {
-      margin-top: 10px;
-      margin-left: 0;
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  h2 {
+    font-size: 40px;
+    /*line-height: 30px;*/
+  }
+
+  h3 {
+    font-size: 40px; 
+    /*line-height: 30px;*/
+  }
+
+  html,
+  form input {
+    font-size: 30px;
   }
 
 }
@@ -284,18 +335,6 @@ img {
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #3F3F3F;
-}
-
-#content h2 {
-  font-size: 48px;
-  line-height: 38px;
-  text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-#content h3 {
-  font-size: 48px; 
-  line-height: 38px;
-  text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .glitter {
@@ -382,7 +421,7 @@ img {
   margin-top: 20px;
 }
 
-#content #early-access {
+#content .early-access {
   margin-top: 0;
   margin-bottom: 0;
   margin-left: auto;
@@ -457,8 +496,9 @@ img {
 #social ul {
   margin: 0;
   padding: 0;
+  margin-left: 20px;
+  margin-right: 20px;
   text-align: center;
-  width: 100%;
 }
 
 #social ul li {
@@ -507,7 +547,6 @@ img {
   margin: 0;
   padding: 0;
 }
-
 
 .clear {
   clear: both;
