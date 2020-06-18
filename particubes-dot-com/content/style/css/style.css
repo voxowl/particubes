@@ -7,6 +7,10 @@
     font-style: normal;
 }
 
+:root {
+  color-scheme: light;
+}
+
 html {
   font-size: 32px;
   line-height: 24px;
