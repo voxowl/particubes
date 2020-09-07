@@ -202,6 +202,21 @@ img {
   margin-top: -70px;
 }
 
+#simple-title-header {
+  position: relative;
+  width: auto;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+#page #simple-title-header a img {
+  display: inline-block !important;
+  max-width: 100%;
+  width: 500px;
+}
+
+
 @media (max-width: 800px) {
   #media > img {
     max-width: 500px;

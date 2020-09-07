@@ -31,13 +31,13 @@
 		<div id="page">
 
 			<div id="simple-title-header">
-				<a href="/"><img src="/style/img/title@2x.png"></a>
+				<a href="/"><img src="/style/img/title.png"></a>
 			</div>
 
 			<div id="content">
 
 				<div id="what">
-					<h2 class="error">{{ .title }}</h2>
+					<h2 class="error">{{ .header }}</h2>
 
 					{{ if .error }}
 					<p>{{ .error }}</p>
@@ -45,7 +45,7 @@
 				</div>
 
 				{{ if .email }}
-				<div id="early-access" class="topSpace">
+				<div class="early-access topSpace">
 					<div class="subscribe">
 						<p>First <span class="highlight">1000</span> registered users will get  unlimited premium access for free!<br />Sign up now! (you'll be <span class="highlight">#{{ .nextTester }}</span>)</p>
 						{{ template "form" . }}
