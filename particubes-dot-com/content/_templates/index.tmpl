@@ -34,19 +34,22 @@
 		<div id="page">
 
 			<div id="media">
-				<img src="/style/img/title@2x.png" />
+
+				<video muted autoplay loop playsinline>
+					<source src="/video/particubes-teaser-website-854x480.mp4" type="video/mp4">
+				</video>
+
+				<img src="/style/img/title.png" />
 
 				<div class="subscribe-over-media">
 					{{ template "form" . }}
 				</div>
+
+				<div class="clear"></div>
 			</div>
 
 			<div id="content">
 				<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
-
-				<!-- <center><video muted autoplay loop playsinline width="480px" height="270px">
-					<source src="/video/web-pres-480x270.mp4" type="video/mp4">
-				</video></center> -->
 
 				<div class="early-access small-screen">
 					<div class="subscribe">
