@@ -7,7 +7,8 @@ import (
 
 // Config ...
 type Config struct {
-	SendGridAPIKey string `json:"sendgridAPIKey"`
+	MailJetAPIKey    string `json:"mailjet-api-key"`
+	MailJetAPISecret string `json:"mailjet-api-secret"`
 }
 
 func readConfig(filePath string) (*Config, error) {

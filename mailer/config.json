@@ -1,3 +1,4 @@
 {
-    "sendgridAPIKey": "<SENDGRID API KEY>"
+    "mailjet-api-key": "<MAILJET API KEY>",
+    "mailjet-api-secret": "<MAILJET API SECRET>"
 }

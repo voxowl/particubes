@@ -1,7 +1,7 @@
 ---
 description: Particubes
 sender-name: Particubes
-sender-email: noreply@particubes.com
+sender-email: contact@particubes.com
 title: "News for testers"
 ---
 
