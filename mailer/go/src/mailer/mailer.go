@@ -18,9 +18,9 @@ import (
 	txtTemplate "text/template"
 
 	"github.com/gdevillele/frontparser"
-	sendgrid "github.com/sendgrid/sendgrid-go"
-	"github.com/sendgrid/sendgrid-go/helpers/mail"
 	blackfriday "gopkg.in/russross/blackfriday.v2"
+
+	mailjet "github.com/mailjet/mailjet-apiv3-go"
 )
 
 var (
@@ -96,11 +96,7 @@ func main() {
 
 	// SEND EMAILS !!
 
-	from := mail.NewEmail(parsedMarkdown.SenderName, parsedMarkdown.SenderEmail)
-	subject := parsedMarkdown.Title
-	client := sendgrid.NewSendClient(config.SendGridAPIKey)
-
-	fmt.Println(client)
+	mailjetClient := mailjet.NewMailjetClient(config.MailJetAPIKey, config.MailJetAPISecret)
 
 	for _, entry := range entries {
 
@@ -117,6 +113,19 @@ func main() {
 		}
 		htmlContent := buf.String()
 
+		// INLINE STYLE
+		// gmail (among others I guess) only supports inline styles...
+		// so we have to do this, and should ideally remove all our
+		// <style> definitions in email templates.
+
+		htmlContent = strings.ReplaceAll(htmlContent, "<p", "<p style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
+		htmlContent = strings.ReplaceAll(htmlContent, "<h1", "<h1 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
+		htmlContent = strings.ReplaceAll(htmlContent, "<h2", "<h2 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
+		htmlContent = strings.ReplaceAll(htmlContent, "<h3", "<h3 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
+		htmlContent = strings.ReplaceAll(htmlContent, "<h4", "<h4 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
+		htmlContent = strings.ReplaceAll(htmlContent, "<ul", "<ul style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;margin-left:30px;\"")
+		htmlContent = strings.ReplaceAll(htmlContent, "<a", "<a style=\"text-decoration:none;color:#45c5d2;\"")
+
 		buf = &bytes.Buffer{}
 		err = templateTXT.Execute(buf, entry)
 		if err != nil {
@@ -125,13 +134,29 @@ func main() {
 		}
 		plainTextContent := buf.String()
 
-		to := mail.NewEmail("", entry.Email)
+		messagesInfo := []mailjet.InfoMessagesV31{
+			mailjet.InfoMessagesV31{
+				From: &mailjet.RecipientV31{
+					Email: parsedMarkdown.SenderEmail,
+					Name:  parsedMarkdown.SenderName,
+				},
+				To: &mailjet.RecipientsV31{
+					mailjet.RecipientV31{
+						Email: entry.Email,
+						Name:  "",
+					},
+				},
+				Subject:  parsedMarkdown.Title,
+				TextPart: plainTextContent,
+				HTMLPart: htmlContent,
+				CustomID: "",
+			},
+		}
+		messages := mailjet.MessagesV31{Info: messagesInfo}
 
-		message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-
-		_, err = client.Send(message)
+		_, err = mailjetClient.SendMailV31(&messages)
 		if err != nil {
-			log.Println("SENDGRID ERROR:", err)
+			log.Println("MAILJET ERROR:", err)
 			continue
 		}
 
