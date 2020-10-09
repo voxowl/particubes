@@ -21,11 +21,8 @@
 				document.querySelectorAll('pre').forEach((block) => {
 					hljs.highlightBlock(block);
 				});
-				// amplitude event
-				amplitude.getInstance().logEvent('page_contact');
 			});
 		</script>
-		{{ template "inlineScripts" }}
 	</head>
 	<body>
 		<div id="page">
