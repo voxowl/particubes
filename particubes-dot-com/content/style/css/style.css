@@ -274,11 +274,28 @@ img {
   margin-bottom: 20px;
 }
 
+.early-access.small-screen #next-user-info {
+  display: inline-block !important;
+  padding-top: 10px !important;
+}
+
+#next-user-info {
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
 .subscribe-over-media form {
   position: absolute;
-  bottom: 10%;
+  bottom: 5%;
   width: 100%;
   text-align: center;
+}
+
+.subscribe-over-media #next-user-info {
+  display: inline-block !important;
+  padding-top: 10px !important;
+
 }
 
 .subscribe form {
