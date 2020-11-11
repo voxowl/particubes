@@ -1,6 +1,6 @@
 # Particubes
 
-Particubes is a platform dedicated to **voxel games**, games made out of little cubes.
+Particubes is a virtual space to hang out with friends, play and build anything you want with color cubes.
 
 ### 🕹 Players
 
@@ -18,7 +18,7 @@ Customize game code sample scripts, publish assignable actions, or script a full
 
 Particubes is **not released yet**. It will be available on iOS, Android, Windows, Mac & Linux.
 
-We hope to start release a beta version this summer, here's a link if you want to register: [Particubes Beta](https://airtable.com/shr19FppC46PsvywY).
+We will soon start our beta, you can register on [particubes.com](https://particubes.com) if you want to become a tester.
 
 ## Is it open source?
 
@@ -31,8 +31,6 @@ No, sorry, our engine is close source. We use this public repository for open so
 ![](images/macos-playing.png)
 
 ![](images/macos-code-editor.png)
-
-![](images/iphone-code-editor.png)
 
 
 
