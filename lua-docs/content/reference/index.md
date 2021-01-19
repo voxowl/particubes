@@ -13,7 +13,7 @@ Here are all the objects and types available in the scripting environment.
 - [EventType](/reference/EventType)
 - [Impact](/reference/Impact)
 - [Import](/reference/Import)
-- [Local](/reference/Local)
+- [Client](/reference/Client)
 - [Map](/reference/Map)
 - [Number3](/reference/Number3)
 - [OtherPlayers](/reference/OtherPlayers)
@@ -22,3 +22,4 @@ Here are all the objects and types available in the scripting environment.
 - [Resources](/reference/Resources)
 - [R](/reference/Resources)
 - [Server](/reference/Server)
+- [Shape](/reference/Shape)

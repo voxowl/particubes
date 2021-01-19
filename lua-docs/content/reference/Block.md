@@ -5,9 +5,33 @@ keywords: particubes, game, mobile, scripting, cube, voxel, world
 
 # Block
 
-Usually represents one block in the map. But could also represent a block for any shape in the game.
+A Block usually represents one block in the map. But could also represent a block for any shape in the game.
 
-## Class Field
+## Constructors
+
+### Block Block(number colorIndex)
+
+colorIndex: number
+
+```
+local block = Block(1)
+```
+
+### Block(colorIndex, x, y, z)
+
+```
+local block = Block(1, 10, 10, 10)
+```
+
+### Block(colorIndex, position)
+
+```
+local block = Block(1, Number3(10, 10, 10))
+-- or
+local block = Block(1, {10, 10, 10})
+```
+
+## Properties
 
 ### New (Function, read-only)
 
