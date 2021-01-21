@@ -1,0 +1,35 @@
+{
+    "keywords": [
+        "particubes",
+        "game",
+        "mobile",
+        "scripting",
+        "cube",
+        "voxel",
+        "world"
+    ],
+    "title": "Reference",
+    "blocks": [
+        {
+            "text": "Here are all the objects and types available in the scripting environment."
+        }, 
+        {
+            "list": [
+                "<a href=\"/reference/block\">Block</a>",
+                "<a href=\"/reference/config\">Config</a>",
+                "<a href=\"/reference/event\">Event</a>",
+                "<a href=\"/reference/eventtype\">EventType</a>",
+                "<a href=\"/reference/impact\">Impact</a>",
+                "<a href=\"/reference/client\">Client</a>",
+                "<a href=\"/reference/map\">Map</a>",
+                "<a href=\"/reference/number3\">Number3</a>",
+                "<a href=\"/reference/otherplayers\">OtherPlayers</a>",
+                "<a href=\"/reference/player\">Player</a>",
+                "<a href=\"/reference/resources\">Resources</a>",
+                "<a href=\"/reference/resources\">R</a>",
+                "<a href=\"/reference/server\">Server</a>",
+                "<a href=\"/reference/shape\">Shape</a>"
+            ]
+        }
+    ]
+}

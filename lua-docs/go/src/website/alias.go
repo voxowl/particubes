@@ -12,10 +12,12 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	"github.com/gdevillele/frontparser"
+
+	"encoding/json"
 )
 
 //
-func aliasParseMarkdownFiles(rootPath string) (map[string]string, error) {
+func aliasParseFiles(rootPath string) (map[string]string, error) {
 	// check that rootPath points to a directory
 	if !fsutil.DirectoryExists(rootPath) {
 		return nil, errors.New("rootPath doesn't point to an existing directory")
@@ -33,7 +35,7 @@ func aliasWalk(root string) (map[string]string, error) {
 			return walkErr
 		}
 
-		// only consider paths ending with .md
+		// MARKDOWN FILE
 		if strings.HasSuffix(walkPath, ".md") {
 			// check if path points to a regular file
 			exists := fsutil.RegularFileExists(walkPath)
@@ -75,6 +77,31 @@ func aliasWalk(root string) (map[string]string, error) {
 					}
 				}
 			}
+		} else if strings.HasSuffix(walkPath, ".json") { // JSON FILE
+
+			// check if path points to a regular file
+			exists := fsutil.RegularFileExists(walkPath)
+			if exists {
+
+				var page Page
+
+				file, err := os.Open(walkPath)
+				if err != nil {
+					return err
+				}
+
+				err = json.NewDecoder(file).Decode(&page)
+				if err != nil {
+					return err
+				}
+
+				// example: from /www/index.md to /index.md
+				trimmedPath := strings.TrimPrefix(walkPath, root)
+				// removes trailing ".json" or "index.json"
+				_ = cleanPath(trimmedPath)
+
+				// TODO: aliases are actually not set in JSON files yet
+			}
 		}
 		return nil
 	})
@@ -82,14 +109,4 @@ func aliasWalk(root string) (map[string]string, error) {
 		return result, err
 	}
 	return result, nil
-}
-
-// removes trailing ".md" or trailing "index.md"
-func cleanPath(path string) string {
-	// check for trailing ".md"
-	path = strings.TrimSuffix(path, ".md")
-	if strings.HasSuffix(path, "/index") {
-		path = strings.TrimSuffix(path, "index")
-	}
-	return path
 }

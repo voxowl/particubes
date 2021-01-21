@@ -18,8 +18,14 @@
                     "type": "number"
                 }
             ],
-            "description": "",
-            "sample": ""
+            "description": "Creates a block at {0,0,0} with given color index.",
+            "samples": [
+                {
+                    "code": "",
+                    "image": "",
+                    "description": ""
+                }
+            ]
         },
         {
             "arguments": [

@@ -1,0 +1,29 @@
+{
+    "keywords": [
+        "particubes",
+        "game",
+        "mobile",
+        "scripting",
+        "cube",
+        "voxel",
+        "world"
+    ],
+    "title": "Introduction",
+    "blocks": [
+        {
+            "text": "In Particubes, all rules and behaviors in the games you play are scripted with a language called <a href=\"https://www.lua.org\">Lua</a>."
+        },
+        {
+            "text": "A default Lua script is generated when you create a new game. You can launch the game in debug mode and select `Edit code` in the pause menu to see it."
+        },
+        {
+            "text": "By default, only the author of a game can access its code. But it's possible to allow other users to contribute. (more to come about this)"
+        },
+        {
+            "text": "Lua is easy to learn, don't worry if you've never used it. You'll be able to define custom things for your games in minutes. ☺️"
+        },
+        {
+            "text": "💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers."
+        }
+    ]
+}
