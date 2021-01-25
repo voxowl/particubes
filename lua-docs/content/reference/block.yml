@@ -1,6 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Block"
-description: A Block usually represents one block in the map. But could also represent a block for any shape in the game."
+description: A Block usually represents one block in the map. But could also represent a block for any shape in the game.
 
 constructors: 
   - description: "Creates a block at {0,0,0} with given color index."

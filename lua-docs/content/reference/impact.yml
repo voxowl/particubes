@@ -1,0 +1,34 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Impact"
+description: An `Impact` object can be returned when casting a ray. (see [Player.CastRay](/reference/Player#CastRay)
+and PointerEvent.CastRay
+
+constructors: 
+  - description: "Created using CastRay functions. local impact = Player.CastRay"
+
+properties:
+    - name: "Block"
+      type: "Block"
+      description: "Block touched by the ray. Not `nil` if the [Impact](/reference/Impact) represents a [Block](/reference/Block)."
+      code:  |
+        local impact = Local.Player:CastRay()
+        if impact.Block ~= nil then
+	        print(impact.Block.Id)	-- prints hit block's id
+        end
+    - name: "Position"
+      type: "Number3"
+      description: "Block's position in parent Shape"
+    - name: "X"
+      type: "number"
+      description: "Shortcut to Position.X"
+    - name: "Y"
+      type: "number"
+      description: "Shortcut to Position.Y"
+    - name: "Z"
+      type: "number"
+      description: "Shortcut to Position.Z"
+
+functions:
+    - name: "AddNeighbor"
+    - name: "Remove"
+    - name: "Replace"
