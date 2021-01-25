@@ -146,20 +146,22 @@ func parseContent() error {
 				err = yaml.NewDecoder(file).Decode(&page)
 
 				if err != nil {
+
 					fmt.Println(walkPath, "DECODE ERR:", err.Error())
-					return err
+
+				} else {
+
+					// example: from /www/index.json to /index.json
+					trimmedPath := strings.TrimPrefix(walkPath, contentDirectory)
+
+					page.ResourcePath = trimmedPath
+
+					cleanPath := cleanPath(trimmedPath)
+
+					page.Sanitize()
+
+					pages[cleanPath] = &page
 				}
-
-				// example: from /www/index.json to /index.json
-				trimmedPath := strings.TrimPrefix(walkPath, contentDirectory)
-
-				page.ResourcePath = trimmedPath
-
-				cleanPath := cleanPath(trimmedPath)
-
-				page.Sanitize()
-
-				pages[cleanPath] = &page
 			}
 
 		} /*else if strings.HasSuffix(walkPath, ".json") { // JSON FILE
