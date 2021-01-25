@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"errors"
 	"fmt"
 	yaml "gopkg.in/yaml.v2"
@@ -106,8 +106,9 @@ func parseContent() error {
 	templateFilePath := filepath.Join(contentDirectory, templateFile)
 
 	pageTemplate = template.New("page.tmpl").Funcs(template.FuncMap{
-		"Join":     strings.Join,
-		"GetTitle": GetTitle,
+		"Join":          strings.Join,
+		"GetTitle":      GetTitle,
+		"GetAnchorLink": GetAnchorLink,
 	})
 
 	pageTemplate, err = pageTemplate.ParseFiles(templateFilePath)
@@ -138,7 +139,7 @@ func parseContent() error {
 				err = yaml.NewDecoder(file).Decode(&page)
 
 				if err != nil {
-					fmt.Println("YML DECODE ERR:", err.Error())
+					fmt.Println(walkPath, "DECODE ERR:", err.Error())
 					return err
 				}
 
@@ -154,7 +155,7 @@ func parseContent() error {
 				pages[cleanPath] = &page
 			}
 
-		} else if strings.HasSuffix(walkPath, ".json") { // JSON FILE
+		} /*else if strings.HasSuffix(walkPath, ".json") { // JSON FILE
 
 			// check if path points to a regular file
 			exists := fsutil.RegularFileExists(walkPath)
@@ -185,7 +186,7 @@ func parseContent() error {
 
 				pages[cleanPath] = &page
 			}
-		}
+		}*/
 
 		return nil
 	})

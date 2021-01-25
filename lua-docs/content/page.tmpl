@@ -51,7 +51,7 @@
 						{{ if .Text }}
 							<p>{{ .Text }}</p>
 						{{ else if .Title }}
-							<h2>{{ .Title }}</h2>
+							<h2><a id="{{ GetAnchorLink .Title }}" name="{{ GetAnchorLink .Title }}" href="#{{ GetAnchorLink .Title }}">{{ .Title }}</a></h2>
 						{{ else if .Media }}
 							<img src="{{ .Media }}"/>
 						{{ else if .Code }}
@@ -69,7 +69,7 @@
 				{{ end }}
 
 				{{ if .Constructors }}
-				<h2>Constructors</h2>
+				<h2><a id="constructors" name="constructors" href="#constructors">Constructors</a></h2>
 					{{ range .Constructors }}
 						<table class="object-element-tbl">
 							<tr>
@@ -91,12 +91,12 @@
 				{{ end }}
 
 				{{ if .Functions }}
-				<h2>Functions</h2>
-					{{ range $name, $function := .Functions }}
+				<h2><a id="functions" name="functions" href="#functions">Functions</a></h2>
+					{{ range $index, $function := .Functions }}
 						<table class="object-element-tbl">
 							<tr>
 								<th>
-									<span class="type">{{ if .Return }}{{ .Return }}{{ else }}nil{{ end }}</span> <span class="name">{{ $name }}</span> ( <!--
+									<span class="type">{{ if .Return }}{{ .Return }}{{ else }}nil{{ end }}</span> <span class="name">{{ .Name }}</span> ( <!--
 									-->{{ range $index, $element := .Arguments }}<!--
 									-->{{if $index}}, {{end}}<!--
 									--><span class="type">{{ .Type }}</span> {{ .Name }}<!--
@@ -113,12 +113,12 @@
 				{{ end }}
 
 				{{ if .Properties }}
-				<h2>Properties</h2>
-					{{ range $name, $property := .Properties }}
+				<h2><a id="properties" name="properties" href="#properties">Properties</a></h2>
+					{{ range $index, $property := .Properties }}
 						<table class="object-element-tbl">
 							<tr>
 								<th>
-									<span class="type">{{ .Type }}</span> <span class="name">{{ $name }}</span>
+									<span class="type">{{ .Type }}</span> <span class="name">{{ .Name }}</span>
 								</th>
 							</tr>
 							<tr>

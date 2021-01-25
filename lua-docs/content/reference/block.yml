@@ -1,0 +1,46 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Block"
+description: A Block usually represents one block in the map. But could also represent a block for any shape in the game."
+
+constructors: 
+  - description: "Creates a block at {0,0,0} with given color index."
+    arguments:
+    - name: "colorIndex"
+      type: "number"
+  - arguments:
+    - name: "colorIndex"
+      type: "number"
+    - name: "x"
+      type: "number"
+    - name: "y"
+      type: "number"
+    - name: "z"
+      type: "number"
+        
+  - arguments: 
+    - name: "colorIndex"
+      type: "number"
+    - name: "position"
+      type: "Number3"
+
+properties:
+    - name: "ColorIndex"
+      type: "number"
+      description: "Block's color index."
+    - name: "Position"
+      type: "Number3"
+      description: "Block's position in parent Shape"
+    - name: "X"
+      type: "number"
+      description: "Shortcut to Position.X"
+    - name: "Y"
+      type: "number"
+      description: "Shortcut to Position.Y"
+    - name: "Z"
+      type: "number"
+      description: "Shortcut to Position.Z"
+
+functions:
+    - name: "AddNeighbor"
+    - name: "Remove"
+    - name: "Replace"

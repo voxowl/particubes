@@ -16,7 +16,7 @@ blocks:
 
     - text: "Find where `Client.Action1` is defined in the default script:"
 
-    - code: >
+    - code: |
         -- function triggered when pressing the Action1 button
         Client.Action1 = function()
             -- Player represents the local player ingame avatar.

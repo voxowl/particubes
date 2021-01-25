@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gosimple/slug"
 	"strings"
 )
 
@@ -9,71 +10,73 @@ import (
 type Page struct {
 
 	// meta keywords
-	Keywords []string `json:"keywords,omitempty"`
+	Keywords []string `yaml:"keywords,omitempty"`
 
 	// meta description
-	Description string `json:"description,omitempty"`
+	Description string `yaml:"description,omitempty"`
 
 	//
-	Title string `json:"title,omitempty"`
+	Title string `yaml:"title,omitempty"`
 
 	// object type being described
 	// can be left empty if not an object type page
-	Type string `json:"type,omitempty"`
+	Type string `yaml:"type,omitempty"`
 
 	// Blocks are a list of displayable content blocks (text, code sample, image)
 	// They are displayed before other attributes (constructors, properties, functions)
-	Blocks []*ContentBlock `json:"blocks,omitempty"`
+	Blocks []*ContentBlock `yaml:"blocks,omitempty"`
 
-	Constructors []*Function `json:"constructors,omitempty"`
+	Constructors []*Function `yaml:"constructors,omitempty"`
 
-	Properties map[string]*Property `json:"properties,omitempty"`
+	Properties []*Property `yaml:"properties,omitempty"`
 
-	Functions map[string]*Function `json:"functions,omitempty"`
+	Functions []*Function `yaml:"functions,omitempty"`
 
-	// not set in JSON, set dynamically when parsing files
-	ResourcePath string `json:"-"`
+	// not set in YAML, set dynamically when parsing files
+	ResourcePath string `yaml:"-"`
 }
 
 type Function struct {
-	Arguments   []*Argument `json:"arguments,omitempty"`
-	Description string      `json:"description,omitempty"`
-	Samples     []*Sample   `json:"samples,omitempty"`
-	Return      []*Value    `json:"return,omitempty"`
+	Name        string      `yaml:"name,omitempty"`
+	Arguments   []*Argument `yaml:"arguments,omitempty"`
+	Description string      `yaml:"description,omitempty"`
+	Samples     []*Sample   `yaml:"samples,omitempty"`
+	Return      []*Value    `yaml:"return,omitempty"`
 }
 
 type Argument struct {
-	Name string `json:"name,omitempty"`
-	Type string `json:"type,omitempty"`
+	Name string `yaml:"name,omitempty"`
+	Type string `yaml:"type,omitempty"`
 }
 
 type Value struct {
-	Type        string `json:"type,omitempty"`
-	Description string `json:"description,omitempty"`
+	Type        string `yaml:"type,omitempty"`
+	Description string `yaml:"description,omitempty"`
 }
 
 type Sample struct {
-	Code        string `json:"code,omitempty"`
-	ImagePath   string `json:"image,omitempty"`
-	Description string `json:"description,omitempty"`
+	Code        string `yaml:"code,omitempty"`
+	ImagePath   string `yaml:"image,omitempty"`
+	Description string `yaml:"description,omitempty"`
 }
 
 type Property struct {
-	Type        string    `json:"type,omitempty"`
-	Description string    `json:"description,omitempty"`
-	Samples     []*Sample `json:"samples,omitempty"`
+	Name        string    `yaml:"name,omitempty"`
+	Type        string    `yaml:"type,omitempty"`
+	Description string    `yaml:"description,omitempty"`
+	Samples     []*Sample `yaml:"samples,omitempty"`
 }
 
 // Only one attribute can be set, others will
 // be ignored if set.
 type ContentBlock struct {
-	Text string `json:"text,omitempty"`
+	Text string `yaml:"text,omitempty"`
 	// Lua code
-	Code  string   `json:"code,omitempty"`
-	List  []string `json:"list,omitempty"`
-	Title string   `json:"title,omitempty"`
+	Code  string   `yaml:"code,omitempty"`
+	List  []string `yaml:"list,omitempty"`
+	Title string   `yaml:"title,omitempty"`
 	// Can be a relative link to an image, a link to a youtube video...
-	Media string `json:"media,omitempty"`
+	Media string `yaml:"media,omitempty"`
 }
 
 // Returns best possible title for page
@@ -93,4 +96,8 @@ func (p *Page) Sanitize() {
 			}
 		}
 	}
+}
+
+func GetAnchorLink(s string) string {
+	return slug.Make(s)
 }
