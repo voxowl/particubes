@@ -19,7 +19,13 @@
   font-size: 15px;
   padding: 0;
   margin: 0;
+  outline: none;
 }
+
+:link:active    { outline: none; }
+:visited:active { outline: none; }
+
+
 
 html {
   line-height: 22px;

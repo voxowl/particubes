@@ -7,7 +7,8 @@ constructors:
     arguments:
     - name: "colorIndex"
       type: "number"
-  - arguments:
+  - description: "Creates a block at {x,y,z} with given color index."
+    arguments:
     - name: "colorIndex"
       type: "number"
     - name: "x"
@@ -17,7 +18,8 @@ constructors:
     - name: "z"
       type: "number"
         
-  - arguments: 
+  - description: "Creates a block at position with given color index."
+    arguments: 
     - name: "colorIndex"
       type: "number"
     - name: "position"
@@ -42,5 +44,48 @@ properties:
 
 functions:
     - name: "AddNeighbor"
+      description: "Adds a block, adjacent to the face passed as parameter."
+      arguments:
+        - name: "block"
+          type: "Block"
+        - name: "face"
+          type: "BlockFace"
+      samples:
+        - code: |
+            -- add block when Action2 is triggered
+            Client.Action2 = function()
+              -- cast a ray, see if it touches a block
+              local impact = Player:CastRay()
+              if impact.Block ~= nil then
+                -- add block, adjacent to the face that's been touched
+                impact.Block:AddNeighbor(Block(1), impact.FaceTouched)
+              end
+            end
+
     - name: "Remove"
+      description: "Removes the block."
+      samples:
+        - code: |
+            -- remove block when Action2 is triggered
+            Client.Action2 = function()
+              -- cast a ray, see if it touches a block
+              local impact = Player:CastRay()
+              -- won't do anything if impact.Block is nil
+              impact.Block:Remove()
+            end
+
     - name: "Replace"
+      description: "Replaces the block with the one passed as parameter. The position remains the same, ColorIndex is the only property being set."
+      arguments:
+        - name: "block"
+          type: "Block"
+      samples:
+        - code: |
+            -- replace block when Action2 is triggered
+            Client.Action2 = function()
+              -- cast a ray, see if it touches a block
+              local impact = Player:CastRay()
+              -- won't do anything if impact.Block is nil
+              impact.Block:Replace(Block(1)) -- make it a block with colorIndex == 1
+            end
+

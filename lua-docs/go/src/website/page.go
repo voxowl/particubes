@@ -56,7 +56,7 @@ type Value struct {
 
 type Sample struct {
 	Code        string `yaml:"code,omitempty"`
-	ImagePath   string `yaml:"image,omitempty"`
+	Media       string `yaml:"media,omitempty"`
 	Description string `yaml:"description,omitempty"`
 }
 

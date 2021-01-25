@@ -2,14 +2,14 @@ keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"
 title: "Introduction"
 blocks:
     - text: >
-        In Particubes, all rules and behaviors in the games you play are scripted with a language called <a href=\"https://www.lua.org\">Lua</a>.
-
+        In Particubes, all rules and behaviors in the games you play are scripted with a language called <a href="https://www.lua.org">Lua</a>.
+    
         A default Lua script is generated when you create a new game. You can launch the game in debug mode and select `Edit code` in the pause menu to see it.
-        
+
         By default, only the author of a game can access its code. But it's possible to allow other users to contribute. (more to come about this)
 
         Lua is easy to learn, don't worry if you've never used it. You'll be able to define custom things for your games in minutes. ☺️
-        
+
         💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers.
 
     - title: "Quick example: How to jump higher?"
@@ -35,9 +35,5 @@ blocks:
         Use "Publish" button
 
         The game will restart for all connected players (including yourself), everyone will now jump higher. 🙂
-    
+
         💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers.
-
-
-
-
