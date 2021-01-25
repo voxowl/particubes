@@ -57,6 +57,13 @@ func httpHandler(w http.ResponseWriter, r *http.Request) {
 	if ok == false && path != "/" {
 		// not found, redirect to /
 		fmt.Println("not found:", path)
+
+		if page404, ok := pages["/404"]; ok {
+			w.WriteHeader(http.StatusNotFound)
+			_ = replyPage(w, page404)
+			return
+		}
+
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
