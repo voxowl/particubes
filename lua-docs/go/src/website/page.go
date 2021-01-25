@@ -1,6 +1,8 @@
 package main
 
-import ()
+import (
+	"strings"
+)
 
 // Page describes possible content for one page
 // in the documentation.
@@ -65,10 +67,13 @@ type Property struct {
 // Only one attribute can be set, others will
 // be ignored if set.
 type ContentBlock struct {
-	Text      string   `json:"text,omitempty"`
-	Code      string   `json:"code,omitempty"`
-	ImagePath string   `json:"image,omitempty"`
-	List      []string `json:"list,omitempty"`
+	Text string `json:"text,omitempty"`
+	// Lua code
+	Code  string   `json:"code,omitempty"`
+	List  []string `json:"list,omitempty"`
+	Title string   `json:"title,omitempty"`
+	// Can be a relative link to an image, a link to a youtube video...
+	Media string `json:"media,omitempty"`
 }
 
 // Returns best possible title for page
@@ -77,4 +82,15 @@ func (p *Page) GetTitle() string {
 		return p.Type
 	}
 	return p.Title
+}
+
+func (p *Page) Sanitize() {
+	if p.Blocks != nil {
+		for _, b := range p.Blocks {
+			if b.Text != "" {
+				b.Text = strings.TrimSpace(b.Text)
+				b.Text = strings.ReplaceAll(b.Text, "\n", "<br>")
+			}
+		}
+	}
 }

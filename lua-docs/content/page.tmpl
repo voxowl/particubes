@@ -50,10 +50,12 @@
 					{{ range .Blocks }}
 						{{ if .Text }}
 							<p>{{ .Text }}</p>
-						{{ else if .ImagePath }}
-							<img src="{{ .ImagePath }}"/>
+						{{ else if .Title }}
+							<h2>{{ .Title }}</h2>
+						{{ else if .Media }}
+							<img src="{{ .Media }}"/>
 						{{ else if .Code }}
-							<code>{{ .Code }}</code>
+							<pre>{{ .Code }}</pre>
 						{{ else if .List }}
 							<ul>
 							{{ range .List }}

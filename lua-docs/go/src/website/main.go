@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	yaml "gopkg.in/yaml.v2"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -121,7 +122,39 @@ func parseContent() error {
 			return walkErr
 		}
 
-		if strings.HasSuffix(walkPath, ".json") { // JSON FILE
+		if strings.HasSuffix(walkPath, ".yml") { // YML FILE
+
+			// check if path points to a regular file
+			exists := fsutil.RegularFileExists(walkPath)
+			if exists {
+
+				var page Page
+
+				file, err := os.Open(walkPath)
+				if err != nil {
+					return err
+				}
+
+				err = yaml.NewDecoder(file).Decode(&page)
+
+				if err != nil {
+					fmt.Println("YML DECODE ERR:", err.Error())
+					return err
+				}
+
+				// example: from /www/index.json to /index.json
+				trimmedPath := strings.TrimPrefix(walkPath, contentDirectory)
+
+				page.ResourcePath = trimmedPath
+
+				cleanPath := cleanPath(trimmedPath)
+
+				page.Sanitize()
+
+				pages[cleanPath] = &page
+			}
+
+		} else if strings.HasSuffix(walkPath, ".json") { // JSON FILE
 
 			// check if path points to a regular file
 			exists := fsutil.RegularFileExists(walkPath)
@@ -141,14 +174,14 @@ func parseContent() error {
 					return err
 				}
 
-				fmt.Println(page.Description)
-
 				// example: from /www/index.json to /index.json
 				trimmedPath := strings.TrimPrefix(walkPath, contentDirectory)
 
 				page.ResourcePath = trimmedPath
 
 				cleanPath := cleanPath(trimmedPath)
+
+				page.Sanitize()
 
 				pages[cleanPath] = &page
 			}
@@ -162,7 +195,12 @@ func parseContent() error {
 	}
 
 	fmt.Println("content parsed!")
-	fmt.Printf("%4v\n", pages)
+	// fmt.Printf("%4v\n", pages)
+	fmt.Println("PAGES:")
+	for k, _ := range pages {
+		fmt.Println(k)
+	}
+
 	return nil
 }
 

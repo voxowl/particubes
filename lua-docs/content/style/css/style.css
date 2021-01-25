@@ -51,11 +51,17 @@ h1 a {
 
 h1, h2, h3 {
   margin-top: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 h1:first-child, h2:first-child, h3:first-child {
   margin-top: 0 !important;
+}
+
+br {
+  display: block; /* makes it have a width */
+  content: ""; /* clears default height */
+  margin-top: 10px; /* change this to whatever height you want it */
 }
 
 table {
@@ -82,7 +88,7 @@ pre {
   margin: 0;
 }
 
-p code {
+code {
   background-color: #EEEEEE;
   color: #2E4C7E;
   padding: 1px;
