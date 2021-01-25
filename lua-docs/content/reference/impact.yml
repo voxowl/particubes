@@ -15,8 +15,8 @@ properties:
         if impact.Block ~= nil then
 	        print(impact.Block.Id)	-- prints hit block's id
         end
-    - name: "Position"
-      type: "Number3"
+    - name: "Distance"
+      type: "Number"
       description: "Block's position in parent Shape"
     - name: "X"
       type: "number"
