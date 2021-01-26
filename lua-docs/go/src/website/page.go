@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gosimple/slug"
 	"strings"
 )
@@ -97,11 +98,27 @@ func (p *Page) IsNotCreatableObject() bool {
 }
 
 func (p *Page) Sanitize() {
+
+	if p.Description != "" {
+		p.Description = strings.TrimSpace(p.Description)
+		p.Description = strings.ReplaceAll(p.Description, "\n", "<br>")
+	}
+
 	if p.Blocks != nil {
 		for _, b := range p.Blocks {
 			if b.Text != "" {
 				b.Text = strings.TrimSpace(b.Text)
 				b.Text = strings.ReplaceAll(b.Text, "\n", "<br>")
+			}
+		}
+	}
+	if p.Constructors != nil {
+		for _, c := range p.Constructors {
+			if c.Samples != nil {
+				if c.Description != "" {
+					c.Description = strings.TrimSpace(c.Description)
+					c.Description = strings.ReplaceAll(c.Description, "\n", "<br>")
+				}
 			}
 		}
 	}
