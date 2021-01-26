@@ -24,3 +24,9 @@ properties:
     - name: "Player"
       type: "Player"
       description: "Player touched by the ray."
+      samples:
+        - code: |
+            Pointer.Down = function(event)
+              local impact = event:CastRay()
+              print(impact.Player)
+            end

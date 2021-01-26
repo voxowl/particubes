@@ -1,0 +1,61 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Map"
+description: Map is a global variable that represents the world map. All fields are read only
+
+properties:
+    - name: "Depth"
+      type: "number"
+      description: "Returns the map's depth, measured in cubes."
+      samples:
+        - code: local myMapDepth = Map.Depth
+    - name: "Height"
+      type: "number"
+      description: "Returns the map's height, measured in cubes."
+    - name: "Width"
+      type: "number"
+      description: "Returns the map's width, measured in cubes."
+    - name: "Scale"
+      type: "number"
+      description: "Returns the map's scale factor."
+
+functions:
+    - name: "AddBlock"
+      description: "Adds a block to the Map."
+      arguments:
+        - name: "block"
+          type: "Block"
+      samples:
+        - code: |
+            local newBlock = Block.New(id, x, y, z)
+            Map.AddBlock(newBlock)
+            
+    - name: "AddBlock"
+      description: "Adds a block to the Map."
+      arguments:
+        - name: "id"
+          type: "number"
+        - name: "x"
+          type: "number"
+        - name: "y"
+          type: "number"
+        - name: "z"
+          type: "number"
+      samples:
+        - code: |
+            Map.AddBlock(id, x, y, z)
+
+    - name: "Set"
+      description: |
+          Function to define the world map. The map must be imported before the Set function.
+          
+          ⚠️ Currently, the map can only be set once, before the game starts. But it should be possible to load more than one map and set them dynamically in the future.
+      arguments:
+        - name: map
+          type: Item
+      samples:
+        - code: |
+            Import (
+              "myUsername.myMap"
+            )
+            Map.Set(R.myUsername.myMap)
+
