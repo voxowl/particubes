@@ -26,7 +26,7 @@ functions:
           type: "Block"
       samples:
         - code: |
-            local newBlock = Block.New(id, x, y, z)
+            local newBlock = Block(id, x, y, z)
             Map.AddBlock(newBlock)
             
     - name: "AddBlock"

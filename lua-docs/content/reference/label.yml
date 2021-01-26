@@ -5,20 +5,22 @@ description: Allows adding text on the interface.
 constructors: 
   - description: "Creates a Label without any text"
     samples:
-      - code: Client.myLabel = Client.UI.Label()
+      - code: Client.myLabel = Label()
   - description: "Creates a Label with given text"
     arguments:
     - name: text
       type: string
     samples:
-      - code: Client.myLabel = Client.UI.Label("❤❤❤")
+      - code: Client.myLabel = Label("❤❤❤")
 
 properties:
     - name: "Text"
       type: "string"
-      description: "Changes the text displayed."
+      description: "Text that's being displayed by the Label."
       samples:
-        - code: Client.myLabel.Text = "❤❤"
+        - code: |
+            -- update displayed text
+            Client.myLabel.Text = "❤❤"
 
 functions:
     - name: "Remove"
