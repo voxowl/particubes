@@ -9,6 +9,7 @@ blocks:
         - "<a href=\"/reference/camera\">Camera</a>"
         - "<a href=\"/reference/clouds\">Clouds</a>"
         - "<a href=\"/reference/color\">Color</a>"
+        - "<a href=\"/reference/crosshair\">Crosshair</a>"
         - "<a href=\"/reference/impact\">Impact</a>"
         - "<a href=\"/reference/input\">Input</a>"
         - "<a href=\"/reference/label\">Label</a>"
