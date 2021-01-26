@@ -27,16 +27,25 @@ properties:
 
 functions:
     - name: "CastRay"
-      description: "Casts a ray and return the hit object (Block, Item or Player)."
-
-    - name: "SetModeFirstPerson"
-      description: "Sets Camera in FPS mode."
+      description: "Casts a ray and returns the hit object (Block, Item or Player)."
+      samples:
+        - code: |
+            local impact = Camera.CastRay()
+            if impact.Block ~= nil then
+              print("block hit:", impact.Block)
+            end
 
     - name: "SetModeThirdPerson"
       description: "Sets Camera in TPS mode."
+      samples:
+        - code: |
+            Camera.SetModeThirdPerson()
 
     - name: "SetModeSatellite"
       description: "Sets Camera in free mode."
+      samples:
+        - code: |
+            Camera.SetModeSatellite()
 
     - name: "FitToScreen"
       description: "Fits the target to the screen."
