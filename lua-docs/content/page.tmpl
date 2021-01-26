@@ -85,29 +85,25 @@
 				<h2><a id="constructors" href="#constructors">Constructors</a></h2>
 					{{ range $i, $constructor := .Constructors }}
 						<a id="constructor-{{ $i }}"></a>
-						<table class="object-element-tbl">
-							<tr>
-								<th>
-									<a href="#constructor-{{ $i }}"><span class="name">{{ $type }}</span></a> ( <!--
-									-->{{ range $index, $element := .Arguments }}<!--
-									-->{{if $index}}, {{end}}<!--
-									--><span class="type">{{ .Type }}</span> {{ .Name }}<!--
-									-->{{ end }} )
-								</th>
-							</tr>
-							<tr>
-								<td>
-									{{ if .Description }}
-										<p>{{ .Description }}</p>
+						<div class="object-element-tbl">
+							<div class="object-element-header">
+								<a href="#constructor-{{ $i }}"><span class="name">{{ $type }}</span></a> ( <!--
+								-->{{ range $index, $element := .Arguments }}<!--
+								-->{{if $index}}, {{end}}<!--
+								--><span class="type">{{ .Type }}</span> {{ .Name }}<!--
+								-->{{ end }} )
+							</div>
+							<div class="object-element-row">
+								{{ if .Description }}
+									<p>{{ .Description }}</p>
+								{{ end }}
+								{{ range .Samples }}
+									{{ if .Code }}
+										<pre>{{ .Code }}</pre>
 									{{ end }}
-									{{ range .Samples }}
-										{{ if .Code }}
-											<pre>{{ .Code }}</pre>
-										{{ end }}
-									{{ end }}
-								</td>
-							</tr>
-						</table>
+								{{ end }}
+							</div>
+						</div>
 					{{ end }}
 				{{ end }}
 
@@ -115,29 +111,25 @@
 				<h2><a id="functions" href="#functions">Functions</a></h2>
 					{{ range $index, $function := .Functions }}
 						<a id="functions-{{ GetAnchorLink .Name }}"></a>
-						<table class="object-element-tbl">
-							<tr>
-								<th>
-									<span class="type">{{ if .Return }}{{ .Return }}{{ else }}nil{{ end }}</span> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
-									-->{{ range $index, $element := .Arguments }}<!--
-									-->{{if $index}}, {{end}}<!--
-									--><span class="type">{{ .Type }}</span> {{ .Name }}<!--
-									-->{{ end }} )
-								</th>
-							</tr>
-							<tr>
-								<td>
-									{{ if .Description }}
-										<p>{{ .Description }}</p>
+						<div class="object-element-tbl">
+							<div class="object-element-header">
+								<span class="type">{{ if .Return }}{{ .Return }}{{ else }}nil{{ end }}</span> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
+								-->{{ range $index, $element := .Arguments }}<!--
+								-->{{if $index}}, {{end}}<!--
+								--><span class="type">{{ .Type }}</span> {{ .Name }}<!--
+								-->{{ end }} )
+							</div>
+							<div class="object-element-row">
+								{{ if .Description }}
+									<p>{{ .Description }}</p>
+								{{ end }}
+								{{ range .Samples }}
+									{{ if .Code }}
+										<pre>{{ .Code }}</pre>
 									{{ end }}
-									{{ range .Samples }}
-										{{ if .Code }}
-											<pre>{{ .Code }}</pre>
-										{{ end }}
-									{{ end }}
-								</td>
-							</tr>
-						</table>
+								{{ end }}
+							</div>
+						</div>
 					{{ end }}
 				{{ end }}
 
@@ -145,25 +137,21 @@
 				<h2><a id="properties" href="#properties">Properties</a></h2>
 					{{ range $index, $property := .Properties }}
 						<a id="property-{{ GetAnchorLink .Name }}"></a>
-						<table class="object-element-tbl">
-							<tr>
-								<th>
-									<span class="type">{{ .Type }}</span> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a>
-								</th>
-							</tr>
-							<tr>
-								<td>
-									{{ if .Description }}
-										<p>{{ .Description }}</p>
+						<div class="object-element-tbl">
+							<div class="object-element-header">
+								<span class="type">{{ .Type }}</span> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a>
+							</div>
+							<div class="object-element-row">
+								{{ if .Description }}
+									<p>{{ .Description }}</p>
+								{{ end }}
+								{{ range .Samples }}
+									{{ if .Code }}
+										<pre>{{ .Code }}</pre>
 									{{ end }}
-									{{ range .Samples }}
-										{{ if .Code }}
-											<pre>{{ .Code }}</pre>
-										{{ end }}
-									{{ end }}
-								</td>
-							</tr>
-						</table>
+								{{ end }}
+							</div>
+						</div>
 					{{ end }}
 				{{ end }}
 
