@@ -68,14 +68,15 @@ body {
   background-color: #eee;
 }
 
-p, h1, h2, h3, h4, h5, form, img, table, pre, .object-element-tbl {
+p, h1, h2, h3, h4, h5, form, img, table, pre, .object-element-tbl, .centeredVideo {
   margin-bottom: 10px;
 }
 
 p:last-child, h1:last-child, h2:last-child,
 h3:last-child,h4:last-child, h5:last-child,
 form:last-child, img:last-child, table:last-child,
-pre:last-child, .object-element-tbl:last-child {
+pre:last-child, .object-element-tbl:last-child,
+.centeredVideo:last-child {
   margin-bottom: 0 !important;
 }
 
@@ -345,6 +346,12 @@ pre {
   padding:0;
   float:left;
   width:40%;
+}
+
+.centeredVideo {
+  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .clear {

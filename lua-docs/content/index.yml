@@ -36,4 +36,6 @@ blocks:
 
         The game will restart for all connected players (including yourself), everyone will now jump higher. 🙂
 
-        💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers.
+    - media: "/media/jump-higher.mp4"
+
+    - text: 💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers.

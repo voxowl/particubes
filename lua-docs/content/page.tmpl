@@ -66,7 +66,12 @@
 						{{ else if .Title }}
 							<h2><a id="{{ GetAnchorLink .Title }}" href="#{{ GetAnchorLink .Title }}">{{ .Title }}</a></h2>
 						{{ else if .Media }}
-							<img src="{{ .Media }}"/>
+							<div class="centeredVideo">
+								<video style="width:100%;" autoplay loop>
+								  <source src="{{ .Media }}" type="video/mp4" />
+								Your browser does not support the video tag.
+								</video>
+							</div>
 						{{ else if .Code }}
 							<pre>{{ .Code }}</pre>
 						{{ else if .List }}
