@@ -61,6 +61,7 @@ functions:
                 impact.Block:AddNeighbor(Block(1), impact.FaceTouched)
               end
             end
+          media: "/media/block-add-neighbor.mp4"
 
     - name: "Remove"
       description: "Removes the block."

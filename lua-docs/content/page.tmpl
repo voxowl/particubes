@@ -98,7 +98,20 @@
 									<p>{{ .Description }}</p>
 								{{ end }}
 								{{ range .Samples }}
-									{{ if .Code }}
+									{{ if SampleHasCodeAndMedia . }}
+										<div>
+											<div class="floatLeft60Pct">
+												<pre>{{ .Code }}</pre>
+											</div>
+											<div class="floatLeft40Pct">
+												<video style="width:100%;" autoplay loop>
+												  <source src="{{ .Media }}" type="video/mp4" />
+												Your browser does not support the video tag.
+												</video>
+											</div>
+											<div class="clear"></div>
+										</div>
+									{{ else if .Code }}
 										<pre>{{ .Code }}</pre>
 									{{ end }}
 								{{ end }}
@@ -124,7 +137,20 @@
 									<p>{{ .Description }}</p>
 								{{ end }}
 								{{ range .Samples }}
-									{{ if .Code }}
+									{{ if SampleHasCodeAndMedia . }}
+										<div>
+											<div class="floatLeft60Pct">
+												<pre>{{ .Code }}</pre>
+											</div>
+											<div class="floatLeft40Pct">
+												<video style="width:100%;" autoplay loop>
+												  <source src="{{ .Media }}" type="video/mp4" />
+												Your browser does not support the video tag.
+												</video>
+											</div>
+											<div class="clear"></div>
+										</div>
+									{{ else if .Code }}
 										<pre>{{ .Code }}</pre>
 									{{ end }}
 								{{ end }}
@@ -146,7 +172,20 @@
 									<p>{{ .Description }}</p>
 								{{ end }}
 								{{ range .Samples }}
-									{{ if .Code }}
+									{{ if SampleHasCodeAndMedia . }}
+										<div>
+											<div class="floatLeft60Pct">
+												<pre>{{ .Code }}</pre>
+											</div>
+											<div class="floatLeft40Pct">
+												<video style="width:100%;" autoplay loop>
+												  <source src="{{ .Media }}" type="video/mp4" />
+												Your browser does not support the video tag.
+												</video>
+											</div>
+											<div class="clear"></div>
+										</div>
+									{{ else if .Code }}
 										<pre>{{ .Code }}</pre>
 									{{ end }}
 								{{ end }}

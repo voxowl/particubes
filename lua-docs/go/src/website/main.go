@@ -22,7 +22,7 @@ var (
 	debug                 bool = true
 	pages                 map[string]*Page
 	pageTemplate          *template.Template
-	staticFileDirectories = []string{"js", "style"}
+	staticFileDirectories = []string{"js", "style", "media"}
 )
 
 //
@@ -113,9 +113,10 @@ func parseContent() error {
 	templateFilePath := filepath.Join(contentDirectory, templateFile)
 
 	pageTemplate = template.New("page.tmpl").Funcs(template.FuncMap{
-		"Join":          strings.Join,
-		"GetTitle":      GetTitle,
-		"GetAnchorLink": GetAnchorLink,
+		"Join":                  strings.Join,
+		"GetTitle":              GetTitle,
+		"GetAnchorLink":         GetAnchorLink,
+		"SampleHasCodeAndMedia": SampleHasCodeAndMedia,
 	})
 
 	pageTemplate, err = pageTemplate.ParseFiles(templateFilePath)

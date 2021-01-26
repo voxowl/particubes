@@ -55,9 +55,12 @@ type Value struct {
 }
 
 type Sample struct {
-	Code        string `yaml:"code,omitempty"`
-	Media       string `yaml:"media,omitempty"`
-	Description string `yaml:"description,omitempty"`
+	Code  string `yaml:"code,omitempty"`
+	Media string `yaml:"media,omitempty"`
+}
+
+func SampleHasCodeAndMedia(s *Sample) bool {
+	return s.Code != "" && s.Media != ""
 }
 
 type Property struct {

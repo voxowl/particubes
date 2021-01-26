@@ -91,11 +91,6 @@ h2, h3, h2 a, h3 a {
   font-size: 18px;
 }
 
-.pre-wrapper {
-  display: inline-block;
-  overflow: hidden !important;
-}
-
 pre {
   display: inline-block;
   font-family: "roboto-mono-light", sans-serif;
@@ -336,6 +331,24 @@ form input[type="submit"]:hover {
 
 pre {
   color: #FFFFFF !important;
+}
+
+.floatLeft60Pct {
+  margin:0;
+  padding:0;
+  float:left;
+  width:60%;
+}
+
+.floatLeft40Pct {
+  margin:0;
+  padding:0;
+  float:left;
+  width:40%;
+}
+
+.clear {
+  clear: both;
 }
 
 .hljs-keyword {
