@@ -1,9 +1,9 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Number3"
-description: Number3 refers to a structure containing 3 number fields.
+description: A Number3 contains 3 number values (X, Y & Z). Usually represents a point in 3D space.
 
 constructors: 
-  - description: "Creates a Number3 with values 1, 2 and 3."
+  - description: "Creates a Number3 with values x, y and z."
     arguments:
     - name: "x"
       type: "number"
@@ -13,8 +13,7 @@ constructors:
       type: "number"
     samples:
       - code: |
-          myNumber3 = { X = 1, Y = 2, Z = 3 }
-          myNumber3 = { 1, 2, 3 }
+          local myNumber3 = Number3(1, 2, 3)
 
 properties:
     - name: "X"
@@ -22,13 +21,20 @@ properties:
       description: "X value of the Number3."
       samples:
         - code: |
-            myNumber3.X = 42.0
+            myNumber3.X = 42
+            print(myNumber3.X)
     - name: "Y"
       type: "number"
       description: "Y value of the Number3."
       samples:
-        - code: print(myNumber3.Z)
+        - code: |
+            myNumber3.Y = 42
+            print(myNumber3.Y)
     - name: "Z"
       type: "number"
       description: "Z value of the Number3."
+      samples:
+        - code: |
+            myNumber3.Z = 42
+            print(myNumber3.Z)
 
