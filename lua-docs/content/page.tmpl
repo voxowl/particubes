@@ -84,7 +84,14 @@
 							</tr>
 							<tr>
 								<td>
-									{{ .Description }}
+									{{ if .Description }}
+										<p>{{ .Description }}</p>
+									{{ end }}
+									{{ range .Samples }}
+										{{ if .Code }}
+											<pre>{{ .Code }}</pre>
+										{{ end }}
+									{{ end }}
 								</td>
 							</tr>
 						</table>
@@ -133,7 +140,14 @@
 							</tr>
 							<tr>
 								<td>
-									{{ .Description }}
+									{{ if .Description }}
+										<p>{{ .Description }}</p>
+									{{ end }}
+									{{ range .Samples }}
+										{{ if .Code }}
+											<pre>{{ .Code }}</pre>
+										{{ end }}
+									{{ end }}
 								</td>
 							</tr>
 						</table>
