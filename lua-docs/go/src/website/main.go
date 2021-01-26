@@ -98,6 +98,10 @@ func GetTitle(page *Page) string {
 	return page.GetTitle()
 }
 
+func IsNotCreatableObject(page *Page) bool {
+	return page.IsNotCreatableObject()
+}
+
 // parseContent is only done once at startup in RELEASE mode.
 // Called for each request in DEBUG to consider potential changes.
 func parseContent() error {
@@ -117,6 +121,7 @@ func parseContent() error {
 		"GetTitle":              GetTitle,
 		"GetAnchorLink":         GetAnchorLink,
 		"SampleHasCodeAndMedia": SampleHasCodeAndMedia,
+		"IsNotCreatableObject":  IsNotCreatableObject,
 	})
 
 	pageTemplate, err = pageTemplate.ParseFiles(templateFilePath)

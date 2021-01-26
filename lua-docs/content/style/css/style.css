@@ -354,6 +354,12 @@ pre {
   margin-left: auto;
 }
 
+.notCreatableNotice {
+  background-color: #EED980;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .clear {
   clear: both;
 }

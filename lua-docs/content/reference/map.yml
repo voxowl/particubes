@@ -1,6 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Map"
-description: Map is a global variable that represents the world map. All fields are read only
+description: Map is a global variable that represents the game map.
 
 properties:
     - name: "Depth"

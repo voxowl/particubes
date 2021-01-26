@@ -59,6 +59,12 @@
 
 				<h1>{{ GetTitle . }}</h1>
 
+				{{ if IsNotCreatableObject . }}
+					<div class="notCreatableNotice">
+						{{ .Type }} is <b>not creatable</b>, there's only one instance of it. It can only be accessed through its globally exposed variable.
+					</div>
+				{{ end }}
+
 				{{ if .Blocks }}
 					{{ range .Blocks }}
 						{{ if .Text }}

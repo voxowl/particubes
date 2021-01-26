@@ -90,6 +90,12 @@ func (p *Page) GetTitle() string {
 	return p.Title
 }
 
+// IsNotCreatableObject returns true if the page describes an object
+// that can't be created, has to be accessed through its global variable.
+func (p *Page) IsNotCreatableObject() bool {
+	return p.Type != "" && (p.Constructors == nil || len(p.Constructors) == 0)
+}
+
 func (p *Page) Sanitize() {
 	if p.Blocks != nil {
 		for _, b := range p.Blocks {
