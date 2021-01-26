@@ -5,14 +5,10 @@ blocks:
     - text: "Here's a list of all top level objects in Particubes scripting environment:"
     - list:
         - "<a href=\"/reference/block\">Block</a>"
-        - "<a href=\"/reference/button\">Button</a>"
         - "<a href=\"/reference/camera\">Camera</a>"
         - "<a href=\"/reference/clouds\">Clouds</a>"
-        - "<a href=\"/reference/color\">Color</a>"
         - "<a href=\"/reference/impact\">Impact</a>"
-        - "<a href=\"/reference/input\">Input</a>"
         - "<a href=\"/reference/label\">Label</a>"
-        - "<a href=\"/reference/client\">Client</a>"
         - "<a href=\"/reference/fog\">Fog</a>"
         - "<a href=\"/reference/map\">Map</a>"
         - "<a href=\"/reference/number3\">Number3</a>"
@@ -21,7 +17,4 @@ blocks:
         - "<a href=\"/reference/players\">Players</a>"
         - "<a href=\"/reference/resources\">Resources</a>"
         - "<a href=\"/reference/resources\">R</a>"
-        - "<a href=\"/reference/server\">Server</a>"
-        - "<a href=\"/reference/shape\">Shape</a>"
-        - "<a href=\"/reference/time\">Time</a>"
-        - "<a href=\"/reference/ui\">UI</a>"
+        
