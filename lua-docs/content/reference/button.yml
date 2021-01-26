@@ -66,7 +66,7 @@ properties:
             local btn = Button()
             btn.Text = "test button"
     - name: "TextColor"
-      type: "string"
+      type: "Color"
       description: "Button's text color."
       samples:
         - code: |
