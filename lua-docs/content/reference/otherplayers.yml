@@ -1,0 +1,6 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "OtherPlayers"
+description: "OtherPlayers is an array of Players that contains all players except the local one.
+    
+    OtherPlayers is not available to the Server, because it wouldn't make sense! 🙂"
+

@@ -1,0 +1,23 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Import"
+description: `Import` is a top level function, allowing you to declare what are the resources needed for the Game.
+
+constructors: 
+  - description: "You simply need to call the `Import` function, passing the resources' names as parameters:"
+    arguments:
+    - name: "items"
+      type: "list of strings"
+    samples:
+      - code: Import("sword", "pickaxe", "hat")
+  - description: "Optionally, you can define the `Import` function yourself and customize it for your needs."
+    arguments:
+    - name: "loadingFunction"
+      type: "function"
+    samples:
+      - code: |
+          Import = function() 
+          	R.Load("sword")
+          	R.Load("pickaxe")
+          	R.Load("hat")
+          end
+
