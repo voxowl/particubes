@@ -1,0 +1,54 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Camera"
+description: Controls camera movement and position.
+
+properties:
+    - name: "Position"
+      type: "Number3"
+      description: "Position of Camera."
+    - name: "Rotation"
+      type: "Number3"
+      description: "Angle of Camera."
+    - name: "Target"
+      type: "Number3 or Block"
+      description: "The object Camera is looking at."
+    - name: "DistanceFromTarget"
+      type: "number"
+      description: "Numbers of blocks between Camera and its target."
+    - name: "Forward"
+      type: "Number3"
+      description: "Forward vector of Camera, read-only."
+    - name: "Right"
+      type: "Number3"
+      description: "Right vector of Camera, read-only."
+    - name: "Up"
+      type: "Number3"
+      description: "Up vector of Camera, read-only."
+
+functions:
+    - name: "CastRay"
+      description: "Casts a ray and return the hit object (Block, Item or Player)."
+
+    - name: "SetModeFirstPerson"
+      description: "Sets Camera in FPS mode."
+
+    - name: "SetModeThirdPerson"
+      description: "Sets Camera in TPS mode."
+
+    - name: "SetModeSatellite"
+      description: "Sets Camera in free mode."
+
+    - name: "FitToScreen"
+      description: "Fits the target to the screen."
+      arguments:
+        - name: "target"
+          type: "Shape"
+        - name: "screenRatio"
+          type: "number"
+        - name: "spherize"
+          type: "boolean"
+      samples:
+        - code: |
+            local item = Shape(R.usename.myShape)
+            Camera.FitToScreen(item, 0.6, false)
+
