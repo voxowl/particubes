@@ -1,0 +1,11 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Clouds"
+description: Adjusts the parameters of the clouds.
+
+properties:
+    - name: "On"
+      type: "boolean"
+      description: "Set to false to remove the coulds."
+    - name: "Altitude"
+      type: "number"
+      description: "Altitude of the clouds in blocks"
