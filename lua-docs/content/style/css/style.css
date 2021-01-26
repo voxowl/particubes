@@ -1,9 +1,41 @@
 
-@font-face {
-    font-family: 'Roboto';
+/*@font-face {
+    font-family: 'roboto-light';
     src: url('/style/fonts/Roboto-Light.woff2') format('woff2'),
         url('/style/fonts/Roboto-Light.woff') format('woff');
     font-weight: 300;
+    font-style: normal;
+}*/
+
+@font-face {
+    font-family: 'roboto';
+    src: url('/style/fonts/roboto-400.woff2') format('woff2'),
+        url('/style/fonts/roboto-400.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto-mono-light';
+    src: url('/style/fonts/roboto-mono-300.woff2') format('woff2'),
+        url('/style/fonts/roboto-mono-300.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'open-sans-light';
+    src: url('/style/fonts/open-sans-300.woff2') format('woff2'),
+        url('/style/fonts/open-sans-300.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/*@font-face {
+    font-family: 'open-sans';
+    src: url('/style/fonts/open-sans-400.woff2') format('woff2'),
+        url('/style/fonts/open-sans-400.woff') format('woff');
+    font-weight: 400;
     font-style: normal;
 }
 
@@ -13,7 +45,7 @@
         url('/style/fonts/Raleway-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+}*/
 
 * {
   font-size: 15px;
@@ -29,30 +61,38 @@
 
 html {
   line-height: 22px;
-  font-family: "Raleway", cursive;
+  font-family: "open-sans-light", sans-serif;
 }
 
 body {
   background-color: #eee;
 }
 
-p, h1, h2, h3, h4, h5, form, img, table {
+p, h1, h2, h3, h4, h5, form, img, table, pre {
   margin-bottom: 10px;
 }
 
 p:last-child, h1:last-child, h2:last-child,
 h3:last-child,h4:last-child, h5:last-child,
-form:last-child, img:last-child, table:last-child {
+form:last-child, img:last-child, table:last-child,
+pre:last-child {
   margin-bottom: 0 !important;
 }
 
 h1, h1 a {
-  font-family: "Roboto", sans-serif;
+  font-family: "roboto", sans-serif;
   font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-h1 a {
-  font-size: 20px;
+h2, h3, h2 a, h3 a {
+  font-family: "roboto", sans-serif;
+  font-size: 18px;
+}
+
+pre {
+  font-family: "roboto-mono-light", sans-serif;
 }
 
 h1, h2, h3 {
@@ -158,30 +198,40 @@ img {
 }
 
 #container #header {
+  padding: 20px;
   border-bottom: thin dashed #aaa;
+  height: 50px;
+}
+
+#container #header table,
+#container #header tr,
+#container #header td {
+  border: none;
+  padding: 0;
+  margin: 0;
+  vertical-align: center;
+}
+
+#container #header td {
+  padding-left: 20px;
+}
+
+#container #header td.icon {
+  width: 50px;
+  padding: 0;
+}
+
+#container #header img {
+  /*float: left;*/
+  height: 50px;
 }
 
 #container #header h1 {
-  line-height: 80px;
-  padding-left: 100px;
-  background-image: url("/style/img/icon.png");
-  background-repeat: no-repeat;
-  background-position: left top;
-  padding-bottom: 20px;
-  background-size: 80px 80px;
   margin: 0;
+  padding: 0;
 }
 
 /* for high resolution display */
-
-@media only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
-  #container #header h1 {
-    background-image: url("/style/img/icon@2x.png");
-  }  
-}
 
 #container #menu {
   position: relative;
@@ -295,4 +345,24 @@ form input[type="submit"]:hover {
     background-color: #2874e0;
     cursor: pointer;
     color: #fff;
+}
+
+pre {
+  color: #FFFFFF !important;
+}
+
+.hljs-keyword {
+  color: #3992D7 !important;
+}
+
+.hljs-comment {
+ color: rgba(255, 255, 255, 0.4) !important; 
+}
+
+.hljs-number {
+  color: rgb(255, 126 , 57) !important;
+}
+
+.hljs-literal {
+  color: rgb(215, 57 , 148) !important;
 }
