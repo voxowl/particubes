@@ -3,18 +3,22 @@ type: "Impact"
 description: An `Impact` object can be returned when casting a ray. (see Player.CastRay and PointerEvent.CastRay.) All properties are read-only.
 
 constructors: 
-  - description: "Created using CastRay functions. local impact = Player.CastRay"
+  - description: "Created using CastRay functions."
 
 properties:
     - name: "Block"
       type: "Block"
       description: "Block touched by the ray. Not `nil` if the Impact represents a Block."
+      samples:
+        - code: |
+            local impact = Local.Player:CastRay()
+            print(impact.Block.Id)	-- prints hit block's id
 
     - name: "Distance"
-      type: "Number"
+      type: "number"
       description: "Distance to impact when casting a ray. (see Player.CastRay)"
     - name: "FaceTouched"
-      type: "Number"
+      type: "number"
       description: "Not `nil` if the Impact represents a Block.
         Index of hit block's face."
     - name: "Player"
