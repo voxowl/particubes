@@ -11,7 +11,7 @@ constructors:
       - code: local myShape = Shape(R.username.myShape)
 
 properties:
-    - name: "Pysics"
+    - name: "Physics"
       type: "boolean"
       description: "Tells if the physics (like gravity) should be applied on the object."
     - name: "Anchor"
