@@ -23,24 +23,24 @@ RUN apk update && apk add --no-cache \
 COPY --from=build-env /go /go
 COPY --from=build-env /www /www
 
+EXPOSE 80
 WORKDIR /go/src/website
 
 RUN go build
 
-EXPOSE 80
-ENTRYPOINT ["ash"]
+ENTRYPOINT ["./website"]
 
 #################################
 
 FROM alpine:3.12 AS website
 
 COPY --from=builder /go/src/website/website /website
-COPY --from=build-env /www /www
+COPY --from=builder /www /www
 
 EXPOSE 80
 WORKDIR /
 
-ENV GIN_MODE release
+ENV RELEASE=1
 
 ENTRYPOINT ["/website"]
 

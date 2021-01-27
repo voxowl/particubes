@@ -10,22 +10,25 @@ properties:
         - code: Fog.On = not Fog.On
     - name: "Distance"
       type: "number"
-      description: "Beggining distance in blocks of Fog. Keeps the gap between Near and Far"
+      description: "Sets Fog.Near while maintaining offset between Fog.Near & Fog.Far"
       samples:
         - code: Fog.Distance = 100
-    - name: "Distance"
-      type: "table of numbers"
-      description: "Table which contains the Near and Far boundaries"
-      samples:
-        - code: Fog.Distance = { 100, 200  } -- Near = 100, Far = 200
     - name: "Near"
       type: "number"
-      description: "Distance in blocks from which Fog is applied."
+      description: "Distance at which Fog starts. (in blocks)"
+      samples:
+        - code: Fog.Near = 50
     - name: "Far"
       type: "number"
-      description: "Distance in blocks at which Fog ends."
+      description: "Distance at which Fog ends. (in blocks)"
+      samples:
+        - code: Fog.Far = 100
     - name: "LightAbsorption"
       type: "number"
-      description: "Intensity of Fog."
+      description: |
+          Fog absorption factor regarding light emissive blocks.
+
+          0.0 ➡️ the color can 100% be seen through the fog.
+          1.0 ➡️ the color is totally absorbed, like any other block.
       samples:
         - code: Fog.LightAbsorption = 0.1
