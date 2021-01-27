@@ -1,0 +1,77 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Pointer"
+description: |
+    Pointer allows to catch user pointer events. Mouse events or touch events depending on the device.
+
+properties:
+
+    - name: "DidShow"
+      type: function
+      description: |
+          Triggered when entering "pointer mode".
+          Technically, no visual pointer does show on a touch screen, but it means the UI is now receiving pointer inputs. 
+          When using a mouse, that function is triggered when the cursor becomes visible.
+      samples:
+        - code: |
+            Pointer.DidShow = function()
+
+            end
+
+    - name: "DidHide"
+      type: function
+      description: |
+          Triggered when leaving "pointer mode".
+          Technically, no visual pointer disappears on a touch screen, but it means the UI now stops receiving pointer inputs.
+          When using a mouse, that function is triggered when the cursor disappears.
+      samples:
+        - code: |
+            Pointer.DidHide = function()
+
+            end
+
+    - name: "Down"
+      type: function
+      description: "Triggered when pressing the pointer. (left click or one finger touch down)"
+      samples:
+        - code: |
+            Pointer.Down = function( pointerEvent )
+              
+            end
+
+    - name: "Drag"
+      type: function
+      description: "Triggered when the pointer is dragged (moved while down)."
+      samples:
+        - code: |
+            Pointer.Drag = function( pointerEvent )
+
+            end
+
+    - name: "Drag2"
+      type: function
+      description: "Triggered when the pointer is moved with right mouse button or 2 touch fingers down."
+      samples:
+        - code: |
+            Pointer.Drag2 = function( pointerEvent )
+
+            end
+
+    - name: "Up"
+      type: function
+      description: "Triggered when the pointer is released."
+      samples:
+        - code: |
+            Pointer.Up = function( pointerEvent )
+
+            end
+
+    - name: "Zoom"
+      type: function
+      description: "Triggered when scrolling with mouse or pinching in/out with 2 fingers."
+      samples:
+        - code: |
+            Pointer.Zoom = function( pointerEvent )
+
+            end
+
+    

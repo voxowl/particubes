@@ -1,0 +1,92 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Block"
+description: A Block usually represents one block in the map. But could also represent a block for any shape in the game.
+
+constructors: 
+  - description: "Creates a block at {0,0,0} with given color index."
+    arguments:
+    - name: "colorIndex"
+      type: "number"
+  - description: "Creates a block at {x,y,z} with given color index."
+    arguments:
+    - name: "colorIndex"
+      type: "number"
+    - name: "x"
+      type: "number"
+    - name: "y"
+      type: "number"
+    - name: "z"
+      type: "number"
+        
+  - description: "Creates a block at position with given color index."
+    arguments: 
+    - name: "colorIndex"
+      type: "number"
+    - name: "position"
+      type: "Number3"
+
+properties:
+    - name: "ColorIndex"
+      type: "number"
+      description: "Block's color index."
+    - name: "Position"
+      type: "Number3"
+      description: "Block's position in parent Shape"
+    - name: "X"
+      type: "number"
+      description: "Shortcut to Position.X"
+    - name: "Y"
+      type: "number"
+      description: "Shortcut to Position.Y"
+    - name: "Z"
+      type: "number"
+      description: "Shortcut to Position.Z"
+
+functions:
+    - name: "AddNeighbor"
+      description: "Adds a block, adjacent to the face passed as parameter."
+      arguments:
+        - name: "block"
+          type: "Block"
+        - name: "face"
+          type: "BlockFace"
+      samples:
+        - code: |
+            -- add block when Action2 is triggered
+            Client.Action2 = function()
+              -- cast a ray, see if it touches a block
+              local impact = Player:CastRay()
+              if impact.Block ~= nil then
+                -- add block, adjacent to the face that's been touched
+                impact.Block:AddNeighbor(Block(1), impact.FaceTouched)
+              end
+            end
+          media: "/media/block-add-neighbor.mp4"
+
+    - name: "Remove"
+      description: "Removes the block."
+      samples:
+        - code: |
+            -- remove block when Action2 is triggered
+            Client.Action2 = function()
+              -- cast a ray, see if it touches a block
+              local impact = Player:CastRay()
+              -- won't do anything if impact.Block is nil
+              impact.Block:Remove()
+            end
+
+    - name: "Replace"
+      description: "Replaces the block with the one passed as parameter. The position remains the same, ColorIndex is the only property being set."
+      arguments:
+        - name: "block"
+          type: "Block"
+      samples:
+        - code: |
+            -- replace block when Action2 is triggered
+            Client.Action2 = function()
+              -- cast a ray, see if it touches a block
+              local impact = Player:CastRay()
+              -- won't do anything if impact.Block is nil
+              impact.Block:Replace(Block(1)) -- make it a block with colorIndex == 1
+            end
+

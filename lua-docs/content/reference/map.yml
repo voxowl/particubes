@@ -1,0 +1,73 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Map"
+description: Map is a global variable that represents the game map.
+
+properties:
+    - name: "Blocks"
+      type: "Blocks"
+      description: "Returns map blocks."
+
+    - name: "BlockProperties"
+      type: "BlockProperties"
+      description: "Returns map block properties."
+
+    - name: "Depth"
+      type: "number"
+      description: "Returns the map's depth, measured in cubes."
+      samples:
+        - code: local depth = Map.Depth
+
+    - name: "Height"
+      type: "number"
+      description: "Returns the map's height, measured in cubes."
+      samples:
+        - code: local height = Map.Height
+
+    - name: "Scale"
+      type: "number"
+      description: "Returns the map's scale factor."
+
+    - name: "Width"
+      type: "number"
+      description: "Returns the map's width, measured in cubes."
+      samples:
+        - code: local width = Map.Width
+
+functions:
+
+    - name: "AddChild"
+      description: |
+          Adds a shape to the map.
+      arguments:
+        - name: shape
+          type: Shape
+      samples:
+        - code: |
+            local shape = Shape(R.user.shape_name)
+            Map.AddChild(shape)
+
+    - name: "RemoveChild"
+      description: |
+          Removes a shape from the map.
+      arguments:
+        - name: shape
+          type: Shape
+      samples:
+        - code: |
+            Map.RemoveChild(shape)
+
+    - name: "Set"
+      description: |
+          Function to define the world map. The map must be imported before the Set function.
+          
+          ⚠️ Currently, the map can only be set once, before the game starts. But it should be possible to load more than one map and set them dynamically in the future.
+      arguments:
+        - name: map
+          type: Item
+      samples:
+        - code: |
+            Import (
+              "myUsername.myMap"
+            )
+            Map.Set(R.myUsername.myMap)
+

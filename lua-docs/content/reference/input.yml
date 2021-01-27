@@ -1,0 +1,11 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Input"
+description: |
+    Input gives control over user inputs.
+
+properties:
+    - name: "Pointer"
+      type: "Pointer"
+      description: "See Pointer."
+
+    

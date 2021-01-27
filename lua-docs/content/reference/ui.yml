@@ -1,0 +1,32 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "UI"
+description: |
+    UI contains user interface accessors.
+    UI is a shortcut to Client.UI
+
+properties:
+    - name: "Anchor"
+      type: "class"
+      description: "See Anchor."
+
+    - name: "Button"
+      type: "class"
+      description: "See Button."
+
+    - name: "Crosshair"
+      type: "boolean"
+      description: "Indicates if the crosshair should be displayed."
+
+    - name: "Label"
+      type: "class"
+      description: "See Label."
+
+    - name: "Node"
+      type: "class"
+      description: "See Node."
+
+    - name: "RootNode"
+      type: "Node"
+      description: "Top level user interface Node."
+
+    

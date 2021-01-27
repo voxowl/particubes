@@ -1,9 +1,19 @@
 # README
 
-### Development
+## Run the docs on your machine
 
-`$ docker-compose up -d`
+### Install Docker 🐳
 
-### Production
+Docker is required for following commands to work. You can get it from [here](https://docs.docker.com/get-docker/).
 
-`$ docker-compose up`
+### Run the docs (while editing content):
+
+```shell
+./run.sh
+```
+
+### If you want to work on Go code:
+
+```shell
+./dev.sh
+```

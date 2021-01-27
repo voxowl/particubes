@@ -1,0 +1,31 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Fog"
+description: Fog gives control over fog settings.
+
+properties:
+    - name: "On"
+      type: "boolean"
+      description: "Toggles Fog."
+      samples:
+        - code: Fog.On = not Fog.On
+    - name: "Distance"
+      type: "number"
+      description: "Beggining distance in blocks of Fog. Keeps the gap between Near and Far"
+      samples:
+        - code: Fog.Distance = 100
+    - name: "Distance"
+      type: "table of numbers"
+      description: "Table which contains the Near and Far boundaries"
+      samples:
+        - code: Fog.Distance = { 100, 200  } -- Near = 100, Far = 200
+    - name: "Near"
+      type: "number"
+      description: "Distance in blocks from which Fog is applied."
+    - name: "Far"
+      type: "number"
+      description: "Distance in blocks at which Fog ends."
+    - name: "LightAbsorption"
+      type: "number"
+      description: "Intensity of Fog."
+      samples:
+        - code: Fog.LightAbsorption = 0.1

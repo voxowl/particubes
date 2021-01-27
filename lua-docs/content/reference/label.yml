@@ -1,0 +1,32 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Label"
+description: |
+    Allows adding text on the interface.
+
+    Label is a shortcut to Client.UI.Label.
+
+constructors: 
+  - description: "Creates a Label without any text."
+    samples:
+      - code: local myLabel = Label()
+  - description: "Creates a Label with given text."
+    arguments:
+    - name: text
+      type: string
+    samples:
+      - code: local myLabel = Label("❤❤❤")
+
+properties:
+    - name: "Text"
+      type: "string"
+      description: "Text that's being displayed by the Label."
+      samples:
+        - code: |
+            -- update displayed text
+            myLabel.Text = "❤❤"
+
+functions:
+    - name: "Remove"
+      description: "Removes the Label."
+      samples:
+       - code: myLabel:Remove()

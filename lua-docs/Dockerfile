@@ -1,37 +1,46 @@
-# particubes.com
+FROM golang:1.15.3-alpine3.12 AS build-env
 
-FROM golang:1.12.6-alpine3.10
-
-# -----------------------
-# INSTALL GIT (for `go get`)
-# -----------------------
-
-# RUN apk update
-# RUN apk add git
-
-# -----------------------
-# INSTALL WEB SERVER
-# -----------------------
+RUN apk update && apk add --no-cache \ 
+	git \
+	&& rm -rf /var/cache/apk/*
 
 COPY go /go
-WORKDIR /go/src/website
-RUN go install
-
-# -----------------------
-# COPY CONTENT
-# -----------------------
-
 COPY content /www
 
-# ---------------------
-# EXPOSE ports
-# ---------------------
+WORKDIR /go/src/website
 
 EXPOSE 80
+ENTRYPOINT ["ash"]
 
-# -----------------------
-# START WEB SERVER
-# -----------------------
+#################################
 
-CMD ["website"]
+FROM golang:1.15.3-alpine3.12 AS builder
+
+RUN apk update && apk add --no-cache \ 
+	git \
+	&& rm -rf /var/cache/apk/*
+
+COPY --from=build-env /go /go
+COPY --from=build-env /www /www
+
+WORKDIR /go/src/website
+
+RUN go build
+
+EXPOSE 80
+ENTRYPOINT ["ash"]
+
+#################################
+
+FROM alpine:3.12 AS website
+
+COPY --from=builder /go/src/website/website /website
+COPY --from=build-env /www /www
+
+EXPOSE 80
+WORKDIR /
+
+ENV GIN_MODE release
+
+ENTRYPOINT ["/website"]
 
