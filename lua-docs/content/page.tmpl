@@ -101,7 +101,11 @@
 								<a href="#constructor-{{ $i }}"><span class="name">{{ $type }}</span></a> ( <!--
 								-->{{ range $index, $element := .Arguments }}<!--
 								-->{{if $index}}, {{end}}<!--
-								--><span class="type">{{ .Type }}</span> {{ .Name }}<!--
+								-->{{ $route := GetTypeRoute .Type }}<!--
+								-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+								-->{{ .Type }}<!--
+								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+								--> {{ .Name }}<!--
 								-->{{ end }} )
 							</div>
 							<div class="object-element-row">
@@ -137,10 +141,24 @@
 						<a id="functions-{{ GetAnchorLink .Name }}"></a>
 						<div class="object-element-tbl">
 							<div class="object-element-header">
-								<span class="type">{{ if .Return }}{{ .Return }}{{ else }}nil{{ end }}</span> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
+								{{ if .Return }}<!--
+									-->{{ range $index, $value := .Return }}<!--
+										-->{{ $route := GetTypeRoute .Type }}<!--
+										-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+										-->{{ .Type }}<!--
+										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+									-->{{ end }}<!--
+								-->{{ else }}<!--
+									--><span class="type">nil</span><!--
+								-->{{ end }}<!--
+								--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
 								-->{{ range $index, $element := .Arguments }}<!--
 								-->{{if $index}}, {{end}}<!--
-								--><span class="type">{{ .Type }}</span> {{ .Name }}<!--
+										-->{{ $route := GetTypeRoute .Type }}<!--
+										-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+										-->{{ .Type }}<!--
+										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+								--> {{ .Name }}<!--
 								-->{{ end }} )
 							</div>
 							<div class="object-element-row">
@@ -176,7 +194,11 @@
 						<a id="property-{{ GetAnchorLink .Name }}"></a>
 						<div class="object-element-tbl">
 							<div class="object-element-header">
-								<span class="type">{{ .Type }}</span> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a>
+								{{ $route := GetTypeRoute .Type }}<!--
+								-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+								-->{{ .Type }}<!--
+								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+								--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a>
 							</div>
 							<div class="object-element-row">
 								{{ if .Description }}

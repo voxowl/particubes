@@ -23,6 +23,8 @@ var (
 	pages                 map[string]*Page
 	pageTemplate          *template.Template
 	staticFileDirectories = []string{"js", "style", "media"}
+	// key: the type, value: the page where it is described
+	typeRoutes map[string]string
 )
 
 //
@@ -102,6 +104,15 @@ func IsNotCreatableObject(page *Page) bool {
 	return page.IsNotCreatableObject()
 }
 
+// GetTypeLink returns an non empty string if the type
+// is defined at some route
+func GetTypeRoute(typeName string) string {
+	if route, ok := typeRoutes[typeName]; ok {
+		return route
+	}
+	return ""
+}
+
 // parseContent is only done once at startup in RELEASE mode.
 // Called for each request in DEBUG to consider potential changes.
 func parseContent() error {
@@ -109,6 +120,7 @@ func parseContent() error {
 	var err error
 
 	pages = make(map[string]*Page)
+	typeRoutes = make(map[string]string)
 
 	if !fsutil.DirectoryExists(contentDirectory) {
 		return errors.New("content directory is missing")
@@ -122,6 +134,7 @@ func parseContent() error {
 		"GetAnchorLink":         GetAnchorLink,
 		"SampleHasCodeAndMedia": SampleHasCodeAndMedia,
 		"IsNotCreatableObject":  IsNotCreatableObject,
+		"GetTypeRoute":          GetTypeRoute,
 	})
 
 	pageTemplate, err = pageTemplate.ParseFiles(templateFilePath)
@@ -211,12 +224,22 @@ func parseContent() error {
 		return err
 	}
 
+	for route, page := range pages {
+		if page.Type != "" {
+			typeRoutes[page.Type] = route
+		}
+	}
+
 	fmt.Println("content parsed!")
 	// fmt.Printf("%4v\n", pages)
-	fmt.Println("PAGES:")
-	for k, _ := range pages {
-		fmt.Println(k)
-	}
+	// fmt.Println("PAGES:")
+	// for k, _ := range pages {
+	// 	fmt.Println(k)
+	// }
+	// fmt.Println("TYPES:")
+	// for t, r := range typeRoutes {
+	// 	fmt.Println(t, "->", r)
+	// }
 
 	return nil
 }

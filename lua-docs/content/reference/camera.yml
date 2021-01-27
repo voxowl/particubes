@@ -27,6 +27,8 @@ properties:
 
 functions:
     - name: "CastRay"
+      return: 
+        - type: "Impact" 
       description: "Casts a ray and returns the hit object (Block, Item or Player)."
       samples:
         - code: |
