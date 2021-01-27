@@ -1,6 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Shape"
-description: Manages the Shapes.
+description: A shape is a set of cubes. It can contain child shapes. 
 
 constructors: 
   - description: "Creates a Shape with imported Resource."
@@ -13,7 +13,7 @@ constructors:
 properties:
     - name: "Physics"
       type: "boolean"
-      description: "Tells if the physics (like gravity) should be applied on the object."
+      description: "Turn on/off physic simulation for the shape."
     - name: "Anchor"
       type: "Number3"
       description: "Reference point in the Shape coordinate system."

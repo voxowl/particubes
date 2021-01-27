@@ -5,6 +5,8 @@ blocks:
     - text: "Here's a list of all top level objects in Particubes scripting environment:"
     - list:
         - "<a href=\"/reference/block\">Block</a>"
+        - "<a href=\"/reference/blocks\">Blocks</a>"
+        - "<a href=\"/reference/blockproperties\">BlockProperties</a>"
         - "<a href=\"/reference/button\">Button</a>"
         - "<a href=\"/reference/camera\">Camera</a>"
         - "<a href=\"/reference/client\">Client</a>"
@@ -25,6 +27,7 @@ blocks:
         - "<a href=\"/reference/server\">Server</a>"
         - "<a href=\"/reference/shape\">Shape</a>"
         - "<a href=\"/reference/time\">Time</a>"
+        - "<a href=\"/reference/timecycle\">TimeCycle</a>"
         - "<a href=\"/reference/ui\">UI</a>"
 
     - text: "Lua basic types:"

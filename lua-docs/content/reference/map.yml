@@ -3,46 +3,58 @@ type: "Map"
 description: Map is a global variable that represents the game map.
 
 properties:
+    - name: "Blocks"
+      type: "Blocks"
+      description: "Returns map blocks."
+
+    - name: "BlockProperties"
+      type: "BlockProperties"
+      description: "Returns map block properties."
+
     - name: "Depth"
       type: "number"
       description: "Returns the map's depth, measured in cubes."
       samples:
-        - code: local myMapDepth = Map.Depth
+        - code: local depth = Map.Depth
+
     - name: "Height"
       type: "number"
       description: "Returns the map's height, measured in cubes."
-    - name: "Width"
-      type: "number"
-      description: "Returns the map's width, measured in cubes."
+      samples:
+        - code: local height = Map.Height
+
     - name: "Scale"
       type: "number"
       description: "Returns the map's scale factor."
 
+    - name: "Width"
+      type: "number"
+      description: "Returns the map's width, measured in cubes."
+      samples:
+        - code: local width = Map.Width
+
 functions:
-    - name: "AddBlock"
-      description: "Adds a block to the Map."
+
+    - name: "AddChild"
+      description: |
+          Adds a shape to the map.
       arguments:
-        - name: "block"
-          type: "Block"
+        - name: shape
+          type: Shape
       samples:
         - code: |
-            local newBlock = Block(id, x, y, z)
-            Map.AddBlock(newBlock)
-            
-    - name: "AddBlock"
-      description: "Adds a block to the Map."
+            local shape = Shape(R.user.shape_name)
+            Map.AddChild(shape)
+
+    - name: "RemoveChild"
+      description: |
+          Removes a shape from the map.
       arguments:
-        - name: "id"
-          type: "number"
-        - name: "x"
-          type: "number"
-        - name: "y"
-          type: "number"
-        - name: "z"
-          type: "number"
+        - name: shape
+          type: Shape
       samples:
         - code: |
-            Map.AddBlock(id, x, y, z)
+            Map.RemoveChild(shape)
 
     - name: "Set"
       description: |

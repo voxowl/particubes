@@ -1,15 +1,13 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Time"
-description: Allows changing the time of the day.
+description: |
+    Time gives control over the time of day.
+
+    Time is a shortcut to Shared.Time.
 
 constructors: 
-  - description: "Creates a new Time with a string."
-    arguments:
-    - name: "time"
-      type: "string"
-    samples:
-      - code: local myTime = Time("12:30")
-  - description: "Creates a new Time with numbers."
+
+  - description: "Creates a Time object with numbers."
     arguments:
     - name: "hours"
       type: "number"
@@ -18,13 +16,35 @@ constructors:
     samples:
       - code: local myTime = Time(12, 30)
 
+static-properties:
+
+    - name: "Cycle"
+      type: "TimeCycle"
+      description: "See TimeCycle."
+
+    - name: "Current"
+      type: "Time"
+      description: "Current time."
+
+    - name: "Dawn"
+      type: "Time"
+      description: "Dawn time."
+
+    - name: "Dusk"
+      type: "Time"
+      description: "Dusk time."
+
+    - name: "Midnight"
+      type: "Time"
+      description: "Midnight time."
+
+    - name: "Noon"
+      type: "Time"
+      description: "Noon time."
+
+
 properties:
-    - name: "On"
-      type: "boolean"
-      description: "If false, the in-game time will not change."
-    - name: "Duration"
-      type: "number"
-      description: "Number of minutes for a complete in-game day."
+    
     - name: "Hours"
       type: "number"
       description: "Hours of the Time."
@@ -47,11 +67,9 @@ properties:
     - name: "S"
       type: "number"
       description: "Seconds of the Time."
-    - name: "Cycle"
-      type: "Cycle"
-      description: "Describes a Cycle of the day."
 
 functions:
+
     - name: "Set"
       description: "Changes the in-game Time."
       arguments:

@@ -22,6 +22,9 @@ type Page struct {
 	// can be left empty if not an object type page
 	Type string `yaml:"type,omitempty"`
 
+	//
+	BasicType bool `yaml:"basic-type,omitempty"`
+
 	// Blocks are a list of displayable content blocks (text, code sample, image)
 	// They are displayed before other attributes (constructors, properties, functions)
 	Blocks []*ContentBlock `yaml:"blocks,omitempty"`
@@ -93,7 +96,7 @@ func (p *Page) GetTitle() string {
 // IsNotCreatableObject returns true if the page describes an object
 // that can't be created, has to be accessed through its global variable.
 func (p *Page) IsNotCreatableObject() bool {
-	return p.Type != "" && (p.Constructors == nil || len(p.Constructors) == 0)
+	return p.BasicType == false && p.Type != "" && (p.Constructors == nil || len(p.Constructors) == 0)
 }
 
 func (p *Page) Sanitize() {
