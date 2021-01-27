@@ -6,15 +6,15 @@ description: |
     Label is a shortcut to Client.UI.Label.
 
 constructors: 
-  - description: "Creates a Label without any text"
+  - description: "Creates a Label without any text."
     samples:
-      - code: Client.myLabel = Label()
-  - description: "Creates a Label with given text"
+      - code: local myLabel = Label()
+  - description: "Creates a Label with given text."
     arguments:
     - name: text
       type: string
     samples:
-      - code: Client.myLabel = Label("❤❤❤")
+      - code: local myLabel = Label("❤❤❤")
 
 properties:
     - name: "Text"
@@ -23,10 +23,10 @@ properties:
       samples:
         - code: |
             -- update displayed text
-            Client.myLabel.Text = "❤❤"
+            myLabel.Text = "❤❤"
 
 functions:
     - name: "Remove"
       description: "Removes the Label."
       samples:
-       - code: Client.myLabel:Remove()
+       - code: myLabel:Remove()

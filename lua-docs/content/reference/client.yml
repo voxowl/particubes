@@ -1,0 +1,139 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Client"
+description: |
+    Client is available on each client environment (each user device). It contains everything needed for the local simulation.
+
+    Client is nil in the server execution environment.
+
+properties:
+    - name: "Action1"
+      type: "function"
+      description: |
+          Triggered when pressing action 1 button. (space bar by default with a keyboard)
+      samples:
+        - code: |
+            Client.Action1 = function()
+              print("action1")
+            end
+
+    - name: "Action1Release"
+      type: "function"
+      description: |
+          Triggered when releasing action 1 button. (space bar by default with a keyboard)
+      samples:
+        - code: |
+            Client.Action1Release = function()
+              print("action1 released")
+            end
+
+    - name: "Action2"
+      type: "function"
+      description: |
+          Triggered when pressing action 2 button. (left click)
+      samples:
+        - code: |
+            Client.Action2 = function()
+              print("action2")
+            end
+            
+    - name: "Action2Release"
+      type: "function"
+      description: |
+          Triggered when releasing action 2 button. (left click)
+      samples:
+        - code: |
+            Client.Action2Release = function()
+              print("action2 released")
+            end
+
+    - name: "Action3"
+      type: "function"
+      description: |
+          Triggered when pressing action 3 button. (right click)
+      samples:
+        - code: |
+            Client.Action3 = function()
+              print("action3")
+            end
+            
+    - name: "Action3Release"
+      type: "function"
+      description: |
+          Triggered when releasing action 3 button. (left click)
+      samples:
+        - code: |
+            Client.Action3Release = function()
+              print("action3 released")
+            end
+
+    - name: "Camera"
+      type: "Camera"
+      description: "See Camera."
+
+    - name: "Clouds"
+      type: "Clouds"
+      description: "See Clouds."
+
+    - name: "DirectionDidChange"
+      type: "function"
+      description: |
+          Triggered when the direction changes. (using direction keys or direction gamepad)
+          The default implementation does not appear in sample scripts, but it can be overriden.
+      samples:
+        - code: |
+            -- default implementation:
+            Client.DirectionDidChange = function(x, y)
+              if Player ~= nil then
+                Player.MotionForce.X = 10 * x
+                Player.MotionForce.Z = 10 * z
+              end
+            end
+
+    - name: "Fog"
+      type: "Fog"
+      description: "See Fog."
+
+    - name: "Input"
+      type: "Input"
+      description: "See Input."
+
+    - name: "OnPlayerJoin"
+      type: "function"
+      description: |
+          Triggered when a player joins the game.
+      samples:
+        - code: |
+            Client.OnPlayerJoin = function(player)
+              print(player.Username .. " joined the game!")
+            end
+
+    - name: "OnPlayerLeave"
+      type: "function"
+      description: |
+          Triggered when a player leaves the game.
+      samples:
+        - code: |
+            Client.OnPlayerLeave = function(player)
+              print("So long " .. player.Username .. "!")
+            end
+
+    - name: "Player"
+      type: "Player"
+      description: "See Player."
+
+    - name: "Tick"
+      type: "function"
+      description: |
+          Executed ~30 times per second. Provides the elapsed time in seconds as parameter.
+      samples:
+        - code: |
+            -- executed ~30 times per second on each user device
+            Client.Tick = function(dt)
+              print("elapsed:", dt, "seconds")
+            end
+
+    - name: "UI"
+      type: "UI"
+      description: "See UI."
+
+

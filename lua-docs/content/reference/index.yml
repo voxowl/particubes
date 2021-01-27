@@ -7,13 +7,13 @@ blocks:
         - "<a href=\"/reference/block\">Block</a>"
         - "<a href=\"/reference/button\">Button</a>"
         - "<a href=\"/reference/camera\">Camera</a>"
+        - "<a href=\"/reference/client\">Client</a>"
         - "<a href=\"/reference/clouds\">Clouds</a>"
         - "<a href=\"/reference/color\">Color</a>"
+        - "<a href=\"/reference/fog\">Fog</a>"
         - "<a href=\"/reference/impact\">Impact</a>"
         - "<a href=\"/reference/input\">Input</a>"
         - "<a href=\"/reference/label\">Label</a>"
-        - "<a href=\"/reference/client\">Client</a>"
-        - "<a href=\"/reference/fog\">Fog</a>"
         - "<a href=\"/reference/map\">Map</a>"
         - "<a href=\"/reference/number3\">Number3</a>"
         - "<a href=\"/reference/otherplayers\">OtherPlayers</a>"
@@ -28,7 +28,7 @@ blocks:
         - "<a href=\"/reference/ui\">UI</a>"
 
     - text: "Lua basic types:"
-    
+
     - list:
         - "<a href=\"/reference/boolean\">boolean</a>"
         - "<a href=\"/reference/function\">function</a>"
