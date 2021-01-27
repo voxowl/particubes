@@ -19,6 +19,7 @@ blocks:
         - "<a href=\"/reference/otherplayers\">OtherPlayers</a>"
         - "<a href=\"/reference/player\">Player</a>"
         - "<a href=\"/reference/players\">Players</a>"
+        - "<a href=\"/reference/pointer\">Pointer</a>"
         - "<a href=\"/reference/resources\">Resources</a>"
         - "<a href=\"/reference/resources\">R</a>"
         - "<a href=\"/reference/server\">Server</a>"

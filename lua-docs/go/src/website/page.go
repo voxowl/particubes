@@ -117,11 +117,21 @@ func (p *Page) Sanitize() {
 				c.Description = strings.TrimSpace(c.Description)
 				c.Description = strings.ReplaceAll(c.Description, "\n", "<br>")
 			}
-			if c.Samples != nil {
-				if c.Description != "" {
-					c.Description = strings.TrimSpace(c.Description)
-					c.Description = strings.ReplaceAll(c.Description, "\n", "<br>")
-				}
+		}
+	}
+	if p.Functions != nil {
+		for _, f := range p.Functions {
+			if f.Description != "" {
+				f.Description = strings.TrimSpace(f.Description)
+				f.Description = strings.ReplaceAll(f.Description, "\n", "<br>")
+			}
+		}
+	}
+	if p.Properties != nil {
+		for _, prop := range p.Properties {
+			if prop.Description != "" {
+				prop.Description = strings.TrimSpace(prop.Description)
+				prop.Description = strings.ReplaceAll(prop.Description, "\n", "<br>")
 			}
 		}
 	}
