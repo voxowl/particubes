@@ -26,3 +26,18 @@ blocks:
         - "<a href=\"/reference/shape\">Shape</a>"
         - "<a href=\"/reference/time\">Time</a>"
         - "<a href=\"/reference/ui\">UI</a>"
+
+    - text: "Lua basic types:"
+    
+    - list:
+        - "<a href=\"/reference/boolean\">boolean</a>"
+        - "<a href=\"/reference/function\">function</a>"
+        - "<a href=\"/reference/nil\">nil</a>"
+        - "<a href=\"/reference/number\">number</a>"
+        - "<a href=\"/reference/string\">string</a>"
+        - "<a href=\"/reference/table\">table</a>"
+            
+            
+            
+
+
