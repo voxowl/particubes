@@ -1,0 +1,45 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Shape"
+description: Manages the Shapes.
+
+constructors: 
+  - description: "Creates a Shape with imported Resource."
+    arguments:
+    - name: "shapeInResources"
+      type: "Resource"
+    samples:
+      - code: local myShape = Shape(R.username.myShape)
+
+properties:
+    - name: "Pysics"
+      type: "boolean"
+      description: "Tells if the physics (like gravity) should be applied on the object."
+    - name: "Anchor"
+      type: "Number3"
+      description: "Reference point in the Shape coordinate system."
+    - name: "Position"
+      type: "Number3"
+      description: "Position of the Shape (its Anchor) in the environment."
+    - name: "Rotation"
+      type: "Number3"
+      description: "Position of the Shape (its Anchor) in the environment."
+    - name: "Velocity"
+      type: "Number3"
+      description: "Velocity of the Shape."
+    - name: "Scale"
+      type: "number"
+      description: "Scale of the Shape"
+      samples:
+        - code: myShape.Scale = 2 -- the Shape is now 2 times bigger
+
+functions:
+    - name: "AddBlock"
+      description: "Adds a block to the Shape."
+      arguments:
+        - name: "block"
+          type: "Block"
+
+    - name: "GetBlock"
+      description: "Gets a block form the Shape"
+      return: 
+        - type: "Block"

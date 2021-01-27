@@ -1,0 +1,63 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Time"
+description: Allows changing the time of the day.
+
+constructors: 
+  - description: "Creates a new Time with a string."
+    arguments:
+    - name: "time"
+      type: "string"
+    samples:
+      - code: local myTime = Time("12:30")
+  - description: "Creates a new Time with numbers."
+    arguments:
+    - name: "hours"
+      type: "number"
+    - name: "minutes"
+      type: "number"
+    samples:
+      - code: local myTime = Time(12, 30)
+
+properties:
+    - name: "On"
+      type: "boolean"
+      description: "If false, the in-game time will not change."
+    - name: "Duration"
+      type: "number"
+      description: "Number of minutes for a complete in-game day."
+    - name: "Hours"
+      type: "number"
+      description: "Hours of the Time."
+    - name: "H"
+      type: "number"
+      description: "Hours of the Time."
+      samples:
+        - code: |
+            print(myTime.Hours) -- 12, value stored in the Time variable myTime
+            print(Time.Hours) -- hours of the in-game Time
+    - name: "Minutes"
+      type: "number"
+      description: "Minutes of the Time."
+    - name: "M"
+      type: "number"
+      description: "Minutes of the Time."
+    - name: "Seconds"
+      type: "number"
+      description: "Seconds of the Time."
+    - name: "S"
+      type: "number"
+      description: "Seconds of the Time."
+    - name: "Cycle"
+      type: "Cycle"
+      description: "Describes a Cycle of the day."
+
+functions:
+    - name: "Set"
+      description: "Changes the in-game Time."
+      arguments:
+        - name: "time"
+          type: "Time"
+      samples:
+        - code: |
+            local myTime = Time(12, 30)
+            Time.Set(myTime) -- sets the time to 12:30
