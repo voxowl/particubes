@@ -73,7 +73,7 @@
 							<h2><a id="{{ GetAnchorLink .Title }}" href="#{{ GetAnchorLink .Title }}">{{ .Title }}</a></h2>
 						{{ else if .Media }}
 							<div class="centeredVideo">
-								<video style="width:100%;" autoplay loop>
+								<video style="width:100%;" autoplay loop muted playsinline>
 								  <source src="{{ .Media }}" type="video/mp4" />
 								Your browser does not support the video tag.
 								</video>
@@ -119,7 +119,7 @@
 												<pre>{{ .Code }}</pre>
 											</div>
 											<div class="floatLeft40Pct">
-												<video style="width:100%;" autoplay loop>
+												<video style="width:100%;" autoplay loop muted playsinline>
 												  <source src="{{ .Media }}" type="video/mp4" />
 												Your browser does not support the video tag.
 												</video>
@@ -172,7 +172,7 @@
 												<pre>{{ .Code }}</pre>
 											</div>
 											<div class="floatLeft40Pct">
-												<video style="width:100%;" autoplay loop>
+												<video style="width:100%;" autoplay loop muted playsinline>
 												  <source src="{{ .Media }}" type="video/mp4" />
 												Your browser does not support the video tag.
 												</video>
@@ -211,7 +211,7 @@
 												<pre>{{ .Code }}</pre>
 											</div>
 											<div class="floatLeft40Pct">
-												<video style="width:100%;" autoplay loop>
+												<video style="width:100%;" autoplay loop muted playsinline>
 												  <source src="{{ .Media }}" type="video/mp4" />
 												Your browser does not support the video tag.
 												</video>
