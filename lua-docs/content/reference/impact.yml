@@ -1,9 +1,10 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Impact"
-description: An Impact object can be returned when casting a ray. (see Camera.CastRay, Player.CastRay,  PointerEvent.CastRay)
 
-constructors: 
-  - description: "It's possible to create an empty Impact object with this constructor. But in general, Impact objects are obtained when casting rays."
+creatable: true
+
+blocks: 
+  - text: "An Impact object can be returned when casting a ray. (see Camera.CastRay, Player.CastRay,  PointerEvent.CastRay)"
 
 properties:
     - name: "Block"
