@@ -176,9 +176,6 @@ func parseContent() error {
 					page.Title = "Error"
 					page.Description = err.Error()
 
-				} else { // page parsed without errors
-
-					page.Sanitize()
 				}
 
 				pages[cleanPath] = &page
@@ -228,6 +225,10 @@ func parseContent() error {
 		if page.Type != "" {
 			typeRoutes[page.Type] = route
 		}
+	}
+
+	for _, page := range pages {
+		page.Sanitize()
 	}
 
 	fmt.Println("content parsed!")

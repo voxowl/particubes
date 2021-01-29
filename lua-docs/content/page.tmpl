@@ -2,7 +2,7 @@
 	<head>
 		<title>Particubes - Scripting Documentation</title>
 		{{ if .Keywords }}<meta name="keywords" content='{{ Join .Keywords ", " }}'>{{ end }}
-		{{ if .Description }}<meta name="description" content="{{ .Description }}">{{ end }}
+		{{ if .Description }}<meta name="description" content="{{ .MetaDescription }}">{{ end }}
 
 		<!-- CSS -->
   		<link rel="stylesheet" href="/style/css/style.css">
@@ -149,7 +149,7 @@
 										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
 									-->{{ end }}<!--
 								-->{{ else }}<!--
-									--><span class="type">nil</span><!--
+									--><a href="{{ GetTypeRoute `nil` }}" class="type">nil</a><!--
 								-->{{ end }}<!--
 								--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
 								-->{{ range $index, $element := .Arguments }}<!--
@@ -198,7 +198,8 @@
 								-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
 								-->{{ .Type }}<!--
 								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-								--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a>
+								--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a><!--
+								-->{{ if .ReadOnly }} <span class="read-only">read-only</span>{{ end }}
 							</div>
 							<div class="object-element-row">
 								{{ if .Description }}

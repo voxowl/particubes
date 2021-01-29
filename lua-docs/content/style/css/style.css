@@ -98,6 +98,22 @@ pre {
   margin: 0;
 }
 
+span.code {
+  font-family: "roboto-mono-light", sans-serif;
+  background-color: #EEE;
+  padding: 1px 4px 1px 4px;
+  /*border-radius: 2px;*/
+  border: 1px solid #DDD;
+}
+
+span.read-only {
+  font-family: "roboto-mono-light", sans-serif;
+  background-color: #FFF;
+  /*color: #FFF;*/
+  margin-left: 5px;
+  padding: 0px 3px 0px 3px;
+}
+
 h1, h2, h3 {
   margin-top: 20px;
   margin-bottom: 10px;

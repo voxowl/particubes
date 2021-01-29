@@ -2,7 +2,7 @@ keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"
 title: "Introduction"
 blocks:
     - text: >
-        In Particubes, all rules and behaviors in the games you play are scripted with a language called <a href="https://www.lua.org">Lua</a>.
+        In [Particubes](https://particubes.com), all rules and behaviors in the games you play are scripted with a language called [Lua](https://www.lua.org).
     
         A default Lua script is generated when you create a new game. You can launch the game in debug mode and select `Edit code` in the pause menu to see it.
 

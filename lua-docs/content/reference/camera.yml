@@ -14,40 +14,48 @@ properties:
       description: "The object Camera is looking at."
     - name: "DistanceFromTarget"
       type: "number"
-      description: "Numbers of blocks between Camera and its target."
+      description: "Distance (in [Map] blocks) between Camera and its target."
     - name: "Forward"
       type: "Number3"
-      description: "Forward vector of Camera, read-only."
+      read-only: true
+      description: "Forward vector of Camera."
     - name: "Right"
       type: "Number3"
-      description: "Right vector of Camera, read-only."
+      read-only: true
+      description: "Right vector of Camera"
     - name: "Up"
       type: "Number3"
-      description: "Up vector of Camera, read-only."
+      read-only: true
+      description: "Up vector of Camera"
 
 functions:
     - name: "CastRay"
       return: 
         - type: "Impact" 
-      description: "Casts a ray and returns the hit object (Block, Item or Player)."
+      description: |
+          Casts a ray and returns an [Impact] (can be [nil]).
+
+          The [Impact] contains information about the kind of thing that's been hit.
       samples:
         - code: |
-            local impact = Camera.CastRay()
+            local impact = Camera:CastRay()
             if impact.Block ~= nil then
               print("block hit:", impact.Block)
             end
 
     - name: "SetModeThirdPerson"
-      description: "Sets Camera in TPS mode."
+      description: |
+          Puts Camera in "third person" mode. (looking at local [Player], from a behind-the-shoulder perspective)
       samples:
         - code: |
-            Camera.SetModeThirdPerson()
+            Camera:SetModeThirdPerson()
 
     - name: "SetModeSatellite"
-      description: "Sets Camera in free mode."
+      description: |
+          When in that mode, the camera rotates around its Target property.
       samples:
         - code: |
-            Camera.SetModeSatellite()
+            Camera:SetModeSatellite()
 
     - name: "FitToScreen"
       description: "Fits the target to the screen."
@@ -61,5 +69,5 @@ functions:
       samples:
         - code: |
             local item = Shape(R.usename.myShape)
-            Camera.FitToScreen(item, 0.6, false)
+            Camera:FitToScreen(item, 0.6, false)
 

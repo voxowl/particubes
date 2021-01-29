@@ -3,14 +3,17 @@ type: "Button"
 description: |
     Buttons are user interface elements allowing users to take actions.
 
-    Button is a shortcut to Client.UI.Button.
+    Button is a shortcut to [Client].[UI].Button.
+
+    Buttons are automatically displayed on the screen upon creation.
 
 constructors: 
   - description: |
       Creates a Button with optional parameters:
-      <b>- text:</b> displayed text
-      <b>- horizontal_anchor:</b> possible values: Anchor.Left, Anchor.HCenter, Anchor.Right (defaut)
-      <b>- vertical_anchor:</b> possible values: Anchor.Top (defaut), Anchor.VCenter, Anchor.Bottom
+      - `text` displayed text
+      - `horizontal_anchor` possible values: `Anchor.Left`, `Anchor.HCenter`, `Anchor.Right` (defaut)
+      - `vertical_anchor` possible values: `Anchor.Top` (defaut), `Anchor.VCenter`, `Anchor.Bottom`
+
     arguments:
     - name: text
       type: string
