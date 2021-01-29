@@ -3,11 +3,14 @@ type: "Block"
 description: A Block usually represents one block in the map. But could also represent a block for any shape in the game.
 
 constructors: 
-  - description: "Creates a block at {0,0,0} with given color index."
+  - description: |
+      Creates a Block at `{0,0,0}` with given color index.
+      The Block is not automatically added to any [Shape].
+
     arguments:
     - name: "colorIndex"
       type: "number"
-  - description: "Creates a block at {x,y,z} with given color index."
+  - description: "Creates a block at `{x,y,z}` with given color index."
     arguments:
     - name: "colorIndex"
       type: "number"
@@ -44,7 +47,7 @@ properties:
 
 functions:
     - name: "AddNeighbor"
-      description: "Adds a block, adjacent to the face passed as parameter."
+      description: "Adds a Block, adjacent to the face passed as parameter."
       arguments:
         - name: "block"
           type: "Block"
@@ -64,7 +67,7 @@ functions:
           media: "/media/block-add-neighbor.mp4"
 
     - name: "Remove"
-      description: "Removes the block."
+      description: "Removes the Block."
       samples:
         - code: |
             -- remove block when Action2 is triggered
@@ -76,7 +79,7 @@ functions:
             end
 
     - name: "Replace"
-      description: "Replaces the block with the one passed as parameter. The position remains the same, ColorIndex is the only property being set."
+      description: "Replaces the Block with the one passed as parameter. The position remains the same, ColorIndex is the only property being set."
       arguments:
         - name: "block"
           type: "Block"

@@ -2,7 +2,7 @@
 	<head>
 		<title>Particubes - Scripting Documentation</title>
 		{{ if .Keywords }}<meta name="keywords" content='{{ Join .Keywords ", " }}'>{{ end }}
-		{{ if .Description }}<meta name="description" content="{{ .Description }}">{{ end }}
+		{{ if .Description }}<meta name="description" content="{{ .MetaDescription }}">{{ end }}
 
 		<!-- CSS -->
   		<link rel="stylesheet" href="/style/css/style.css">
@@ -106,7 +106,48 @@
 								-->{{ .Type }}<!--
 								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
 								--> {{ .Name }}<!--
+								-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
 								-->{{ end }} )
+							</div>
+							<div class="object-element-row">
+								{{ if .Description }}
+									<p>{{ .Description }}</p>
+								{{ end }}
+								{{ range .Samples }}
+									{{ if SampleHasCodeAndMedia . }}
+										<div>
+											<div class="floatLeft60Pct">
+												<pre>{{ .Code }}</pre>
+											</div>
+											<div class="floatLeft40Pct">
+												<video style="width:100%;" autoplay loop muted playsinline>
+												  <source src="{{ .Media }}" type="video/mp4" />
+												Your browser does not support the video tag.
+												</video>
+											</div>
+											<div class="clear"></div>
+										</div>
+									{{ else if .Code }}
+										<pre>{{ .Code }}</pre>
+									{{ end }}
+								{{ end }}
+							</div>
+						</div>
+					{{ end }}
+				{{ end }}
+
+				{{ if .BuiltIns }}
+				<h2><a id="properties" href="#properties">Built-in instances</a></h2>
+					{{ range $index, $property := .BuiltIns }}
+						<a id="property-{{ GetAnchorLink .Name }}"></a>
+						<div class="object-element-tbl">
+							<div class="object-element-header">
+								{{ $route := GetTypeRoute .Type }}<!--
+								-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+								-->{{ .Type }}<!--
+								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+								--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a><!--
+								-->{{ if .ReadOnly }} <span class="read-only">read-only</span>{{ end }}
 							</div>
 							<div class="object-element-row">
 								{{ if .Description }}
@@ -149,16 +190,17 @@
 										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
 									-->{{ end }}<!--
 								-->{{ else }}<!--
-									--><span class="type">nil</span><!--
+									--><a href="{{ GetTypeRoute `nil` }}" class="type">nil</a><!--
 								-->{{ end }}<!--
 								--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
 								-->{{ range $index, $element := .Arguments }}<!--
 								-->{{if $index}}, {{end}}<!--
-										-->{{ $route := GetTypeRoute .Type }}<!--
-										-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
-										-->{{ .Type }}<!--
-										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-								--> {{ .Name }}<!--
+									-->{{ $route := GetTypeRoute .Type }}<!--
+									-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+									-->{{ .Type }}<!--
+									-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+									--> {{ .Name }}<!--
+									-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
 								-->{{ end }} )
 							</div>
 							<div class="object-element-row">
@@ -198,7 +240,8 @@
 								-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
 								-->{{ .Type }}<!--
 								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-								--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a>
+								--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a><!--
+								-->{{ if .ReadOnly }} <span class="read-only">read-only</span>{{ end }}
 							</div>
 							<div class="object-element-row">
 								{{ if .Description }}

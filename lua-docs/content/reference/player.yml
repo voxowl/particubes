@@ -7,25 +7,25 @@ properties:
       type: "Block"
       description: "Returns the block on which the Player is standing on."
     - name: "BlocksUnderneath"
-      type: "Block[]"
-      description: "Returns an array of Blocks the player is standing on"
+      type: "array"
+      description: "Returns an [array] of [Block]s the player is standing on"
       samples:
-        - code:
+        - code: |
             local blocks = Player.BlocksUnderneath
             for index, value in ipairs(blocks) do 
                 -- greenColorIndex is a block previously defined
-                local newBlock = Block.New(Local.greenColorIndex)
+                local newBlock = Block(10) -- 10: BlockerProperties index
                 value:Replace(newBlock)
             end
-    - name: "Id"
+    - name: "ID"
       type: "number"
-      description: "Unique player id for played game. A different id can be attributed after reconnection."
+      description: "Unique player ID for played game. A different ID can be attributed after reconnection."
     - name: "Username"
       type: "string"
       description: "Player's account username. Usernames are unique."
     - name: "IsOnGround"
       type: "boolean"
-      description: "True when there's a block right underneath the Player's feet."
+      description: "`true` when there's a block right underneath Player's feet."
     - name: "Position"
       type: "Number3"
       description: "Absolute world position of the Player."
@@ -39,7 +39,7 @@ properties:
 functions:
     - name: "CastRay"
       description: "Casts a ray from player's position,
-          returns an Impact object if it hits something, `nil` otherwise."
+          returns an [Impact] if it hits something, [nil] otherwise."
       samples:
         - code: |
             local impact = Player:CastRay()
@@ -48,7 +48,7 @@ functions:
             end
 
     - name: "Give"
-      description: "Gives an item to the `Player`.
+      description: "Gives an item to the [Player].
           The parameter has to be an holdable item. (items can be browsed in the gallery)"
       arguments:
         - name: "itemGiven"

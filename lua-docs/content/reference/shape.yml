@@ -1,6 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Shape"
-description: A shape is a set of cubes. It can contain child shapes. 
+description: A shape is a set of [Block]s. It can contain child shapes. 
 
 constructors: 
   - description: "Creates a Shape with imported Resource."
@@ -41,5 +41,12 @@ functions:
 
     - name: "GetBlock"
       description: "Gets a block form the Shape"
+      arguments: 
+        - name: "X"
+          type: "number"
+        - name: "Y"
+          type: "number"
+        - name: "Z"
+          type: "number"
       return: 
         - type: "Block"

@@ -1,11 +1,11 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Blocks"
 creatable: true # indicates that instances can be created, even if there's no constructor
-description: Blocks represents a 3D grid of Block objects.
+description: Blocks represents a 3D grid of [Block] objects.
 
 functions:
     - name: "Get"
-      description: "Gets Block at {x, y, z}. The returned value can be nil."
+      description: "Gets [Block] at `{x, y, z}`. The returned value can be [nil]."
       arguments:
         - name: "x"
           type: "number"
@@ -20,7 +20,7 @@ functions:
             local block = Map.Blocks:Get(0, 0, 0)
 
     - name: "Add"
-      description: "Adds Block at {x, y, z}. Doesn't work if a block already exists at given coordinates."
+      description: "Adds [Block] at `{x, y, z}`. Doesn't work if a block already exists at given coordinates."
       arguments:
         - name: "block"
           type: "Block"

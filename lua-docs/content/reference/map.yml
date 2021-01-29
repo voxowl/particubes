@@ -5,31 +5,36 @@ description: Map is a global variable that represents the game map.
 properties:
     - name: "Blocks"
       type: "Blocks"
-      description: "Returns map blocks."
+      description: "Returns map blocks, a 3D grid of [Block] objects."
 
     - name: "BlockProperties"
-      type: "BlockProperties"
-      description: "Returns map block properties."
+      type: "array"
+      description: |
+          Returns an [array] of [BlockProperties].
+
+          It can be considered as a "palette" map's [Shape]. Although [BlockProperties] contain more than color information.
+
+          Note: non-opaque and light emissive block colors can't be changed after game start. 
 
     - name: "Depth"
       type: "number"
-      description: "Returns the map's depth, measured in cubes."
+      description: "Returns map's depth, measured in cubes."
       samples:
         - code: local depth = Map.Depth
 
     - name: "Height"
       type: "number"
-      description: "Returns the map's height, measured in cubes."
+      description: "Returns map's height, measured in cubes."
       samples:
         - code: local height = Map.Height
 
     - name: "Scale"
       type: "number"
-      description: "Returns the map's scale factor."
+      description: "Returns map's scale factor."
 
     - name: "Width"
       type: "number"
-      description: "Returns the map's width, measured in cubes."
+      description: "Returns map's width, measured in cubes."
       samples:
         - code: local width = Map.Width
 
@@ -37,24 +42,24 @@ functions:
 
     - name: "AddChild"
       description: |
-          Adds a shape to the map.
+          Adds a [Shape] to the map.
       arguments:
         - name: shape
           type: Shape
       samples:
         - code: |
             local shape = Shape(R.user.shape_name)
-            Map.AddChild(shape)
+            Map:AddChild(shape)
 
     - name: "RemoveChild"
       description: |
-          Removes a shape from the map.
+          Removes a [Shape] from the map.
       arguments:
         - name: shape
           type: Shape
       samples:
         - code: |
-            Map.RemoveChild(shape)
+            Map:RemoveChild(shape)
 
     - name: "Set"
       description: |
@@ -69,5 +74,5 @@ functions:
             Import (
               "myUsername.myMap"
             )
-            Map.Set(R.myUsername.myMap)
+            Map:Set(R.myUsername.myMap)
 

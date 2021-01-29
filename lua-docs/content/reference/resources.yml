@@ -14,5 +14,5 @@ blocks:
 
       Client.Action2 = function()
         local shape = Shape(R.aduermael.pumpkin)
-        Map.AddChild(shape)
+        Map:AddChild(shape)
       end

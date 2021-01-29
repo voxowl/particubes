@@ -98,6 +98,33 @@ pre {
   margin: 0;
 }
 
+span.code {
+  font-family: "roboto-mono-light", sans-serif;
+  background-color: #EEE;
+  padding: 1px 4px 1px 4px;
+  /*border-radius: 2px;*/
+  border: 1px solid #DDD;
+}
+
+span.read-only {
+  font-family: "roboto-mono-light", sans-serif;
+  background-color: #FFF;
+  /*color: #FFF;*/
+  margin-left: 5px;
+  padding: 0px 3px 0px 3px;
+}
+
+span.optional {
+  font-family: "roboto-mono-light", sans-serif;
+  /*background-color: rgba(97, 217, 162, 0.2);*/
+  /*color: #FFF;*/
+  font-style: italic;
+  color: #4ED99A;
+  /*margin-right: 2px;*/
+  padding: 0px 2px 0px 2px;
+  border: 1px solid rgba(97, 217, 162, 0.4);
+}
+
 h1, h2, h3 {
   margin-top: 20px;
   margin-bottom: 10px;

@@ -23,6 +23,10 @@ properties:
       description: "Distance at which Fog ends. (in blocks)"
       samples:
         - code: Fog.Far = 100
+        - code: |
+            -- both near and far can be set at once this way
+            Fog.Near, Fog.Far = 50, 100
+
     - name: "LightAbsorption"
       type: "number"
       description: |

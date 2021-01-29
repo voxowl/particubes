@@ -1,9 +1,7 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Time"
 description: |
-    Time gives control over the time of day.
-
-    Time is a shortcut to Shared.Time.
+    Time represents a ingame time of day.
 
 constructors: 
 
@@ -16,15 +14,17 @@ constructors:
     samples:
       - code: local myTime = Time(12, 30)
 
-static-properties:
-
-    - name: "Cycle"
-      type: "TimeCycle"
-      description: "See TimeCycle."
+built-ins:
 
     - name: "Current"
       type: "Time"
-      description: "Current time."
+      description: |
+          Current ingame day time.
+          Shortcut to TimeCycle.CurrentTime.
+      samples: 
+        - code: |
+            -- sets time to noon for everyone
+            Time.Current = Time.Noon
 
     - name: "Dawn"
       type: "Time"
@@ -68,14 +68,3 @@ properties:
       type: "number"
       description: "Seconds of the Time."
 
-functions:
-
-    - name: "Set"
-      description: "Changes the in-game Time."
-      arguments:
-        - name: "time"
-          type: "Time"
-      samples:
-        - code: |
-            local myTime = Time(12, 30)
-            Time.Set(myTime) -- sets the time to 12:30
