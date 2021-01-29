@@ -34,6 +34,7 @@ blocks:
     - text: "Lua basic types:"
 
     - list:
+        - "<a href=\"/reference/array\">array</a>"
         - "<a href=\"/reference/boolean\">boolean</a>"
         - "<a href=\"/reference/function\">function</a>"
         - "<a href=\"/reference/nil\">nil</a>"
