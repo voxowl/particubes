@@ -40,6 +40,8 @@ type Page struct {
 
 	Properties []*Property `yaml:"properties,omitempty"`
 
+	BuiltIns []*Property `yaml:"built-ins,omitempty"`
+
 	Functions []*Function `yaml:"functions,omitempty"`
 
 	// not set in YAML, set dynamically when parsing files
@@ -190,6 +192,18 @@ func (p *Page) Sanitize() {
 				prop.Description = reInlineCode.ReplaceAllString(prop.Description, inlineCodeReplacement)
 				prop.Description = reLink.ReplaceAllString(prop.Description, linkReplacement)
 				prop.Description = reTypeLink.ReplaceAllStringFunc(prop.Description, getTypeLink)
+			}
+		}
+	}
+
+	if p.BuiltIns != nil {
+		for _, b := range p.BuiltIns {
+			if b.Description != "" {
+				b.Description = strings.TrimSpace(b.Description)
+				b.Description = strings.ReplaceAll(b.Description, "\n", "<br>")
+				b.Description = reInlineCode.ReplaceAllString(b.Description, inlineCodeReplacement)
+				b.Description = reLink.ReplaceAllString(b.Description, linkReplacement)
+				b.Description = reTypeLink.ReplaceAllStringFunc(b.Description, getTypeLink)
 			}
 		}
 	}
