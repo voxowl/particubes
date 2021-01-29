@@ -3,7 +3,7 @@ type: "Label"
 description: |
     Allows adding text on the interface.
 
-    Label is a shortcut to Client.UI.Label.
+    Label is a shortcut to [Client].[UI].Label.
 
 constructors: 
   - description: "Creates a Label without any text."

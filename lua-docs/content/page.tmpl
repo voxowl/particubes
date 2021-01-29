@@ -106,6 +106,7 @@
 								-->{{ .Type }}<!--
 								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
 								--> {{ .Name }}<!--
+								-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
 								-->{{ end }} )
 							</div>
 							<div class="object-element-row">
@@ -194,11 +195,12 @@
 								--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
 								-->{{ range $index, $element := .Arguments }}<!--
 								-->{{if $index}}, {{end}}<!--
-										-->{{ $route := GetTypeRoute .Type }}<!--
-										-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
-										-->{{ .Type }}<!--
-										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-								--> {{ .Name }}<!--
+									-->{{ $route := GetTypeRoute .Type }}<!--
+									-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+									-->{{ .Type }}<!--
+									-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+									--> {{ .Name }}<!--
+									-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
 								-->{{ end }} )
 							</div>
 							<div class="object-element-row">

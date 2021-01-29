@@ -57,8 +57,9 @@ type Function struct {
 }
 
 type Argument struct {
-	Name string `yaml:"name,omitempty"`
-	Type string `yaml:"type,omitempty"`
+	Name     string `yaml:"name,omitempty"`
+	Type     string `yaml:"type,omitempty"`
+	Optional bool   `yaml:"optional,omitempty"`
 }
 
 type Value struct {

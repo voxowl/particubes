@@ -8,11 +8,11 @@ properties:
       description: "Returns map blocks, a 3D grid of [Block] objects."
 
     - name: "BlockProperties"
-      type: "Array"
+      type: "array"
       description: |
-          Returns an array of [BlockProperties].
+          Returns an [array] of [BlockProperties].
 
-          It can be considered as a "palette" for map's shape. Although [BlockProperties] contain more than color information.
+          It can be considered as a "palette" map's [Shape]. Although [BlockProperties] contain more than color information.
 
           Note: non-opaque and light emissive block colors can't be changed after game start. 
 
@@ -42,24 +42,24 @@ functions:
 
     - name: "AddChild"
       description: |
-          Adds a shape to the map.
+          Adds a [Shape] to the map.
       arguments:
         - name: shape
           type: Shape
       samples:
         - code: |
             local shape = Shape(R.user.shape_name)
-            Map.AddChild(shape)
+            Map:AddChild(shape)
 
     - name: "RemoveChild"
       description: |
-          Removes a shape from the map.
+          Removes a [Shape] from the map.
       arguments:
         - name: shape
           type: Shape
       samples:
         - code: |
-            Map.RemoveChild(shape)
+            Map:RemoveChild(shape)
 
     - name: "Set"
       description: |
@@ -74,5 +74,5 @@ functions:
             Import (
               "myUsername.myMap"
             )
-            Map.Set(R.myUsername.myMap)
+            Map:Set(R.myUsername.myMap)
 

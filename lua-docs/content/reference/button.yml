@@ -18,10 +18,10 @@ constructors:
     - name: text
       type: string
       optional: true
-    - name: horizontal_anchor
+    - name: hAnchor
       type: Anchor
       optional: true
-    - name: vertical_anchor
+    - name: vAnchor
       type: Anchor
       optional: true
     samples:

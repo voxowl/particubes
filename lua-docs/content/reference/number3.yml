@@ -1,6 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Number3"
-description: A Number3 contains 3 number values (X, Y & Z). Usually represents a point in 3D space.
+description: A Number3 contains 3 [number] values (X, Y & Z). It can represent different things in 3D space (points, vectors, forces).
 
 constructors: 
   - description: "Creates a Number3 with values x, y and z."

@@ -44,7 +44,7 @@ properties:
       samples:
         - code: |
             Pointer.Drag = function( pointerEvent )
-
+                print(pointerEvent.DX, pointerEvent.DY)
             end
 
     - name: "Drag2"
@@ -53,7 +53,7 @@ properties:
       samples:
         - code: |
             Pointer.Drag2 = function( pointerEvent )
-
+                print(pointerEvent.DX, pointerEvent.DY)
             end
 
     - name: "Up"

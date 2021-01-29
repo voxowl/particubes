@@ -15,7 +15,7 @@ blocks:
         - "<a href=\"/reference/color\">Color</a>"
         - "<a href=\"/reference/fog\">Fog</a>"
         - "<a href=\"/reference/impact\">Impact</a>"
-        - "<a href=\"/reference/input\">Input</a>"
+        - "<a href=\"/reference/inputs\">Inputs</a>"
         - "<a href=\"/reference/label\">Label</a>"
         - "<a href=\"/reference/map\">Map</a>"
         - "<a href=\"/reference/number3\">Number3</a>"
@@ -29,6 +29,7 @@ blocks:
         - "<a href=\"/reference/shape\">Shape</a>"
         - "<a href=\"/reference/time\">Time</a>"
         - "<a href=\"/reference/timecycle\">TimeCycle</a>"
+        - "<a href=\"/reference/timecyclemark\">TimeCycleMark</a>"
         - "<a href=\"/reference/ui\">UI</a>"
 
     - text: "Lua basic types:"
