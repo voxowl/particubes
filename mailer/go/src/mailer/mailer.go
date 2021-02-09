@@ -12,6 +12,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/vanng822/go-premailer/premailer"
 	"golang.org/x/text/encoding/charmap"
 
 	htmlTemplate "html/template"
@@ -91,8 +92,8 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	fmt.Printf("%#v\n", parsedMarkdown)
-	fmt.Println("buf:", buf.String())
+	// fmt.Printf("%#v\n", parsedMarkdown)
+	// fmt.Println("buf:", buf.String())
 
 	// SEND EMAILS !!
 
@@ -113,18 +114,24 @@ func main() {
 		}
 		htmlContent := buf.String()
 
-		// INLINE STYLE
-		// gmail (among others I guess) only supports inline styles...
-		// so we have to do this, and should ideally remove all our
-		// <style> definitions in email templates.
+		// INLINE CSS
 
-		htmlContent = strings.ReplaceAll(htmlContent, "<p", "<p style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
-		htmlContent = strings.ReplaceAll(htmlContent, "<h1", "<h1 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
-		htmlContent = strings.ReplaceAll(htmlContent, "<h2", "<h2 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
-		htmlContent = strings.ReplaceAll(htmlContent, "<h3", "<h3 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
-		htmlContent = strings.ReplaceAll(htmlContent, "<h4", "<h4 style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;\"")
-		htmlContent = strings.ReplaceAll(htmlContent, "<ul", "<ul style=\"margin:0;padding:0;padding-bottom:20px;color:#FFFFFF;margin-left:30px;\"")
-		htmlContent = strings.ReplaceAll(htmlContent, "<a", "<a style=\"text-decoration:none;color:#45c5d2;\"")
+		prem, err := premailer.NewPremailerFromString(htmlContent, premailer.NewOptions())
+		if err != nil {
+			fmt.Println("❌ CSS INLINER ERROR (1):", err)
+			continue
+		}
+
+		htmlContent, err = prem.Transform()
+		if err != nil {
+			fmt.Println("❌ CSS INLINER ERROR (2):", err)
+			continue
+		}
+
+		// fmt.Println("buf:", htmlContent)
+
+		// // INLINE STYLE
+		// htmlContent = strings.ReplaceAll(htmlContent, "<a", "<a style=\"text-decoration:none;color:#45c5d2;\"")
 
 		buf = &bytes.Buffer{}
 		err = templateTXT.Execute(buf, entry)
