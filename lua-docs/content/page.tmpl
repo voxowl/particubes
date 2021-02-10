@@ -48,13 +48,14 @@
 				<nav>
 					<ul>
 						<li><a href="/">Home</a></li>
+						<li><a href="/guides">Guides</a></li>
 						<li><a href="/reference">Reference</a></li>
-						<li><a href="https://github.com/voxowl/particubes/edit/master/lua-docs/content{{ .ResourcePath }}">✏️ Edit this page</a></li>
 					</ul>
 				</nav>
 			</div>
 
 			<div id="content">
+
 				{{ $type := .Type }}
 
 				<h1>{{ GetTitle . }}</h1>
@@ -71,6 +72,8 @@
 							<p>{{ .Text }}</p>
 						{{ else if .Title }}
 							<h2><a id="{{ GetAnchorLink .Title }}" href="#{{ GetAnchorLink .Title }}">{{ .Title }}</a></h2>
+						{{ else if .Subtitle }}
+							<h3><a id="{{ GetAnchorLink .Subtitle }}" href="#{{ GetAnchorLink .Subtitle }}">{{ .Subtitle }}</a></h3>
 						{{ else if .Media }}
 							<div class="centeredVideo">
 								<video style="width:100%;" autoplay loop muted playsinline>
@@ -269,6 +272,8 @@
 						</div>
 					{{ end }}
 				{{ end }}
+
+				<div id="edit-label">✏️ <a href="https://github.com/voxowl/particubes/edit/master/lua-docs/content{{ .ResourcePath }}">Edit this page</a></div>
 
 			</div>
 

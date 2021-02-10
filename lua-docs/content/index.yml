@@ -1,18 +1,37 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
 title: "Introduction"
 blocks:
-    - text: >
-        In [Particubes](https://particubes.com), all rules and behaviors in the games you play are scripted with a language called [Lua](https://www.lua.org).
+    - text: |
+        [Particubes](https://particubes.com) is an all-in-one application for players and game creators (artists, developers).
+
+        This documentation contains everything you need to know as a developer to create your own realtime multiplayer games. 👾
+
+    - title: "Cubes"
+
+    - text: |
+        In [Particubes](https://particubes.com), <u>everything</u> is made out of cubes. Terrain, avatars, items, vehicles... everything!
+
+        Mainly because it's quick and easy to create game assets with cubes:
+
+    - media: "/media/sword.mp4"
+
+    - text: |
+        Also because shapes made of 3D aligned cubes makes a pretty good standard for cross-game compatibility: 🙂
+
+    # - media: "/media/items.mp4"
+
+    - title: "Scripting language"
+
+    - text: |
+        The scripting language we use in [Particubes](https://particubes.com) is [Lua](https://www.lua.org).
+
+        Lua is very solid and lighweight scripting language, it's been around since 1993. It's easy to learn and already used by other popular video game platforms like [Roblox](https://www.roblox.com) or [Core](https://www.coregames.com).
     
         A default Lua script is generated when you create a new game. You can launch the game in debug mode and select `Edit code` in the pause menu to see it.
 
-        By default, only the author of a game can access its code. But it's possible to allow other users to contribute. (more to come about this)
+        Don't worry if you've never used it. You'll be able to define custom things for your games in minutes. ☺️
 
-        Lua is easy to learn, don't worry if you've never used it. You'll be able to define custom things for your games in minutes. ☺️
-
-        💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers.
-
-    - title: "Quick example: How to jump higher?"
+    - subtitle: "Quick example: How to jump higher?"
 
     - text: "Find where `Client.Action1` is defined in the default script:"
 
@@ -31,7 +50,7 @@ blocks:
 
     - code: "Player.Velocity.Y = 200 -- changed the value to jump higher"
 
-    - text : >
+    - text : |
         Use "Publish" button
 
         The game will restart for all connected players (including yourself), everyone will now jump higher. 🙂
@@ -39,3 +58,55 @@ blocks:
     - media: "/media/jump-higher.mp4"
 
     - text: 💡 Script comments start with `--`. Comments are not considered when running the script, they're only notes for developers.
+
+    - subtitle: "Uppercase variables"
+
+    - text : |
+        The case of the first letter of a variable or function name has special meaning in [Particubes](https://particubes.com).
+
+        Basically, if it starts with an uppercase character, it means it's a built-in variable, exposed by the platform. It also means you'll find it defined somewhere in [the reference](/reference). Think about it when you read through open source code. 🤓
+
+        As a consequence, you can't use names starting with uppercase letters for your own functions and variables. 
+
+    - title: "Realtime multiplayer environment"
+
+    - text : |
+        Games in [Particubes](https://particubes.com) are realtime multiplayer games by default.
+
+        It means you don't need a single line of code to make that work. It also means you don't have to worry about servers.
+
+        Also, there's always a debug server running as you work on your game. Your friends or random players can join and test things while you write code.
+
+        At any time, you can publish a new version of your game. Game servers are spinned up automatically based on player demand.
+
+    # - media: "/media/multiplayer-bubbles.jpg"
+
+    - title: "Truly cross-platform"
+
+    - text : |
+        No one should be left aside!
+
+        [Particubes](https://particubes.com) runs on Android, iOS, Mac & Windows. (Linux + web browsers coming next)
+
+        While the game is cross-platform, we don't want developers to worry about making sure the game works fine on each one of them.
+
+        For example: a game designed on a desktop computer should be just as playable on mobile (and vice versa).
+
+        The scripting environment has been designed with that philosophy in mind.
+
+        UI elements, inputs, everything will adapt automagically depending on the screen and touch, mouse and/or keyboard events.
+
+    # - media: "/media/cross-platform.jpg"
+
+    - title: "Get started"
+
+    - text : |
+        Ready to create your first game? 🙂
+
+        ➡️ [Developer Guides](/guides)
+
+
+
+
+
+
