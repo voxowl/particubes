@@ -89,9 +89,10 @@ type Property struct {
 type ContentBlock struct {
 	Text string `yaml:"text,omitempty"`
 	// Lua code
-	Code  string   `yaml:"code,omitempty"`
-	List  []string `yaml:"list,omitempty"`
-	Title string   `yaml:"title,omitempty"`
+	Code     string   `yaml:"code,omitempty"`
+	List     []string `yaml:"list,omitempty"`
+	Title    string   `yaml:"title,omitempty"`
+	Subtitle string   `yaml:"subtitle,omitempty"`
 	// Can be a relative link to an image, a link to a youtube video...
 	Media string `yaml:"media,omitempty"`
 }

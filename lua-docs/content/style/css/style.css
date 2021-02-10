@@ -87,9 +87,15 @@ h1, h1 a {
   margin-bottom: 10px;
 }
 
-h2, h3, h2 a, h3 a {
+h2, h2 a {
   font-family: "roboto", sans-serif;
   font-size: 18px;
+}
+
+h3, h3 a {
+  font-family: "roboto", sans-serif;
+  font-size: 16px;
+  color: #333333;
 }
 
 pre {
