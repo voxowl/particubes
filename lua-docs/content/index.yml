@@ -79,7 +79,7 @@ blocks:
 
         At any time, you can publish a new version of your game. Game servers are spinned up automatically based on player demand.
 
-    # - media: "/media/multiplayer-bubbles.jpg"
+    - media: "/media/mars.mp4"
 
     - title: "Truly cross-platform"
 
