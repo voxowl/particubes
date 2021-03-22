@@ -1,5 +1,5 @@
 <html>
-	{{ template "head" }}
+	{{ template "head" . }}
 	<body>
 		<div id="page">
 
@@ -7,12 +7,15 @@
 				<a href="/"><img src="/style/img/title.png"></a>
 			</div>
 
+			{{ template "menu" . }}
+
 			<div id="content">
 
 				<div id="what">
-					<h2 class="talk">{{ .header }}</h2>
-					<p>You can email us: <a href="mailto:contact@voxowl.com">contact@voxowl.com</a></p>
-					<p>Or join our Discord server: <a href="https://particubes.com/discord">particubes.com/discord</a></p>
+					<h2 class="{{ .titleIcon }}">{{ .title }}</h2>
+
+					{{ .content }}
+
 				</div>
 
 			</div> <!-- {{ .content }} -->
