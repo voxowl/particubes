@@ -1,5 +1,5 @@
 <html>
-	{{ template "head" }}
+	{{ template "head" . }}
 	<body>
 		<div id="page">
 
@@ -17,6 +17,8 @@
 
 				<div class="clear"></div>
 			</div>
+
+			{{ template "menu" . }}
 
 			<div id="content">
 				<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
@@ -38,17 +40,17 @@
 				<div id="features">
 					<ul class="features">
 						<li class="feature play">
-							<h3>Players</h3>
+							<h2>Players</h2>
 							<p>Explore many different games and experiences all built by the community, using your own custom avatar. Play with your friends, on mobile and desktop devices.</p>
 						</li>
 
 						<li class="feature build">
-							<h3>Builders</h3>
+							<h2>Builders</h2>
 							<p>Use simple yet powerful tools to craft and publish game items, worlds, avatars & outfits. Shared assets can be used by other builders and coders, and you get rewarded when they do.</p>
 						</li>
 
 						<li class="feature code">
-							<h3>Coders</h3>
+							<h2>Coders</h2>
 							<p>Customize game code sample scripts, publish assignable actions, or script a full game from scratch! Show it to your friends, all they need to join the game is your invite link.</p>
 						</li>
 					</ul>

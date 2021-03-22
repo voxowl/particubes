@@ -1,11 +1,13 @@
 <html>
-	{{ template "head" }}
+	{{ template "head" . }}
 	<body>
 		<div id="page">
 
 			<div id="simple-title-header">
 				<a href="/"><img src="/style/img/title.png"></a>
 			</div>
+
+			{{ template "menu" . }}
 
 			<div id="content">
 
@@ -20,7 +22,7 @@
 				{{ if .email }}
 				<div class="early-access topSpace">
 					<div class="subscribe">
-						<p>First <span class="highlight">1000</span> registered users will get  unlimited premium access for free!<br />Sign up now! (you'll be <span class="highlight">#{{ .nextTester }}</span>)</p>
+						<p>Sign up now! You'll be <span class="highlight">#{{ .nextTester }}</span>, and you'll certainly get to pick a cool nickname!</p>
 						{{ template "form" . }}
 					</div>
 				</div>
