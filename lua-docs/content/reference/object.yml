@@ -1,0 +1,86 @@
+keywords: ["particubes", "game", "mobile", "scripting", "object", "voxel"]
+type: "Object"
+description: |
+  An Object is the most basic thing that can be added to the game 3D scene.
+
+  It has a position, a rotation and a scale and can contain child [Object]s, including [Object] extensions like [Shape].
+
+  An object by itself does not render anything on screen, but it can contain [Shape]s and thus become a parent coordinate system for them.
+
+constructors:
+  - description: "Creates an Object."
+    samples:
+      - code: |
+          local o = Object()
+          Map:AddChild(o) -- adds o to the Map (top level object in the game scene)
+
+properties:
+    - name: "Physics"
+      type: "boolean"
+      description: "Turns physic simulation on and off when set."
+    - name: "Position"
+      type: "Number3"
+      description: "Position of the [Object] in its parent."
+    - name: "GLobalPosition"
+      type: "Number3"
+      description: "Global Position of the [Object]. (in the game scene, not relative to its parent)"
+    - name: "Rotation"
+      type: "Number3"
+      description: "Rotation of the [Object] in its parent."
+    - name: "GlobalRotation"
+      type: "Number3"
+      description: "Global Rotation of the [Object]. (in the game scene, not relative to its parent)"
+    - name: "Velocity"
+      type: "Number3"
+      description: "Velocity of the [Object]."
+    - name: "Scale"
+      type: "number"
+      description: "Scale of the [Object]."
+      samples:
+        - code: |
+            myObject.Scale = 2 -- the Object is now 2 times bigger
+        - code: |
+            topLevelObject.Scale = 2
+            local o = Object()
+            o.Scale = 0.5
+            topLevelObject:AddChild(o) -- o becomes a child of topLevelObject
+            -- o ends up being displayed with a scale of 1
+    - name: "GlobalScale"
+      type: "number"
+      description: "Global scale of the [Object]. (in the game scene, not relative to its parent)"
+    - name: "ChildrenCount"
+      read-only: true
+      type: "number"
+      description: "Returns number of child [Object]s."
+
+
+functions:
+    - name: "AddChild"
+      description: "Adds given [Object] as a child."
+      arguments: 
+        - name: "child"
+          type: "Object"
+    - name: "RemoveChild"
+      description: "Unsets parent/child relationship with child parameter. The child ends up being deleted if it has no other references."
+      arguments: 
+        - name: "child"
+          type: "Object"
+    - name: "RemoveChildren"
+      description: "Unsets parent/child relationship with all children. Individual children end up being deleted if they have no other references."
+    - name: "GetChild"
+      description: "Get child [Object] at index."
+      arguments: 
+        - name: "index"
+          type: "number"
+    - name: "SetParent"
+      description: "Sets parent/child relationship with parent parameter. [nil] can be used to remove the [Object] from its parent."
+      arguments: 
+        - name: "parent"
+          type: "Object"
+    - name: "RemoveFromParent"
+      description: "Removes the [Object] from its parent. Doesn't do anything if the [Object] has no parent."
+
+
+
+
+

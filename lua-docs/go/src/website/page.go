@@ -26,6 +26,9 @@ type Page struct {
 	// can be left empty if not an object type page
 	Type string `yaml:"type,omitempty"`
 
+	// Type that's being extended (optional)
+	Extends string `yaml:"extends,omitempty"`
+
 	//
 	BasicType bool `yaml:"basic-type,omitempty"`
 
@@ -121,6 +124,28 @@ func getTypeLink(str string) string {
 	}
 
 	return str
+}
+
+// SetExtentionBase imports definition from extension base
+func (p *Page) SetExtentionBase(base *Page) {
+
+	if base.Functions != nil {
+
+		if p.Functions == nil {
+			p.Functions = make([]*Function, 0)
+		}
+
+		p.Functions = append(p.Functions, base.Functions...)
+	}
+
+	if base.Properties != nil {
+
+		if p.Properties == nil {
+			p.Properties = make([]*Property, 0)
+		}
+
+		p.Properties = append(p.Properties, base.Properties...)
+	}
 }
 
 func (p *Page) Sanitize() {

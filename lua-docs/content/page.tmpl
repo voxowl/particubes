@@ -60,6 +60,12 @@
 
 				<h1>{{ GetTitle . }}</h1>
 
+				{{ if .Extends }}
+					<div class="extension">
+						<a href="{{ GetTypeRoute .Type }}">{{.Type}}</a> extends <a href="{{ GetTypeRoute .Extends }}">{{.Extends}}</a>, adding functions and properties to it.
+					</div>
+				{{ end }}
+
 				{{ if IsNotCreatableObject . }}
 					<div class="notCreatableNotice">
 						{{ .Type }} is <b>not creatable</b>, there's only one instance of it. It can only be accessed through its globally exposed variable.

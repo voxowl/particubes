@@ -1,0 +1,33 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "MutableShape"
+extends: "Object"
+description: A [MutableShape] is an [Object] that carries and displays a set of [Block]s. The difference with [Shape] is that [MutableShape] [Block]s can be modified.
+
+constructors: 
+  - description: "Creates a MutableShape with imported [Item]."
+    arguments:
+    - name: "item"
+      type: "Item"
+    samples:
+      - code: local s = MutableShape(R.username.itemName)
+
+properties:
+
+functions:
+    - name: "AddBlock"
+      description: "Adds a [Block] to the [MutableShape]."
+      arguments:
+        - name: "block"
+          type: "Block"
+
+    - name: "GetBlock"
+      description: "Gets a [Block] from the [MutableShape]"
+      arguments: 
+        - name: "X"
+          type: "number"
+        - name: "Y"
+          type: "number"
+        - name: "Z"
+          type: "number"
+      return: 
+        - type: "Block"

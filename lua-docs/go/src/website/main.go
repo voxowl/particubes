@@ -180,39 +180,7 @@ func parseContent() error {
 
 				pages[cleanPath] = &page
 			}
-
-		} /*else if strings.HasSuffix(walkPath, ".json") { // JSON FILE
-
-			// check if path points to a regular file
-			exists := fsutil.RegularFileExists(walkPath)
-			if exists {
-
-				var page Page
-
-				file, err := os.Open(walkPath)
-				if err != nil {
-					return err
-				}
-
-				err = json.NewDecoder(file).Decode(&page)
-
-				if err != nil {
-					fmt.Println("JSON DECODE ERR:", err.Error())
-					return err
-				}
-
-				// example: from /www/index.json to /index.json
-				trimmedPath := strings.TrimPrefix(walkPath, contentDirectory)
-
-				page.ResourcePath = trimmedPath
-
-				cleanPath := cleanPath(trimmedPath)
-
-				page.Sanitize()
-
-				pages[cleanPath] = &page
-			}
-		}*/
+		}
 
 		return nil
 	})
@@ -224,6 +192,17 @@ func parseContent() error {
 	for route, page := range pages {
 		if page.Type != "" {
 			typeRoutes[page.Type] = route
+		}
+	}
+
+	for _, page := range pages {
+		if page.Type != "" && page.Extends != "" {
+			fmt.Println(page.Type, "extends", page.Extends)
+			if extendedTypePageRoute, ok := typeRoutes[page.Extends]; ok {
+				if extendedTypePage, ok := pages[extendedTypePageRoute]; ok {
+					page.SetExtentionBase(extendedTypePage)
+				}
+			}
 		}
 	}
 
