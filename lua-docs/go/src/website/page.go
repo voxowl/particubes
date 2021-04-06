@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gosimple/slug"
 	"regexp"
+	"sort"
 	"strings"
 )
 
@@ -234,8 +235,26 @@ func (p *Page) Sanitize() {
 			}
 		}
 	}
+
+	sort.Sort(FunctionsByName(p.Functions))
+	sort.Sort(PropertiesByName(p.Properties))
+	sort.Sort(PropertiesByName(p.BuiltIns))
 }
 
 func GetAnchorLink(s string) string {
 	return slug.Make(s)
 }
+
+// sort.Interface implementations
+
+type PropertiesByName []*Property
+
+func (a PropertiesByName) Len() int           { return len(a) }
+func (a PropertiesByName) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a PropertiesByName) Less(i, j int) bool { return a[i].Name < a[j].Name }
+
+type FunctionsByName []*Function
+
+func (a FunctionsByName) Len() int           { return len(a) }
+func (a FunctionsByName) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a FunctionsByName) Less(i, j int) bool { return a[i].Name < a[j].Name }
