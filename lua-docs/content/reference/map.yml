@@ -1,5 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Map"
+extends: "MutableShape"
 description: Map is a global variable that represents the game map.
 
 properties:
@@ -27,10 +28,6 @@ properties:
       description: "Returns map's height, measured in cubes."
       samples:
         - code: local height = Map.Height
-
-    - name: "Scale"
-      type: "number"
-      description: "Returns map's scale factor."
 
     - name: "Width"
       type: "number"

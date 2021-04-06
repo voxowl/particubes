@@ -1,5 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Player"
+extends: "Object"
 description: Represents the local Player.
 
 properties:
