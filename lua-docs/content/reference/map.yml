@@ -4,12 +4,9 @@ extends: "MutableShape"
 description: Map is a global variable that represents the game map.
 
 properties:
-    - name: "Blocks"
-      type: "Blocks"
-      description: "Returns map blocks, a 3D grid of [Block] objects."
 
-    - name: "BlockProperties"
-      type: "array"
+    - name: "LocalPalette"
+      type: "Palette"
       description: |
           Returns an [array] of [BlockProperties].
 
