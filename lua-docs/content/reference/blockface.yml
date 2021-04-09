@@ -1,0 +1,51 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "BlockFace"
+
+creatable: true
+
+description: |
+    A `BlockFace` represents the face of a [Block].
+
+    It can be returned when casting a ray, to know which block face has been touched. (see [Impact.FaceTouched](/reference/impact#property-facetouched))
+
+    It's also a useful parameter to functions like [Block.AddNeighbor](/reference/block#functions-addneighbor), to indicate where to place a [Block] next to another.
+
+    Builtin `BlockFace` instances can be used, there's no way to create custom BlockFaces.
+
+built-ins:
+
+# properties:
+  - name: "Top"
+    type: "BlockFace"
+    read-only: true
+    description: "Top face."
+
+  - name: "Bottom"
+    type: "BlockFace"
+    read-only: true
+    description: "Bottom face."
+
+  - name: "Front"
+    type: "BlockFace"
+    read-only: true
+    description: "Front face."
+
+  - name: "Back"
+    type: "BlockFace"
+    read-only: true
+    description: "Back face."
+
+  - name: "Left"
+    type: "BlockFace"
+    read-only: true
+    description: "Left face."
+
+  - name: "Right"
+    type: "BlockFace"
+    read-only: true
+    description: "Right face."
+
+
+
+    
+      
