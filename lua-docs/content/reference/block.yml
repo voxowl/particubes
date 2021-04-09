@@ -34,20 +34,23 @@ properties:
       description: "Block's color index."
     - name: "Position"
       type: "Number3"
-      description: "Block's position in parent Shape"
+      description: "Block's position in parent [Shape] or [MutableShape]"
     - name: "X"
       type: "number"
-      description: "Shortcut to Position.X"
+      description: "Shortcut to `Position.X`"
     - name: "Y"
       type: "number"
-      description: "Shortcut to Position.Y"
+      description: "Shortcut to `Position.Y`"
     - name: "Z"
       type: "number"
-      description: "Shortcut to Position.Z"
+      description: "Shortcut to `Position.Z`"
 
 functions:
     - name: "AddNeighbor"
-      description: "Adds a Block, adjacent to the face passed as parameter."
+      description: |
+          Adds a Block, adjacent to the face passed as parameter.
+
+          ⚠️ Won't work if the Block is not part of a [MutableShape].
       arguments:
         - name: "block"
           type: "Block"
@@ -67,7 +70,10 @@ functions:
           media: "/media/block-add-neighbor.mp4"
 
     - name: "Remove"
-      description: "Removes the Block."
+      description: |
+          Removes the Block.
+
+          ⚠️ Won't work if the Block is not part of a [MutableShape].
       samples:
         - code: |
             -- remove block when Action2 is triggered
@@ -79,7 +85,10 @@ functions:
             end
 
     - name: "Replace"
-      description: "Replaces the Block with the one passed as parameter. The position remains the same, ColorIndex is the only property being set."
+      description: |
+          Replaces the Block with the one passed as parameter. The position remains the same, ColorIndex is the only property being set.
+
+          ⚠️ Won't work if the Block is not part of a [MutableShape].
       arguments:
         - name: "block"
           type: "Block"
