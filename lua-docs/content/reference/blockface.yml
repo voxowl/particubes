@@ -19,31 +19,55 @@ built-ins:
     type: "BlockFace"
     read-only: true
     description: "Top face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Top)
 
   - name: "Bottom"
     type: "BlockFace"
     read-only: true
     description: "Bottom face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Bottom)
 
   - name: "Front"
     type: "BlockFace"
     read-only: true
     description: "Front face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Front)
 
   - name: "Back"
     type: "BlockFace"
     read-only: true
     description: "Back face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Back)
 
   - name: "Left"
     type: "BlockFace"
     read-only: true
     description: "Left face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Left)
 
   - name: "Right"
     type: "BlockFace"
     read-only: true
     description: "Right face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Right)
 
 
 
