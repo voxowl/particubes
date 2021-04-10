@@ -5,6 +5,8 @@ description: |
 
     A `Block` can be built with one of the [constructors](/reference/block#constructors), but it can also be obtained from a [Shape] or [MutableShape] with [Shape.GetBlock](/reference/shape#functions-getblock) or [MutableShape.GetBlock](/reference/mutableshape#functions-getblock).
 
+    ⚠️ A `Block` obtained from an immutable object (like [Shape]) is in fact `read-only`, none of its properties can be set in that case.
+
 constructors: 
   - description: |
       Creates a `Block` with `{0,0,0}` coordinates. ([Block.Position](#property-position))
@@ -17,7 +19,7 @@ constructors:
   - description: |
       Creates a `Block` with `{x,y,z}` coordinates. ([Block.Position](#property-position))
 
-      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [Shape] or [MutableShape] (owns the [Palette]).
+      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
     arguments:
     - name: "paletteIndex"
       type: "number"
@@ -45,23 +47,40 @@ properties:
           Block's palette index. (first index is `1`)
 
           ⚠️ [Block.Properties](#property-properties) remains [nil] if the block does not belong to a [Shape] or [MutableShape] (instances owning a [Palette]).
-
+      samples:
+          - code: |
+              local b = someMutableShape:GetBlock(1, 2, 3)
+              if b ~= nil then
+                -- changes block's properties
+                -- using different palette index
+                b.PaletteIndex = 10 
+              end
     - name: "Position"
-      read-only: true
       type: "Number3"
-      description: "Block's position in parent [Shape] or [MutableShape]"
+      description: |
+          Block's position in parent [Shape] or [MutableShape]
+      samples:
+          - code: |
+              local b = someShape:GetBlock(1, 2, 3)
+              if b ~= nil then
+                print(b.Position) -- prints "[Number3 X: 1 Y: 2 Z: 3]"
+              end
+          - code: |
+              local b = someMutableShape:GetBlock(1, 2, 3)
+              -- move block to different position
+              -- replaces block at {2, 3, 4} if it exists
+              if b ~= nil then
+                b.Position = {2, 3, 4}
+              end
     - name: "X"
-      read-only: true
       type: "number"
-      description: "Shortcut to `Position.X`"
+      description: "Shortcut to `Position.X` (see [Block.Position](/reference/block#property-position))" 
     - name: "Y"
-      read-only: true
       type: "number"
-      description: "Shortcut to `Position.Y`"
+      description: "Shortcut to `Position.Y` (see [Block.Position](/reference/block#property-position))"
     - name: "Z"
-      read-only: true
       type: "number"
-      description: "Shortcut to `Position.Z`"
+      description: "Shortcut to `Position.Z` (see [Block.Position](/reference/block#property-position))"
     - name: "Properties"
       read-only: true
       type: "BlockProperties"
@@ -75,7 +94,7 @@ functions:
       description: |
           Adds a `Block`, adjacent to the face passed as parameter.
 
-          ⚠️ Won't work if the Block is not part of a [MutableShape].
+          ⚠️ Won't work with `read-only` Blocks.
       arguments:
         - name: "block"
           type: "Block"
@@ -98,7 +117,7 @@ functions:
       description: |
           Removes the `Block` from its parent [MutableShape].
 
-          ⚠️ Won't work if the Block is not part of a [MutableShape].
+          ⚠️ Won't work with `read-only` Blocks.
       samples:
         - code: |
             -- remove block when Action2 is triggered
@@ -110,10 +129,13 @@ functions:
             end
 
     - name: "Replace"
+      blocks:
       description: |
           Replaces the `Block` with the one passed as parameter. The position remains the same, [Block.PaletteIndex](#property-paletteindex) is the only property being set.
 
-          ⚠️ Won't work if the Block is not part of a [MutableShape].
+          `block:Replace(otherBlock)` actually has the same effect as `block.PaletteIndex = otherBlock.PaletteIndex`
+
+          ⚠️ Won't work with `read-only` Blocks.
       arguments:
         - name: "block"
           type: "Block"

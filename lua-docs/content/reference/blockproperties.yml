@@ -1,7 +1,14 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "BlockProperties"
 creatable: true # indicates that instances can be created, even if there's no constructor
-description: BlockProperties describes possible properties for a [Block].
+description: |
+    `BlockProperties` describes possible properties for a [Block].
+
+    In most cases, [BlockProperties] are `read-only`.
+
+    Except entries `Config.MapPaletteOverrides`
+
+    `Map.LocalPalette` can also be set 
 
 properties:
     - name: "Color"
