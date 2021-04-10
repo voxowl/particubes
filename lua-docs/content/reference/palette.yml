@@ -2,5 +2,5 @@ keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"
 type: "Palette"
 creatable: true # indicates that instances can be created, even if there's no constructor
 description: |
-   TODO
+    A Palette is an [array] of [BlockProperties].
 
