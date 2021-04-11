@@ -59,6 +59,7 @@ type Function struct {
 	Samples     []*Sample   `yaml:"samples,omitempty"`
 	Return      []*Value    `yaml:"return,omitempty"`
 	ComingSoon  bool        `yaml:"coming-soon,omitempty"`
+	Hide        bool        `yaml:"hide,omitempty"`
 }
 
 type Argument struct {
@@ -88,6 +89,7 @@ type Property struct {
 	Samples     []*Sample `yaml:"samples,omitempty"`
 	ReadOnly    bool      `yaml:"read-only,omitempty"`
 	ComingSoon  bool      `yaml:"coming-soon,omitempty"`
+	Hide        bool      `yaml:"hide,omitempty"`
 }
 
 // Only one attribute can be set, others will
@@ -138,7 +140,20 @@ func (p *Page) SetExtentionBase(base *Page) {
 			p.Functions = make([]*Function, 0)
 		}
 
-		p.Functions = append(p.Functions, base.Functions...)
+		var overriden bool
+		for _, function := range base.Functions {
+			overriden = false
+			for _, extensionFunction := range p.Functions {
+				if extensionFunction.Name == function.Name {
+					overriden = true
+					break
+				}
+			}
+
+			if overriden == false {
+				p.Functions = append(p.Functions, function)
+			}
+		}
 	}
 
 	if base.Properties != nil {

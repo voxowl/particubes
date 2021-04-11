@@ -189,96 +189,100 @@
 				{{ if .Functions }}
 				<h2><a id="functions" href="#functions">Functions</a></h2>
 					{{ range $index, $function := .Functions }}
-						<a id="functions-{{ GetAnchorLink .Name }}"></a>
-						<div class="object-element-tbl">
-							<div class="object-element-header">
-								{{ if .Return }}<!--
-									-->{{ range $index, $value := .Return }}<!--
+						{{ if not $function.Hide }}
+							<a id="functions-{{ GetAnchorLink .Name }}"></a>
+							<div class="object-element-tbl">
+								<div class="object-element-header">
+									{{ if .Return }}<!--
+										-->{{ range $index, $value := .Return }}<!--
+											-->{{ $route := GetTypeRoute .Type }}<!--
+											-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+											-->{{ .Type }}<!--
+											-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+										-->{{ end }}<!--
+									-->{{ else }}<!--
+										--><a href="{{ GetTypeRoute `nil` }}" class="type">nil</a><!--
+									-->{{ end }}<!--
+									--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
+									-->{{ range $index, $element := .Arguments }}<!--
+									-->{{if $index}}, {{end}}<!--
 										-->{{ $route := GetTypeRoute .Type }}<!--
 										-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
 										-->{{ .Type }}<!--
 										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-									-->{{ end }}<!--
-								-->{{ else }}<!--
-									--><a href="{{ GetTypeRoute `nil` }}" class="type">nil</a><!--
-								-->{{ end }}<!--
-								--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
-								-->{{ range $index, $element := .Arguments }}<!--
-								-->{{if $index}}, {{end}}<!--
-									-->{{ $route := GetTypeRoute .Type }}<!--
-									-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
-									-->{{ .Type }}<!--
-									-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-									--> {{ .Name }}<!--
-									-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
-								-->{{ end }} )<!--
-								-->{{ if .ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}
-							</div>
-							<div class="object-element-row">
-								{{ if .Description }}
-									<p>{{ .Description }}</p>
-								{{ end }}
-								{{ range .Samples }}
-									{{ if SampleHasCodeAndMedia . }}
-										<div>
-											<div class="floatLeft60Pct">
-												<pre>{{ .Code }}</pre>
-											</div>
-											<div class="floatLeft40Pct">
-												<video style="width:100%;" autoplay loop muted playsinline>
-												  <source src="{{ .Media }}" type="video/mp4" />
-												Your browser does not support the video tag.
-												</video>
-											</div>
-											<div class="clear"></div>
-										</div>
-									{{ else if .Code }}
-										<pre>{{ .Code }}</pre>
+										--> {{ .Name }}<!--
+										-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
+									-->{{ end }} )<!--
+									-->{{ if .ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}
+								</div>
+								<div class="object-element-row">
+									{{ if .Description }}
+										<p>{{ .Description }}</p>
 									{{ end }}
-								{{ end }}
+									{{ range .Samples }}
+										{{ if SampleHasCodeAndMedia . }}
+											<div>
+												<div class="floatLeft60Pct">
+													<pre>{{ .Code }}</pre>
+												</div>
+												<div class="floatLeft40Pct">
+													<video style="width:100%;" autoplay loop muted playsinline>
+													  <source src="{{ .Media }}" type="video/mp4" />
+													Your browser does not support the video tag.
+													</video>
+												</div>
+												<div class="clear"></div>
+											</div>
+										{{ else if .Code }}
+											<pre>{{ .Code }}</pre>
+										{{ end }}
+									{{ end }}
+								</div>
 							</div>
-						</div>
+						{{ end }}
 					{{ end }}
-				{{ end }}
+				{{ end }} <!-- if Functions -->
 
 				{{ if .Properties }}
 				<h2><a id="properties" href="#properties">Properties</a></h2>
 					{{ range $index, $property := .Properties }}
-						<a id="property-{{ GetAnchorLink .Name }}"></a>
-						<div class="object-element-tbl">
-							<div class="object-element-header">
-								{{ $route := GetTypeRoute .Type }}<!--
-								-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
-								-->{{ .Type }}<!--
-								-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-								--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a><!--
-								-->{{ if .ReadOnly }} <span class="read-only">read-only</span>{{ end }}<!--
-								-->{{ if .ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}
-							</div>
-							<div class="object-element-row">
-								{{ if .Description }}
-									<p>{{ .Description }}</p>
-								{{ end }}
-								{{ range .Samples }}
-									{{ if SampleHasCodeAndMedia . }}
-										<div>
-											<div class="floatLeft60Pct">
-												<pre>{{ .Code }}</pre>
-											</div>
-											<div class="floatLeft40Pct">
-												<video style="width:100%;" autoplay loop muted playsinline>
-												  <source src="{{ .Media }}" type="video/mp4" />
-												Your browser does not support the video tag.
-												</video>
-											</div>
-											<div class="clear"></div>
-										</div>
-									{{ else if .Code }}
-										<pre>{{ .Code }}</pre>
+						{{ if not $property.Hide }}
+							<a id="property-{{ GetAnchorLink .Name }}"></a>
+							<div class="object-element-tbl">
+								<div class="object-element-header">
+									{{ $route := GetTypeRoute .Type }}<!--
+									-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+									-->{{ .Type }}<!--
+									-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+									--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a><!--
+									-->{{ if .ReadOnly }} <span class="read-only">read-only</span>{{ end }}<!--
+									-->{{ if .ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}
+								</div>
+								<div class="object-element-row">
+									{{ if .Description }}
+										<p>{{ .Description }}</p>
 									{{ end }}
-								{{ end }}
+									{{ range .Samples }}
+										{{ if SampleHasCodeAndMedia . }}
+											<div>
+												<div class="floatLeft60Pct">
+													<pre>{{ .Code }}</pre>
+												</div>
+												<div class="floatLeft40Pct">
+													<video style="width:100%;" autoplay loop muted playsinline>
+													  <source src="{{ .Media }}" type="video/mp4" />
+													Your browser does not support the video tag.
+													</video>
+												</div>
+												<div class="clear"></div>
+											</div>
+										{{ else if .Code }}
+											<pre>{{ .Code }}</pre>
+										{{ end }}
+									{{ end }}
+								</div>
 							</div>
-						</div>
+						{{ end }}
 					{{ end }}
 				{{ end }}
 
