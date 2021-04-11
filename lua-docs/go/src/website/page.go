@@ -62,10 +62,46 @@ type Function struct {
 	Hide        bool        `yaml:"hide,omitempty"`
 }
 
+func (f *Function) Copy() *Function {
+
+	function := &Function{
+		Name:        f.Name,
+		Description: f.Description,
+		ComingSoon:  f.ComingSoon,
+		Hide:        f.Hide,
+		Arguments:   make([]*Argument, 0),
+		Samples:     make([]*Sample, 0),
+		Return:      make([]*Value, 0),
+	}
+
+	for _, a := range f.Arguments {
+		function.Arguments = append(function.Arguments, a.Copy())
+	}
+
+	for _, s := range f.Samples {
+		function.Samples = append(function.Samples, s.Copy())
+	}
+
+	for _, v := range f.Return {
+		function.Return = append(function.Return, v.Copy())
+	}
+
+	return function
+}
+
 type Argument struct {
 	Name     string `yaml:"name,omitempty"`
 	Type     string `yaml:"type,omitempty"`
 	Optional bool   `yaml:"optional,omitempty"`
+}
+
+func (a *Argument) Copy() *Argument {
+	argument := &Argument{
+		Name:     a.Name,
+		Type:     a.Type,
+		Optional: a.Optional,
+	}
+	return argument
 }
 
 type Value struct {
@@ -73,9 +109,25 @@ type Value struct {
 	Description string `yaml:"description,omitempty"`
 }
 
+func (v *Value) Copy() *Value {
+	value := &Value{
+		Type:        v.Type,
+		Description: v.Description,
+	}
+	return value
+}
+
 type Sample struct {
 	Code  string `yaml:"code,omitempty"`
 	Media string `yaml:"media,omitempty"`
+}
+
+func (s *Sample) Copy() *Sample {
+	sample := &Sample{
+		Code:  s.Code,
+		Media: s.Media,
+	}
+	return sample
 }
 
 func SampleHasCodeAndMedia(s *Sample) bool {
@@ -90,6 +142,24 @@ type Property struct {
 	ReadOnly    bool      `yaml:"read-only,omitempty"`
 	ComingSoon  bool      `yaml:"coming-soon,omitempty"`
 	Hide        bool      `yaml:"hide,omitempty"`
+}
+
+func (p *Property) Copy() *Property {
+	property := &Property{
+		Name:        p.Name,
+		Type:        p.Type,
+		Description: p.Description,
+		ReadOnly:    p.ReadOnly,
+		ComingSoon:  p.ComingSoon,
+		Hide:        p.Hide,
+		Samples:     make([]*Sample, 0),
+	}
+
+	for _, s := range p.Samples {
+		property.Samples = append(property.Samples, s.Copy())
+	}
+
+	return property
 }
 
 // Only one attribute can be set, others will
@@ -119,10 +189,16 @@ func (p *Page) IsNotCreatableObject() bool {
 	return p.Creatable == false && p.BasicType == false && p.Type != "" && (p.Constructors == nil || len(p.Constructors) == 0)
 }
 
+var currentType = ""
+
 func getTypeLink(str string) string {
 
 	str = strings.TrimSuffix(str, "]")
 	str = strings.TrimPrefix(str, "[")
+
+	if str == "This" {
+		str = currentType
+	}
 
 	if route, ok := typeRoutes[str]; ok {
 		str = "<a class=\"type\" href=\"" + route + "\">" + str + "</a>"
@@ -151,7 +227,7 @@ func (p *Page) SetExtentionBase(base *Page) {
 			}
 
 			if overriden == false {
-				p.Functions = append(p.Functions, function)
+				p.Functions = append(p.Functions, function.Copy())
 			}
 		}
 	}
@@ -173,13 +249,15 @@ func (p *Page) SetExtentionBase(base *Page) {
 			}
 
 			if overriden == false {
-				p.Properties = append(p.Properties, property)
+				p.Properties = append(p.Properties, property.Copy())
 			}
 		}
 	}
 }
 
 func (p *Page) Sanitize() {
+
+	currentType = p.Type
 
 	reInlineCode := regexp.MustCompile("`([^`]+)`")
 	inlineCodeReplacement := `<span class="code">$1</span>`
