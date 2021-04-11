@@ -34,7 +34,7 @@ constructors:
 properties:
     - name: "Color"
       type: "Color"
-      description: "Button's color"
+      description: "Button's color."
       samples:
         - code: |
             -- set button color
@@ -81,4 +81,29 @@ functions:
     - name: "Remove"
       description: "Removes the Button."
       samples:
-       - code: btn:Remove()
+       - code: |
+          -- removes button from screen
+          btn:Remove()
+
+    - name: "Add"
+      description: |
+          Displays a button that has been removed.
+          By default, original anchors are kepts, but it's possible to supply new ones.
+
+          Calling `Add` for a button that's already displayed has no effect.
+
+      arguments:
+        - name: hAnchor
+          type: Anchor
+          optional: true
+        - name: vAnchor
+          type: Anchor
+          optional: true
+      samples:
+       - code: |
+          myButton = Button("do something")
+          -- by default, the button is displayed upon creation
+          -- let's remove it:
+          myButton:Remove()
+          -- we can add it back with different anchors: 
+          btn:Add(Anchor.Center, Anchor.Bottom)
