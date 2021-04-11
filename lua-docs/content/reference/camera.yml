@@ -1,7 +1,10 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Camera"
 extends: "Object"
-description: Controls camera movement and position.
+description: |
+  Camera is a shortcut to [Client].[Camera].
+
+  Controls camera movement and position.
 
 properties:
     # inherited from Object, hiding it for now though because untested

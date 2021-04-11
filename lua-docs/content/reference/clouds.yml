@@ -1,6 +1,9 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Clouds"
-description: Clouds gives control over cloud settings.
+description: |
+    Clouds is a shortcut to [Client].[Clouds].
+
+    Clouds gives control over cloud settings.
 
 properties:
     - name: "On"
