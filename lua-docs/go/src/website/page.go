@@ -162,6 +162,36 @@ func (p *Property) Copy() *Property {
 	return property
 }
 
+// SetExtensionBase sets base property fields when extension ones are empty
+func (p *Property) SetExtensionBase(baseProperty *Property) {
+
+	// Name is how extension overrides are detected
+	// it doesn't make sense to apply base on that field
+
+	// Type is always defined for an extension
+	// it doesn't make sense to apply base on that field
+
+	if p.Description == "" {
+		p.Description = baseProperty.Description
+	}
+
+	// ReadOnly can't be changed by extending a type
+	// enforce this here.
+	p.ReadOnly = baseProperty.ReadOnly
+
+	// extension has to be "coming soon" if base is
+	if baseProperty.ComingSoon && p.ComingSoon == false {
+		p.ComingSoon = true
+	}
+
+	if p.Samples == nil || len(p.Samples) == 0 {
+		p.Samples = make([]*Sample, 0)
+		for _, s := range baseProperty.Samples {
+			p.Samples = append(p.Samples, s.Copy())
+		}
+	}
+}
+
 // Only one attribute can be set, others will
 // be ignored if set.
 type ContentBlock struct {
@@ -228,6 +258,8 @@ func (p *Page) SetExtentionBase(base *Page) {
 
 			if overriden == false {
 				p.Functions = append(p.Functions, function.Copy())
+			} else { // override with non-empty fields, keep others from base
+
 			}
 		}
 	}
@@ -244,6 +276,8 @@ func (p *Page) SetExtentionBase(base *Page) {
 			for _, extensionProperty := range p.Properties {
 				if extensionProperty.Name == property.Name {
 					overriden = true
+					// override with non-empty fields, keep others from base
+					extensionProperty.SetExtensionBase(property)
 					break
 				}
 			}
@@ -267,7 +301,7 @@ func (p *Page) Sanitize() {
 	linkReplacement := `<a href="$2">$1</a>`
 	linkReplacementMetaDescription := `$1`
 
-	reTypeLink := regexp.MustCompile(`\[([A-Za-z]+)\]`)
+	reTypeLink := regexp.MustCompile(`\[([A-Za-z0-9]+)\]`)
 	typeLinkReplacementMetaDescription := `$1`
 
 	if p.Description != "" {
