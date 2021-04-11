@@ -135,8 +135,10 @@ func SampleHasCodeAndMedia(s *Sample) bool {
 }
 
 type Property struct {
-	Name        string    `yaml:"name,omitempty"`
-	Type        string    `yaml:"type,omitempty"`
+	Name string `yaml:"name,omitempty"`
+	Type string `yaml:"type,omitempty"`
+	// When a property acceps several possible types
+	Types       []string  `yaml:"types,omitempty"`
 	Description string    `yaml:"description,omitempty"`
 	Samples     []*Sample `yaml:"samples,omitempty"`
 	ReadOnly    bool      `yaml:"read-only,omitempty"`

@@ -250,10 +250,22 @@
 							<a id="property-{{ GetAnchorLink .Name }}"></a>
 							<div class="object-element-tbl">
 								<div class="object-element-header">
-									{{ $route := GetTypeRoute .Type }}<!--
-									-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
-									-->{{ .Type }}<!--
-									-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+									{{ if .Type }}<!--
+										-->{{ $route := GetTypeRoute .Type }}<!--
+										-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+										-->{{ .Type }}<!--
+										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+									-->{{ else }}{{ if .Types }}<!--
+											-->{{ range $i, $type := .Types }}<!--
+												-->{{ if gt $i 0 }}<!--
+													--><span> or </span><!--
+												-->{{ end }}<!--
+												-->{{ $route := GetTypeRoute $type }}<!--
+												-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+												-->{{ $type }}<!--
+												-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+											-->{{ end }}<!--
+									-->{{ end }}{{ end }}<!--
 									--> <a href="#property-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a><!--
 									-->{{ if .ReadOnly }} <span class="read-only">read-only</span>{{ end }}<!--
 									-->{{ if .ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}
