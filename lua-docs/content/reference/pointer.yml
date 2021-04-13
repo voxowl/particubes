@@ -1,7 +1,26 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Pointer"
 description: |
+    Pointer is a shortcut to [Inputs].[Pointer].
     Pointer allows to catch user pointer events. Mouse events or touch events depending on the device.
+
+functions:
+    - name: "Show"
+      description: |
+          [Pointer] callbacks start being triggered on mouse and touch events.
+
+          User interface elements such as [Button]s become active.
+      samples:
+        - code: |
+            Pointer:Show()
+    - name: "Hide"
+      description: |
+          Virtual game pads appear on touch screens. 
+
+          Direction keys and gamepad start triggering [Client.DirectionDidChange](/reference/client#property-directiondidchange) 
+      samples:
+          - code: |
+              Pointer:Hide()
 
 properties:
 

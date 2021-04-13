@@ -3,7 +3,7 @@ type: "Players"
 description: Players is an array of Players, it contains all players who joined the game.
 blocks:
   - text: |
-      Players is an array of Players, it contains all players who joined the game.
+      Players is an array of [Player]s, it contains all players who joined the game.
 
   - code: |
       for i, player in ipairs(Players) do

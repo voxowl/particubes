@@ -1,14 +1,12 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Color"
-description: Represents a RGB color.
+description: Represents a RGBA color (Red, Green, Blue, Alpha)
 
 constructors: 
   - description: |
       Creates a Color with given red, green, blue and (optional) alpha values.
 
-      Red, green and blue parameters can be between 0.0 and 1.0 or between 0 and 255.
-
-      Alpha parameter can be betweem 0.0 and 1.0 or between 0 and 100.
+      Parameters can be between 0.0 and 1.0 or between 0 and 255.
     arguments:
     - name: "red"
       type: "number"
@@ -31,22 +29,22 @@ properties:
       description: "Color's alpha component."
     - name: "A"
       type: "number"
-      description: "Color's alpha component. (shortcut to Alpha)"
+      description: "Color's alpha component. (shortcut to [Alpha](#property-alpha))"
     - name: "Blue"
       type: "number"
       description: "Color's blue component."
     - name: "B"
       type: "number"
-      description: "Color's blue component. (shortcut to Blue)"
+      description: "Color's blue component. (shortcut to [Blue](#property-blue))"
     - name: "Green"
       type: "number"
       description: "Color's green component."
     - name: "G"
       type: "number"
-      description: "Color's green component. (shortcut to Green)"
+      description: "Color's green component. (shortcut to [Green](#property-green))"
     - name: "Red"
       type: "number"
       description: "Color's red component."
     - name: "R"
       type: "number"
-      description: "Color's red component. (shortcut to Red)"
+      description: "Color's red component. (shortcut to [Red](#property-red))"

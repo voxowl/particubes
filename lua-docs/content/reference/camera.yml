@@ -1,34 +1,75 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Camera"
-description: Controls camera movement and position.
+extends: "Object"
+description: |
+  Camera is a shortcut to [Client].[Camera].
+
+  Controls camera movement and position.
 
 properties:
-    - name: "Position"
-      type: "Number3"
-      description: "Position of Camera."
-    - name: "Rotation"
-      type: "Number3"
-      description: "Angle of Camera."
+    # inherited from Object, hiding it for now though because untested
+    - name: "ChildrenCount"
+      hide: true
+    - name: "LocalScale"
+      hide: true
+
+    - name: "Position" # override sample
+      samples: 
+        - code: |
+            -- places the Camera where the local player is
+            Camera.Position = Player.Position
+
+    - name: "Rotation" # override sample
+      samples: 
+        - code: |
+            Camera:Rotate({0, 2, 0})
+            -- Camera rotated 2 radians arount Y axis
+
+            -- another way to rotate the Camera:
+            Camera.Forward = {0, 0, 1}
+            Camera.Forward = someObject.Forward
+
     - name: "Target"
-      type: "Number3 or Block"
-      description: "The object Camera is looking at."
+      types:
+        - "Number3"
+        - "Block"
+        - "Object"
+      description: |
+          What [Camera] is looking at. 
+
+          `Target` accepts several types:
+          - [Number3], for a position in world coordinates.
+          - [Block], for the [Camera] to look at the center of it.
+          - [Object] (including extensions like [Shape] or [MutableShape]), for the [Camera] to look at the center of it.
+
+
     - name: "DistanceFromTarget"
       type: "number"
-      description: "Distance (in [Map] blocks) between Camera and its target."
-    - name: "Forward"
-      type: "Number3"
-      read-only: true
-      description: "Forward vector of Camera."
-    - name: "Right"
-      type: "Number3"
-      read-only: true
-      description: "Right vector of Camera"
-    - name: "Up"
-      type: "Number3"
-      read-only: true
-      description: "Up vector of Camera"
+      description: "Distance (in [Map] blocks) between [Camera] and its target."
 
 functions:
+    # inherited from Object, hiding it for now though because untested
+    - name: "AddChild"
+      hide: true
+    - name: "GetChild"
+      hide: true
+    - name: "PositionLocalToWorld"
+      hide: true
+    - name: "PositionWorldToLocal"
+      hide: true
+    - name: "RemoveChild"
+      hide: true
+    - name: "RemoveChildren"
+      hide: true
+    - name: "RemoveFromParent"
+      hide: true
+    - name: "RotationLocalToWorld"
+      hide: true
+    - name: "RotationWorldToLocal"
+      hide: true
+    - name: "SetParent"
+      hide: true
+
     - name: "CastRay"
       return: 
         - type: "Impact" 
@@ -52,13 +93,18 @@ functions:
 
     - name: "SetModeSatellite"
       description: |
-          When in that mode, the camera rotates around its Target property.
+          When in that mode, the camera rotates around its [Target](#property-target) property.
       samples:
         - code: |
             Camera:SetModeSatellite()
 
     - name: "FitToScreen"
-      description: "Fits the target to the screen."
+      description: |
+          Fits the target to the screen.
+
+          `screenRatio` indicates the percentage of the screen that should be covered by the target.
+
+          When `spherize` is `true`, a sphere that contains the target is used to place the camera.
       arguments:
         - name: "target"
           type: "Shape"
@@ -68,6 +114,8 @@ functions:
           type: "boolean"
       samples:
         - code: |
-            local item = Shape(R.usename.myShape)
-            Camera:FitToScreen(item, 0.6, false)
+            local myShape = Shape(R.usename.myShape)
+            Map:AddChild(myShape)
+            Camera:FitToScreen(myShape, 0.6, false)
+            -- the shape now covers 60% of the screen
 

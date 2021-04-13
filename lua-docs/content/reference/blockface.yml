@@ -1,0 +1,75 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "BlockFace"
+
+creatable: true
+
+description: |
+    A `BlockFace` represents the face of a [Block].
+
+    It can be returned when casting a ray, to know which block face has been touched. (see [Impact.FaceTouched](/reference/impact#property-facetouched))
+
+    It's also a useful parameter to functions like [Block.AddNeighbor](/reference/block#functions-addneighbor), to indicate where to place a [Block] next to another.
+
+    Builtin `BlockFace` instances can be used, there's no way to create custom BlockFaces.
+
+built-ins:
+
+# properties:
+  - name: "Top"
+    type: "BlockFace"
+    read-only: true
+    description: "Top face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Top)
+
+  - name: "Bottom"
+    type: "BlockFace"
+    read-only: true
+    description: "Bottom face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Bottom)
+
+  - name: "Front"
+    type: "BlockFace"
+    read-only: true
+    description: "Front face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Front)
+
+  - name: "Back"
+    type: "BlockFace"
+    read-only: true
+    description: "Back face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Back)
+
+  - name: "Left"
+    type: "BlockFace"
+    read-only: true
+    description: "Left face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Left)
+
+  - name: "Right"
+    type: "BlockFace"
+    read-only: true
+    description: "Right face."
+    samples:
+      - code: |
+          local blockToAdd = Block(1) -- block with PaletteIndex == 1
+          someMutableShape:GetBlock(4,5,6):AddNeighbor(blockToAdd, BlockFace.Right)
+
+
+
+    
+      

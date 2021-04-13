@@ -1,0 +1,41 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Config"
+description: "Config holds the configuration for your game. The items it depends on, the map that should be used and other important things."
+blocks:
+  - text: |
+      Config holds the configuration for your game. The items it depends on, the map that should be used and other important things.
+
+      You'll usually see it defined at the top of most game scripts.
+
+  - code: |
+      Config = {
+        Items = {"aduermael.pumpkin", "aduermael.tomato"},
+        Map = "gdevillele.pirate_ship"
+      }
+
+      -- also works this way:
+      Config.Items = {"aduermael.pumpkin", "aduermael.tomato"}
+      Config.Map = "gdevillele.pirate_ship"
+
+properties:
+    - name: "Map"
+      type: "string"
+      description: "Indicates the map that should be loaded."
+    - name: "Items"
+      type: "array"
+      description: |
+          A list of items (string references) that should be loaded.
+
+          You'll be able to use thoses items to create [Shape]s, [MutableShape]s and other things.
+    - name: "MapPaletteOverrides"
+      type: "table"
+      description: |
+          A collection of [Map] [Palette] indexes that you want to override in the game.
+      samples:
+       - code: |
+          -- override Block properties at index 3 in map's palette
+          Config.MapPaletteOverrides[3].Color = Color(255, 0, 0)
+          Config.MapPaletteOverrides[3].Light = true
+    # - name: "Gravity"
+    #   type: "number"
+    #   description: "Overrides default gravity if set."

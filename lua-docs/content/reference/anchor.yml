@@ -8,7 +8,7 @@ description: |
 
     Anchors are used to position user interface elements.
 
-    A few builtin Anchor instances can be used, there's no way to create custom Anchors.
+    A few builtin `Anchor` instances can be used, there's no way to create custom Anchors.
 
 built-ins:
 

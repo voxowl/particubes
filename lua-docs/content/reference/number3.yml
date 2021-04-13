@@ -16,25 +16,39 @@ constructors:
           local myNumber3 = Number3(1, 2, 3)
 
 properties:
-    - name: "X"
-      type: "number"
-      description: "X value of the Number3."
-      samples:
-        - code: |
-            myNumber3.X = 42
-            print(myNumber3.X)
-    - name: "Y"
-      type: "number"
-      description: "Y value of the Number3."
-      samples:
-        - code: |
-            myNumber3.Y = 42
-            print(myNumber3.Y)
-    - name: "Z"
-      type: "number"
-      description: "Z value of the Number3."
-      samples:
-        - code: |
-            myNumber3.Z = 42
-            print(myNumber3.Z)
+  - name: "X"
+    type: "number"
+    description: "X value of the Number3."
+    samples:
+      - code: |
+          myNumber3.X = 42
+          print(myNumber3.X)
+  - name: "Y"
+    type: "number"
+    description: "Y value of the Number3."
+    samples:
+      - code: |
+          myNumber3.Y = 42
+          print(myNumber3.Y)
+  - name: "Z"
+    type: "number"
+    description: "Z value of the Number3."
+    samples:
+      - code: |
+          myNumber3.Z = 42
+          print(myNumber3.Z)
+
+functions:
+  - name: "Rotate"
+    description: |
+      Rotates the `Number3` using euler angles in parameters (in radians).
+    arguments: 
+      - name: "angles"
+        type: "Number3"
+    samples:
+      - code: |
+          local someNumber3 = Number3(0,0,1)
+          local pi = 3.1415
+          someNumber3:Rotate(Number3(0,pi,0))
+          -- someNumber3 == Number3(0,0,-1), after a PI rotation around Y axis (180°)
 

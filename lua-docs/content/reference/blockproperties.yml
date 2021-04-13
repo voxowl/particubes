@@ -1,7 +1,14 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "BlockProperties"
 creatable: true # indicates that instances can be created, even if there's no constructor
-description: BlockProperties describes possible properties for a [Block].
+description: |
+    `BlockProperties` describes possible properties for a [Block].
+
+    In most cases, [BlockProperties] are `read-only`.
+
+    Except entries in [Config.MapPaletteOverrides](/reference/config#property-mappaletteoverrides), to override map block properties for a game.
+
+    [BlockProperties] in [Map.LocalPalette](/reference/map#property-localpalette) can also be set at any time as long as the block is opaque and not light emissive.
 
 properties:
     - name: "Color"
@@ -9,12 +16,10 @@ properties:
       description: |
           [Block]'s color.
 
-          Note: if the color is non-opaque (`Color.Alpha < 1.0`) and/or light emissive, this property becomes read-only after game start.
-
-    - name: "Emissive"
+    - name: "Light"
       type: "boolean"
       description: "Indicates if the [Block] is light emissive. Light color is tight to the color of the [Block]."
 
     - name: "ID"
       type: "number"
-      description: "BlockProperties' index in the [Shape]'s BlockProperties array."
+      description: "BlockProperties' index in the [Palette] or [array] it belongs to."

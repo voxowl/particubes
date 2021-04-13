@@ -1,18 +1,27 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Block"
-description: A Block usually represents one block in the map. But could also represent a block for any shape in the game.
+description: |
+    A `Block` represents one block in a [Shape] or [MutableShape] (like the [Map]).
+
+    A `Block` can be built with one of the [constructors](/reference/block#constructors), but it can also be obtained from a [Shape] or [MutableShape] with [Shape.GetBlock](/reference/shape#functions-getblock) or [MutableShape.GetBlock](/reference/mutableshape#functions-getblock).
+
+    ⚠️ A `Block` obtained from an immutable object (like [Shape]) is in fact `read-only`, none of its properties can be set in that case.
 
 constructors: 
   - description: |
-      Creates a Block at `{0,0,0}` with given color index.
-      The Block is not automatically added to any [Shape].
+      Creates a `Block` with `{0,0,0}` coordinates. ([Block.Position](#property-position))
+
+      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
 
     arguments:
-    - name: "colorIndex"
+    - name: "paletteIndex"
       type: "number"
-  - description: "Creates a block at `{x,y,z}` with given color index."
+  - description: |
+      Creates a `Block` with `{x,y,z}` coordinates. ([Block.Position](#property-position))
+
+      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
     arguments:
-    - name: "colorIndex"
+    - name: "paletteIndex"
       type: "number"
     - name: "x"
       type: "number"
@@ -21,33 +30,71 @@ constructors:
     - name: "z"
       type: "number"
         
-  - description: "Creates a block at position with given color index."
+  - description: |
+      Creates a `Block` with `position` coordinates. ([Block.Position](#property-position))
+
+      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
     arguments: 
-    - name: "colorIndex"
+    - name: "paletteIndex"
       type: "number"
     - name: "position"
       type: "Number3"
 
 properties:
-    - name: "ColorIndex"
+    - name: "PaletteIndex"
       type: "number"
-      description: "Block's color index."
+      description: |
+          Block's palette index. (first index is `1`)
+
+          ⚠️ [Block.Properties](#property-properties) remains [nil] if the block does not belong to a [Shape] or [MutableShape] (instances owning a [Palette]).
+      samples:
+          - code: |
+              local b = someMutableShape:GetBlock(1, 2, 3)
+              if b ~= nil then
+                -- changes block's properties
+                -- using different palette index
+                b.PaletteIndex = 10 
+              end
     - name: "Position"
       type: "Number3"
-      description: "Block's position in parent Shape"
+      description: |
+          Block's position in parent [Shape] or [MutableShape]
+      samples:
+          - code: |
+              local b = someShape:GetBlock(1, 2, 3)
+              if b ~= nil then
+                print(b.Position) -- prints "[Number3 X: 1 Y: 2 Z: 3]"
+              end
+          - code: |
+              local b = someMutableShape:GetBlock(1, 2, 3)
+              -- move block to different position
+              -- replaces block at {2, 3, 4} if it exists
+              if b ~= nil then
+                b.Position = {2, 3, 4}
+              end
     - name: "X"
       type: "number"
-      description: "Shortcut to Position.X"
+      description: "Shortcut to `Position.X` (see [Block.Position](/reference/block#property-position))" 
     - name: "Y"
       type: "number"
-      description: "Shortcut to Position.Y"
+      description: "Shortcut to `Position.Y` (see [Block.Position](/reference/block#property-position))"
     - name: "Z"
       type: "number"
-      description: "Shortcut to Position.Z"
+      description: "Shortcut to `Position.Z` (see [Block.Position](/reference/block#property-position))"
+    - name: "Properties"
+      read-only: true
+      type: "BlockProperties"
+      description: |
+          Returns Block's [BlockProperties].
+
+          [nil] if the [Block] does not belong to a [Shape] or [MutableShape].
 
 functions:
     - name: "AddNeighbor"
-      description: "Adds a Block, adjacent to the face passed as parameter."
+      description: |
+          Adds a `Block`, adjacent to the face passed as parameter.
+
+          ⚠️ Won't work with `read-only` Blocks.
       arguments:
         - name: "block"
           type: "Block"
@@ -67,7 +114,10 @@ functions:
           media: "/media/block-add-neighbor.mp4"
 
     - name: "Remove"
-      description: "Removes the Block."
+      description: |
+          Removes the `Block` from its parent [MutableShape].
+
+          ⚠️ Won't work with `read-only` Blocks.
       samples:
         - code: |
             -- remove block when Action2 is triggered
@@ -79,7 +129,13 @@ functions:
             end
 
     - name: "Replace"
-      description: "Replaces the Block with the one passed as parameter. The position remains the same, ColorIndex is the only property being set."
+      blocks:
+      description: |
+          Replaces the `Block` with the one passed as parameter. The position remains the same, [Block.PaletteIndex](#property-paletteindex) is the only property being set.
+
+          `block:Replace(otherBlock)` actually has the same effect as `block.PaletteIndex = otherBlock.PaletteIndex`
+
+          ⚠️ Won't work with `read-only` Blocks.
       arguments:
         - name: "block"
           type: "Block"
@@ -90,6 +146,6 @@ functions:
               -- cast a ray, see if it touches a block
               local impact = Player:CastRay()
               -- won't do anything if impact.Block is nil
-              impact.Block:Replace(Block(1)) -- make it a block with colorIndex == 1
+              impact.Block:Replace(Block(1)) -- make it a block with PaletteIndex == 1
             end
 

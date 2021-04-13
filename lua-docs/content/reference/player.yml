@@ -1,6 +1,10 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Player"
-description: Represents the local Player.
+extends: "Object"
+description: |
+    Player is a shortcut to [Client].[Player].
+    
+    Represents the local Player.
 
 properties:
     - name: "BlockUnderneath"

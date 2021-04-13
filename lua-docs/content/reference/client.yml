@@ -40,7 +40,7 @@ properties:
     - name: "Action2"
       type: "function"
       description: |
-          Triggered when pressing action 2 button. (left click)
+          Triggered when pressing action 2 button. (left click by default when using a mouse)
       samples:
         - code: |
             Client.Action2 = function()
@@ -50,7 +50,7 @@ properties:
     - name: "Action2Release"
       type: "function"
       description: |
-          Triggered when releasing action 2 button. (left click)
+          Triggered when releasing action 2 button. (left click by default when using a mouse)
       samples:
         - code: |
             Client.Action2Release = function()
@@ -60,7 +60,7 @@ properties:
     - name: "Action3"
       type: "function"
       description: |
-          Triggered when pressing action 3 button. (right click)
+          Triggered when pressing action 3 button. (right click by default when using a mouse)
       samples:
         - code: |
             Client.Action3 = function()
@@ -70,7 +70,7 @@ properties:
     - name: "Action3Release"
       type: "function"
       description: |
-          Triggered when releasing action 3 button. (left click)
+          Triggered when releasing action 3 button. (left click by default when using a mouse)
       samples:
         - code: |
             Client.Action3Release = function()
@@ -112,6 +112,8 @@ properties:
       type: "function"
       description: |
           Triggered when a player joins the game.
+
+          It doens't mean the [Player] has spawned, just that there's a new connection.
       samples:
         - code: |
             Client.OnPlayerJoin = function(player)
@@ -126,6 +128,21 @@ properties:
         - code: |
             Client.OnPlayerLeave = function(player)
               print("So long " .. player.Username .. "!")
+            end
+
+    - name: "OnStart"
+      type: "function"
+      description: |
+          Triggered when the game starts.
+
+          This is the very first Lua function to be called, a good place to initialize variables.
+      samples:
+        - code: |
+            Client.OnStart = function()
+              -- place player above the top center of the map
+              Player.Position = {Map.Width / 2, Map.Height + 10, Map.Depth / 2}
+              -- make it spawn!
+              Player:Spawn()
             end
 
     - name: "Player"
