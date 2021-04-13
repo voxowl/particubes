@@ -17,7 +17,8 @@ properties:
             Fog.On = not Fog.On
     - name: "Distance"
       type: "number"
-      description: "Sets Fog.Near while maintaining offset between Fog.Near & Fog.Far"
+      description: |
+          Sets [Fog].[Near](#property-near) while maintaining offset between [Fog].[Near](#property-near) & [Fog].[Far](#property-far)
       samples:
         - code: Fog.Distance = 100
     - name: "Near"

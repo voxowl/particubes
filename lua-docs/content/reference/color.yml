@@ -6,9 +6,7 @@ constructors:
   - description: |
       Creates a Color with given red, green, blue and (optional) alpha values.
 
-      Red, green and blue parameters can be between 0.0 and 1.0 or between 0 and 255.
-
-      Alpha parameter can be betweem 0.0 and 1.0 or between 0 and 100.
+      Parameters can be between 0.0 and 1.0 or between 0 and 255.
     arguments:
     - name: "red"
       type: "number"

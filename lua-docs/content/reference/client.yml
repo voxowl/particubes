@@ -112,6 +112,8 @@ properties:
       type: "function"
       description: |
           Triggered when a player joins the game.
+
+          It doens't mean the [Player] has spawned, just that there's a new connection.
       samples:
         - code: |
             Client.OnPlayerJoin = function(player)
@@ -132,6 +134,8 @@ properties:
       type: "function"
       description: |
           Triggered when the game starts.
+
+          This is the very first Lua function to be called, a good place to initialize variables.
       samples:
         - code: |
             Client.OnStart = function()

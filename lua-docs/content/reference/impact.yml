@@ -4,7 +4,8 @@ type: "Impact"
 creatable: true
 
 blocks: 
-  - text: "An Impact object can be returned when casting a ray. (see Camera.CastRay, Player.CastRay,  PointerEvent.CastRay)"
+  - text: |
+      An Impact object can be returned when casting a ray. (see [Camera].[CastRay](/reference/camera#functions-castray), [Player].[CastRay](/reference/player#functions-castray), [PointerEvent].[CastRay](/reference/pointerevent#functions-castray))
 
 properties:
     - name: "Block"

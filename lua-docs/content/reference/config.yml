@@ -36,6 +36,6 @@ properties:
           -- override Block properties at index 3 in map's palette
           Config.MapPaletteOverrides[3].Color = Color(255, 0, 0)
           Config.MapPaletteOverrides[3].Light = true
-    - name: "Gravity"
-      type: "number"
-      description: "Overrides default gravity if set."
+    # - name: "Gravity"
+    #   type: "number"
+    #   description: "Overrides default gravity if set."
