@@ -10,19 +10,21 @@ blocks:
 properties:
     - name: "Block"
       type: "Block"
-      description: "Block touched by the ray. Not `nil` if the Impact represents a Block."
+      description: "Block touched by the ray. Not `nil` if the [Impact] represents a [Block]."
       samples:
         - code: |
-            local impact = Local.Player:CastRay()
-            print(impact.Block.Id)	-- prints hit block's id
+            local impact = Player:CastRay()
+            print(impact.Block)	-- prints hit block's id
 
     - name: "Distance"
       type: "number"
-      description: "Distance to impact when casting a ray. (see Player.CastRay)"
+      description: "Distance to impact when casting a ray. (see [Camera].[CastRay](/reference/camera#functions-castray), [Player].[CastRay](/reference/player#functions-castray), [PointerEvent].[CastRay](/reference/pointerevent#functions-castray))"
     - name: "FaceTouched"
-      type: "number"
-      description: "Not `nil` if the Impact represents a Block.
-        Index of hit block's face."
+      type: "BlockFace"
+      description: |
+          Not `nil` if the [Impact] represents a [Block].
+          
+          Indicates what block face has been touched.
     - name: "Player"
       type: "Player"
       description: "Player touched by the ray."

@@ -5,34 +5,6 @@ description: |
     
     Inputs gives control over user inputs.
 
-functions:
-    - name: SetModePointer
-      description: |
-          Moving to "pointer mode" when called.
-
-          [Pointer] callbacks start being triggered on mouse and touch events.
-
-          User interface elements such as [Button]s become active.
-      samples:
-        - code: |
-            Inputs:SetModePointer()
-
-    - name: SetModeCamera
-      description: |
-          Moving to "camera mode" when called.
-
-          Virtual game pads appear on touch screens. 
-
-          Direction keys and gamepad start triggering [Client.DirectionDidChange](/reference/client#property-directiondidchange) callback.
-
-          Action keys and gamepad start triggering [Client.Action1](/reference/client#property-action1), [Client.Action1Release](/reference/client#property-action1release), [Client.Action2](/reference/client#property-action2), etc.
-
-          Mouse movements and touch drags now control camera rotation. (a function similar to [Client.DirectionDidChange](/reference/client#property-directiondidchange) will be exposed soon to provide more control over that kind of input)
-      samples:
-        - code: |
-            Inputs:SetModeCamera()
-
-
 properties:
     - name: "Pointer"
       type: "Pointer"
