@@ -54,3 +54,11 @@ functions:
           By default, original anchors are kepts, but it's possible to supply new ones.
 
           Calling `Add` for a label that's already displayed has no effect.
+
+      arguments:
+        - name: hAnchor
+          type: Anchor
+          optional: true
+        - name: vAnchor
+          type: Anchor
+          optional: true
