@@ -164,4 +164,8 @@ properties:
       type: "UI"
       description: "See [UI]."
 
+    - name: "Pointer"
+      type: "Pointer"
+      description: "See [Pointer]."
+
 
