@@ -2,6 +2,7 @@ package main
 
 import (
 	// "encoding/json"
+	"container/list"
 	"errors"
 	"fmt"
 	yaml "gopkg.in/yaml.v2"
@@ -195,12 +196,28 @@ func parseContent() error {
 		}
 	}
 
+	queue := list.New()
 	for _, page := range pages {
 		if page.Type != "" && page.Extends != "" {
-			fmt.Println(page.Type, "extends", page.Extends)
-			if extendedTypePageRoute, ok := typeRoutes[page.Extends]; ok {
-				if extendedTypePage, ok := pages[extendedTypePageRoute]; ok {
+			page.ExtentionBaseSet = false
+			queue.PushBack(page)
+		}
+	}
+
+	for queue.Len() > 0 {
+		e := queue.Front()
+		page := e.Value.(*Page) // First element
+		queue.Remove(e)         // Dequeue
+
+		if extendedTypePageRoute, ok := typeRoutes[page.Extends]; ok {
+			if extendedTypePage, ok := pages[extendedTypePageRoute]; ok {
+				if extendedTypePage.ReadyToBeSetAsBase() {
 					page.SetExtentionBase(extendedTypePage)
+					page.ExtentionBaseSet = true
+				} else {
+					// base is itself an extension and should be
+					// taken care of first.
+					queue.PushBack(page)
 				}
 			}
 		}
