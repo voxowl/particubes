@@ -88,7 +88,7 @@ properties:
     - name: "DirectionalPad"
       type: "function"
       description: |
-          Triggered when what we call the "direction pad" or "D-pad" is activated. 
+          Triggered when what we call the "directional pad" or "D-pad" is activated. 
 
           The D-pad maps to the direction keys when using a keyboard (WASD by default).
 
