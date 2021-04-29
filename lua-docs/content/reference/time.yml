@@ -20,11 +20,13 @@ built-ins:
       type: "Time"
       description: |
           Current ingame day time.
-          Shortcut to TimeCycle.CurrentTime.
+          Shortcut to [TimeCycle].[CurrentTime](/reference/timecycle#property-currenttime).
       samples: 
         - code: |
             -- sets time to noon for everyone
             Time.Current = Time.Noon
+            -- same as:
+            CurrentTime.CurrentTime = Time.Noon
 
     - name: "Dawn"
       type: "Time"
@@ -45,26 +47,56 @@ built-ins:
 
 properties:
     
-    - name: "Hours"
+    - name: "Hour"
       type: "number"
-      description: "Hours of the Time."
-    - name: "H"
-      type: "number"
-      description: "Hours of the Time."
+      description: |
+          Hour represents the hour within [Time], in the range [0,23].
       samples:
         - code: |
-            print(myTime.Hours) -- 12, value stored in the Time variable myTime
-            print(Time.Hours) -- hours of the in-game Time
-    - name: "Minutes"
+            local t = Time.Noon
+            print(t.Hours) -- prints "12"
+    - name: "H"
       type: "number"
-      description: "Minutes of the Time."
+      description: |
+          `H` is a shortcut to [Hour](/reference/time#property-hour).
+      samples:
+        - code: |
+            local t = Time.Noon
+            print(t.H) -- prints "12"
+
+
+    - name: "Minute"
+      type: "number"
+      description: |
+          Minute represents the minute offset within the hour of [Time], in the range [0,59].
+      samples:
+        - code: |
+            local t = Time(12, 30, 45)
+            print(t.Minute) -- prints "30"
     - name: "M"
       type: "number"
-      description: "Minutes of the Time."
-    - name: "Seconds"
+      description: |
+          `M` is a shortcut to [Minute](/reference/time#property-minute).
+      samples:
+        - code: |
+            local t = Time(12, 30, 45)
+            print(t.M) -- prints "30"
+
+
+    - name: "Second"
       type: "number"
-      description: "Seconds of the Time."
+      description: |
+          Second represents the second within the minute of [Time], in the range [0,59].
+      samples:
+        - code: |
+            local t = Time(12, 30, 45)
+            print(t.Second) -- prints "45"
     - name: "S"
       type: "number"
-      description: "Seconds of the Time."
+      description: |
+          `S` is a shortcut to [Second](/reference/time#property-second).
+      samples:
+        - code: |
+            local t = Time(12, 30, 45)
+            print(t.S) -- prints "45"
 
