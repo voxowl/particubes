@@ -12,6 +12,12 @@ properties:
       hide: true
     - name: "LocalScale"
       hide: true
+    - name: "Physics"
+      hide: true
+    - name: "Velocity"
+      hide: true
+    - name: "Motion"
+      hide: true
 
     - name: "Position" # override sample
       samples: 
