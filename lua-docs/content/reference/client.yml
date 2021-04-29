@@ -85,20 +85,94 @@ properties:
       type: "Clouds"
       description: "See [Clouds]."
 
-    - name: "DirectionDidChange"
+    - name: "DirectionalPad"
       type: "function"
       description: |
-          Triggered when the direction changes. (using direction keys or direction gamepad)
-          The default implementation does not appear in sample scripts, but it can be overriden.
+          Triggered when what we call the "direction pad" or "D-pad" is activated. 
+
+          The D-pad maps to the direction keys when using a keyboard (WASD by default).
+
+          When using a touch screen, the D-pad is by default represented by the virtual pad that's on the left side of the screen.
+
+          The function receives 2 arguments `x` & `y` to represent 8 possible directions or the idle state:
+
+          `0,0 -> IDLE`
+          `0,1 -> UP`, `1,0 -> RIGHT`, `0,-1 -> DOWN`, `-1,0 -> LEFT`
+          `√2,√2 -> UP/RIGHT`, `√2,-√2 -> DOWN/RIGHT`, `-√2,-√2 -> DOWN/LEFT`, `-√2,√2 -> UP/LEFT`
+
+          The norm (or length) of the (x,y) vector is always `1.0`, or `0.0` when idle.
       samples:
         - code: |
-            -- default implementation:
-            Client.DirectionDidChange = function(x, y)
+            -- DEFAULT IMPLEMENTATION
+            -- (those functions can be redefined)
+
+            Client.DirectionalPad = function(x, y)
               if Player ~= nil then
-                Player.MotionForce.X = 10 * x
-                Player.MotionForce.Z = 10 * z
+                -- save values to update motion when AnalogPad is used
+                dpadX = x
+                dpadY = y
+                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
               end
             end
+
+            Client.AnalogPad = function(x, y)
+              if Player ~= nil then
+                -- rotate player
+                Player.Rotation.Y = Player.Rotation.Y + y
+                Player.Rotation.X = Player.Rotation.X + x
+                -- update motion force
+                dpadX = dpadX or 0.0 -- 0.0 if dpadX has never been set
+                dpadY = dpadY or 0.0 -- 0.0 if dpadY has never been set
+                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
+              end
+            end
+
+    - name: "DPad"
+      type: "function"
+      description: |
+          Shortcut to [DirectionalPad](/reference/client#property-directionalpad).
+
+    - name: "AnalogPad"
+      type: "function"
+      description: |
+          Triggered when what we call the "analog pad" or "A-pad" is activated. 
+
+          The A-pad maps to the mouse mouvements when using a mouse.
+
+          When using a touch screen, the A-pad is activated when moving the finger after a touch down from anywhere outside the [DirectionalPad](/reference/client#property-directionalpad).
+
+          The function receives 2 arguments `dx` & `dy` to represent the delta compared to the previous position. When both `dx` & `dy` are equal to `0.0`, it means the pad is back to idle state.
+
+      samples:
+        - code: |
+            -- DEFAULT IMPLEMENTATION
+            -- (those functions can be redefined)
+
+            Client.DirectionalPad = function(x, y)
+              if Player ~= nil then
+                -- save values to update motion when AnalogPad is used
+                dpadX = x
+                dpadY = y
+                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
+              end
+            end
+
+            Client.AnalogPad = function(x, y)
+              if Player ~= nil then
+                -- rotate player
+                Player.Rotation.Y = Player.Rotation.Y + y
+                Player.Rotation.X = Player.Rotation.X + x
+                -- update motion force
+                dpadX = dpadX or 0.0 -- 0.0 if dpadX has never been set
+                dpadY = dpadY or 0.0 -- 0.0 if dpadY has never been set
+                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
+              end
+            end
+
+    - name: "APad"
+      type: "function"
+      description: |
+          Shortcut to [AnalogPad](/reference/client#property-analogpad).
 
     - name: "Fog"
       type: "Fog"
