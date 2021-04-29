@@ -202,10 +202,11 @@ functions:
             -- (Map is an extension of Object)
 
     - name: "RemoveFromParent"
-      description: "Removes the [Object] from its parent. Doesn't do anything if the [Object] has no parent."
+      description: "Removes the [This] from its parent. Doesn't do anything if the [This] has no parent."
       samples:
         - code: |
             o:RemoveFromParent()
+
     - name: "PositionLocalToWorld"
       description: "Converts a local position to world coordinate system."
       arguments: 
