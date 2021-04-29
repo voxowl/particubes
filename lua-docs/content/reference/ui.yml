@@ -7,27 +7,32 @@ description: |
 
 properties:
     - name: "Anchor"
-      type: "class"
-      description: "See Anchor."
+      type: "Anchor"
+      description: "See [Anchor]."
 
     - name: "Button"
-      type: "class"
-      description: "See Button."
+      type: "Button"
+      description: "See [Button]."
 
     - name: "Crosshair"
       type: "boolean"
       description: "Indicates if the crosshair should be displayed."
+      samples:
+        - code: |
+            UI.Crosshair = false -- hides the crosshair
 
     - name: "Label"
-      type: "class"
-      description: "See Label."
+      type: "Label"
+      description: "See [Label]."
 
-    - name: "Node"
-      type: "class"
-      description: "See Node."
+    - name: "Box"
+      type: "Box"
+      coming-soon: true
+      description: "Coming soon."
 
-    - name: "RootNode"
-      type: "Node"
-      description: "Top level user interface Node."
+    - name: "RootBox"
+      type: "Box"
+      coming-soon: true
+      description: "Top level user interface [Box]."
 
     
