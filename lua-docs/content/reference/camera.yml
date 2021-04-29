@@ -19,22 +19,6 @@ properties:
     - name: "Motion"
       hide: true
 
-    - name: "Position" # override sample
-      samples: 
-        - code: |
-            -- places the Camera where the local player is
-            Camera.Position = Player.Position
-
-    - name: "Rotation" # override sample
-      samples: 
-        - code: |
-            Camera:Rotate({0, 2, 0})
-            -- Camera rotated 2 radians arount Y axis
-
-            -- another way to rotate the Camera:
-            Camera.Forward = {0, 0, 1}
-            Camera.Forward = someObject.Forward
-
     - name: "Target"
       types:
         - "Number3"
