@@ -1,7 +1,7 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Pointer"
 description: |
-    Pointer is a shortcut to [Inputs].[Pointer].
+    Pointer is a shortcut to [Client].[Pointer].
     Pointer allows to catch user pointer events. Mouse events or touch events depending on the device.
 
 functions:

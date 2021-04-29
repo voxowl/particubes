@@ -50,6 +50,9 @@ type Page struct {
 
 	// not set in YAML, set dynamically when parsing files
 	ResourcePath string `yaml:"-"`
+
+	// not set in YAML, set dynamically when parsing files
+	ExtentionBaseSet bool `yaml:"-"`
 }
 
 type Function struct {
@@ -219,6 +222,11 @@ func (p *Page) GetTitle() string {
 // that can't be created, has to be accessed through its global variable.
 func (p *Page) IsNotCreatableObject() bool {
 	return p.Creatable == false && p.BasicType == false && p.Type != "" && (p.Constructors == nil || len(p.Constructors) == 0)
+}
+
+// ReadyToBeSetAsBase ...
+func (p *Page) ReadyToBeSetAsBase() bool {
+	return p.Extends == "" || p.ExtentionBaseSet == true
 }
 
 var currentType = ""

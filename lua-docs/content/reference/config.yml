@@ -24,13 +24,17 @@ properties:
     - name: "Items"
       type: "array"
       description: |
-          A list of items (string references) that should be loaded.
+          A list of items ([string] references) that should be loaded.
 
           You'll be able to use thoses items to create [Shape]s, [MutableShape]s and other things.
+
+          See [Items] for more details.
+
     - name: "MapPaletteOverrides"
       type: "table"
       description: |
           A collection of [Map] [Palette] indexes that you want to override in the game.
+
       samples:
        - code: |
           -- override Block properties at index 3 in map's palette

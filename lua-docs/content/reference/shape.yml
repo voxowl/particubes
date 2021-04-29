@@ -9,13 +9,40 @@ constructors:
     - name: "item"
       type: "Item"
     samples:
-      - code: local myShape = Shape(R.username.itemName)
+      - code: |
+          local myShape = Shape(Items.someuser.someitem)
+          myShape.Position = { Map.Width * 0.5, Map.Height, Map.Depth * 0.5 }
+          Map:AddChild(myShape) -- adds created shape in the map
 
 properties:
 
+    - name: "Anchor"
+      type: "Number3"
+      description: |
+          Anchor is a point that you set as a way to specify what part of the [Shape] will be used when setting its [Position](/reference/shape#property-position).
+      samples:
+        - code: |
+            -- Anchor at the center of the shape:
+            myShape.Anchor = {0.5,0.5,0.5}
+
+    - name: "Depth"
+      type: "number"
+      description: "Returns [This]'s depth, measured in cubes."
+
+    - name: "Height"
+      type: "number"
+      description: "Returns [This]'s height, measured in cubes."
+
+    - name: "Width"
+      type: "number"
+      description: "Returns [This]'s width, measured in cubes."
+
 functions:
     - name: "GetBlock"
-      description: "Gets a [Block] from the [Shape]"
+      description: |
+          Gets a [Block] from the [Shape].
+          Returned [Block] is read-only because [Shape] is immutable, unlike [MutableShape].
+
       arguments: 
         - name: "X"
           type: "number"
