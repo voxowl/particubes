@@ -5,7 +5,7 @@ blocks:
   - text: |
       OtherPlayers is an array of Players that contains all players except the local one.
     
-      OtherPlayers is not available to the Server, because it just wouldn't make sense! 🙂
+      OtherPlayers is not available to the [Server], because it just wouldn't make sense! 🙂
 
   - code: |
       for i, player in ipairs(OtherPlayers) do

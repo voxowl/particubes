@@ -25,6 +25,18 @@ properties:
             -- Anchor at the center of the shape:
             myShape.Anchor = {0.5,0.5,0.5}
 
+    - name: "Depth"
+      type: "number"
+      description: "Returns [This]'s depth, measured in cubes."
+
+    - name: "Height"
+      type: "number"
+      description: "Returns [This]'s height, measured in cubes."
+
+    - name: "Width"
+      type: "number"
+      description: "Returns [This]'s width, measured in cubes."
+
 functions:
     - name: "GetBlock"
       description: |
