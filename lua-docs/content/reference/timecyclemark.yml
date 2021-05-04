@@ -13,31 +13,32 @@ constructors:
     samples: 
       - code: |
          local mark = TimeCycleMark(Time(9,0,0)) -- 9am's mark
-         mark.SkyColor = Color.Red
+         mark.SkyColor = Color(255, 0, 0)
          table.insert(TimeCycle.Marks, mark)
 
 
 built-ins:
 
   - name: "Noon"
-    type: "TypeCycleMark"
+    type: "TimeCycleMark"
     description: "12pm TimeCycleMark."
 
   - name: "Dusk"
-    type: "TypeCycleMark"
+    type: "TimeCycleMark"
     description: "6pm TimeCycleMark."
 
   - name: "Midnight"
-    type: "TypeCycleMark"
+    type: "TimeCycleMark"
     description: "12am TimeCycleMark."    
 
   - name: "Dawn"
-    type: "TypeCycleMark"
+    type: "TimeCycleMark"
     description: "6am TimeCycleMark."
 
 properties:
     
     - name: "Name"
+      hide: true
       type: "string"
       description: |
           Mark's name.
