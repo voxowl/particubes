@@ -42,6 +42,7 @@ functions:
       description: |
           Gets a [Block] from the [Shape].
           Returned [Block] is read-only because [Shape] is immutable, unlike [MutableShape].
+          Returns [nil] if there is no [Block] at those coordinates (i. e. if it's "air").
 
       arguments: 
         - name: "X"

@@ -42,7 +42,10 @@ functions:
           type: "Block"
 
     - name: "GetBlock"
-      description: "Gets a [Block] from the [This]."
+      description: |
+          Gets a [Block] from the [This]. 
+          Returns [nil] if there is no [Block] at the given coordinates (i. e. if it's "air").
+
       arguments: 
         - name: "X"
           type: "number"
