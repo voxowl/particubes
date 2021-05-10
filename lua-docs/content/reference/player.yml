@@ -44,6 +44,8 @@ functions:
     - name: "CastRay"
       description: "Casts a ray from player's position,
           returns an [Impact] if it hits something, [nil] otherwise."
+      return:
+        - type: "Impact"
       samples:
         - code: |
             local impact = Player:CastRay()
