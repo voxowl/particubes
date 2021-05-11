@@ -133,6 +133,7 @@ properties:
           Shortcut to [DirectionalPad](/reference/client#property-directionalpad).
 
     - name: "AnalogPad"
+      coming-soon: true
       type: "function"
       description: |
           Triggered when what we call the "analog pad" or "A-pad" is activated. 
@@ -170,6 +171,7 @@ properties:
             end
 
     - name: "APad"
+      coming-soon: true
       type: "function"
       description: |
           Shortcut to [AnalogPad](/reference/client#property-analogpad).
