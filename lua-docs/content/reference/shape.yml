@@ -20,10 +20,11 @@ properties:
       type: "Number3"
       description: |
           Anchor is a point that you set as a way to specify what part of the [Shape] will be used when setting its [Position](/reference/shape#property-position).
+          A [Shape] rotates around this point given in block. The Anchor point can be outside your shape.
       samples:
         - code: |
-            -- Anchor at the center of the shape:
-            myShape.Anchor = {0.5,0.5,0.5}
+            -- Anchor at the center of a 3x3x3 shape:
+            myShape.Anchor = {1.5, 1.5, 1.5}
 
     - name: "Depth"
       type: "number"
