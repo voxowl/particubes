@@ -36,10 +36,15 @@ properties:
 
 functions:
     - name: "AddBlock"
-      description: "Adds a [Block] to the [This]."
+      description: |
+          Adds a [Block] to the [This].
+          
+          Returns created [Block] (or [nil] if it fails).
       arguments:
         - name: "block"
           type: "Block"
+      return: 
+        - type: "Block"
 
     - name: "GetBlock"
       description: |
