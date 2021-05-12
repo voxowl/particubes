@@ -193,28 +193,62 @@
 							<a id="functions-{{ GetAnchorLink .Name }}"></a>
 							<div class="object-element-tbl">
 								<div class="object-element-header">
-									{{ if .Return }}<!--
-										-->{{ range $index, $value := .Return }}<!--
+									{{ if .ArgumentSets}} 
+										<!-- display several lines for function prototype 
+											when different sets of arguments are accepted. -->
+										{{ range $index, $arguments := .ArgumentSets }}<!--
+											--><div class="set-of-arguments"><!--
+												-->{{ if $index }}<span class="variation">{{ end}}<!--
+												-->{{ if $function.Return }}<!--
+													-->{{ range $index, $value := $function.Return }}<!--
+														-->{{ $route := GetTypeRoute .Type }}<!--
+														-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+														-->{{ .Type }}<!--
+														-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+													-->{{ end }}<!--
+												-->{{ else }}<!--
+													--><a href="{{ GetTypeRoute `nil` }}" class="type">nil</a><!--
+												-->{{ end }}<!--
+												--> <a href="#functions-{{ GetAnchorLink $function.Name }}"><span class="name">{{ $function.Name }}</span></a><!--
+												-->{{ if $index }}</span>{{ end}} ( <!--
+												-->{{ range $index, $element := $arguments }}<!--
+												-->{{if $index}}, {{end}}<!--
+													-->{{ $route := GetTypeRoute .Type }}<!--
+													-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+													-->{{ .Type }}<!--
+													-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+														--> {{ .Name }}<!--
+													-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
+												-->{{ end }} )<!--
+												-->{{if not $index}}<!--
+													-->{{ if $function.ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}<!--
+												-->{{ end }}<!--
+											--></div><!--
+										-->{{ end }}<!--
+									-->{{ else }}<!--
+										-->{{ if .Return }}<!--
+											-->{{ range $index, $value := .Return }}<!--
+												-->{{ $route := GetTypeRoute .Type }}<!--
+												-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
+												-->{{ .Type }}<!--
+												-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
+											-->{{ end }}<!--
+										-->{{ else }}<!--
+											--><a href="{{ GetTypeRoute `nil` }}" class="type">nil</a><!--
+										-->{{ end }}<!--
+										--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
+										-->{{ range $index, $element := .Arguments }}<!--
+										-->{{if $index}}, {{end}}<!--
 											-->{{ $route := GetTypeRoute .Type }}<!--
 											-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
 											-->{{ .Type }}<!--
 											-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-										-->{{ end }}<!--
-									-->{{ else }}<!--
-										--><a href="{{ GetTypeRoute `nil` }}" class="type">nil</a><!--
+											--> {{ .Name }}<!--
+											-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
+										-->{{ end }} )<!--
+										-->{{ if .ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}<!--
 									-->{{ end }}<!--
-									--> <a href="#functions-{{ GetAnchorLink .Name }}"><span class="name">{{ .Name }}</span></a> ( <!--
-									-->{{ range $index, $element := .Arguments }}<!--
-									-->{{if $index}}, {{end}}<!--
-										-->{{ $route := GetTypeRoute .Type }}<!--
-										-->{{ if $route }}<a href="{{ $route }}" class="type">{{ else }}<span class="type">{{ end }}<!--
-										-->{{ .Type }}<!--
-										-->{{ if $route }}</a>{{ else }}</span>{{ end }}<!--
-										--> {{ .Name }}<!--
-										-->{{ if .Optional }} <span class="optional">optional</span>{{ end }}<!--
-									-->{{ end }} )<!--
-									-->{{ if .ComingSoon }} <span class="coming-soon">coming soon</span>{{ end }}
-								</div>
+								--></div>
 								<div class="object-element-row">
 									{{ if .Description }}
 										<p>{{ .Description }}</p>

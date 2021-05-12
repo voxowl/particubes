@@ -40,11 +40,42 @@ functions:
           Adds a [Block] to the [This].
           
           Returns created [Block] (or [nil] if it fails).
-      arguments:
-        - name: "block"
-          type: "Block"
+      argument-sets:
+        -
+          - name: "block"
+            type: "Block"
+        -
+          - name: "paletteIndex"
+            type: "number"
+          - name: "X"
+            type: "number"
+          - name: "Y"
+            type: "number"
+          - name: "Z"
+            type: "number"
       return: 
         - type: "Block"
+      samples:
+      - code: |
+          local block = Block(1, 10, 10, 10)
+          someMutableShape:AddBlock(block)
+
+          -- AddBlock can also be called using
+          -- block's palette index and coordinates:
+          someMutableShape:AddBlock(1, 10, 10, 10)
+
+          -- created block is returned:
+          local newBlock = someMutableShape:AddBlock(1, 10, 10, 10)
+          if newBlock ~= nil then
+            -- block successfully created!
+          end
+
+          -- ⚠️
+          local block = Block(1, 10, 10, 10)
+          local newBlock = someMutableShape:AddBlock(block)
+          -- Here `newBlock` is not the same as `block`
+          -- they both have the same palette index and coordinates
+          -- but `newBlock` has a parent shape while `block` doesn't.
 
     - name: "GetBlock"
       description: |

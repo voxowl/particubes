@@ -179,6 +179,12 @@ br {
   color: #3992D7;
 }
 
+.variation,
+.variation .type,
+.variation .name {
+  color: #BBB;
+}
+
 .hljs {
   padding: 10px !important;
   margin-bottom: 10px;
