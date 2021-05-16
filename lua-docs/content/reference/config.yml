@@ -18,9 +18,29 @@ blocks:
       Config.Map = "gdevillele.pirate_ship"
 
 properties:
+    - name: "ConstantAcceleration"
+      type: "Number3"
+      description: |
+          Acceleration applied to all physically simulated [Object]s in the scene. 
+
+          By default, it represents the gravity.
+
+      samples:
+        - code: |
+            -- turn off gravity:
+            Config.ConstantAcceleration = {0, 0, 0}
+            -- or
+            Config.ConstantAcceleration.Y = 0
+        - code: |
+           -- turn off gravity for one Object only:
+           myObject.Acceleration = -Config.ConstantAcceleration
+           -- myObject's acceleration is now the invert of 
+           -- Config.ConstantAcceleration, cancelling it.
+
     - name: "Map"
       type: "string"
       description: "Indicates the map that should be loaded."
+
     - name: "Items"
       type: "array"
       description: |
