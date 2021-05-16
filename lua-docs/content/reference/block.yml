@@ -55,32 +55,54 @@ properties:
                 -- using different palette index
                 b.PaletteIndex = 10 
               end
-    - name: "Position"
+    - name: "Coordinates"
+      read-only: true
       type: "Number3"
       description: |
-          Block's position in parent [Shape] or [MutableShape]
+          Block's coordinates in [Shape] or [MutableShape].
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
               if b ~= nil then
-                print(b.Position) -- prints "[Number3 X: 1 Y: 2 Z: 3]"
+                print(b.Coordinates) -- prints "[Number3 X: 1 Y: 2 Z: 3]"
               end
+
+    - name: "Coords"
+      read-only: true
+      type: "Number3"
+      description: |
+          Shortcut to [Coordinates](/reference/block#property-coordinates).
+
+    - name: "Position"
+      read-only: true
+      type: "Number3"
+      description: |
+          Position of [Block]'s center in world coordinates.
+      samples:
           - code: |
-              local b = someMutableShape:GetBlock(1, 2, 3)
-              -- move block to different position
-              -- replaces block at {2, 3, 4} if it exists
+              local b = someShape:GetBlock(1, 2, 3)
               if b ~= nil then
-                b.Position = {2, 3, 4}
+                print(b.Position)
               end
-    - name: "X"
-      type: "number"
-      description: "Shortcut to `Position.X` (see [Block.Position](/reference/block#property-position))" 
-    - name: "Y"
-      type: "number"
-      description: "Shortcut to `Position.Y` (see [Block.Position](/reference/block#property-position))"
-    - name: "Z"
-      type: "number"
-      description: "Shortcut to `Position.Z` (see [Block.Position](/reference/block#property-position))"
+
+    - name: "Pos"
+      read-only: true
+      type: "Number3"
+      description: |
+          Shortcut to [Position](/reference/block#property-position).
+
+    - name: "LocalPosition"
+      read-only: true
+      type: "Number3"
+      description: |
+          Position of [Block]'s center in local coordinates (local to parent [Shape] or [MutableShape])
+      samples:
+          - code: |
+              local b = someShape:GetBlock(1, 2, 3)
+              if b ~= nil then
+                print(b.LocalPosition)
+              end
+
     - name: "Properties"
       read-only: true
       type: "BlockProperties"
