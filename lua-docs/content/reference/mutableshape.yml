@@ -23,14 +23,17 @@ properties:
             myShape.Anchor = {0.5,0.5,0.5}
 
     - name: "Depth"
+      read-only: true
       type: "number"
       description: "Returns [This]'s depth, measured in cubes."
 
     - name: "Height"
+      read-only: true
       type: "number"
       description: "Returns [This]'s height, measured in cubes."
 
     - name: "Width"
+      read-only: true
       type: "number"
       description: "Returns [This]'s width, measured in cubes."
 
