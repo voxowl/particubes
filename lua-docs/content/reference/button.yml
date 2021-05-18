@@ -3,7 +3,7 @@ type: "Button"
 description: |
     Buttons are user interface elements allowing users to take actions.
 
-    Button is a shortcut to [Client].[UI].Button.
+    Button is a shortcut to [Client].[UI].[Button].
 
     Buttons are automatically displayed on the screen upon creation.
 
