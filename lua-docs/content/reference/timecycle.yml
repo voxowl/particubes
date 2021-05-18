@@ -32,9 +32,10 @@ properties:
         - code: |
             TimeCycle.On = false
             Time.Current = Time.Noon
-            TimeCycle.Marks.Noon.SkyColor = Color.Red
-            TimeCycle.Marks.Noon.HorizonColor = Color.Red
-            TimeCycle.Marks.Noon.AbyssColor = Color.Red
+            TimeCycle.Marks.Noon.SkyColor = Color(255, 0, 0)
+            TimeCycle.Marks.Noon.HorizonColor = Color(255, 0, 0)
+            -- we can also use indices
+            TimeCycle.Marks[3].AbyssColor = Color(255, 0, 0)
 
     - name: "On"
       type: "boolean"
