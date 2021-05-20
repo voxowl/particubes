@@ -56,13 +56,15 @@ type Page struct {
 }
 
 type Function struct {
-	Name        string      `yaml:"name,omitempty"`
-	Arguments   []*Argument `yaml:"arguments,omitempty"`
-	Description string      `yaml:"description,omitempty"`
-	Samples     []*Sample   `yaml:"samples,omitempty"`
-	Return      []*Value    `yaml:"return,omitempty"`
-	ComingSoon  bool        `yaml:"coming-soon,omitempty"`
-	Hide        bool        `yaml:"hide,omitempty"`
+	Name      string      `yaml:"name,omitempty"`
+	Arguments []*Argument `yaml:"arguments,omitempty"`
+	// Used instead arguments when different argument options are available
+	ArgumentSets [][]*Argument `yaml:"argument-sets,omitempty"`
+	Description  string        `yaml:"description,omitempty"`
+	Samples      []*Sample     `yaml:"samples,omitempty"`
+	Return       []*Value      `yaml:"return,omitempty"`
+	ComingSoon   bool          `yaml:"coming-soon,omitempty"`
+	Hide         bool          `yaml:"hide,omitempty"`
 }
 
 func (f *Function) Copy() *Function {

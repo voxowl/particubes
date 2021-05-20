@@ -92,7 +92,9 @@ properties:
 functions:
     - name: "AddNeighbor"
       description: |
-          Adds a `Block`, adjacent to the face passed as parameter.
+          Adds a [Block], adjacent to the face passed as parameter.
+
+          Returns created [Block] (or [nil] if it fails).
 
           ⚠️ Won't work with `read-only` Blocks.
       arguments:
@@ -100,6 +102,8 @@ functions:
           type: "Block"
         - name: "face"
           type: "BlockFace"
+      return: 
+        - type: "Block"
       samples:
         - code: |
             -- add block when Action2 is triggered
