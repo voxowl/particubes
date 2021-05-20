@@ -18,6 +18,21 @@ constructors:
 
 properties:
 
+    - name: "Acceleration"
+      type: "Number3"
+      description: |
+          [This]'s continuous acceleration.
+
+          Default value: `{0,0,0}`.
+
+          ⚠️ `Acceleration` is [nil] and can't be set if [This].[Physics](#property-physics) is `false`.
+      samples:
+        - code: |
+            -- Acceleration can be used to compensate gravity: 
+            myObject.Acceleration = -Config.ConstantAcceleration
+            -- myObject's acceleration is now the invert of 
+            -- Config.ConstantAcceleration, cancelling it.
+
     - name: "Physics"
       type: "boolean"
       description: |
@@ -80,7 +95,15 @@ properties:
     - name: "Motion"
       type: "Number3"
       description: |
-          Motion is a force that's constantly applied to the [This], in world coordinates.
+          Be aware, this `Motion` property is a hack regarding laws of physics. (sorry Isaac)
+
+          But it's very practical to move objects without worrying about forces at play.
+
+          This is what's being used by default when you're moving around with your avatar (see [Client.DirectionalPad](/reference/client#property-directionalpad)). It's the reason why you can stop moving horizontally while in the air.
+
+          Basically, `Motion` is a constant velocity that's added to [This].[Velocity](#property-velocity) each frame to obtain the final movement. ([This].[Velocity](#property-velocity) value is not impacted)
+
+          `Motion` is expressed in world coordinates.
 
           ⚠️ `Motion` is [nil] and can't be set if [This].[Physics](#property-physics) is `false`.
       samples:
