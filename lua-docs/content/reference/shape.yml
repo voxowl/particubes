@@ -16,15 +16,23 @@ constructors:
 
 properties:
 
-    - name: "Anchor"
+    - name: "Pivot"
       type: "Number3"
       description: |
-          Anchor is a point that you set as a way to specify what part of the [Shape] will be used when setting its [Position](/reference/shape#property-position).
-          A [Shape] rotates around this point given in block. The Anchor point can be outside your shape.
+          `Pivot` is a point that you set as a way to specify what part of the [Shape] will be used when setting its [Position](/reference/shape#property-position).
+          
+          A [Shape] rotates around this point. The Pivot point can be outside your shape.
+
+          `Pivot` coordinates are local to the [Shape].
+
+          As a convenience, `Pivot` can be set to a [Block], the [Number3] value is then set to represent its center.
+
       samples:
         - code: |
             -- Anchor at the center of a 3x3x3 shape:
             myShape.Anchor = {1.5, 1.5, 1.5}
+            -- same result:
+            myShape.Anchor = myShape:GetBlock(1,1,1)
 
     - name: "Depth"
       read-only: true
@@ -57,3 +65,27 @@ functions:
           type: "number"
       return: 
         - type: "Block"
+
+    - name: "BlockToWorld"
+      description: "Converts Block coordinates to world coordinate system."
+      argument-sets: 
+        -
+          - name: "b"
+            type: "Block"
+        -
+          - name: "n"
+            type: "Number3"
+      return:
+        - type: "Number3"
+
+    - name: "BlockToLocal"
+      description: "onverts Block coordinates to local coordinate system."
+      argument-sets: 
+        -
+          - name: "b"
+            type: "Block"
+        -
+          - name: "n"
+            type: "Number3"
+      return:
+        - type: "Number3"
