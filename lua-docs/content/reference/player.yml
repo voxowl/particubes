@@ -41,7 +41,7 @@ properties:
       description: "Player's velocity (speed + direction)."
      - name: "Wave"
       type: "Boolean"
-      description: "Set the player animation wave to true."
+      description: "Set the player animation wave to true or false."
 
 functions:
     - name: "CastRay"
