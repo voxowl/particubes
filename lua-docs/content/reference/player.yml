@@ -22,13 +22,13 @@ properties:
                 value:Replace(newBlock)
             end
     - name: "ID"
-      type: "number"
+      type: "Number"
       description: "Unique player ID for played game. A different ID can be attributed after reconnection."
     - name: "Username"
-      type: "string"
+      type: "String"
       description: "Player's account username. Usernames are unique."
     - name: "IsOnGround"
-      type: "boolean"
+      type: "Boolean"
       description: "`true` when there's a block right underneath Player's feet."
     - name: "Position"
       type: "Number3"
@@ -39,6 +39,9 @@ properties:
     - name: "Velocity"
       type: "Number3"
       description: "Player's velocity (speed + direction)."
+     - name: "Wave"
+      type: "Boolean"
+      description: "Set the player animation wave to true."
 
 functions:
     - name: "CastRay"
