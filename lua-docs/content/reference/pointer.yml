@@ -18,6 +18,8 @@ functions:
           Virtual game pads appear on touch screens. 
 
           Direction keys and gamepad start triggering [Client.DirectionDidChange](/reference/client#property-directiondidchange) 
+
+          The pointer is hidden by default.
       samples:
           - code: |
               Pointer:Hide()
