@@ -18,6 +18,13 @@ blocks:
       Config.Map = "gdevillele.pirate_ship"
 
 properties:
+    - name: "ChatAvailable"
+      type: "boolean"
+      description: |
+          When set to `true`, the users are able to use the chat. If set to `false` they cannot talk.
+
+          `true` by default.
+
     - name: "ConstantAcceleration"
       type: "Number3"
       description: |
@@ -56,10 +63,27 @@ properties:
           A collection of [Map] [Palette] indexes that you want to override in the game.
 
       samples:
-       - code: |
+        code: |
           -- override Block properties at index 3 in map's palette
           Config.MapPaletteOverrides[3].Color = Color(255, 0, 0)
           Config.MapPaletteOverrides[3].Light = true
+
+    - name: "PointerToggleAvailable"
+      type: "boolean"
+      description: |
+          Allows the users to change the pointer mode by pressing on TAB or clicking on the pointer mode button.
+
+          The function `[Pointer]:Show()` and `[Pointer]:Hide()` can still be used.
+
+          `false` by default.
+
+      samples:
+        code: |
+          Config.PointerToggleAvailable = false -- disable TAB / pointer button
+          Client.Action2 = function()
+            Pointer:Show() -- enables the pointer mode
+          end
+
     # - name: "Gravity"
     #   type: "number"
     #   description: "Overrides default gravity if set."
