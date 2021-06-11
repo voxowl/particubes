@@ -4,7 +4,7 @@ basic-type: true
 description: |
     A boolean is a basic Lua type. It has to possible values: true or false.
 blocks:
-  - text: "A boolean is a basic Lua type. It has to possible values: true or false."
+  - text: "A boolean is a basic Lua type. It has to possible values: `true` or `false`."
 
   - code: |
       local b = true

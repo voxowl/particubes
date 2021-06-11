@@ -15,14 +15,14 @@ constructors:
 
     arguments:
     - name: "paletteIndex"
-      type: "number"
+      type: "integer"
   - description: |
       Creates a `Block` with `{x,y,z}` coordinates. ([Block.Position](#property-position))
 
       [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
     arguments:
     - name: "paletteIndex"
-      type: "number"
+      type: "integer"
     - name: "x"
       type: "number"
     - name: "y"
@@ -36,13 +36,13 @@ constructors:
       [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
     arguments: 
     - name: "paletteIndex"
-      type: "number"
+      type: "integer"
     - name: "position"
       type: "Number3"
 
 properties:
     - name: "PaletteIndex"
-      type: "number"
+      type: "integer"
       description: |
           Block's palette index. (first index is `1`)
 

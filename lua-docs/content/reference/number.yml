@@ -19,5 +19,5 @@ blocks:
       local b = 1.5
       local c = a * b
 
-      print(c) -- prints 15
+      print(c) -- prints 15.0
       

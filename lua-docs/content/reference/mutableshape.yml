@@ -49,7 +49,12 @@ functions:
             type: "Block"
         -
           - name: "paletteIndex"
-            type: "number"
+            type: "integer"
+          - name: "position"
+            type: "Number3"
+        -
+          - name: "paletteIndex"
+            type: "integer"
           - name: "X"
             type: "number"
           - name: "Y"

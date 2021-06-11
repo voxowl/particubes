@@ -2,13 +2,13 @@ keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"
 type: "function"
 basic-type: true
 description: |
-    A function is a basic Lua type. A function is a module of code that accomplish a specific task.
+    A function is a basic Lua type. A function is a module of code that accomplishes a specific task.
 blocks:
-  - text: "A function is a basic Lua type. A function is a module of code that accomplish a specific task."
+  - text: "A function is a basic Lua type. A function is a module of code that accomplishes a specific task."
 
   - code: |
       Client.Action1 = function()
-        -- everything in that function is executed when action 1 is triggered
+        -- everything in this function is executed when action 1 is triggered
         if Player.IsOnGround then
           Player.Velocity.Y = 30
         end
@@ -38,11 +38,23 @@ blocks:
   - text: "A function can take parameters:"
 
   - code: |
-      -- a function that returns one value
-      local f = function(message)
+      -- a function that takes 1 argument
+      local f3 = function(message)
         print(message)
       end
 
-      -- call f
-      f("hello world") -- prints "hello world"
+      -- call f3
+      f3("hello world") -- prints "hello world"
+
+      -- a function that takes 2 arguments
+      local f4 = function(message, count)
+        local str = ""
+        for i = 1, count do
+          str = str .. message .. " "
+        end
+        print(str)
+      end
+
+      -- call f4
+      f4("hello", 2) -- prints "hello hello "
 

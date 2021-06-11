@@ -131,7 +131,7 @@ properties:
 
     - name: "ChildrenCount"
       read-only: true
-      type: "number"
+      type: "integer"
       description: "Returns number of child [Object]s."
 
     - name: "Up"
@@ -207,7 +207,7 @@ functions:
       description: "Get child [Object] at index."
       arguments: 
         - name: "index"
-          type: "number"
+          type: "integer"
       samples:
         - code: |
             if o.ChildrenCount > 0 then
