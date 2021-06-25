@@ -56,13 +56,17 @@ functions:
           Returned [Block] is read-only because [Shape] is immutable, unlike [MutableShape].
           Returns [nil] if there is no [Block] at those coordinates (i. e. if it's "air").
 
-      arguments: 
-        - name: "X"
-          type: "number"
-        - name: "Y"
-          type: "number"
-        - name: "Z"
-          type: "number"
+      argument-sets: 
+        -
+          - name: "X"
+            type: "number"
+          - name: "Y"
+            type: "number"
+          - name: "Z"
+            type: "number"
+        -
+          - name: coordinates
+            type: "Number3"
       return: 
         - type: "Block"
 

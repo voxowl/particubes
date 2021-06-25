@@ -10,6 +10,7 @@ blocks:
 properties:
     - name: "Block"
       type: "Block"
+      read-only: true
       description: "Block touched by the ray. Not `nil` if the [Impact] represents a [Block]."
       samples:
         - code: |
@@ -18,13 +19,17 @@ properties:
 
     - name: "Distance"
       type: "number"
+      read-only: true
       description: "Distance to impact when casting a ray. (see [Camera].[CastRay](/reference/camera#functions-castray), [Player].[CastRay](/reference/player#functions-castray), [PointerEvent].[CastRay](/reference/pointerevent#functions-castray))"
+    
+    
     - name: "FaceTouched"
       type: "BlockFace"
       description: |
           Not `nil` if the [Impact] represents a [Block].
           
           Indicates what block face has been touched.
+
     - name: "Player"
       type: "Player"
       description: "Player touched by the ray."
@@ -32,5 +37,9 @@ properties:
         - code: |
             Pointer.Down = function(event)
               local impact = event:CastRay()
-              print(impact.Player)
+              print(impact.Player) -- can be nil if no Player has been touched
             end
+
+    - name: "Shape"
+      type: "Shape"
+      description: "Shape touched by the ray. Not `nil` if the [Impact] represents a [Shape]."

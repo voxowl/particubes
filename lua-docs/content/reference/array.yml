@@ -2,11 +2,11 @@ keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"
 type: "array"
 basic-type: true
 description: |
-    Arrays in Lua simply are [table]s indexed with integers.
+    Arrays in Lua simply are [table]s indexed with [integer]s.
     
 blocks:
   - text: |
-      Arrays in Lua simply are [table]s indexed with integers. Therefore, arrays do not have a fixed size, they grow as needed.
+      Arrays in Lua simply are [table]s indexed with [integer]s. Therefore, arrays do not have a fixed size, they grow as needed.
 
   - code: |
       local arr = {} -- new array, same as empty table
@@ -33,7 +33,7 @@ blocks:
   - code: |
       local arr = {}
       arr[1] = "hello"
-      arr[2] = "world"
+      arr[2] = "world" -- or table.insert(arr, "world")
 
       print(#arr) -- prints "2"
 

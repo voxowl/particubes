@@ -5,7 +5,7 @@ description: |
     A string is a basic Lua type, it represents a sequence of characters.
 blocks:
   - text: |
-      A number is a basic Lua type, it represents real numbers.
+      A string is a basic Lua type, it represents a sequence of characters. They are initialized with double quotes framing characters. 
 
   - code: |
       local s = "hello world"
@@ -13,7 +13,7 @@ blocks:
       print(s) -- prints "hello world"
 
   - text: |
-      Strings can be concatenated with the .. operator.
+      Strings can be concatenated with the `..` operator.
 
   - code: |
       local a = "hello"
