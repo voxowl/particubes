@@ -53,15 +53,89 @@ functions:
             	print(impact)
             end
 
-    - name: "Give"
-      description: "Gives an item to the [Player].
-          The parameter has to be an holdable item. (items can be browsed in the gallery)"
-      arguments:
-        - name: "itemGiven"
-          type: "Item"
+    - name: "EquipBackpack"
+      description: "Equips an [Item] on the back of the [Player].
+          The parameter has to be an holdable item (items can be browsed in the gallery).
+          You can also remove the equiped [Item] with [nil] as the argument"
+      argument-sets:
+        -
+          - name: "itemEquiped"
+            type: "Item"
+        -
+          - name: "shapeEquiped"
+            type: "Shape"
+        -
+          - name: "mutableShapeEquiped"
+            type: "MutableShape"
+        -
+          - type: "nil"
+
+    - name: "EquipHat"
+      description: "Equips an [Item] on the head of the [Player].
+          The parameter has to be an holdable item (items can be browsed in the gallery).
+          You can also remove the equiped [Item] with [nil] as the argument"
+      argument-sets:
+        -
+          - name: "itemEquiped"
+            type: "Item"
+        -
+          - name: "shapeEquiped"
+            type: "Shape"
+        -
+          - name: "mutableShapeEquiped"
+            type: "MutableShape"
+        -
+          - type: "nil"
+
+    - name: "EquipLeftHand"
+      description: "Equips an [Item] on the left hand of the [Player].
+          The parameter has to be an holdable item (items can be browsed in the gallery).
+          You can also remove the equiped [Item] with [nil] as the argument"
+      argument-sets:
+        -
+          - name: "itemEquiped"
+            type: "Item"
+        -
+          - name: "shapeEquiped"
+            type: "Shape"
+        -
+          - name: "mutableShapeEquiped"
+            type: "MutableShape"
+        -
+          - type: "nil"
+            
+    - name: "EquipRightHand"
+      description: "Equips an [Item] on the right hand of the [Player].
+          The parameter has to be an holdable item (items can be browsed in the gallery).
+          You can also remove the equiped [Item] with [nil] as the argument"
+      argument-sets:
+        -
+          - name: "itemEquiped"
+            type: "Item"
+        -
+          - name: "shapeEquiped"
+            type: "Shape"
+        -
+          - name: "mutableShapeEquiped"
+            type: "MutableShape"
+        -
+          - type: "nil"
       samples:
         - code: |
-            Import("aduermael.rainbow_sword")
+            Config = {
+              Items = { "aduermael.rainbow_sword" }
+            }
 
-            Player:Give(R.aduermael.rainbow_sword)
+            Client.OnStart = function()
+              Player:EquipRightHand(Items.aduermael.rainbow_sword)
+              -- or
+              local s = Shape(Items.aduermael.rainbow_sword)
+              Player:EquipRightHand(s)
+
+              Player:EquipRightHand(nil) -- unequips the sword
+            end
+
+    - name: "SwapHands"
+      description: "Swap the two hand held items of the [Player].
+          If one hand has no equipment, then the [Item] switches hand."
 
