@@ -53,15 +53,92 @@ functions:
             	print(impact)
             end
 
-    - name: "Give"
-      description: "Gives an item to the [Player].
-          The parameter has to be an holdable item. (items can be browsed in the gallery)"
-      arguments:
-        - name: "itemGiven"
-          type: "Item"
+    - name: "EquipBackpack"
+      coming-soon: true
+      description: |
+          Equips an [Item], [Shape] or [MutableShape] on the back of the [Player].
+          You can remove what's been equiped using [nil] argument
+      argument-sets:
+        -
+          - name: "item"
+            type: "Item"
+        -
+          - name: "shape"
+            type: "Shape"
+        -
+          - name: "shape"
+            type: "MutableShape"
+        -
+          - type: "nil"
+
+    - name: "EquipHat"
+      coming-soon: true
+      description: |
+          Equips an Item, Shape or MutableShape on [Player]'s head.
+          You can remove what's been equiped using [nil] argument
+      argument-sets:
+        -
+          - name: "Item"
+            type: "Item"
+        -
+          - name: "shape"
+            type: "Shape"
+        -
+          - name: "shape"
+            type: "MutableShape"
+        -
+          - type: "nil"
+
+    - name: "EquipLeftHand"
+      description: |
+          Puts an [Item], [Shape] or [MutableShape] in [Player]'s left hand.
+          You can remove what's been equiped using [nil] argument
+      argument-sets:
+        -
+          - name: "item"
+            type: "Item"
+        -
+          - name: "shape"
+            type: "Shape"
+        -
+          - name: "shape"
+            type: "MutableShape"
+        -
+          - type: "nil"
+            
+    - name: "EquipRightHand"
+      description: |
+          Puts an [Item], [Shape] or [MutableShape] in [Player]'s right hand.
+          You can remove what's been equiped using [nil] argument
+      argument-sets:
+        -
+          - name: "item"
+            type: "Item"
+        -
+          - name: "shape"
+            type: "Shape"
+        -
+          - name: "shape"
+            type: "MutableShape"
+        -
+          - type: "nil"
       samples:
         - code: |
-            Import("aduermael.rainbow_sword")
+            Config = {
+              Items = { "aduermael.rainbow_sword" }
+            }
 
-            Player:Give(R.aduermael.rainbow_sword)
+            Client.OnStart = function()
+              Player:EquipRightHand(Items.aduermael.rainbow_sword)
+              -- or
+              local s = Shape(Items.aduermael.rainbow_sword)
+              Player:EquipRightHand(s)
+
+              Player:EquipRightHand(nil) -- unequips the sword
+            end
+
+    - name: "SwapHands"
+      description: |
+          Swaps [Player]'s hand held items.
+          If one hand holds nothing, the [Item] switches hands.
 
