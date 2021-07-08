@@ -143,6 +143,12 @@ properties:
             topLevelObject:AddChild(o) -- o becomes a child of topLevelObject
             -- o ends up being displayed with a scale of 1
 
+    - name: "LossyScale"
+      read-only: true
+      type: "number"
+      description: |
+          Convenience property that attempts to match the actual world scale as much as it can.
+
     - name: "ChildrenCount"
       read-only: true
       type: "integer"
