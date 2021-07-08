@@ -107,24 +107,19 @@ properties:
             -- (those functions can be redefined)
 
             Client.DirectionalPad = function(x, y)
-              if Player ~= nil then
-                -- save values to update motion when AnalogPad is used
-                dpadX = x
-                dpadY = y
-                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
-              end
+                -- storing globals here for AnalogPad
+                -- to update Player.Motion
+                dpadX = x dpadY = y
+                Player.Motion = (Player.Forward * y + Player.Right * x) * 10
             end
 
-            Client.AnalogPad = function(x, y)
-              if Player ~= nil then
-                -- rotate player
-                Player.Rotation.Y = Player.Rotation.Y + y
-                Player.Rotation.X = Player.Rotation.X + x
-                -- update motion force
-                dpadX = dpadX or 0.0 -- 0.0 if dpadX has never been set
-                dpadY = dpadY or 0.0 -- 0.0 if dpadY has never been set
-                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
-              end
+            Client.AnalogPad = function(dx, dy)
+                Player.LocalRotation.Y = Player.LocalRotation.Y + dx * 0.01
+                Player.LocalRotation.X = Player.LocalRotation.X + -dy * 0.01
+
+                if dpadX ~= nil and dpadY ~= nil then
+                    Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
+                end
             end
 
     - name: "DPad"
@@ -133,7 +128,6 @@ properties:
           Shortcut to [DirectionalPad](/reference/client#property-directionalpad).
 
     - name: "AnalogPad"
-      coming-soon: true
       type: "function"
       description: |
           Triggered when what we call the "analog pad" or "A-pad" is activated. 
@@ -149,25 +143,20 @@ properties:
             -- DEFAULT IMPLEMENTATION
             -- (those functions can be redefined)
 
-            Client.DirectionalPad = function(x, y)
-              if Player ~= nil then
-                -- save values to update motion when AnalogPad is used
-                dpadX = x
-                dpadY = y
-                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
-              end
+            Client.AnalogPad = function(dx, dy)
+                Player.LocalRotation.Y = Player.LocalRotation.Y + dx * 0.01
+                Player.LocalRotation.X = Player.LocalRotation.X + -dy * 0.01
+
+                if dpadX ~= nil and dpadY ~= nil then
+                    Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
+                end
             end
 
-            Client.AnalogPad = function(x, y)
-              if Player ~= nil then
-                -- rotate player
-                Player.Rotation.Y = Player.Rotation.Y + y
-                Player.Rotation.X = Player.Rotation.X + x
-                -- update motion force
-                dpadX = dpadX or 0.0 -- 0.0 if dpadX has never been set
-                dpadY = dpadY or 0.0 -- 0.0 if dpadY has never been set
-                Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
-              end
+            Client.DirectionalPad = function(x, y)
+                -- storing globals here for AnalogPad
+                -- to update Player.Motion
+                dpadX = x dpadY = y
+                Player.Motion = (Player.Forward * y + Player.Right * x) * 10
             end
 
     - name: "APad"

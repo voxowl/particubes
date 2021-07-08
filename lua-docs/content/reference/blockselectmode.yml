@@ -1,0 +1,50 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "BlockSelectMode"
+
+creatable: true
+
+description: |
+    `BlockSelectMode` describes how blocks should be selected when using functions such as [Block.Remove](/reference/block#functions-remove), [Block.Replace](/reference/block#functions-replace) or [Block.AddNeighbor](/reference/block#functions-addneighbor).
+
+    Builtin `BlockSelectMode` instances can be used, there's no way to create custom BlockSelectModes.
+
+built-ins:
+
+# properties:
+  - name: "One"
+    type: "BlockSelectMode"
+    read-only: true
+    description: |
+        Mode used to select one single block.
+    samples:
+      - code: |
+          -- Adds one block upon touched block face:
+          local impact = Player:CastRay()
+          if impact.Block ~= nil then
+              local hitBlock = impact.Block
+              hitBlock:AddNeighbor(hitBlock.PaletteIndex,
+                                  impact.FaceTouched,
+                                  BlockSelectMode.One)
+          end
+
+  - name: "FaceSameColor"
+    type: "BlockSelectMode"
+    read-only: true
+    description: |
+        Mode used to select all neighbor [Block]s with the same color & aligned on a given [BlockFace].
+        [Block]s aren't considered in the selection if that [BlockFace] is covered by another cube.
+    samples:
+      - code: |
+          -- Adds blocks on the whole surface composed by
+          -- touched block neighbors with the same color:
+          local impact = Player:CastRay()
+          if impact.Block ~= nil then
+              local hitBlock = impact.Block
+              hitBlock:AddNeighbor(hitBlock.PaletteIndex,
+                                  impact.FaceTouched,
+                                  BlockSelectMode.FaceSameColor)
+          end
+
+
+    
+      

@@ -50,6 +50,20 @@ properties:
             -- places the object where the local player is
             o.Position = Player.Position
 
+    - name: "IsOnGround"
+      type: "boolean"
+      read-only: true
+      description: |
+          `true` when the [This] is not falling.
+
+          ⚠️ `IsOnGround` only makes sense when [This].Physics is `true`.
+
+    - name: "IsHidden"
+      type: "boolean"
+      description: |
+          Can be set to `true` for the [This] to be hidden.
+          Nothing else changes, the [This] remains in the scene and it keeps being affected by the simulation (collisions, etc.).
+
     - name: "LocalPosition"
       type: "Number3"
       description: |
@@ -128,6 +142,12 @@ properties:
             o.LocalScale = 0.5
             topLevelObject:AddChild(o) -- o becomes a child of topLevelObject
             -- o ends up being displayed with a scale of 1
+
+    - name: "LossyScale"
+      read-only: true
+      type: "number"
+      description: |
+          Convenience property that attempts to match the actual world scale as much as it can.
 
     - name: "ChildrenCount"
       read-only: true
