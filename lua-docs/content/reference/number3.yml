@@ -38,6 +38,40 @@ properties:
           myNumber3.Z = 42
           print(myNumber3.Z)
 
+  - name: "Length"
+    coming-soon: true
+    type: "number"
+    description: |
+        `Number3`'s length.
+        Technically, the square root of the sum of [X](/reference/number3#property-x), [Y](/reference/number3#property-y) & [Z](/reference/number3#property-z) components.
+    samples:
+      - code: |
+          number3 = Number3(3,4,12)
+          print(number3.Length) -- prints 13
+          -- sqrt(3*3 + 4*4 + 12*12) = 13
+
+  - name: "SquaredLength"
+    coming-soon: true
+    type: "number"
+    description: |
+        Reading `Number3.SquaredLength` is faster than reading `Number3.Length`.
+        This is the main reason why this attribute is exposed. 
+        It can be used when comparing distances. 
+
+    samples:
+      - code: |
+          -- compare distances between objects
+          local d2 = o1.Position - o2.Position
+          local d3 = o1.Position - o3.Position
+
+          if d2.SquaredLength < d3.SquaredLength then
+            print("o1 is closer to o2")
+          else
+            print("o1 is closer to o3")
+          end
+          -- Using Length instead of SquaredLength would give the same results,
+          -- but it would have to internally compute 2 square roots for nothing.
+
 functions:
   - name: "Rotate"
     description: |
@@ -51,4 +85,19 @@ functions:
           local pi = 3.1415
           someNumber3:Rotate(Number3(0,pi,0))
           -- someNumber3 == Number3(0,0,-1), after a PI rotation around Y axis (180°)
+
+  - name: "Normalize"
+    coming-soon: true
+    description: |
+      Normalizes the `Number3`.
+      Scales [X](/reference/number3#property-x), [Y](/reference/number3#property-y) & [Z](/reference/number3#property-z) for the [Length](/reference/number3#property-length) to be `1.0`.
+    samples:
+      - code: |
+          local someNumber3 = Number3(10,0,0)
+          someNumber3:Normalize()
+          -- someNumber3 == 1 now
+
+          -- NOTE: this also achieves normalization:
+          someNumber3.Length = 1.0
+
 
