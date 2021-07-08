@@ -54,69 +54,71 @@ functions:
             end
 
     - name: "EquipBackpack"
-      description: "Equips an [Item] on the back of the [Player].
-          The parameter has to be an holdable item (items can be browsed in the gallery).
-          You can also remove the equiped [Item] with [nil] as the argument"
+      coming-soon: true
+      description: |
+          Equips an [Item], [Shape] or [MutableShape] on the back of the [Player].
+          You can remove what's been equiped using [nil] argument
       argument-sets:
         -
-          - name: "itemEquiped"
+          - name: "item"
             type: "Item"
         -
-          - name: "shapeEquiped"
+          - name: "shape"
             type: "Shape"
         -
-          - name: "mutableShapeEquiped"
+          - name: "shape"
             type: "MutableShape"
         -
           - type: "nil"
 
     - name: "EquipHat"
-      description: "Equips an [Item] on the head of the [Player].
-          The parameter has to be an holdable item (items can be browsed in the gallery).
-          You can also remove the equiped [Item] with [nil] as the argument"
+      coming-soon: true
+      description: |
+          Equips an Item, Shape or MutableShape on [Player]'s head.
+          You can remove what's been equiped using [nil] argument
       argument-sets:
         -
-          - name: "itemEquiped"
+          - name: "Item"
             type: "Item"
         -
-          - name: "shapeEquiped"
+          - name: "shape"
             type: "Shape"
         -
-          - name: "mutableShapeEquiped"
+          - name: "shape"
             type: "MutableShape"
         -
           - type: "nil"
 
     - name: "EquipLeftHand"
-      description: "Equips an [Item] on the left hand of the [Player].
-          The parameter has to be an holdable item (items can be browsed in the gallery).
-          You can also remove the equiped [Item] with [nil] as the argument"
+      description: |
+          Puts an [Item], [Shape] or [MutableShape] in [Player]'s left hand.
+          You can remove what's been equiped using [nil] argument
       argument-sets:
         -
-          - name: "itemEquiped"
+          - name: "item"
             type: "Item"
         -
-          - name: "shapeEquiped"
+          - name: "shape"
             type: "Shape"
         -
-          - name: "mutableShapeEquiped"
+          - name: "shape"
             type: "MutableShape"
         -
           - type: "nil"
             
     - name: "EquipRightHand"
-      description: "Equips an [Item] on the right hand of the [Player].
-          The parameter has to be an holdable item (items can be browsed in the gallery).
-          You can also remove the equiped [Item] with [nil] as the argument"
+      description: |
+          Puts an [Item], [Shape] or [MutableShape] in [Player]'s right hand.
+          You can remove what's been equiped using [nil] argument
       argument-sets:
         -
-          - name: "itemEquiped"
+          - name: "item"
             type: "Item"
         -
-          - name: "shapeEquiped"
+          - name: "shape"
             type: "Shape"
         -
-          - name: "mutableShapeEquiped"
+          - name: "shape"
             type: "MutableShape"
         -
           - type: "nil"
@@ -136,6 +138,7 @@ functions:
             end
 
     - name: "SwapHands"
-      description: "Swap the two hand held items of the [Player].
-          If one hand has no equipment, then the [Item] switches hand."
+      description: |
+          Swaps [Player]'s hand held items.
+          If one hand holds nothing, the [Item] switches hands.
 
