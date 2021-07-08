@@ -50,6 +50,20 @@ properties:
             -- places the object where the local player is
             o.Position = Player.Position
 
+    - name: "IsOnGround"
+      type: "boolean"
+      read-only: true
+      description: |
+          `true` when the [This] is not falling.
+
+          ⚠️ `IsOnGround` only makes sense when [This].Physics is `true`.
+
+    - name: "IsHidden"
+      type: "boolean"
+      description: |
+          Can be set to `true` for the [This] to be hidden.
+          Nothing else changes, the [This] remains in the scene and it keeps being affected by the simulation (collisions, etc.).
+
     - name: "LocalPosition"
       type: "Number3"
       description: |
