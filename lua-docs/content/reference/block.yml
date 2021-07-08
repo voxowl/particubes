@@ -119,11 +119,22 @@ functions:
           Returns created [Block] (or [nil] if it fails).
 
           ⚠️ Won't work with `read-only` Blocks.
-      arguments:
-        - name: "block"
-          type: "Block"
-        - name: "face"
-          type: "BlockFace"
+
+          A [BlockSelectMode] can be provided as an optional third argument. The default value is [BlockSelectMode.One](/reference/blockselectmode#property-one), with other modes the function always returns [nil], even on success.
+
+      argument-sets:
+        -
+          - name: "block"
+            type: "Block"
+          - name: "face"
+            type: "BlockFace"
+        -
+          - name: "block"
+            type: "Block"
+          - name: "face"
+            type: "BlockFace"
+          - name: "selectMode"
+            type: "BlockSelectMode"
       return: 
         - type: "Block"
       samples:
@@ -140,10 +151,17 @@ functions:
           media: "/media/block-add-neighbor.mp4"
 
     - name: "Remove"
+      argument-sets:
+        -
+        -
+          - name: "selectMode"
+            type: "BlockSelectMode"
       description: |
           Removes the `Block` from its parent [MutableShape].
 
           ⚠️ Won't work with `read-only` Blocks.
+
+          A [BlockSelectMode] can be provided as an optional argument. The default value is [BlockSelectMode.One](/reference/blockselectmode#property-one).
       samples:
         - code: |
             -- remove block when Action2 is triggered
@@ -162,9 +180,17 @@ functions:
           `block:Replace(otherBlock)` actually has the same effect as `block.PaletteIndex = otherBlock.PaletteIndex`
 
           ⚠️ Won't work with `read-only` Blocks.
-      arguments:
-        - name: "block"
-          type: "Block"
+
+          A [BlockSelectMode] can be provided as an optional second argument. The default value is [BlockSelectMode.One](/reference/blockselectmode#property-one).
+      argument-sets:
+        -
+          - name: "block"
+            type: "Block"
+        -
+          - name: "block"
+            type: "Block"
+          - name: "selectMode"
+            type: "BlockSelectMode"
       samples:
         - code: |
             -- replace block when Action2 is triggered
