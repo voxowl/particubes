@@ -16,6 +16,15 @@ constructors:
 
 properties:
 
+    - name: "Center"
+      type: "Number3"
+      description: |
+          Provides the coordinates of the [Block] at the center of the [This].
+      samples:
+        - code: |
+            -- get the Block at the center
+            centerBlock = myShape:GetBlock(myShape.Center)
+
     - name: "Pivot"
       type: "Number3"
       description: |
@@ -29,10 +38,10 @@ properties:
 
       samples:
         - code: |
-            -- Anchor at the center of a 3x3x3 shape:
-            myShape.Anchor = {1.5, 1.5, 1.5}
+            -- Pivot at the center of a 3x3x3 shape:
+            myShape.Pivot = { 1.5, 1.5, 1.5 }
             -- same result:
-            myShape.Anchor = myShape:GetBlock(1,1,1)
+            myShape.Pivot = myShape:GetBlock(1, 1, 1)
 
     - name: "Depth"
       read-only: true
@@ -83,7 +92,7 @@ functions:
         - type: "Number3"
 
     - name: "BlockToLocal"
-      description: "onverts Block coordinates to local coordinate system."
+      description: "Converts Block coordinates to local coordinate system."
       argument-sets: 
         -
           - name: "b"

@@ -16,6 +16,7 @@ constructors:
     arguments:
     - name: "paletteIndex"
       type: "integer"
+
   - description: |
       Creates a `Block` with `{x,y,z}` coordinates. ([Block.Position](#property-position))
 
@@ -59,12 +60,12 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Block's coordinates in [Shape] or [MutableShape].
+          Block's coordinates in [Shape] or [MutableShape]. A Block will always have the same Coordinates.
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
               if b ~= nil then
-                print(b.Coordinates) -- prints "[Number3 X: 1 Y: 2 Z: 3]"
+                print(b.Coordinates) -- prints "[Number3 X: 1.0 Y: 2.0 Z: 3.0]"
               end
 
     - name: "Coords"
@@ -77,12 +78,12 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Position of [Block]'s center in world coordinates.
+          Position of [Block]'s center in world coordinates. Can change depending on the position of its [Shape] or [MutableShape].
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
               if b ~= nil then
-                print(b.Position)
+                print(b.Position) -- prints the position of the block in the world's coordinates system.
               end
 
     - name: "Pos"
@@ -95,7 +96,7 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Position of [Block]'s center in local coordinates (local to parent [Shape] or [MutableShape])
+          Position of [Block]'s center in local coordinates (local to parent [Shape] or [MutableShape]).
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
