@@ -83,7 +83,7 @@ functions:
         - type: "Number3"
 
     - name: "BlockToLocal"
-      description: "onverts Block coordinates to local coordinate system."
+      description: "Converts Block coordinates to local coordinate system."
       argument-sets: 
         -
           - name: "b"
@@ -91,5 +91,21 @@ functions:
         -
           - name: "n"
             type: "Number3"
+      return:
+        - type: "Number3"
+
+    - name: "WorldToBlock"
+      description: "Converts world coordinates to Block coordinate system."
+      arguments: 
+        - name: "n"
+          type: "Number3"
+      return:
+        - type: "Number3"
+
+    - name: "LocalToBlock"
+      description: "Converts local coordinates to Block coordinate system."
+      arguments: 
+        - name: "n"
+          type: "Number3"
       return:
         - type: "Number3"
