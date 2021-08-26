@@ -77,10 +77,10 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Position of [Block]'s center in world coordinates.
+          Position of [Block]'s negative X-Y-Z corner in world coordinates.
       samples:
           - code: |
-              local b = someShape:GetBlock(1, 2, 3)
+              local b = someShape:GetBlock(1.0, 2.0, 3.0)
               if b ~= nil then
                 print(b.Position)
               end
