@@ -80,7 +80,7 @@ properties:
           Position of [Block]'s negative X-Y-Z corner in world coordinates.
       samples:
           - code: |
-              local b = someShape:GetBlock(1.0, 2.0, 3.0)
+              local b = someShape:GetBlock(1, 2, 3)
               if b ~= nil then
                 print(b.Position)
               end
