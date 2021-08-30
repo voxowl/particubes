@@ -81,11 +81,11 @@ properties:
       samples:
         - code: |
             local o = Object()
-            o.Rotation:Rotate({0, 2, 0})
-            -- o rotated 2 radians arount Y axis
+            o.Rotation = {0, math.pi, 0}
+            -- o revolved half a turn on Y axis
 
             -- another way to rotate the object:
-            o.Forward = {0, 0, 1}
+            o.Forward:Rotate({0, 0, math.pi / 2})
             o.Forward = Camera.Forward
 
     - name: "LocalRotation"
