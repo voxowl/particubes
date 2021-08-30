@@ -22,16 +22,25 @@ functions:
                 if impact.Block ~= nil then
                   print("block hit:", impact.Block)
                 end
+
+                -- this can also be done using a Ray object:
+                local ray = Ray(pointerEvent.Position, pointerEvent.Direction)
+                impact = ray:Cast()
+                if impact.Block ~= nil then
+                  print("block hit:", impact.Block)
+                end
             end
             
 properties:
     - name: "X"
       type: "number"
-      description: "Horizontal position of the pointer when the event happened."
+      description: |
+          Horizontal position of the pointer when the event happens, in screen coordinates. `{0,0}` represents the bottom left of the screen, and `{1,1}` the top right. `X` is close to `0.5` when pointing the horizontal center.
 
     - name: "Y"
       type: "number"
-      description: "Vertical position of the pointer when the event happened."
+      description: |
+          Vertical position of the pointer when the event happens, in screen coordinates. `{0,0}` represents the bottom left of the screen, and `{1,1}` the top right. `Y` is close to `0.5` when pointing the vertical center.
 
     - name: "DX"
       type: "number"
@@ -42,3 +51,13 @@ properties:
       type: "number"
       description: |
           Vertical delta, not `0` when moving the pointer (see [Pointer].[Drag](/reference/pointer#property-drag) or [Pointer].[Drag2](/reference/pointer#property-drag2))
+
+    - name: "Position"
+      type: "Number3"
+      description: |
+          [PointerEvent]'s location, in world coordinate system.
+
+    - name: "Direction"
+      type: "Number3"
+      description: |
+          The direction in which a ray would go based on the [PointerEvent].

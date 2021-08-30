@@ -1,0 +1,48 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "Ray"
+
+creatable: true
+
+blocks: 
+  - text: |
+      A ray has one origin point in the 3D scene and a direction. It returns potentials [Impact]s and the distance from the origin when that happens.
+
+constructors:
+    - description: "Creates a Ray with an origin and a direction."
+      arguments:
+      - name: "origin"
+        type: "Number3"
+      - name: "direction"
+        type: "Number3"
+      samples:
+        - code: |
+            local ray = Ray(Camera.Position, Camera.Forward)
+            local impact = ray:Cast()
+
+functions:
+    - name: "Cast"
+      return: 
+        - type: "Impact" 
+      description: |
+          Casts a ray and returns an [Impact] (can be [nil]).
+
+          The [Impact] contains information about what's been hit.
+      samples:
+        - code: |
+            Pointer.Down = function( pointerEvent )
+                local ray = Ray(pointerEvent.Position, pointerEvent.Direction)
+                local impact = ray:Cast()
+                if impact.Block ~= nil then
+                  print("block hit:", impact.Block)
+                end
+            end
+            
+properties:
+    - name: "Origin"
+      type: "Number3"
+      description: "The origin of the ray, in world coordinate system."
+
+    - name: "Direction"
+      type: "Number3"
+      description: "The direction of the ray, in world coordinate system."
+

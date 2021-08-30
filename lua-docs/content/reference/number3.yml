@@ -73,6 +73,43 @@ properties:
           -- but it would have to internally compute 2 square roots for nothing.
 
 functions:
+  - name: "Copy"
+    return: 
+        - type: "Number3" 
+    arguments: 
+      - name: "n"
+        type: "Number3"
+    description: |
+        Returns a copy of the [Number3].
+    samples:
+      - code: |
+          local n1 = Number3(1, 0, 0)
+          local n2 = n1 -- n2 is not a copy but a direct reference to n1
+          n2.X = 10
+          print(n1.X) -- now n1.X == 10
+
+          -- using Copy:
+          local n1 = Number3(1, 0, 0)
+          local n2 = n1:Copy() -- n2 is a copy of n1, they're not the same Number3
+          n2.X = 10
+          print(n1.X) -- n1.X is still 1
+          
+
+  - name: "Dot"
+    return: 
+        - type: "number" 
+    arguments: 
+      - name: "n"
+        type: "Number3"
+    description: |
+        Returns the dot product of both [Number3]s.
+    samples:
+      - code: |
+          local n1 = Number3(1, 0, 0)
+          local n2 = Number3(1, 0, 0)
+          local dot = n1:Dot(n2)
+
+
   - name: "Rotate"
     description: |
       Rotates the `Number3` using euler angles in parameters (in radians).
