@@ -12,27 +12,8 @@ constructors:
         Creates a new TimeCycleMark at given [Time] and adds it in the [TimeCycle].Marks array.
     samples: 
       - code: |
-         local mark = TimeCycleMark(Time(9,0,0)) -- 9am's mark
+         local mark = TimeCycleMark(Time(9, 0, 0)) -- 9am's mark
          mark.SkyColor = Color(255, 0, 0)
-
-
-built-ins:
-
-  - name: "Noon"
-    type: "TimeCycleMark"
-    description: "12pm TimeCycleMark."
-
-  - name: "Dusk"
-    type: "TimeCycleMark"
-    description: "6pm TimeCycleMark."
-
-  - name: "Midnight"
-    type: "TimeCycleMark"
-    description: "12am TimeCycleMark."    
-
-  - name: "Dawn"
-    type: "TimeCycleMark"
-    description: "6am TimeCycleMark."
 
 properties:
     
