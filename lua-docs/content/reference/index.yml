@@ -12,6 +12,7 @@ blocks:
         - "<a href=\"/reference/camera\">Camera</a>"
         - "<a href=\"/reference/client\">Client</a>"
         - "<a href=\"/reference/clouds\">Clouds</a>"
+        - "<a href=\"/reference/collisiongroups\">CollisionGroups</a>"
         - "<a href=\"/reference/color\">Color</a>"
         - "<a href=\"/reference/config\">Config</a>"
         - "<a href=\"/reference/dev\">Dev</a>"

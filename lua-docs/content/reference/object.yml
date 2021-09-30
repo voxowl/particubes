@@ -40,6 +40,19 @@ properties:
 
           ⚠️ When turned on, [This].[Velocity](#property-velocity) & [This].[Motion](#property-motion) are set to `{0,0,0}`.
 
+    - name: "OnCollision"
+      type: "function"
+      description: |
+          [nil] by default. Can be set to a function that will be triggered when the [This] enters in collision with another [Object].
+
+          The function is called with 2 parameters: the object the callback was set for and the other actor in the collision. 
+      samples:
+        - code: |
+            object.OnCollision = function(o1, o2)
+              -- `o1` is `object` here
+              print("collision detected between", o1, "and", o2)
+            end
+
     - name: "Position"
       type: "Number3"
       description: |
