@@ -33,6 +33,98 @@ properties:
             -- myObject's acceleration is now the invert of 
             -- Config.ConstantAcceleration, cancelling it.
 
+    - name: "CollisionGroups"
+      type: "CollisionGroups"
+      description: |
+          Collision groups the [This] belongs to. 
+
+          ⚠️ It doesn't meen the [This] will collide with other [Object]s in these groups. 
+
+          If the [This] belong to group number `3` for example, it means all [Object]s that have group number `3` in their [Object].[CollidesWithGroups](#property-collideswithgroups) property will collide with it.
+
+          By default:
+          - [Object]s collide with the [Map] and other [Object]s
+          - [Player]s collide with the [Map] only
+
+          That can all be configured differently depening on your needs.
+
+      samples:
+        - code: |
+            local object1 = Object()
+            local object2 = Object()
+            -- It's not mandatory to set Physics to true
+            -- An object with Physics at false contributes to the
+            -- pphysics simulation as a static item (can't be moved)
+            object1.Physics = true
+            object2.Physics = true
+
+            -- making sure 2 objects collide with each others
+            -- NOTE: by default:
+            -- Map.CollisionGroups == {1},
+            -- Player.CollisionGroups == {2},
+            -- Object.CollisionGroups == {3}
+            object1.CollisionGroups = {5}
+            object2.CollisionGroups = {5}
+            object1.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+            object2.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+
+            -- would also work this way if you don't 
+            -- remember Map's group (which can be changed too by the way)
+            object1.CollidesWithGroups = Map.CollisionGroups + {5}
+
+            -- making an object collides with the Map and Players
+            local object = Object()
+            object.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+            -- for Player (local player) to collide with other players and the Map
+            Player.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+    - name: "CollidesWithGroups"
+      type: "CollisionGroups"
+      description: |
+          Collision groups the [This] collides with. 
+
+          By default:
+          - [Object]s collide with the [Map] and other [Object]s
+          - [Player]s collide with the [Map] only
+
+          That can all be configured differently depening on your needs.
+
+      samples:
+        - code: |
+            local object = Object()
+            -- It's not mandatory to set Physics to true
+            -- An object with Physics at false contributes to the
+            -- pphysics simulation as a static item (can't be moved)
+            object.Physics = true
+
+            -- making an object collides with the Map and Players
+            object.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+            -- for an Object to collide with other objects only
+            -- (won't collide with the map)
+            object.CollidesWithGroups = object.CollisionGroups
+
+            -- for Player (local player) to collide with other players and the Map
+            Player.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+            -- making sure 2 objects collide with each others
+            -- NOTE: by default:
+            -- Map.CollisionGroups == {1},
+            -- Player.CollisionGroups == {2},
+            -- Object.CollisionGroups == {3}
+            local object1 = Object()
+            local object2 = Object()
+            object1.CollisionGroups = {5}
+            object2.CollisionGroups = {5}
+            object1.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+            object2.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+
+            -- would also work this way if you don't 
+            -- remember Map's group (which can be changed too by the way)
+            object1.CollidesWithGroups = Map.CollisionGroups + {5}
+
+
     - name: "Physics"
       type: "boolean"
       description: |
