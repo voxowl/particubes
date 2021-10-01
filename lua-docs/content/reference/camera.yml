@@ -61,12 +61,37 @@ functions:
       hide: true
 
     - name: "CastRay"
+      argument-sets: 
+        -
+        -
+          - name: "filterIn"
+            type: "CollisionGroups"
+        -
+          - name: "filterIn"
+            type: "Shape"
+        -
+          - name: "filterIn"
+            type: "nil"
+          - name: "filterOut"
+            type: "Object"
+        -
+          - name: "filterIn"
+            type: "CollisionGroups"
+          - name: "filterOut"
+            type: "Object"
+        -
+          - name: "filterIn"
+            type: "Shape"
+          - name: "filterOut"
+            type: "Object"
       return: 
         - type: "Impact" 
       description: |
           Casts a ray and returns an [Impact] (can be [nil]).
 
           The [Impact] contains information about the kind of thing that's been hit.
+
+          💡 Calls [Ray].[Cast](/reference/ray#functions-cast) under the hood. See [Ray].[Cast](/reference/ray#functions-cast) definition for more details about possible filters.
       samples:
         - code: |
             local impact = Camera:CastRay()
