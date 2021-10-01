@@ -303,18 +303,31 @@ properties:
 
 functions:
     - name: "AddChild"
+      argument-sets:
+        - 
+          - name: "child"
+            type: "Object"
+        - 
+          - name: "child"
+            type: "Object"
+          - name: "keepWorld"
+            type: "boolean"
       description: |
           Adds given [Object] as a child.
 
           [Object] extensions like [Shape] or [MutableShape] are naturally accepted too.
+
+          By default, when using AddChild, the child maintains it's [LocalPosition](/reference/object#property-localposition). But since the local position remains the same in the new parent, it means the child's world position may change.
+
+          The `keepWorld` optional parameter, `false` by default, can be used to maintain the child's [Position](/reference/object#property-position) (world position) instead. 
+
+          It's also a good practice to set child/parent relationships before setting positions.
+
       samples:
         - code: |
             local o = Object()
             local myShape = Shape(Items.someuser.someitem)
             o:AddChild(myShape)
-      arguments: 
-        - name: "child"
-          type: "Object"
     - name: "RemoveChild"
       description: "Unsets parent/child relationship with child parameter. The child ends up being deleted if it has no other references."
       arguments: 
@@ -338,11 +351,32 @@ functions:
             if o.ChildrenCount > 0 then
               print(o:GetChild(1)) -- prints first child
             end
+
+    - name: "GetParent"
+      description: "Get [This]'s parent."
+      samples:
+        - code: |
+            print(myObject:GetParent())
+
     - name: "SetParent"
-      description: "Sets parent/child relationship with parent parameter. [nil] can be used to remove the [Object] from its parent."
-      arguments: 
-        - name: "parent"
-          type: "Object"
+      description: |
+          Sets parent/child relationship with parent parameter. [nil] can be used to remove the [Object] from its parent.
+
+          By default, when using SetParent, the child maintains it's [LocalPosition](/reference/object#property-localposition). But since the local position remains the same in the new parent, it means the child's world position may change.
+
+          The `keepWorld` optional parameter, `false` by default, can be used to maintain the child's [Position](/reference/object#property-position) (world position) instead. 
+
+          It's also a good practice to set child/parent relationships before setting positions.
+
+      argument-sets:
+        - 
+          - name: "parent"
+            type: "Object"
+        - 
+          - name: "parent"
+            type: "Object"
+          - name: "keepWorld"
+            type: "boolean"
       samples:
         - code: |
             local o = Object()
