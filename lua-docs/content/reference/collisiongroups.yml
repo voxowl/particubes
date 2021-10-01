@@ -13,7 +13,7 @@ constructors:
       Creates an empty [CollisionGroups].
 
   - description: |
-      Creates a [CollisionGroups] with given group numbers. The order is not important, as it is always enforced. Duplicates are automatically removed.
+      Creates a [CollisionGroups] with given group numbers.
     arguments:
     - name: "group1"
       type: "number"

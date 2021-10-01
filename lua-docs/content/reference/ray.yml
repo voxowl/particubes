@@ -21,7 +21,7 @@ constructors:
 
 functions:
     - name: "Cast"
-      argument-sets: 
+      argument-sets:
         -
         -
           - name: "filterIn"

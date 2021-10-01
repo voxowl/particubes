@@ -38,9 +38,9 @@ properties:
       description: |
           Collision groups the [This] belongs to. 
 
-          ⚠️ It doesn't meen the [This] will collide with other [Object]s in these groups. 
+          ⚠️ It doesn't mean the [This] will collide with other [Object]s in these groups. 
 
-          If the [This] belong to group number `3` for example, it means all [Object]s that have group number `3` in their [Object].[CollidesWithGroups](#property-collideswithgroups) property will collide with it.
+          If the [This] belongs to group number `3` for example, it means all [Object]s that have group number `3` in their [Object].[CollidesWithGroups](#property-collideswithgroups) property will collide with it.
 
           By default:
           - [Object]s collide with the [Map] and other [Object]s
@@ -53,12 +53,12 @@ properties:
             local object1 = Object()
             local object2 = Object()
             -- It's not mandatory to set Physics to true
-            -- An object with Physics at false contributes to the
-            -- pphysics simulation as a static item (can't be moved)
+            -- An object with Physics set to false contributes to the
+            -- physics simulation as a static item (can't be moved)
             object1.Physics = true
             object2.Physics = true
 
-            -- making sure 2 objects collide with each others
+            -- making sure 2 objects collide with each other
             -- NOTE: by default:
             -- Map.CollisionGroups == {1},
             -- Player.CollisionGroups == {2},
@@ -94,11 +94,11 @@ properties:
         - code: |
             local object = Object()
             -- It's not mandatory to set Physics to true
-            -- An object with Physics at false contributes to the
-            -- pphysics simulation as a static item (can't be moved)
+            -- An object with Physics set to false contributes to the
+            -- physics simulation as a static item (can't be moved)
             object.Physics = true
 
-            -- making an object collides with the Map and Players
+            -- making an object collide with the Map and Players
             object.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
 
             -- for an Object to collide with other objects only
@@ -135,7 +135,7 @@ properties:
     - name: "OnCollision"
       type: "function"
       description: |
-          [nil] by default. Can be set to a function that will be triggered when the [This] enters in collision with another [Object].
+          [nil] by default. Can be set to a function that will be triggered when the [This] collides with another [Object].
 
           The function is called with 2 parameters: the object the callback was set for and the other actor in the collision. 
       samples:
