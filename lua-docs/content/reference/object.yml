@@ -33,12 +33,117 @@ properties:
             -- myObject's acceleration is now the invert of 
             -- Config.ConstantAcceleration, cancelling it.
 
+    - name: "CollisionGroups"
+      type: "CollisionGroups"
+      description: |
+          Collision groups the [This] belongs to. 
+
+          ⚠️ It doesn't mean the [This] will collide with other [Object]s in these groups. 
+
+          If the [This] belongs to group number `3` for example, it means all [Object]s that have group number `3` in their [Object].[CollidesWithGroups](#property-collideswithgroups) property will collide with it.
+
+          By default:
+          - [Object]s collide with the [Map] and other [Object]s
+          - [Player]s collide with the [Map] only
+
+          That can all be configured differently depening on your needs.
+
+      samples:
+        - code: |
+            local object1 = Object()
+            local object2 = Object()
+            -- It's not mandatory to set Physics to true
+            -- An object with Physics set to false contributes to the
+            -- physics simulation as a static item (can't be moved)
+            object1.Physics = true
+            object2.Physics = true
+
+            -- making sure 2 objects collide with each other
+            -- NOTE: by default:
+            -- Map.CollisionGroups == {1},
+            -- Player.CollisionGroups == {2},
+            -- Object.CollisionGroups == {3}
+            object1.CollisionGroups = {5}
+            object2.CollisionGroups = {5}
+            object1.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+            object2.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+
+            -- would also work this way if you don't 
+            -- remember Map's group (which can be changed too by the way)
+            object1.CollidesWithGroups = Map.CollisionGroups + {5}
+
+            -- making an object collides with the Map and Players
+            local object = Object()
+            object.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+            -- for Player (local player) to collide with other players and the Map
+            Player.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+    - name: "CollidesWithGroups"
+      type: "CollisionGroups"
+      description: |
+          Collision groups the [This] collides with. 
+
+          By default:
+          - [Object]s collide with the [Map] and other [Object]s
+          - [Player]s collide with the [Map] only
+
+          That can all be configured differently depening on your needs.
+
+      samples:
+        - code: |
+            local object = Object()
+            -- It's not mandatory to set Physics to true
+            -- An object with Physics set to false contributes to the
+            -- physics simulation as a static item (can't be moved)
+            object.Physics = true
+
+            -- making an object collide with the Map and Players
+            object.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+            -- for an Object to collide with other objects only
+            -- (won't collide with the map)
+            object.CollidesWithGroups = object.CollisionGroups
+
+            -- for Player (local player) to collide with other players and the Map
+            Player.CollidesWithGroups = Map.CollisionGroups + Player.CollisionGroups
+
+            -- making sure 2 objects collide with each others
+            -- NOTE: by default:
+            -- Map.CollisionGroups == {1},
+            -- Player.CollisionGroups == {2},
+            -- Object.CollisionGroups == {3}
+            local object1 = Object()
+            local object2 = Object()
+            object1.CollisionGroups = {5}
+            object2.CollisionGroups = {5}
+            object1.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+            object2.CollidesWithGroups = {1, 5} -- collides with Map + objects in group 5
+
+            -- would also work this way if you don't 
+            -- remember Map's group (which can be changed too by the way)
+            object1.CollidesWithGroups = Map.CollisionGroups + {5}
+
+
     - name: "Physics"
       type: "boolean"
       description: |
           Turns physic simulation on/off when set.
 
           ⚠️ When turned on, [This].[Velocity](#property-velocity) & [This].[Motion](#property-motion) are set to `{0,0,0}`.
+
+    - name: "OnCollision"
+      type: "function"
+      description: |
+          [nil] by default. Can be set to a function that will be triggered when the [This] collides with another [Object].
+
+          The function is called with 2 parameters: the object the callback was set for and the other actor in the collision. 
+      samples:
+        - code: |
+            object.OnCollision = function(o1, o2)
+              -- `o1` is `object` here
+              print("collision detected between", o1, "and", o2)
+            end
 
     - name: "Position"
       type: "Number3"
@@ -198,18 +303,31 @@ properties:
 
 functions:
     - name: "AddChild"
+      argument-sets:
+        - 
+          - name: "child"
+            type: "Object"
+        - 
+          - name: "child"
+            type: "Object"
+          - name: "keepWorld"
+            type: "boolean"
       description: |
           Adds given [Object] as a child.
 
           [Object] extensions like [Shape] or [MutableShape] are naturally accepted too.
+
+          By default, when using AddChild, the child maintains it's [LocalPosition](/reference/object#property-localposition). But since the local position remains the same in the new parent, it means the child's world position may change.
+
+          The `keepWorld` optional parameter, `false` by default, can be used to maintain the child's [Position](/reference/object#property-position) (world position) instead. 
+
+          It's also a good practice to set child/parent relationships before setting positions.
+
       samples:
         - code: |
             local o = Object()
             local myShape = Shape(Items.someuser.someitem)
             o:AddChild(myShape)
-      arguments: 
-        - name: "child"
-          type: "Object"
     - name: "RemoveChild"
       description: "Unsets parent/child relationship with child parameter. The child ends up being deleted if it has no other references."
       arguments: 
@@ -233,11 +351,32 @@ functions:
             if o.ChildrenCount > 0 then
               print(o:GetChild(1)) -- prints first child
             end
+
+    - name: "GetParent"
+      description: "Get [This]'s parent."
+      samples:
+        - code: |
+            print(myObject:GetParent())
+
     - name: "SetParent"
-      description: "Sets parent/child relationship with parent parameter. [nil] can be used to remove the [Object] from its parent."
-      arguments: 
-        - name: "parent"
-          type: "Object"
+      description: |
+          Sets parent/child relationship with parent parameter. [nil] can be used to remove the [Object] from its parent.
+
+          By default, when using SetParent, the child maintains it's [LocalPosition](/reference/object#property-localposition). But since the local position remains the same in the new parent, it means the child's world position may change.
+
+          The `keepWorld` optional parameter, `false` by default, can be used to maintain the child's [Position](/reference/object#property-position) (world position) instead. 
+
+          It's also a good practice to set child/parent relationships before setting positions.
+
+      argument-sets:
+        - 
+          - name: "parent"
+            type: "Object"
+        - 
+          - name: "parent"
+            type: "Object"
+          - name: "keepWorld"
+            type: "boolean"
       samples:
         - code: |
             local o = Object()
