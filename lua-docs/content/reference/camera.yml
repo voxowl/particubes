@@ -60,6 +60,22 @@ functions:
     - name: "SetParent"
       hide: true
 
+    - name: "Show"
+      arguments:
+        - name: "o"
+          type: "Object"
+      description: |
+          Shows an object that's been hidden to the local camera with `Camera:Hide(o)`
+
+    - name: "Hide"
+      arguments:
+        - name: "o"
+          type: "Object"
+      description: |
+          Hides an object for the local camera only. Other players will still be able to see it if `object.IsHidden` remains `false`.
+
+          It's usefull when implementing a first person camera for example, to hide local player's body parts.
+
     - name: "CastRay"
       argument-sets: 
         -
