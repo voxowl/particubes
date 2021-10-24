@@ -232,6 +232,14 @@ properties:
             -- myObject will move in the same direction the camera is currently facing.
             -- If the Camera rotates after this, it won't change where myObject is heading.
 
+    - name: "Scale"
+      type: "Number3"
+      description: |
+          Scale of the [Object], in the world.
+      samples:
+        - code: |
+            myObject.Scale = 2 -- the Object is now 2 times bigger
+
     - name: "LocalScale"
       type: "number"
       description: |
@@ -253,6 +261,36 @@ properties:
       type: "number"
       description: |
           Convenience property that attempts to match the actual world scale as much as it can.
+
+    - name: ColliderOrigin
+      type: "Number3"
+      description: |
+          TODO:
+
+    - name: ColliderSize
+      type: "Number3"
+      description: |
+          TODO:
+
+    - name: Mass
+      type: "number"
+      description: |
+          TODO:
+
+    - name: Friction
+      type: "number"
+      description: |
+          TODO:
+
+    - name: Bounciness
+      type: "number"
+      description: |
+          TODO:
+
+    - name: CollisionBox
+      type: "Box"
+      description: |
+          TODO:
 
     - name: "ChildrenCount"
       read-only: true
@@ -341,6 +379,7 @@ functions:
       samples:
         - code: |
             o:RemoveChildren()
+
     - name: "GetChild"
       description: "Get child [Object] at index."
       arguments: 
@@ -413,6 +452,30 @@ functions:
             local p = Number3(1, 2, 3)
             local pInLocalCoords = myObject:PositionWorldToLocal(p)
 
+    - name: "RotateLocal"
+      description: "Object:RotateLocal(number3) -- euler angles\nObject:RotateLocal(number3, number) -- axis angle"
+      argument-sets:
+        - 
+          - name: "angles"
+            type: "Number3"
+        - 
+          - name: "axis"
+            type: "Number3"
+          - name: "angle"
+            type: "number"
+
+    - name: "RotateWorld"
+      description: "Object:RotateWorld(number3) -- euler angles\nObject:RotateWorld(number3, number) -- axis angle"
+      argument-sets:
+        - 
+          - name: "angles"
+            type: "Number3"
+        - 
+          - name: "axis"
+            type: "Number3"
+          - name: "angle"
+            type: "number"
+
     - name: "RotationLocalToWorld"
       description: "Converts a local rotation to world coordinate system."
       arguments: 
@@ -420,6 +483,7 @@ functions:
           type: "Number3"
       return:
         - type: "Number3"
+
     - name: "RotationWorldToLocal"
       description: "Converts a world rotation to local coordinate system."
       arguments: 
