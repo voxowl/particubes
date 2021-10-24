@@ -492,7 +492,78 @@ functions:
       return:
         - type: "Number3"
 
+    - name: "TextBubble"
+      description: "TODO:"
+      argument-sets:
+        - 
+          - name: "text"
+            type: "string"
+        - 
+          - name: "text"
+            type: "string"
+          - name: "duration"
+            type: "number"
+        - 
+          - name: "text"
+            type: "string"
+          - name: "duration"
+            type: "number"
+          - name: "offset"
+            type: "number"
+        - 
+          - name: "text"
+            type: "string"
+          - name: "duration"
+            type: "number"
+          - name: "offset"
+            type: "number"
+          - name: "color"
+            type: "Color"
+        - 
+          - name: "text"
+            type: "string"
+          - name: "duration"
+            type: "number"
+          - name: "offset"
+            type: "number"
+          - name: "color"
+            type: "Color"
+          - name: "bgColor"
+            type: "Color"
+        - 
+          - name: "text"
+            type: "string"
+          - name: "duration"
+            type: "number"
+          - name: "offset"
+            type: "number"
+          - name: "color"
+            type: "Color"
+          - name: "bgColor"
+            type: "Color"
+          - name: "tail"
+            type: "boolean"
 
+    - name: "CollidesWith"
+      description: "TODO: Object:CollidesWith(self, other)"
+      arguments: 
+        - name: "self"
+          type: "Object"
+        - name: "other"
+          type: "Object"
+      return:
+        - type: "boolean"
 
-
-
+    - name: "ApplyForce"
+      description: "TODO: Object:ApplyForce(self, value)"
+      arguments: 
+        - name: "self"
+          type: "Object"
+        - name: "value"
+          type: "Number3"
+  
+    - name: "ClearTextBubble"
+      description: "TODO: Object:ClearTextBubble()"
+      arguments: 
+        - name: "self"
+          type: "Object"
