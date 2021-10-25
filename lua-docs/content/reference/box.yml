@@ -1,7 +1,9 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Box"
-description: A Box represents a box in the 3D world.
+description: |
+    A Box represents a box in the 3D world.
 
+    In Particubes, a Box is always aligned with the world coordinate system. 
 constructors: 
   - description: "Creates a Number3 with values x, y and z."
     argument-sets:
@@ -21,11 +23,13 @@ constructors:
 properties:
   - name: "Min"
     type: "Number3"
-    description: ""
+    description: |
+        Box corner coordinates with smaller X,Y,Z components.
 
   - name: "Max"
     type: "Number3"
-    description: ""
+    description: |
+        Box corner coordinates with bigger X,Y,Z components.
     
 functions:
   - name: "Copy"
@@ -36,8 +40,3 @@ functions:
         type: "Box"
     description: |
         Returns a copy of the [Box].
-
-  - name: "CastRay"
-    coming-soon: true
-    return: 
-        - type: "Impact" 
