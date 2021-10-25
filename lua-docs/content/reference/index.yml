@@ -17,6 +17,7 @@ blocks:
         - "<a href=\"/reference/color\">Color</a>"
         - "<a href=\"/reference/config\">Config</a>"
         - "<a href=\"/reference/dev\">Dev</a>"
+        - "<a href=\"/reference/event\">Event</a>"
         - "<a href=\"/reference/fog\">Fog</a>"
         - "<a href=\"/reference/impact\">Impact</a>"
         - "<a href=\"/reference/items\">Items</a>"
