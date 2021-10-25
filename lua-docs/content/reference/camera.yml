@@ -59,13 +59,17 @@ functions:
       hide: true
     - name: "SetParent"
       hide: true
+    - name: "ClearTextBubble"
+      hide: true
+    - name: "TextBubble"
+      hide: true
 
     - name: "Show"
       arguments:
         - name: "o"
           type: "Object"
       description: |
-          Shows an object that's been hidden to the local camera with `Camera:Hide(o)`
+          Shows an object that's been hidden to the local camera with [Camera:Hide](/reference/camera#functions-hide)
 
     - name: "Hide"
       arguments:
