@@ -21,6 +21,7 @@ blocks:
         - "<a href=\"/reference/fog\">Fog</a>"
         - "<a href=\"/reference/impact\">Impact</a>"
         - "<a href=\"/reference/items\">Items</a>"
+        - "<a href=\"/reference/keyvaluestore\">KeyValueStore</a>"
         - "<a href=\"/reference/label\">Label</a>"
         - "<a href=\"/reference/map\">Map</a>"
         - "<a href=\"/reference/mutableshape\">MutableShape</a>"
