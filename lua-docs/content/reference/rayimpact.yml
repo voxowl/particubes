@@ -1,0 +1,31 @@
+keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+type: "RayImpact"
+creatable: false
+blocks: 
+  - text: |
+    A ray impact is the result of a Ray cast.
+            
+properties:
+    - name: "Block"
+      type: "Block"
+      description: "The block touched by the [Ray]."
+
+    - name: "Player"
+      type: "Player"
+      description: "The [Player] touched by the [Ray]."
+
+    - name: "Shape"
+      type: "Shape"
+      description: "The [Shape] touched by the [Ray]."
+
+    - name: "Object"
+      type: "Object"
+      description: "The [Object] touched by the [Ray]."
+
+    - name: "Distance"
+      type: "number"
+      description: "The distance between the [Ray] origin and impact."
+
+    - name: "FaceTouched"
+      type: "number"
+      description: "When a [Block] is touched, it indicates which face of the [Block] has been touched."
