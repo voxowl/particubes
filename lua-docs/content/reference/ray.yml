@@ -1,8 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Ray"
-
 creatable: true
-
 blocks: 
   - text: |
       A ray has one origin point in the 3D scene and a direction. It returns potentials [Impact]s and the distance from the origin when that happens.

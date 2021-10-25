@@ -34,6 +34,7 @@ blocks:
         - "<a href=\"/reference/pointer\">Pointer</a>"
         - "<a href=\"/reference/pointerevent\">PointerEvent</a>"
         - "<a href=\"/reference/ray\">Ray</a>"
+        - "<a href=\"/reference/rootnode\">RootNode</a>"
         - "<a href=\"/reference/server\">Server</a>"
         - "<a href=\"/reference/shape\">Shape</a>"
         - "<a href=\"/reference/time\">Time</a>"
