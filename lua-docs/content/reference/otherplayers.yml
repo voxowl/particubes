@@ -3,12 +3,13 @@ type: "OtherPlayers"
 description: "OtherPlayers is an array of Players that contains all players except the local one."
 blocks:
   - text: |
-      OtherPlayers is an array of Players that contains all players except the local one.
+      [OtherPlayers] is an array of [Player]s that contains all players except the local one.
     
-      OtherPlayers is not available to the [Server], because it just wouldn't make sense! 🙂
+      [OtherPlayers] is not available to the [Server], because it just wouldn't make sense! 🙂
+
+      [Player]s are indexed by their "player ID". Player IDs range from 0 to 15.
 
   - code: |
-      for i, player in ipairs(OtherPlayers) do
-        print(player.Username)
+      for id, player in pairs(OtherPlayers) do
+        print(id, player.Username)
       end
-
