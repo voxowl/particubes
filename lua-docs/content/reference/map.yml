@@ -26,6 +26,18 @@ properties:
       hide: true
     - name: "Velocity"
       hide: true
+    - name: "Motion"
+      hide: true
+    - name: "Acceleration"
+      hide: true
+    - name: "IsOnGround"
+      hide: true
+    - name: "CollisionBox"
+      hide: true
+    - name: "OnCollision"
+      hide: true
+    - name: "Pivot"
+      hide: true
     - name: "Rotation"
       hide: true
     - name: "LocalRotation"
@@ -45,14 +57,6 @@ properties:
     - name: "Down"
       hide: true
     - name: "Forward"
-      hide: true
-    - name: "Rotation"
-      hide: true
-    - name: "Rotation"
-      hide: true
-    - name: "Motion"
-      hide: true
-    - name: "Anchor"
       hide: true
 
     - name: "LocalPalette"
@@ -74,6 +78,16 @@ functions:
     - name: "PositionWorldToLocal"
       hide: true
     - name: "PositionLocalToWorld"
+      hide: true
+    - name: "RotateLocal"
+      hide: true
+    - name: "RotateWorld"
+      hide: true
+    - name: "TextBubble"
+      hide: true
+    - name: "ClearTextBubble"
+      hide: true
+    - name: "ApplyForce"
       hide: true
 
 
