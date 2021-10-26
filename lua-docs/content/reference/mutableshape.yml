@@ -1,6 +1,6 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "MutableShape"
-extends: "Object"
+extends: "Shape"
 description: A [MutableShape] is an [Object] that carries and displays a set of [Block]s. The difference with [Shape] is that [MutableShape] [Block]s can be modified.
 
 constructors: 
@@ -12,30 +12,6 @@ constructors:
       - code: local s = MutableShape(R.username.itemName)
 
 properties:
-
-    - name: "Anchor"
-      type: "Number3"
-      description: |
-          Anchor is a point that you set as a way to specify what part of the [MutableShape] will be used when setting its [Position](/reference/shape#property-position).
-      samples:
-        - code: |
-            -- Anchor at the center of the shape:
-            myShape.Anchor = {0.5,0.5,0.5}
-
-    - name: "Depth"
-      read-only: true
-      type: "number"
-      description: "Returns [This]'s depth, measured in cubes."
-
-    - name: "Height"
-      read-only: true
-      type: "number"
-      description: "Returns [This]'s height, measured in cubes."
-
-    - name: "Width"
-      read-only: true
-      type: "number"
-      description: "Returns [This]'s width, measured in cubes."
 
 functions:
     - name: "AddBlock"
