@@ -49,6 +49,30 @@ properties:
       type: "number"
       description: "Returns [This]'s width, measured in cubes."
 
+    - name: "BoundingBox"
+      read-only: true
+      type: Box
+      description: |
+          The BoundingBox represents the bounds of the [This]. It is the limits of the Shape's blocks.
+
+    - name: "Min"
+      read-only: true
+      type: Number3
+      description: |
+          The coordinates of the min limit of the [This]'s BoundingBox.
+
+    - name: "Center"
+      read-only: true
+      type: Number3
+      description: |
+          The coordinates of the center of the [This]'s BoundingBox.
+
+    - name: "Max"
+      read-only: true
+      type: Number3
+      description: |
+          The coordinates of the max limit of the [This]'s BoundingBox.
+
 functions:
     - name: "GetBlock"
       description: |

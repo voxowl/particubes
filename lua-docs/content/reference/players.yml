@@ -5,7 +5,8 @@ blocks:
   - text: |
       Players is an array of [Player]s, it contains all players who joined the game.
 
+      [Player]s are indexed by their "player ID". Player IDs range from 0 to 15.
   - code: |
-      for i, player in ipairs(Players) do
-        print(player.Username)
+      for id, player in pairs(Players) do
+        print(id, player.Username)
       end

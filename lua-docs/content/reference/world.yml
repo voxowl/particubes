@@ -1,22 +1,8 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
-type: "Map"
-extends: "MutableShape"
-description: Map is a global variable that represents the game map.
-
-blocks:
-  - text: |
-      Map is a global variable that represents the game map.
-
-  - subtitle: How to load a map for your game?
-
-  - code: |
-      Config = {
-        Map = "aduermael.rockies"
-      }
-      Config.Map = "aduermael.rockies"
-
-  - text: |
-      (See [Config] for more details regarding [Map] & [Items] loading) 
+type: "World"
+extends: "Object"
+description: |
+    [World] is the [Object] at the root of the 3D scene.
 
 properties:
 
@@ -58,13 +44,22 @@ properties:
       hide: true
     - name: "Forward"
       hide: true
-
-    - name: "LocalPalette"
-      type: "Palette"
-      description: |
-          Returns an [array] of [BlockProperties] ([Palette])
-
-          Note: non-opaque and light emissive block colors can't be changed after game start. 
+    - name: "CollisionGroups"
+      hide: true
+    - name: "CollidesWithGroups"
+      hide: true
+    - name: "IsHidden"
+      hide: true
+    - name: "Mass"
+      hide: true
+    - name: "Friction"
+      hide: true
+    - name: "Bounciness"
+      hide: true
+    - name: "Scale"
+      hide: true
+    - name: "LossyScale"
+      hide: true
 
 functions:
     - name: "RemoveFromParent"
@@ -89,5 +84,5 @@ functions:
       hide: true
     - name: "ApplyForce"
       hide: true
-
-
+    - name: "CollidesWith"
+      hide: true

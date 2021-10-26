@@ -1,7 +1,7 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Client"
 description: |
-    Client is available on each client (each user device). It contains everything needed for the local simulation.
+    Client is storing variables and running functions on all connected user devices (clients). It contains everything needed for the local simulation.
 
     Client is nil in the [Server] execution context.
 
@@ -16,7 +16,26 @@ functions:
 
         From there, players can exit or resume the game.
 
+
 properties:
+
+    - name: "DidReceiveEvent"
+      type: "function"
+      description: |
+        This function is triggered when receiving an [Event].
+
+        Events are useful to establish communication between the [Server] and all connected [Player]s.
+      samples:
+        - code: |
+            Client.DidReceiveEvent = function(event)
+              -- do something with the event
+
+              -- respond (if it makes sense in the situation)
+              local response = Event()
+              response.content = "Here's my response!"
+              response:SendTo(event.Sender)
+            end
+
     - name: "Action1"
       type: "function"
       description: |
@@ -203,12 +222,11 @@ properties:
           This is the very first Lua function to be called, a good place to initialize variables.
       samples:
         - code: |
-            Client.OnStart = function()
-              -- place player above the top center of the map
-              Player.Position = {Map.Width / 2, Map.Height + 10, Map.Depth / 2}
-              -- make it spawn!
-              Player:Spawn()
-            end
+          Client.OnStart = function()
+            -- add local Player to the World and place it above the center of the map
+            World:AddChild(Player)
+            Player.Position = {Map.Width / 2, Map.Height + 10, Map.Depth / 2}
+          end
 
     - name: "Player"
       type: "Player"
@@ -232,5 +250,18 @@ properties:
     - name: "Pointer"
       type: "Pointer"
       description: "See [Pointer]."
+
+    - name: "WillOpenGameMenu"
+      type: "function"
+      description: |
+        This function is triggered when the user is about to open the menu that offers to resume or leave the experience.
+      samples:
+        - code: |
+            Client.WillOpenGameMenu = function()
+              -- possible things to do:
+              -- - save user data
+              -- - inform other users
+              -- - if in a chat experience, set status as "away from keyboard" or something
+            end
 
 

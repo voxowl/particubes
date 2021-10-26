@@ -30,6 +30,10 @@ type Page struct {
 	// Type that's being extended (optional)
 	Extends string `yaml:"extends,omitempty"`
 
+	// The base page if any
+	// not set in YAML, set dynamically when parsing files
+	Base *Page `yaml:"-"`
+
 	//
 	BasicType bool `yaml:"basic-type,omitempty"`
 
@@ -44,9 +48,16 @@ type Page struct {
 
 	Properties []*Property `yaml:"properties,omitempty"`
 
+	// Properties from extended pages
+	BaseProperties map[string][]*Property `yaml:"-"`
+
 	BuiltIns []*Property `yaml:"built-ins,omitempty"`
 
 	Functions []*Function `yaml:"functions,omitempty"`
+
+	// Functions from extended pages
+	// not set in YAML, set dynamically when parsing files
+	BaseFunctions map[string][]*Function `yaml:"-"`
 
 	// not set in YAML, set dynamically when parsing files
 	ResourcePath string `yaml:"-"`
@@ -252,11 +263,23 @@ func getTypeLink(str string) string {
 // SetExtentionBase imports definition from extension base
 func (p *Page) SetExtentionBase(base *Page) {
 
-	if base.Functions != nil {
+	// Recursion to consider all bases.
+	// The type could be the extension of other extensions.
+	if base.Base != nil {
+		p.SetExtentionBase(base.Base)
+	}
 
-		if p.Functions == nil {
-			p.Functions = make([]*Function, 0)
-		}
+	p.Base = base
+
+	if p.BaseFunctions == nil {
+		p.BaseFunctions = make(map[string][]*Function)
+	}
+
+	if p.BaseProperties == nil {
+		p.BaseProperties = make(map[string][]*Property)
+	}
+
+	if base.Functions != nil {
 
 		var overriden bool
 		for _, function := range base.Functions {
@@ -269,18 +292,21 @@ func (p *Page) SetExtentionBase(base *Page) {
 			}
 
 			if overriden == false {
-				p.Functions = append(p.Functions, function.Copy())
+
+				if p.BaseFunctions[base.Type] == nil {
+					p.BaseFunctions[base.Type] = make([]*Function, 0)
+				}
+				p.BaseFunctions[base.Type] = append(p.BaseFunctions[base.Type], function.Copy())
+
 			} else { // override with non-empty fields, keep others from base
+
+				// TODO
 
 			}
 		}
 	}
 
 	if base.Properties != nil {
-
-		if p.Properties == nil {
-			p.Properties = make([]*Property, 0)
-		}
 
 		var overriden bool
 		for _, property := range base.Properties {
@@ -295,7 +321,11 @@ func (p *Page) SetExtentionBase(base *Page) {
 			}
 
 			if overriden == false {
-				p.Properties = append(p.Properties, property.Copy())
+				if p.BaseProperties[base.Type] == nil {
+					p.BaseProperties[base.Type] = make([]*Property, 0)
+				}
+
+				p.BaseProperties[base.Type] = append(p.BaseProperties[base.Type], property.Copy())
 			}
 		}
 	}
@@ -366,6 +396,20 @@ func (p *Page) Sanitize() {
 		}
 	}
 
+	if p.BaseFunctions != nil {
+		for _, functions := range p.BaseFunctions {
+			for _, f := range functions {
+				if f.Description != "" {
+					f.Description = strings.TrimSpace(f.Description)
+					f.Description = strings.ReplaceAll(f.Description, "\n", "<br>")
+					f.Description = reInlineCode.ReplaceAllString(f.Description, inlineCodeReplacement)
+					f.Description = reLink.ReplaceAllString(f.Description, linkReplacement)
+					f.Description = reTypeLink.ReplaceAllStringFunc(f.Description, getTypeLink)
+				}
+			}
+		}
+	}
+
 	if p.Properties != nil {
 		for _, prop := range p.Properties {
 			if prop.Description != "" {
@@ -374,6 +418,20 @@ func (p *Page) Sanitize() {
 				prop.Description = reInlineCode.ReplaceAllString(prop.Description, inlineCodeReplacement)
 				prop.Description = reLink.ReplaceAllString(prop.Description, linkReplacement)
 				prop.Description = reTypeLink.ReplaceAllStringFunc(prop.Description, getTypeLink)
+			}
+		}
+	}
+
+	if p.BaseProperties != nil {
+		for _, properties := range p.BaseProperties {
+			for _, prop := range properties {
+				if prop.Description != "" {
+					prop.Description = strings.TrimSpace(prop.Description)
+					prop.Description = strings.ReplaceAll(prop.Description, "\n", "<br>")
+					prop.Description = reInlineCode.ReplaceAllString(prop.Description, inlineCodeReplacement)
+					prop.Description = reLink.ReplaceAllString(prop.Description, linkReplacement)
+					prop.Description = reTypeLink.ReplaceAllStringFunc(prop.Description, getTypeLink)
+				}
 			}
 		}
 	}

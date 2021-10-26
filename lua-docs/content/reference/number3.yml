@@ -39,7 +39,6 @@ properties:
           print(myNumber3.Z)
 
   - name: "Length"
-    coming-soon: true
     type: "number"
     description: |
         `Number3`'s length.
@@ -51,7 +50,6 @@ properties:
           -- sqrt(3*3 + 4*4 + 12*12) = 13
 
   - name: "SquaredLength"
-    coming-soon: true
     type: "number"
     description: |
         Reading `Number3.SquaredLength` is faster than reading `Number3.Length`.
@@ -94,6 +92,19 @@ functions:
           n2.X = 10
           print(n1.X) -- n1.X is still 1
           
+  - name: "Cross"
+    return: 
+        - type: "Number3" 
+    arguments: 
+      - name: "n"
+        type: "Number3"
+    description: |
+        Returns the cross product of both [Number3]s.
+    samples:
+      - code: |
+          local n1 = Number3(1, 0, 0)
+          local n2 = Number3(1, 0, 0)
+          local n3 = n1:Cross(n2)
 
   - name: "Dot"
     return: 
@@ -124,7 +135,6 @@ functions:
           -- someNumber3 == Number3(0,0,-1), after a PI rotation around Y axis (180°)
 
   - name: "Normalize"
-    coming-soon: true
     description: |
       Normalizes the `Number3`.
       Scales [X](/reference/number3#property-x), [Y](/reference/number3#property-y) & [Z](/reference/number3#property-z) for the [Length](/reference/number3#property-length) to be `1.0`.
