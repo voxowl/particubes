@@ -76,7 +76,7 @@ p:last-child, h1:last-child, h2:last-child,
 h3:last-child,h4:last-child, h5:last-child,
 form:last-child, img:last-child, table:last-child,
 pre:last-child, .object-element-tbl:last-child,
-.centeredVideo:last-child {
+.inherited:last-child, .centeredVideo:last-child {
   margin-bottom: 0 !important;
 }
 
@@ -390,6 +390,21 @@ form input[type="submit"]:hover {
 
 pre {
   color: #FFFFFF !important;
+}
+
+.inherited {
+  position:  relative;
+  border: thin solid #EAEAEA;
+  background-color: #F8F8F8;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.inherited .toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
 }
 
 .floatLeft60Pct {
