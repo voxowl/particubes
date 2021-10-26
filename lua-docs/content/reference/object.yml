@@ -7,25 +7,23 @@ description: |
 
   An object by itself does not render anything on screen, but it can contain [Shape]s and thus become a parent coordinate system for them.
 
-  An `Object` can also take part to the physic simulation when setting [Object.Physics](#property-physics) to `true`.
+  An `Object` can also take part in the physics simulation when setting [Object.Physics](#property-physics) to `true`.
 
 constructors:
   - description: "Creates an Object."
     samples:
       - code: |
           local o = Object()
-          Map:AddChild(o) -- adds o to the Map (top level object in the game scene)
+          World:AddChild(o) -- adds o to the [World] (top level object in the game scene)
 
 properties:
 
     - name: "Acceleration"
       type: "Number3"
       description: |
-          [This]'s continuous acceleration.
+          [This]'s constant acceleration in world coordinates per second squared.
 
-          Default value: `{0,0,0}`.
-
-          ⚠️ `Acceleration` is [nil] and can't be set if [This].[Physics](#property-physics) is `false`.
+          ⚠️ `Acceleration` will only affect [This]'s position while [This].[Physics](#property-physics) is `true`.
       samples:
         - code: |
             -- Acceleration can be used to compensate gravity: 
@@ -130,7 +128,7 @@ properties:
       description: |
           Turns physic simulation on/off when set.
 
-          ⚠️ When turned on, [This].[Velocity](#property-velocity) & [This].[Motion](#property-motion) are set to `{0,0,0}`.
+          ⚠️ When turned off, [This].[Velocity](#property-velocity) & [This].[Motion](#property-motion) are set to `{0,0,0}`.
 
     - name: "OnCollision"
       type: "function"
@@ -203,9 +201,9 @@ properties:
     - name: "Velocity"
       type: "Number3"
       description: |
-          Velocity of the [This] in world coordinates.
+          Velocity of the [This] in world coordinates per second.
 
-          ⚠️ `Velocity` is [nil] and can't be set if [This].[Physics](#property-physics) is `false`.
+          ⚠️ `Velocity` will only affect [This]'s position while [This].[Physics](#property-physics) is `true`. Whenever it is set to `false`, `Velocity` is set to `{0,0,0}`.
       samples:
         - code: |
             -- makes myObject jump:
@@ -220,11 +218,11 @@ properties:
 
           This is what's being used by default when you're moving around with your avatar (see [Client.DirectionalPad](/reference/client#property-directionalpad)). It's the reason why you can stop moving horizontally while in the air.
 
-          Basically, `Motion` is a constant velocity that's added to [This].[Velocity](#property-velocity) each frame to obtain the final movement. ([This].[Velocity](#property-velocity) value is not impacted)
+          Basically, `Motion` is an instantaneous displacement that contributes to moving [This] every frame, without changing [This].[Velocity](#property-velocity) directly.
 
-          `Motion` is expressed in world coordinates.
+          `Motion` is expressed in world coordinates per second.
 
-          ⚠️ `Motion` is [nil] and can't be set if [This].[Physics](#property-physics) is `false`.
+          ⚠️ `Motion` will only affect [This]'s position while [This].[Physics](#property-physics) is `true`. Whenever it is set to `false`, `Motion` is set to `{0,0,0}`.
       samples:
         - code: |
             local speed = 10
@@ -232,20 +230,12 @@ properties:
             -- myObject will move in the same direction the camera is currently facing.
             -- If the Camera rotates after this, it won't change where myObject is heading.
 
-    - name: "Scale"
-      type: "Number3"
-      description: |
-          Scale of the [Object], in the world.
-      samples:
-        - code: |
-            myObject.Scale = 2 -- the Object is now 2 times bigger
-
     - name: "LocalScale"
       type: "number"
       description: |
           Scale of the [Object], in its parent.
 
-          Nested [Object] local scales are combined to obtain the "world scale" ([Object.Scale](#property-scale)), the [Object]'s final on-screen scale.
+          Nested [Object] local scales are combined to obtain the "world scale" ([Object.LossyScale](#property-lossyscale)), the [Object]'s final scale.
       samples:
         - code: |
             myObject.LocalScale = 2 -- the Object is now 2 times bigger
@@ -260,32 +250,33 @@ properties:
       read-only: true
       type: "number"
       description: |
-          Convenience property that attempts to match the actual world scale as much as it can.
+          Convenience property that attempts to match the actual world scale as much as it can. Note that [Object]s that have multiple levels of nested rotations and scales will return a skewed lossy scale.
 
     - name: Mass
       type: "number"
       description: |
-          TODO:
+          The mass of the [Object] determines how much a given force can move it and whether or not another object can be pushed by it. It cannot be zero, a neutral mass is a mass of 1.
 
     - name: Friction
       type: "number"
       description: |
-          TODO:
+          The combined friction of 2 [Object]s in contact represents how much the moving [Object] will be able to slide along the colliding [Object]. It is a rate between 0 (full stop on contact) and 1 (full slide, no friction), values higher than 1 are allowed and will create an increasing momentum, like sliding on ice.
 
     - name: Bounciness
       type: "number"
       description: |
-          TODO:
+          The combined bounciness of 2 [Object]s in contact represents how much of the moving [Object]'s velocity is produced after being in contact with colliding [Object], it is a rate between 0 (no bounce) and 1 (100% of the velocity bounced). Values higher than 1 are allowed and will create an increasing momentum at each bounce (try at your own risk).
 
     - name: CollisionBox
       type: "Box"
       description: |
-          TODO:
+          All [Object]s have a collision box that represents the space occupied in the scene with regards to collisions. For [Shape]s and [Player]s, the collision box is updated with their bounding box. For [Object]s, it is a 1-cube by default after physics was enabled for the first time.
 
     - name: "ChildrenCount"
       read-only: true
       type: "integer"
-      description: "Returns number of child [Object]s."
+      description: |
+          Returns number of child [Object]s.
 
     - name: "Up"
       type: "Number3"
@@ -483,7 +474,10 @@ functions:
         - type: "Number3"
 
     - name: "TextBubble"
-      description: "TODO:"
+      description: |
+          Adds a text bubble at [Object]'s position. For a [Shape] or [Player], the text bubble will appear above its bounding box.
+
+          You may use a duration of `-1` to set a permanent text bubble.
       argument-sets:
         - 
           - name: "text"
@@ -535,7 +529,7 @@ functions:
             type: "boolean"
 
     - name: "CollidesWith"
-      description: "TODO: Object:CollidesWith(self, other)"
+      description: "Returns `true` if the two [Object]s may collide with each other."
       arguments: 
         - name: "self"
           type: "Object"
@@ -545,7 +539,7 @@ functions:
         - type: "boolean"
 
     - name: "ApplyForce"
-      description: "TODO: Object:ApplyForce(self, value)"
+      description: "Apply a force to [Object], taking into account its [Mass](/reference/object#property-mass)."
       arguments: 
         - name: "self"
           type: "Object"
@@ -553,7 +547,7 @@ functions:
           type: "Number3"
   
     - name: "ClearTextBubble"
-      description: "TODO: Object:ClearTextBubble()"
+      description: "Instantaneously remove any ongoing text bubble."
       arguments: 
         - name: "self"
           type: "Object"
