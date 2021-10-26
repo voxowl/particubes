@@ -30,6 +30,16 @@ properties:
           
           Indicates what block face has been touched.
 
+    - name: "Object"
+      type: "Object"
+      description: "Object touched by the ray."
+      samples:
+        - code: |
+            Pointer.Down = function(event)
+              local impact = event:CastRay()
+              print(impact.Object) -- can be nil if no Object has been touched
+            end
+
     - name: "Player"
       type: "Player"
       description: "Player touched by the ray."
