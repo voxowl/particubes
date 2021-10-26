@@ -222,12 +222,11 @@ properties:
           This is the very first Lua function to be called, a good place to initialize variables.
       samples:
         - code: |
-            Client.OnStart = function()
-              -- place player above the top center of the map
-              Player.Position = {Map.Width / 2, Map.Height + 10, Map.Depth / 2}
-              -- make it spawn!
-              Player:Spawn()
-            end
+          Client.OnStart = function()
+            -- add local Player to the World and place it above the center of the map
+            World:AddChild(Player)
+            Player.Position = {Map.Width / 2, Map.Height + 10, Map.Depth / 2}
+          end
 
     - name: "Player"
       type: "Player"
