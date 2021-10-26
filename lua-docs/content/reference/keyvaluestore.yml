@@ -66,8 +66,32 @@ functions:
   - name: "Set"
     argument-sets: 
       -
-        - name: "..."
-          type: "TODO"
+        - name: "key1"
+          type: "string"
+        - name: "value"
+          type: "string"
+        - name: "... " # current way to indicate variadic arguments
+          type: "" # leaving type empty on purpose"
+        - name: "callback"
+          type: "function"
+          optional: true
+      -
+        - name: "key1"
+          type: "string"
+        - name: "value"
+          type: "number"
+        - name: "... " # current way to indicate variadic arguments
+          type: "" # leaving type empty on purpose"
+        - name: "callback"
+          type: "function"
+          optional: true
+      -
+        - name: "key1"
+          type: "string"
+        - name: "value"
+          type: "boolean"
+        - name: "... " # current way to indicate variadic arguments
+          type: "" # leaving type empty on purpose"
         - name: "callback"
           type: "function"
           optional: true
@@ -77,24 +101,47 @@ functions:
         Currently, values can be [string]s, [number]s or [boolean]s. More types are going to be supported soon.
 
         Though the operation is supposed to be real quick, it can't be instantaneous. That's why you need to supply a callback function to get the response.
+
+        The callback function only takes one argument:
+        - a [boolean], indicating if the operation was successful (it could fail because of network issues).
     samples:
       - code: |
-          -- TODO
+          local store = KeyValueStore("settings")
+          store:Set("currentChallenge", "halloween", "jumpStrength", 10, function(success)
+              if success then
+                -- operation was successful
+              end
+          end)
 
   - name: "Get"
     argument-sets: 
       -
-        - name: "..."
-          type: "TODO"
+        - name: "key1"
+          type: "string"
+        - name: "key2"
+          type: "string"
+        - name: "... " # current way to indicate variadic arguments
+          type: "" # leaving type empty on purpose
         - name: "callback"
           type: "function"
     description: |
         Gets values for given keys.
 
         Though the operation is supposed to be real quick, it can't be instantaneous. That's why you need to supply a callback function to get the response.
+
+        The callback function only takes 2 arguments: 
+        - A [boolean], indicating if the operation was successful (it could fail because of network issues).
+        - A [table] containing values for requested keys.
+
     samples:
       - code: |
-          -- TODO
+          local store = KeyValueStore("settings")
+          store:Get("currentChallenge", "jumpStrength", function(success, results)
+              if success then
+                -- do something with results.currentChallenge
+                -- and results.jumpStrength
+              end
+          end)
 
 
           
