@@ -262,16 +262,6 @@ properties:
       description: |
           Convenience property that attempts to match the actual world scale as much as it can.
 
-    - name: ColliderOrigin
-      type: "Number3"
-      description: |
-          TODO:
-
-    - name: ColliderSize
-      type: "Number3"
-      description: |
-          TODO:
-
     - name: Mass
       type: "number"
       description: |
