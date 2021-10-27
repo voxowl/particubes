@@ -9,66 +9,357 @@
 					<source src="/video/particubes-teaser-website-854x480.mp4" type="video/mp4">
 				</video>
 
-				<img src="/style/img/title.png" />
-
-				<div class="subscribe-over-media">
-					{{ template "form" . }}
-				</div>
-
-				<div class="clear"></div>
+				<a class="big-screen download-button" href="/download"><h2>Join the Alpha!</h2><p>iPhone/iPad, Android, Windows & Mac</p></a>
 			</div>
 
-			{{ template "menu" . }}
 
 			<div id="content">
-				<!-- Embedding generated content here for youtube iframe not to be removed. We certainly need to change the config of our markdown to HTML generator to support this. -->
-
-				<div class="early-access small-screen">
-					<div class="subscribe">
-						{{ template "form" . }}
-					</div>
-				</div>
 				
 				<div id="what">
-					<h2 class="glitter">What is Particubes?</h2>
+					<h2 class="rainbow">{{ .introTitle }}</h2>
 					
-					<p>Particubes is a place to hang out, play, build and share multiplayer experiences in which everything is made out of cubes. (items, avatars, worlds, vehicles...)</p>
+					{{ range .introBlocks }}
 
-					<p>The app runs on iOS, Android, Windows, Mac and Linux devices.</p>
+						{{ if eq .Type "text"}}
+							<p>
+							{{ range .TextSpans }}
+								<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+							{{ end }}
+							</p>
+
+						{{ else if eq .Type "header"}}
+
+							<h{{ .HeaderLevel }}>
+							{{ range .TextSpans }}
+								<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+							{{ end }}
+							</h{{ .HeaderLevel }}>
+
+						{{ else if eq .Type "image"}}
+
+							{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+								<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+							{{ if .Image.Link }}</a>{{ end }}
+
+						{{ else if eq .Type "bulleted_list"}}
+
+							<li>
+							{{ range .TextSpans }}
+								<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+							{{ end }}
+							</li>
+
+						{{ else if eq .Type "column_list"}}
+
+							<div class="columns_x3">
+							{{ range .Blocks }} <!-- loop over columns -->
+
+								{{ if eq .Type "column"}}
+
+									<div class="column">
+									{{ range .Blocks }} <!-- loop over blocks in each columns -->
+
+										{{ if eq .Type "text"}}
+											<p>
+											{{ range .TextSpans }}
+												<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+											{{ end }}
+											</p>
+
+										{{ else if eq .Type "header"}}
+											<h{{ .HeaderLevel }}>
+											{{ range .TextSpans }}
+												<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+											{{ end }}
+											</h{{ .HeaderLevel }}>
+
+										{{ else if eq .Type "image"}}
+
+											{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+												<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+											{{ if .Image.Link }}</a>{{ end }}
+										{{ end }}
+
+									{{ end }}
+									</div>
+
+								{{ end }}
+
+							{{ end }}
+							</div>
+							<div class="clear"></div>
+
+						{{ else }}
+
+							<!-- UNKNOWN BLOCK TYPE -->
+
+						{{ end}}
+
+					{{ end }} <!-- end range .Blocks -->
+
+					<a class="small-screen download-button" href="/download"><h2>Join the Alpha!</h2><p>iPhone/iPad, Android, Windows & Mac</p></a>
 				</div>
 
 				<div id="features">
 					<ul class="features">
 						<li class="feature play">
-							<h2>Players</h2>
-							<p>Explore many different games and experiences all built by the community, using your own custom avatar. Play with your friends, on mobile and desktop devices.</p>
+							<h2>{{ .exploreTitle }}</h2>
+							{{ range .exploreBlocks }}
+
+								{{ if eq .Type "text"}}
+									<p>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</p>
+
+								{{ else if eq .Type "header"}}
+
+									<h{{ .HeaderLevel }}>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</h{{ .HeaderLevel }}>
+
+								{{ else if eq .Type "image"}}
+
+									{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+										<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+									{{ if .Image.Link }}</a>{{ end }}
+
+								{{ else if eq .Type "bulleted_list"}}
+
+									<li>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</li>
+
+								{{ else if eq .Type "column_list"}}
+
+									<div class="columns_x3">
+									{{ range .Blocks }} <!-- loop over columns -->
+
+										{{ if eq .Type "column"}}
+
+											<div class="column">
+											{{ range .Blocks }} <!-- loop over blocks in each columns -->
+
+												{{ if eq .Type "text"}}
+													<p>
+													{{ range .TextSpans }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+													</p>
+
+												{{ else if eq .Type "header"}}
+													<h{{ .HeaderLevel }}>
+													{{ range .TextSpans }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+													</h{{ .HeaderLevel }}>
+
+												{{ else if eq .Type "image"}}
+
+													{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+														<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+													{{ if .Image.Link }}</a>{{ end }}
+												{{ end }}
+
+											{{ end }}
+											</div>
+
+										{{ end }}
+
+									{{ end }}
+									</div>
+									<div class="clear"></div>
+
+								{{ else }}
+
+									<!-- UNKNOWN BLOCK TYPE -->
+
+								{{ end}}
+
+							{{ end }} <!-- end range .Blocks -->
 						</li>
 
 						<li class="feature build">
-							<h2>Builders</h2>
-							<p>Use simple yet powerful tools to craft and publish game items, worlds, avatars & outfits. Shared assets can be used by other builders and coders, and you get rewarded when they do.</p>
+							<h2>{{ .buildTitle }}</h2>
+							{{ range .buildBlocks }}
+
+								{{ if eq .Type "text"}}
+									<p>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</p>
+
+								{{ else if eq .Type "header"}}
+
+									<h{{ .HeaderLevel }}>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</h{{ .HeaderLevel }}>
+
+								{{ else if eq .Type "image"}}
+
+									{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+										<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+									{{ if .Image.Link }}</a>{{ end }}
+
+								{{ else if eq .Type "bulleted_list"}}
+
+									<li>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</li>
+
+								{{ else if eq .Type "column_list"}}
+
+									<div class="columns_x3">
+									{{ range .Blocks }} <!-- loop over columns -->
+
+										{{ if eq .Type "column"}}
+
+											<div class="column">
+											{{ range .Blocks }} <!-- loop over blocks in each columns -->
+
+												{{ if eq .Type "text"}}
+													<p>
+													{{ range .TextSpans }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+													</p>
+
+												{{ else if eq .Type "header"}}
+													<h{{ .HeaderLevel }}>
+													{{ range .TextSpans }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+													</h{{ .HeaderLevel }}>
+
+												{{ else if eq .Type "image"}}
+
+													{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+														<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+													{{ if .Image.Link }}</a>{{ end }}
+												{{ end }}
+
+											{{ end }}
+											</div>
+
+										{{ end }}
+
+									{{ end }}
+									</div>
+									<div class="clear"></div>
+
+								{{ else }}
+
+									<!-- UNKNOWN BLOCK TYPE -->
+
+								{{ end}}
+
+							{{ end }} <!-- end range .Blocks -->
 						</li>
 
 						<li class="feature code">
-							<h2>Coders</h2>
-							<p>Customize game code sample scripts, publish assignable actions, or script a full game from scratch! Show it to your friends, all they need to join the game is your invite link.</p>
+							<h2>{{ .codeTitle }}</h2>
+							{{ range .codeBlocks }}
+
+								{{ if eq .Type "text"}}
+									<p>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</p>
+
+								{{ else if eq .Type "header"}}
+
+									<h{{ .HeaderLevel }}>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</h{{ .HeaderLevel }}>
+
+								{{ else if eq .Type "image"}}
+
+									{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+										<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+									{{ if .Image.Link }}</a>{{ end }}
+
+								{{ else if eq .Type "bulleted_list"}}
+
+									<li>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</li>
+
+								{{ else if eq .Type "column_list"}}
+
+									<div class="columns_x3">
+									{{ range .Blocks }} <!-- loop over columns -->
+
+										{{ if eq .Type "column"}}
+
+											<div class="column">
+											{{ range .Blocks }} <!-- loop over blocks in each columns -->
+
+												{{ if eq .Type "text"}}
+													<p>
+													{{ range .TextSpans }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+													</p>
+
+												{{ else if eq .Type "header"}}
+													<h{{ .HeaderLevel }}>
+													{{ range .TextSpans }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+													</h{{ .HeaderLevel }}>
+
+												{{ else if eq .Type "image"}}
+
+													{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+														<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+													{{ if .Image.Link }}</a>{{ end }}
+												{{ end }}
+
+											{{ end }}
+											</div>
+
+										{{ end }}
+
+									{{ end }}
+									</div>
+									<div class="clear"></div>
+
+								{{ else }}
+
+									<!-- UNKNOWN BLOCK TYPE -->
+
+								{{ end}}
+
+							{{ end }} <!-- end range .Blocks -->
 						</li>
 					</ul>
-				</div>
-
-				<div class="early-access">
-					<div class="subscribe">
-						<p>Sign up now! You'll be <span class="highlight">#{{ .nextTester }}</span>, and you'll certainly get to pick a cool nickname!</p>
-						{{ template "form" . }}
-					</div>
 				</div>
 				
 			</div> <!-- {{ .content }} -->
 
 			{{ template "social" }}
 
-			{{ template "footer" }}
+			{{ template "menu" . }}
 
 		</div> <!-- page -->
+
+		{{ template "footer" }}
+
+
     </body>
 </html>

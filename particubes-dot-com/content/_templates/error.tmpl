@@ -4,10 +4,8 @@
 		<div id="page">
 
 			<div id="simple-title-header">
-				<a href="/"><img src="/style/img/title.png"></a>
+				<!-- <a href="/"><img src="/style/img/title.png"></a> -->
 			</div>
-
-			{{ template "menu" . }}
 
 			<div id="content">
 
@@ -32,8 +30,11 @@
 
 			{{ template "social" }}
 
-			{{ template "footer" }}
+			{{ template "menu" . }}
 
 		</div> <!-- page -->
+
+		{{ template "footer" }}
+
     </body>
 </html>
