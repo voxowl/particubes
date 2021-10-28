@@ -71,6 +71,13 @@ body {
   padding: 0;
 }
 
+hr {
+  border: 0.5px solid #DDD;
+  padding: 0;
+  margin-top:  10px;
+  margin-bottom:  10px;
+}
+
 textarea,
 input[type="text"],
 input[type="button"],
@@ -446,6 +453,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 #menu nav ul li a.question {
@@ -456,6 +465,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 #menu nav ul li a:hover {
@@ -504,6 +515,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .question {
@@ -514,6 +527,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .download {
@@ -524,6 +539,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .rainbow {
@@ -534,6 +551,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .glitter {
@@ -544,6 +563,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .privacy {
@@ -554,6 +575,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .talk {
@@ -564,6 +587,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .heart {
@@ -574,6 +599,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .news {
@@ -584,6 +611,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .error {
@@ -594,6 +623,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 #content .play h2 {
@@ -604,6 +635,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 #content .build h2 {
@@ -614,6 +647,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 #content .code h2 {
@@ -624,6 +659,8 @@ a.download-button:hover {
   background-size: 33px 33px;
   line-height: 33px;
   image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 #content img {

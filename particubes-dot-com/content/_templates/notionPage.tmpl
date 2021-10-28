@@ -41,6 +41,10 @@
 										<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
 									{{ if .Image.Link }}</a>{{ end }}
 
+								{{ else if eq .Type "divider"}}
+
+									<hr />
+
 								{{ else if eq .Type "bulleted_list"}}
 
 									<li>
@@ -142,7 +146,8 @@
 										{{ end }}
 									</div>
 
-
+								{{ else if eq .Type "video"}}
+									<iframe width="560" height="315" src="{{ .Video.URL }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 								{{ else }}
 
 									<!-- UNKNOWN BLOCK TYPE -->
