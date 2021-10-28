@@ -143,6 +143,28 @@ h3 {
   font-size: 1.1rem;
 }
 
+.toggle-collapsible {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+a.toggle-collapsible:hover {
+  color: #43C3D8;
+}
+
+.toggleContent {
+  margin-left: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.shown {
+  display: block;
+}
+
 video {
   max-width: 100% !important;
   height: auto;
@@ -183,6 +205,7 @@ pre {
 a {
   color: #3282E5;
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {
@@ -366,6 +389,10 @@ a.download-button:hover {
     text-align: center;
   }
 
+  html {
+    font-size: 16px;
+  }
+
 }
 
 /* MENU */
@@ -402,13 +429,13 @@ a.download-button:hover {
 #menu nav ul li {
   display: inline-block;
   font-family: "roboto", sans-serif;
-  font-size: 1.0rem;
 }
 
 #menu nav ul li a {
   color: #222;
   display: inline-block;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 #menu nav ul li a.download {
@@ -432,7 +459,7 @@ a.download-button:hover {
 }
 
 #menu nav ul li a:hover {
-  color: #FFF;
+  color: #2682CC;
 }
 
 #menu nav ul li:first-child a{
