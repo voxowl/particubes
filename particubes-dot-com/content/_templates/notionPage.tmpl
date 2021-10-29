@@ -49,7 +49,11 @@
 
 									<li>
 									{{ range .TextSpans }}
-										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+										{{ if .Link }}
+											<a href="{{ .Link }}" style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</a>
+										{{ else }}
+											<span style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</span>
+										{{ end }}
 									{{ end }}
 									</li>
 
@@ -75,6 +79,7 @@
 													</p>
 
 												{{ else if eq .Type "header"}}
+
 													<h{{ .HeaderLevel }}>
 													{{ range .TextSpans }}
 														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
@@ -86,6 +91,19 @@
 													{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
 														<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
 													{{ if .Image.Link }}</a>{{ end }}
+
+												{{ else if eq .Type "bulleted_list"}}
+
+													<li>
+													{{ range .TextSpans }}
+														{{ if .Link }}
+															<a href="{{ .Link }}" style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</a>
+														{{ else }}
+															<span style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</span>
+														{{ end }}
+													{{ end }}
+													</li>
+									
 												{{ end }}
 
 											{{ end }}
