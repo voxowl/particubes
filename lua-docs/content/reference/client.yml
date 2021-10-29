@@ -192,6 +192,21 @@ properties:
       type: "Inputs"
       description: "See [Inputs]."
 
+    - name: "OnChat"
+      type: "function"
+      description: |
+          Triggered when a message is submitted through the chat input. Receives the message ([string]) in parameter.
+
+          In the default implementation, messages aren't sent to other connected users.
+          But it's easy to do using [Event] and [Client.DidReceiveEvent](/reference/client#property-didreceiveevent).
+      samples:
+        - code: |
+            -- the default implementation does this:
+            Client.OnChat = function(message)
+                print(Player.Username .. ": " .. message)
+                Player:TextBubble(message, 3, true)
+            end
+
     - name: "OnPlayerJoin"
       type: "function"
       description: |
