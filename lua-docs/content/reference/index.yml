@@ -40,6 +40,7 @@ blocks:
         - "<a href=\"/reference/time\">Time</a>"
         - "<a href=\"/reference/timecycle\">TimeCycle</a>"
         - "<a href=\"/reference/timecyclemark\">TimeCycleMark</a>"
+        - "<a href=\"/reference/timer\">Timer</a>"
         - "<a href=\"/reference/ui\">UI</a>"
         - "<a href=\"/reference/world\">World</a>"
 
