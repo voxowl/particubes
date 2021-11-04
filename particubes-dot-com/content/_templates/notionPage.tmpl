@@ -1,0 +1,192 @@
+<html>
+	{{ template "head" . }}
+	<body>
+		<div id="page">
+
+			<div id="cover" style="background-image: url('{{ if .cover }}{{ .cover }}{{ else }}/style/img/header.jpg{{ end }}');">
+			</div>
+
+			<div id="content">
+
+				<div id="what">
+					<h1 class="{{ .titleIcon }}">{{ .title }}</h1>
+
+					{{ if .page }}
+						{{ if .page.Blocks }}
+							{{ range .page.Blocks }}
+
+								{{ if eq .Type "text"}}
+									<p>
+									{{ range .TextSpans }}
+
+										{{ if .Link }}
+											<a href="{{ .Link }}" style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</a>
+										{{ else }}
+											<span style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</span>
+										{{ end }}
+									{{ end }}
+									</p>
+
+								{{ else if eq .Type "header"}}
+
+									<h{{ .HeaderLevel }}>
+									{{ range .TextSpans }}
+										<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+									{{ end }}
+									</h{{ .HeaderLevel }}>
+
+								{{ else if eq .Type "image"}}
+
+									{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+										<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+									{{ if .Image.Link }}</a>{{ end }}
+
+								{{ else if eq .Type "divider"}}
+
+									<hr />
+
+								{{ else if eq .Type "bulleted_list"}}
+
+									<li>
+									{{ range .TextSpans }}
+										{{ if .Link }}
+											<a href="{{ .Link }}" style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</a>
+										{{ else }}
+											<span style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</span>
+										{{ end }}
+									{{ end }}
+									</li>
+
+								{{ else if eq .Type "column_list"}}
+
+									<div class="columns_x{{ len .Blocks }}">
+									{{ range .Blocks }} <!-- loop over columns -->
+
+										{{ if eq .Type "column"}}
+
+											<div class="column">
+											{{ range .Blocks }} <!-- loop over blocks in each columns -->
+
+												{{ if eq .Type "text"}}
+													<p>
+													{{ range .TextSpans }}
+														{{ if .Link }}
+															<a href="{{ .Link }}" style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</a>
+														{{ else }}
+															<span style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</span>
+														{{ end }}
+													{{ end }}
+													</p>
+
+												{{ else if eq .Type "header"}}
+
+													<h{{ .HeaderLevel }}>
+													{{ range .TextSpans }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+													</h{{ .HeaderLevel }}>
+
+												{{ else if eq .Type "image"}}
+
+													{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+														<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+													{{ if .Image.Link }}</a>{{ end }}
+
+												{{ else if eq .Type "bulleted_list"}}
+
+													<li>
+													{{ range .TextSpans }}
+														{{ if .Link }}
+															<a href="{{ .Link }}" style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</a>
+														{{ else }}
+															<span style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</span>
+														{{ end }}
+													{{ end }}
+													</li>
+									
+												{{ end }}
+
+											{{ end }}
+											</div>
+
+										{{ end }}
+
+									{{ end }}
+									</div>
+									<div class="clear"></div>
+
+								{{ else if eq .Type "toggle"}}
+									<a class="toggle-collapsible">
+										
+										{{ range .TextSpans }}
+											<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+										{{ end }}
+									</a>
+									<div class="toggleContent hidden">
+										{{ range .Blocks }}
+
+											{{ if eq .Type "text"}}
+												<p>
+												{{ range .TextSpans }}
+
+													{{ if .Link }}
+														<a href="{{ .Link }}" style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</a>
+													{{ else }}
+														<span style="{{ if .Bold }}font-weight: bold;{{ end }}{{ if .Italic }}font-style: italic;{{ end }}">{{ .Text }}</span>
+													{{ end }}
+												{{ end }}
+												</p>
+
+											{{ else if eq .Type "header"}}
+
+												<h{{ .HeaderLevel }}>
+												{{ range .TextSpans }}
+													<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+												{{ end }}
+												</h{{ .HeaderLevel }}>
+
+											{{ else if eq .Type "image"}}
+
+												{{ if .Image.Link }}<a href="{{ .Image.Link }}">{{ end }}
+													<img alt="{{ .Image.Alt }}" src="{{ .Image.Path }}"/>
+												{{ if .Image.Link }}</a>{{ end }}
+
+											{{ else if eq .Type "bulleted_list"}}
+
+												<li>
+												{{ range .TextSpans }}
+													<span style="{{ if .Bold }}font-weight: bold;{{ end }}">{{ .Text }}</span>
+												{{ end }}
+												</li>
+
+											{{ end }}
+
+										{{ end }}
+									</div>
+
+								{{ else if eq .Type "video"}}
+									<iframe width="560" height="315" src="{{ .Video.URL }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								{{ else }}
+
+									<!-- UNKNOWN BLOCK TYPE -->
+
+								{{ end}}
+
+							{{ end }} <!-- end range .Blocks -->
+						{{ end }} <!-- end if .Blocks -->
+					{{ end }} <!-- end .page -->
+
+				</div>
+
+			</div> <!-- {{ .content }} -->
+
+			{{ template "social" }}
+
+			{{ template "menu" . }}
+
+		</div> <!-- page -->
+
+		{{ template "footer" }}
+		
+    </body>
+</html>
