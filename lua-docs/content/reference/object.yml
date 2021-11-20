@@ -191,6 +191,17 @@ properties:
             o.Forward:Rotate({0, 0, math.pi / 2})
             o.Forward = Camera.Forward
 
+    - name: "Tick"
+      type: "function"
+      description: |
+          Executed ~30 times per second. Provides the [This] and elapsed time in seconds as parameter.
+      samples:
+        - code: |
+            -- executed ~30 times per second on each user device
+            myObject.Tick = function(object, dt)
+              print("elapsed:", dt, "seconds")
+            end
+
     - name: "LocalRotation"
       type: "Number3"
       description: |
