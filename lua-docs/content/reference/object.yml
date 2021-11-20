@@ -135,12 +135,32 @@ properties:
       description: |
           [nil] by default. Can be set to a function that will be triggered when the [This] collides with another [Object].
 
-          The function is called with 2 parameters: the object the callback was set for and the other actor in the collision. 
+          The function is called with 3 parameters: the object the callback was set for, the other actor in the collision and the [Face] of the first actor that's in contact.
+
+          Note: it's not necessary to do use all 3 parameters.
       samples:
         - code: |
             object.OnCollision = function(o1, o2)
               -- `o1` is `object` here
               print("collision detected between", o1, "and", o2)
+            end
+
+            object.OnCollision = function(o1, o2, face)
+              -- `o1` is `object` here
+              print("collision detected between", o1, "'s", face, "and", o2)
+            end
+
+    - name: "OnCollisionEnd"
+      type: "function"
+      description: |
+          [nil] by default. Can be set to a function that will be triggered when the [This] ends colliding with another [Object].
+
+          The function is called with 2 parameters: the object the callback was set for and the other actor in the collision. 
+      samples:
+        - code: |
+            object.OnCollisionEnd = function(o1, o2)
+              -- `o1` is `object` here
+              print("collision ended between", o1, "and", o2)
             end
 
     - name: "Position"
