@@ -24,7 +24,7 @@ properties:
     
     
     - name: "FaceTouched"
-      type: "BlockFace"
+      type: "Face"
       description: |
           Not `nil` if the [Impact] represents a [Block].
           
