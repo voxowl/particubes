@@ -6,7 +6,6 @@ blocks:
     - list:
         - "<a href=\"/reference/anchor\">Anchor</a>"
         - "<a href=\"/reference/block\">Block</a>"
-        - "<a href=\"/reference/blockface\">BlockFace</a>"
         - "<a href=\"/reference/box\">Box</a>"
         - "<a href=\"/reference/blockproperties\">BlockProperties</a>"
         - "<a href=\"/reference/button\">Button</a>"
@@ -18,6 +17,7 @@ blocks:
         - "<a href=\"/reference/config\">Config</a>"
         - "<a href=\"/reference/dev\">Dev</a>"
         - "<a href=\"/reference/event\">Event</a>"
+        - "<a href=\"/reference/face\">Face</a>"
         - "<a href=\"/reference/fog\">Fog</a>"
         - "<a href=\"/reference/impact\">Impact</a>"
         - "<a href=\"/reference/items\">Items</a>"

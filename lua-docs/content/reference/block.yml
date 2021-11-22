@@ -125,7 +125,7 @@ functions:
         - name: "block"
           type: "Block"
         - name: "face"
-          type: "BlockFace"
+          type: "Face"
       return: 
         - type: "Block"
       samples:

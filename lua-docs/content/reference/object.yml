@@ -135,12 +135,44 @@ properties:
       description: |
           [nil] by default. Can be set to a function that will be triggered when the [This] collides with another [Object].
 
-          The function is called with 2 parameters: the object the callback was set for and the other actor in the collision. 
+          The function is called with 3 parameters: the object the callback was set for, the other actor in the collision and the [Face] of the first actor that's in contact.
+
+          Note: it's not necessary to do use all 3 parameters.
       samples:
         - code: |
             object.OnCollision = function(o1, o2)
               -- `o1` is `object` here
               print("collision detected between", o1, "and", o2)
+            end
+
+            object.OnCollision = function(o1, o2, face)
+              -- `o1` is `object` here
+              print("collision detected between", o1, "'s", face, "and", o2)
+            end
+
+    - name: "OnCollisionEnd"
+      type: "function"
+      description: |
+          [nil] by default. Can be set to a function that will be triggered when the [This] ends colliding with another [Object].
+
+          The function is called with 2 parameters: the object the callback was set for and the other actor in the collision. 
+      samples:
+        - code: |
+            object.OnCollisionEnd = function(o1, o2)
+              -- `o1` is `object` here
+              print("collision ended between", o1, "and", o2)
+            end
+
+    - name: "OnPointerDrag"
+      type: "function"
+      description: |
+          Executed when the [Pointer] is dragged (moved while down). Receives a [PointerEvent] parameter, just like [Pointer.Drag](/reference/pointer#property-drag).
+
+          ([nil] by default)
+      samples:
+        - code: |
+            myObject.OnPointerDrag = function(pointerEvent)
+              print("dx:", pointerEvent.DX, "dy:", pointerEvent.DY)
             end
 
     - name: "Position"
@@ -190,6 +222,17 @@ properties:
             -- another way to rotate the object:
             o.Forward:Rotate({0, 0, math.pi / 2})
             o.Forward = Camera.Forward
+
+    - name: "Tick"
+      type: "function"
+      description: |
+          Tick is a [function] executed ~30 times per second when set ([nil] by default). Provides the [This] and elapsed time in seconds as parameters.
+      samples:
+        - code: |
+            -- executed ~30 times per second on each user device
+            myObject.Tick = function(object, dt)
+              print("elapsed:", dt, "seconds")
+            end
 
     - name: "LocalRotation"
       type: "Number3"
