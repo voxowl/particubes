@@ -163,6 +163,18 @@ properties:
               print("collision ended between", o1, "and", o2)
             end
 
+    - name: "OnPointerDrag"
+      type: "function"
+      description: |
+          Executed when the [Pointer] is dragged (moved while down). Receives a [PointerEvent] parameter, just like [Pointer.Drag](/reference/pointer#property-drag).
+
+          ([nil] by default)
+      samples:
+        - code: |
+            myObject.OnPointerDrag = function(pointerEvent)
+              print("dx:", pointerEvent.DX, "dy:", pointerEvent.DY)
+            end
+
     - name: "Position"
       type: "Number3"
       description: |
@@ -214,7 +226,7 @@ properties:
     - name: "Tick"
       type: "function"
       description: |
-          Executed ~30 times per second. Provides the [This] and elapsed time in seconds as parameter.
+          Tick is a [function] executed ~30 times per second when set ([nil] by default). Provides the [This] and elapsed time in seconds as parameters.
       samples:
         - code: |
             -- executed ~30 times per second on each user device
