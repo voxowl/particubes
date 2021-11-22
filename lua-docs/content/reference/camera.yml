@@ -6,6 +6,8 @@ description: |
 
   Controls camera movement and position.
 
+  All camera modes listed on this page are implemented in Lua, it's totally possible to implement custom ones.
+
 properties:
     # inherited from Object, hiding it for now though because untested
     - name: "ChildrenCount"
@@ -18,6 +20,19 @@ properties:
       hide: true
     - name: "Motion"
       hide: true
+
+    - name: "FieldOfView"
+      type: "number"
+      description: |
+          Can be set to change Camera's vertical field of view.
+
+          The default value is 60 degrees.
+
+      samples:
+        - code: |
+            Camera.FieldOfView = 40.0
+
+
 
 functions:
     # inherited from Object, hiding it for now though because untested
