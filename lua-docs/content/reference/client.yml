@@ -60,6 +60,8 @@ properties:
       type: "function"
       description: |
           Triggered when pressing action 2 button. (left click by default when using a mouse)
+
+          (turned off when [Pointer] is hidden)
       samples:
         - code: |
             Client.Action2 = function()
@@ -70,6 +72,8 @@ properties:
       type: "function"
       description: |
           Triggered when releasing action 2 button. (left click by default when using a mouse)
+
+          (turned off when [Pointer] is hidden)
       samples:
         - code: |
             Client.Action2Release = function()
@@ -80,6 +84,8 @@ properties:
       type: "function"
       description: |
           Triggered when pressing action 3 button. (right click by default when using a mouse)
+
+          (turned off when [Pointer] is hidden)
       samples:
         - code: |
             Client.Action3 = function()
@@ -90,6 +96,8 @@ properties:
       type: "function"
       description: |
           Triggered when releasing action 3 button. (left click by default when using a mouse)
+
+          (turned off when [Pointer] is hidden)
       samples:
         - code: |
             Client.Action3Release = function()
@@ -156,6 +164,8 @@ properties:
           When using a touch screen, the A-pad is activated when moving the finger after a touch down from anywhere outside the [DirectionalPad](/reference/client#property-directionalpad).
 
           The function receives 2 arguments `dx` & `dy` to represent the delta compared to the previous position. When both `dx` & `dy` are equal to `0.0`, it means the pad is back to idle state.
+
+          (turned off when [Pointer] is hidden)
 
       samples:
         - code: |
