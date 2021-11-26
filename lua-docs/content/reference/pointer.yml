@@ -117,4 +117,16 @@ properties:
 
             end
 
+    - name: "IsHidden"
+      type: "boolean"
+      read-only: true
+      description: |
+          True if the [Pointer] is hidden, false otherwise.
+      samples:
+          - code: |
+              Pointer:Show()
+              print(Pointer.IsHidden) -- false
+              Pointer:Hide()
+              print(Pointer.IsHidden) -- true
+
     
