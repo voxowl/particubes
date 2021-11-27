@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : tarafından
+generic_Cancel : İptal
+generic_Close : Kapat
+generic_LoadingWithDots : Yükleniyor...
+generic_Send : Gönder
+generic_wip : İnşa ediliyor
+generic_wipText : Burayı hala inşa ediyoruz, sonra geri gel!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : Bir hata oluştu, ana menüye yönlendirildiniz.
+errorPopup_connectionText : Bağlantı başarısız, lütfen internet bağlantınızı kontrol ediniz.
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Herhangi bir yere tıklayınız
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Önce çıkan
+mainmenu_NewBtnCaption : ✨ Yeni
+mainmenu_ExploreBtnCaption : 🌎 Keşfet
+mainmenu_BuildBtnCaption : 🏗 İnşa et
+mainmenu_BackBtnCaption : ⬅️ Geri
+mainmenu_LaunchBtnCaption : Başlat
+mainmenu_ServersBtnCaption : Sunucular
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ Yeni dünya! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ Yeni eşya! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 Yardım / Geri bildirim
+help_discordIntro : Discord, yardım almak ve fikirlerinizi belirtmek için en iyi yerdir:
+help_discordBtnCaption : 👾 Discord'u aç
+help_feedbackTextIntro : Ya da söylemek istediklerinizi buraya yazın:
