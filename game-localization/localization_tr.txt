@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : tarafından
+generic_by : %s tarafından
 generic_Cancel : İptal
 generic_Close : Kapat
 generic_LoadingWithDots : Yükleniyor...
