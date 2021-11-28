@@ -1,0 +1,40 @@
+// GENERIC
+generic_by:от
+generic_Cancel:Отменить
+generic_Close:Закрыть
+generic_LoadingWithDots:Загрузка...
+generic_Send:Отправить
+generic_wip:В разработке
+generic_wipText: Мы разрабатываем эту часть, приходи потом!
+
+// ERROR POPUPS
+errorPopup_genericTitle: ❌
+errorPopup_genericText:Возникла ошибка из за которой пришлось
+отправить вас в главное меню!
+errorPopup_connectionText:Не удалось подключиться, проверьте соединение с интернетом!
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere:Нажми где угодно
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption:🏆 Избранные
+mainmenu_NewBtnCaption:✨ Новое
+mainmenu_ExploreBtnCaption:🌎 Исследовать
+mainmenu_BuildBtnCaption:🏗 Строить
+mainmenu_BackBtnCaption:⬅️ Назад
+mainmenu_LaunchBtnCaption:Запустить
+mainmenu_ServersBtnCaption:Сервера
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle:✨Новый мир! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle:✨Новый предмет! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title:💬 Помощь/ Обратная связь
+help_discordIntro:Дискорд - лучшее место где можно найти помощь или высказать своё мнение о игр.
+help_discordBtnCaption:👾 Открыть Дискорд
+help_feedbackTextIntro:Или напишите что вы хотели сказать:
