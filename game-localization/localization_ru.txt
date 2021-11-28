@@ -22,7 +22,7 @@ mainmenu_ExploreBtnCaption : 🌎 Исследовать
 mainmenu_BuildBtnCaption : 🏗 Строить
 mainmenu_BackBtnCaption : ⬅️ Вернуться
 mainmenu_LaunchBtnCaption : Запустить
-mainmenu_ServersBtnCaption : Сервера
+mainmenu_ServersBtnCaption : Серверы
 
 // MAIN MENU - BUILD - WORLD
 mainmenu_build_world_NewPageTitle : ✨ Новый мир! ✨
