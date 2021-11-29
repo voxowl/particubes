@@ -72,30 +72,6 @@ functions:
 
 properties:
 
-    - name: "DidShow"
-      type: function
-      description: |
-          Triggered when entering "pointer mode".
-          Technically, no visual pointer does show on a touch screen, but it means the UI is now receiving pointer inputs. 
-          When using a mouse, that function is triggered when the cursor becomes visible.
-      samples:
-        - code: |
-            Pointer.DidShow = function()
-
-            end
-
-    - name: "DidHide"
-      type: function
-      description: |
-          Triggered when leaving "pointer mode".
-          Technically, no visual pointer disappears on a touch screen, but it means the UI now stops receiving pointer inputs.
-          When using a mouse, that function is triggered when the cursor disappears.
-      samples:
-        - code: |
-            Pointer.DidHide = function()
-
-            end
-
     - name: "Down"
       type: function
       description: "Triggered when pressing the pointer. (left click or one finger touch down)"
@@ -140,5 +116,17 @@ properties:
             Pointer.Zoom = function( pointerEvent )
 
             end
+
+    - name: "IsHidden"
+      type: "boolean"
+      read-only: true
+      description: |
+          True if the [Pointer] is hidden, false otherwise.
+      samples:
+          - code: |
+              Pointer:Show()
+              print(Pointer.IsHidden) -- false
+              Pointer:Hide()
+              print(Pointer.IsHidden) -- true
 
     
