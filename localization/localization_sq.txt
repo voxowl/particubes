@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : Nga
+generic_Cancel : Anuloni
+generic_Close : Mbyll
+generic_LoadingWithDots : Po Ngarkohet...
+generic_Send : Dërgo
+generic_wip : Puna në vazhdim
+generic_wipText : Ne jemi ende duke e ndërtuar këtë pjesë, kthehuni më vonë!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : Ndodhi një gabim, ju jeni ridrejtuar në menynë kryesore.
+errorPopup_connectionText : Lidhja dështoi, kontrolloni lidhjen tuaj të internetit.
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Shtypni kudo
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Të veçuarë
+mainmenu_NewBtnCaption : ✨ Të re
+mainmenu_ExploreBtnCaption : 🌎 Eksploroni
+mainmenu_BuildBtnCaption : 🏗 Ndërtoni
+mainmenu_BackBtnCaption : ⬅️ Kthehu
+mainmenu_LaunchBtnCaption : Nisjë
+mainmenu_ServersBtnCaption : Serverët
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ Botë e re! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ Artikull i ri! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 Ndihmë / Feedback
+help_discordIntro : Discord është vendi më i mirë për të gjetur mbështetje dhe për të paraqitur idetë tuaja:
+help_discordBtnCaption : 👾 Hap Discord
+help_feedbackTextIntro : Ose thuaj atë që ke për të thënë këtu:
