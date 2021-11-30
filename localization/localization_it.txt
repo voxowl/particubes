@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : Creato da
+generic_Cancel : Anulla
+generic_Close : Chiudi
+generic_LoadingWithDots : Caricamento...
+generic_Send : Invia
+generic_wip : In costruzione
+generic_wipText : Non abbiamo terminato questa parte, torna più tardi!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : Si è verificato un errore, rieccoti al menù.
+errorPopup_connectionText : Impossibile raggiungere i server, controlla la conessione internet.
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Premi per giocare
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Migliori
+mainmenu_NewBtnCaption : ✨ Nuovi
+mainmenu_ExploreBtnCaption : 🌎 Esplora
+mainmenu_BuildBtnCaption : 🏗 Crea
+mainmenu_BackBtnCaption : ⬅️ Indietro
+mainmenu_LaunchBtnCaption : Gioca!
+mainmenu_ServersBtnCaption : Server
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ Nuovo Mondo! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ Nuovo Oggetto! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 Aiuto / Feedback
+help_discordIntro : Discord è il miglior modo di comunicare e condividere idee:
+help_discordBtnCaption : 👾 Apri Discord
+help_feedbackTextIntro : O semplicemente scrivi qui sotto:

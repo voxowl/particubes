@@ -190,7 +190,15 @@ functions:
               type: "Object"
           -
             - name: "target"
+              type: "Number3"
+          -
+            - name: "target"
               type: "Object"
+            - name: "distance"
+              type: "number"
+          -
+            - name: "target"
+              type: "Number3"
             - name: "distance"
               type: "number"
       description: |

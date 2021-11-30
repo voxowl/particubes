@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : by
+generic_Cancel : Meow
+generic_Close : Meow
+generic_LoadingWithDots : Meowing...
+generic_Send : Meow
+generic_wip : Meow in progress
+generic_wipText : Cats are still meowing this meow, meow back later!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : Meow meowed, you have been meowed to the meow menu.
+errorPopup_connectionText : Failed to meow, please meow your meow connection.
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Meow anywhere
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Meowed
+mainmenu_NewBtnCaption : ✨ Meow
+mainmenu_ExploreBtnCaption : 🌎 Meow
+mainmenu_BuildBtnCaption : 🏗 Meow
+mainmenu_BackBtnCaption : ⬅️ Meow
+mainmenu_LaunchBtnCaption : Meow
+mainmenu_ServersBtnCaption : Meows
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ New meow! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ New meow! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 Meow / Meowback
+help_discordIntro : Discord is the meow place to meow support and meow your meows:
+help_discordBtnCaption : 👾 Meow Discord
+help_feedbackTextIntro : Or meow what you have to meow here:

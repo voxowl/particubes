@@ -16,20 +16,20 @@ errorPopup_connectionText : Echec de connexion, vérifie ta connexion à interne
 splashscreen_pressAnywhere : Appuie sur l'écran
 
 // MAIN MENU
-mainmenu_FeaturedBtnCaption : 🏆 Featured
-mainmenu_NewBtnCaption : ✨ New
-mainmenu_ExploreBtnCaption : 🌎 Explore
-mainmenu_BuildBtnCaption : 🏗 Build
+mainmenu_FeaturedBtnCaption : 🏆 En vedette
+mainmenu_NewBtnCaption : ✨ Nouveaux
+mainmenu_ExploreBtnCaption : 🌎 Explorer
+mainmenu_BuildBtnCaption : 🏗 Construire
 mainmenu_BackBtnCaption : ⬅️ Retour
 mainmenu_LaunchBtnCaption : Lancer
 mainmenu_ServersBtnCaption : Serveurs
 
 // MAIN MENU - BUILD - WORLD
-mainmenu_build_world_NewPageTitle : ✨ Nouveau world! ✨
+mainmenu_build_world_NewPageTitle : ✨ Nouveau Monde! ✨
 // ...
 
 // MAIN MENU - BUILD - ITEM
-mainmenu_build_item_NewPageTitle : ✨ Nouvel item! ✨
+mainmenu_build_item_NewPageTitle : ✨ Nouvel Object! ✨
 // ...
 
 // HELP / FEEDBACK
