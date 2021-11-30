@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : 執筆：
+generic_Cancel : CANCEL
+generic_Close : CLOSE
+generic_LoadingWithDots : LOADING...
+generic_Send : 送信
+generic_wip : 工事中
+generic_wipText : この部分をまだ作っています。後で返ってください！
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : エラーが発生しました。メインメニューに戻されました。
+errorPopup_connectionText : 接続に失敗しました。インターネットの接続状況を確認してください。
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : どこでも押す
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 ベスト
+mainmenu_NewBtnCaption : ✨ 新しい
+mainmenu_ExploreBtnCaption : 🌎 見る
+mainmenu_BuildBtnCaption : 🏗 作る
+mainmenu_BackBtnCaption : ⬅️ BACK
+mainmenu_LaunchBtnCaption : START
+mainmenu_ServersBtnCaption : サーバー
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨新しいワールド✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨新しいアイテム✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 サービスとフィードバック
+help_discordIntro : サポートを受けて考えを見せるの最高な場所はDISCORD：
+help_discordBtnCaption : 👾 OPEN DISCORD
+help_feedbackTextIntro : それともここに私たちに言う：
