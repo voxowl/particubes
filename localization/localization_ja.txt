@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : 執筆：
+generic_by : 執筆：%s
 generic_Cancel : CANCEL
 generic_Close : CLOSE
 generic_LoadingWithDots : LOADING...

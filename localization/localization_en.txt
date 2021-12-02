@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : by
+generic_by : by %s
 generic_Cancel : Cancel
 generic_Close : Close
 generic_LoadingWithDots : Loading...

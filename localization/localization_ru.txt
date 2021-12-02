@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : от
+generic_by : от %s
 generic_Cancel : Отмена
 generic_Close : Закрыть
 generic_LoadingWithDots : Загрузка...

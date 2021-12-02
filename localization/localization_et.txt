@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : 
+generic_by : poolt %s
 generic_Cancel : Tagasi
 generic_Close : Kinni
 generic_LoadingWithDots : Laadimine...
