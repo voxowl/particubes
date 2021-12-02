@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : par
+generic_by : par %s
 generic_Cancel : Annuler
 generic_Close : Fermer
 generic_LoadingWithDots : Chargement...

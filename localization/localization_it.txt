@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : Creato da
+generic_by : Creato da %s
 generic_Cancel : Anulla
 generic_Close : Chiudi
 generic_LoadingWithDots : Caricamento...

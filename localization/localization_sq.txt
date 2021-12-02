@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : Nga
+generic_by : Nga %s
 generic_Cancel : Anuloni
 generic_Close : Mbyll
 generic_LoadingWithDots : Po Ngarkohet...

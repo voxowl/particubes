@@ -1,5 +1,5 @@
 // GENERIC
-generic_by : by
+generic_by : by %s
 generic_Cancel : Meow
 generic_Close : Meow
 generic_LoadingWithDots : Meowing...
