@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : 
+generic_Cancel : Tagasi
+generic_Close : Kinni
+generic_LoadingWithDots : Laadimine...
+generic_Send : Saada
+generic_wip : Ikka veel ehitamises!
+generic_wipText : Osa kuhu proovid minna ikka veel tehtakse, pead veel ootama!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : Segadus juhtus, sind pandi tagasi algusesse!
+errorPopup_connectionText : Me ei saanud sind serveriga ühendada, vaatake oma internet üle!
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Vajuta kuhugi!
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Populaarsed
+mainmenu_NewBtnCaption : ✨ Uus
+mainmenu_ExploreBtnCaption : 🌎 Otsige
+mainmenu_BuildBtnCaption : 🏗 Ehita
+mainmenu_BackBtnCaption : ⬅️ Tagasi
+mainmenu_LaunchBtnCaption : Mine Sisse
+mainmenu_ServersBtnCaption : Serverid
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ Uus maaelm! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ Uus asjandus! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 Abi / Tagasiside
+help_discordIntro : Discord on parim koht kus rääkida Particubsist ja oma ideesi anda:
+help_discordBtnCaption : 👾 Discord
+help_feedbackTextIntro : Või räägi siin:
