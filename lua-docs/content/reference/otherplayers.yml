@@ -9,7 +9,9 @@ blocks:
 
       [Player]s are indexed by their "player ID". Player IDs range from 0 to 15.
 
+      ⚠️ Don't use `ipairs` for iterating over `OtherPlayers`, but only `pairs`.
   - code: |
       for id, player in pairs(OtherPlayers) do
-        print(id, player.Username)
+        -- id and player.ID have the same value here
+        print(id, player.ID, player.Username)
       end
