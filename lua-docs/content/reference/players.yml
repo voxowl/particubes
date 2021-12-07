@@ -6,7 +6,10 @@ blocks:
       Players is an array of [Player]s, it contains all players who joined the game.
 
       [Player]s are indexed by their "player ID". Player IDs range from 0 to 15.
+
+      ⚠️ Don't use `ipairs` for iterating over `Players`, but only `pairs`.
   - code: |
       for id, player in pairs(Players) do
-        print(id, player.Username)
+        -- id and player.ID have the same value here
+        print(id, player.ID, player.Username)
       end
