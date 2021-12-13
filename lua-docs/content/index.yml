@@ -31,6 +31,8 @@ blocks:
 
         Don't worry if you've never used it. You'll be able to define custom things for your games in minutes. ☺️
 
+        (Particubes uses Lua version [5.3](https://www.lua.org/manual/5.3/))
+
     - subtitle: "Quick example: How to jump higher?"
 
     - text: "Find where `Client.Action1` is defined in the default script:"
