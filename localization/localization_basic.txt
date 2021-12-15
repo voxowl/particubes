@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : by %s
+generic_Cancel : Call Off
+generic_Close : Close
+generic_LoadingWithDots : Getting Ready...
+generic_Send : Send
+generic_wip : Work in process
+generic_wipText : We are still building this part, come back later!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : An error happened, you have been sent to the main page.
+errorPopup_connectionText : Could not connect, please have a look at your internet connection.
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Press at any place
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Presented
+mainmenu_NewBtnCaption : ✨ New
+mainmenu_ExploreBtnCaption : 🌎 Travel
+mainmenu_BuildBtnCaption : 🏗 Build
+mainmenu_BackBtnCaption : ⬅️ Back
+mainmenu_LaunchBtnCaption : Start
+mainmenu_ServersBtnCaption : Servers
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ New world! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ New item! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 Help / Comment
+help_discordIntro : Discord is the best place to get support and present your ideas:
+help_discordBtnCaption : 👾 Open Discord
+help_feedbackTextIntro : Or say what you have to say here:
