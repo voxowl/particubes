@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : door %s
+generic_Cancel : Annuleer
+generic_Close : Sluit
+generic_LoadingWithDots : Laden...
+generic_Send : Verstuur
+generic_wip : Word aan gewerkt
+generic_wipText : We zijn dit deel nog aan het bouwen, kom later terug!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : Er is een fout opgetreden, je bent doorgestuurd naar het hoofdmenu.
+errorPopup_connectionText : Kan geen verbinding maken. Controleer je internetverbinding.
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Druk op een toets
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Aanbevolen
+mainmenu_NewBtnCaption : ✨ New
+mainmenu_ExploreBtnCaption : 🌎 Ontdek
+mainmenu_BuildBtnCaption : 🏗 Bouw
+mainmenu_BackBtnCaption : ⬅️ Terug
+mainmenu_LaunchBtnCaption : Start
+mainmenu_ServersBtnCaption : Servers
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ Nieuwe wereld! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ Nieuw item! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 Hulp / Feedback
+help_discordIntro : Discord is de beste plek voor hulp en je ideeën in te sturen:
+help_discordBtnCaption : 👾 Open Discord
+help_feedbackTextIntro : Of zeg wat je te zeggen hebt hier:
