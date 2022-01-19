@@ -3,7 +3,7 @@ type: "Players"
 description: Players is an array of Players, it contains all players who joined the game.
 blocks:
   - text: |
-      Players is an array of [Player]s, it contains all players who joined the game.
+      Players is a table containing all [Player]s who joined the game.
 
       [Player]s are indexed by their "player ID". Player IDs range from 0 to 15.
 
