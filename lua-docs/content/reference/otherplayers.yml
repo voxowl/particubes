@@ -3,7 +3,7 @@ type: "OtherPlayers"
 description: "OtherPlayers is an array of Players that contains all players except the local one."
 blocks:
   - text: |
-      [OtherPlayers] is an array of [Player]s that contains all players except the local one.
+      [OtherPlayers] is a table containing all [Player]s except the local one.
     
       [OtherPlayers] is not available to the [Server], because it just wouldn't make sense! 🙂
 
