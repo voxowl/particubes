@@ -19,3 +19,7 @@ end
 ### default.lua
 
 This is the script you're starting with currently when creating a new world.
+
+### item_editor.lua
+
+This is what the game engine uses for the Item Editor, with the help of some internal hooks to inject your item. Note that it uses a few private functions that may not be available in a player-based script.
