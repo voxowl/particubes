@@ -1,0 +1,29 @@
+plan:
+    package: ./lua-docs
+name: docs
+inputs:
+    docs.target:
+        text: registry.particubes.com/lua-docs
+    repo:
+        dir:
+            path: ./lua-docs
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1wua7hnh8hct72v8xdr7duk7pua02kazhf7fg29d5q3089jllnqysmw6dxr
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJakh1cStRcmF0MzYrZkp6
+            TzVOajlMQjYwYVJzUDJZZWM4eEtuRisvcFVzCi9jUEdlZEE5T3BoZ0dvNzErQ09i
+            N1d5R3k3blNNL0I1UWp0eXlsT1hLaDQKLS0tIDR2YitOSlRHdGVGSXZSdGIvY2Z3
+            SFhsVi8xa09SVitXaFhjbVpyYVZhaDgKARUMyRF28WvVI68hAn5kkA2VSuyjyphy
+            Zr2EIA38mdoVAw+hOoSqg23fu/h4ZJwgajqgswic4acUEOrPr3OBlg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-02-04T15:04:06Z"
+    mac: ENC[AES256_GCM,data:4lYhsk5n1rwggRMUeH7Y621oME1CX3/g3Hxeg2U4cgCuyWTMtcuDIJJu/V8lUq0rdUDZ4bZGKMMamVqokoC1E8f2gV1wtLTwwpXwCbZnkjRWfSz4zERCAA+3DVjavJQnQYODn8BCg45i8MlnjkiuYYVOCUOci48p2n0fJuiIidY=,iv:1QZ7rNDat+ybHQ20uBRpKbbeEBD57AfTYFwzr0VyrTg=,tag:PyI2f3RVcGkyVa4eh/tqkg==,type:str]
+    pgp: []
+    encrypted_suffix: secret
+    version: 3.7.1
