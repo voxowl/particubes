@@ -5,18 +5,23 @@ import (
 	"container/list"
 	"errors"
 	"fmt"
-	yaml "gopkg.in/yaml.v2"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
 	"util/fsutil"
+
+	yaml "gopkg.in/yaml.v2"
 )
 
 const (
 	contentDirectory = "/www"
 	templateFile     = "page.tmpl"
+	serverCertFile   = "/certs/server-cert.pem"
+	serverKeyFile    = "/certs/server-key.pem"
+	clientCACertFile = "/certs/ca-cert.pem"
 )
 
 var (
@@ -31,9 +36,15 @@ var (
 //
 func main() {
 
+	// --------------------------------------------------
+	// retrieve environment variables' values
+	// --------------------------------------------------
 	if os.Getenv("RELEASE") == "1" {
 		debug = false
 	}
+	// secure transport
+	var envSecureTransport bool = os.Getenv("PCUBES_SECURE_TRANSPORT") == "1"
+	fmt.Println("[env] secure transport:", envSecureTransport)
 
 	parseContent()
 
@@ -45,7 +56,11 @@ func main() {
 
 	fmt.Println("✨ Particubes documentation running...")
 
-	http.ListenAndServe(":80", nil)
+	if envSecureTransport {
+		log.Fatal(http.ListenAndServeTLS(":443", serverCertFile, serverKeyFile, nil))
+	} else {
+		log.Fatal(http.ListenAndServe(":80", nil))
+	}
 }
 
 func httpHandler(w http.ResponseWriter, r *http.Request) {

@@ -1,10 +1,8 @@
 name: Dagger/docs.particubes.com
-
+  
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   deploy:
@@ -12,6 +10,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          lfs: true
       - name: Dagger
         uses: dagger/dagger-action@v1
         with:

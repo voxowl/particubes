@@ -17,6 +17,9 @@ import (
 // dagger input text <key> <value>
 // dagger input secret <key> <value>
 
+// to connect to swarm for redeploy
+swarmSSHKey: dagger.#Input & {dagger.#Secret}
+
 // Repository
 // (e.g dagger input dir repo myfolder/)
 repo: dagger.#Input & {dagger.#Artifact}
@@ -44,6 +47,26 @@ docs: {
 		// 	secret:   registry.secret
 		// }
 	}
-
-
+	
+	// Tell Swarm to update the lua-docs service using
+	// the new "lua-docs:latest" docker image
+	deploy: docker.#Command & {
+		ssh: {
+			// ssh host
+			host: "3.139.83.217"
+			// ssh user
+			user: "ubuntu"
+			// private key
+			key: swarmSSHKey
+		}
+		command: "ssh ubuntu@3.139.83.217 -i /id_rsa \"sudo docker service update --image registry.particubes.com/lua-docs:latest lua-docs\""
+		// mount the secret as a file
+		secret: {
+			"/id_rsa": swarmSSHKey
+		}
+		// this is only so `deploy` depends on `remoteImage`
+		env: {
+			"ref": remoteImage.ref
+		}
+	}
 }
