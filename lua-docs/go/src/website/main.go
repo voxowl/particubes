@@ -19,9 +19,8 @@ import (
 const (
 	contentDirectory = "/www"
 	templateFile     = "page.tmpl"
-	serverCertFile   = "/certs/server-cert.pem"
+	serverCertFile   = "/certs/server-cert-and-ca.pem"
 	serverKeyFile    = "/certs/server-key.pem"
-	clientCACertFile = "/certs/ca-cert.pem"
 )
 
 var (
