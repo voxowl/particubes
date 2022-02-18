@@ -1,11 +1,14 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Box"
 description: |
-    A Box represents a box in the 3D world.
+    A Box represents a volume axis-aligned to a given space : it is defined with only two [Number3], a minimum and a maximum, which represent the extents of the box along the axes of that space.
 
-    In Particubes, a Box is always aligned with the world coordinate system. 
+    For example, a [Shape].[BoundingBox] is axis-aligned to the model space of that shape, pertaining to its blocks.
+    However, an [Object].[CollisionBox] is axis-aligned to the world space of the scene, like most physics-related boxes.
+
+    When using or creating an axis-aligned Box, be mindful of what space it is relevant to.
 constructors: 
-  - description: "Creates a Number3 with values x, y and z."
+  - description: "Creates a default Box with no volume."
     argument-sets:
       -
       -
@@ -24,12 +27,12 @@ properties:
   - name: "Min"
     type: "Number3"
     description: |
-        Box corner coordinates with smaller X,Y,Z components.
+        Box minimum point representing the lower extent along the axes.
 
   - name: "Max"
     type: "Number3"
     description: |
-        Box corner coordinates with bigger X,Y,Z components.
+        Box maximum point representing the upper extent along the axes.
     
 functions:
   - name: "Copy"
