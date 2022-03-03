@@ -50,6 +50,8 @@ docs: {
 	
 	// Tell Swarm to update the lua-docs service using
 	// the new "lua-docs:latest" docker image
+	// TODO: gdevillele: docker.#Command is supposed to execute a Docker command directly, not an SSH command.
+	//                   It likely does the ssh-ing internaly (this is to check with the dagger team)
 	deploy: docker.#Command & {
 		ssh: {
 			// ssh host

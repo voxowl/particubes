@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -32,6 +33,21 @@ var (
 	typeRoutes map[string]string
 )
 
+func redirectToHTTPS(tlsPort string) {
+	httpSrv := http.Server{
+		Addr: ":80",
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			host, _, _ := net.SplitHostPort(r.Host)
+			u := r.URL
+			u.Host = net.JoinHostPort(host, tlsPort)
+			u.Scheme = "https"
+			log.Println(u.String())
+			http.Redirect(w, r, u.String(), http.StatusMovedPermanently)
+		}),
+	}
+	log.Println(httpSrv.ListenAndServe())
+}
+
 //
 func main() {
 
@@ -56,6 +72,9 @@ func main() {
 	fmt.Println("✨ Particubes documentation running...")
 
 	if envSecureTransport {
+		// listen on 80 for traffic to redirect
+		go redirectToHTTPS(":443")
+		// listen for connections on port 443
 		log.Fatal(http.ListenAndServeTLS(":443", serverCertFile, serverKeyFile, nil))
 	} else {
 		log.Fatal(http.ListenAndServe(":80", nil))
