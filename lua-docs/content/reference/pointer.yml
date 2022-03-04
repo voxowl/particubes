@@ -108,6 +108,18 @@ properties:
 
             end
 
+    - name: "LongPress"
+      type: function
+      description: "Tiggered when pressing for a long time without moving."
+      samples:
+        - code: |
+            Pointer.LongPress = function(pointerEvent)
+                local impact = pointerEvent:CastRay()
+                if impact.Block ~= nil then
+                    impact.Block:Remove()
+                end
+            end
+
     - name: "Zoom"
       type: function
       description: "Triggered when scrolling with mouse or pinching in/out with 2 fingers."
