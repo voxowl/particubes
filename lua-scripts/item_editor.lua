@@ -12,140 +12,159 @@
 Client.OnStart = function()
 	
 	----------------------------
-	-- CONSTANTS
+	-- SETTINGS
 	----------------------------
 
-	kCameraSpeed = 60
-	kZoomSpeed = 5
+	Dev.DisplayBoxes = false
+
+	cameraSpeed = 1.4 -- unit/sec per screen point
+	cameraVelocityDrag = 0.6 -- ratio of carry-over camera velocity per frame
+	cameraDPadSpeed = 6 -- unit/sec
+	cameraDistFactor = 0.05 -- additive factor per distance unit above threshold
+	cameraDistThreshold = 15 -- distance under which scaling is 1
+	zoomSpeed = 7 -- unit/sec
+	zoomSpeedMax = 200
+	dPadZoomSpeed = 1.2 -- unit/sec
+	zoomVelocityDrag = 0.92 -- ratio of carry-over zoom velocity per frame
+	zoomMin = 5 -- unit, minimum zoom distance allowed
+	angularSpeed = 0.4 -- rad/sec per screen point
+	angularVelocityDrag = 0.91 -- ratio of carry-over angular velocity per frame
+	dPadAngularFactor = 0.7 -- in free mode (triggered after using dPad), this multiplies angular velocity
+	autosnapDuration = 0.3 -- seconds
+
+	cameraStartRotation = Number3(0.32, -0.81, 0.0)
+	cameraStartPreviewRotation = Number3(0, math.pi * -0.75, 0)
+	cameraStartPreviewDistance = 15
+	cameraThumbnailRotation = Number3(0.32, -0.81, 0.0)
+
+	saveTrigger = 60 -- seconds
+
+    mirrorMargin = 1.0 -- the mirror is x block larger than the item
+    mirrorThickness = 1.0/4.0
+
+    arrowScale = 0.4
+    arrowMargin = 1 -- space between arrows and the item box
+    arrowSpace = 2 -- space between arrows and item center on each side ie. 2*arrowSpace is the space between arrows
+    hideArrowThreshold = 0.9
+    showArrowThreshold = 0.3 -- for rot arrows
+
+    darkTextColor = Color(100, 100, 100)
+    darkTextColorDisabled = Color(100, 100, 100, 20)
+    lightTextColor = Color(255, 255, 255)
+    selectedButtonColor = Color(100, 100, 100)
+    modeButtonColor = Color(50, 149, 201)
+    modeButtonColorSelected = Color(94, 192, 242)
+
+    ----------------------------
+    -- AMBIENCE
+    ----------------------------
+
+    TimeCycle.On = false
+    Time.Current = Time.Noon
+    Clouds.On = false
+    Fog.On = false
 
 	----------------------------
 	-- STATE VALUES
 	----------------------------
 
-	cameraRotation = Number3(0, 0, 0)
+	-- item editor modes
 
 	mode = { edit = 1, points = 2, max = 2 }
-	modeName = { "EDIT", "POINTS" }
+    modeName = { "EDIT", "POINTS" }
 
-	editedItemState = { 
-		position = Number3(0,0,0), 
-		rotation = Number3(0,0,0),
-		-- pivot used by the item shape in "edit/<any>" and "points/place" modes
-		itemPivot = Number3(0,0,0)
-	}
+    editSubmode = { add = 1, remove = 2, paint = 3, mirror = 4, max = 4 }
+    editSubmodeName = { "add", "remove", "paint", "mirror" }
 
-	-- saved camera states
-	cameraStates = { 
-		item = { --[[ set at the end of OnStart ]] },
+    pointsSubmode = { move = 1, rotate = 2, max = 2}
+    pointsSubmodeName = { "Move", "Rotate"}
+
+    currentMode = nil
+    currentEditSubmode = nil
+    currentPointsSubmode = pointsSubmode.move -- points sub mode
+    previousEditSubmode = editSubmode.add
+
+    -- camera
+
+	cameraRotation = cameraStartRotation
+	zoomVelocity = 0.0
+	angularVelocity = Number3(0, 0, 0)
+	cameraVelocity = Number3(0, 0, 0)
+	blockHighlightDirty = false
+	autosnapFromTarget = Number3(0, 0, 0)
+	autosnapFromDistance = 0
+	autosnapToTarget = Number3(0, 0, 0)
+	autosnapToDistance = 0
+	autosnapTimer = -1.0
+	cameraFree = false -- used with dPad to rotate camera freely
+
+	cameraStates = {
+		item = {
+		    -- initialized at the end of OnStart
+		    target = nil,
+		    distance = 0,
+		    rotation = nil
+		},
 		preview = {
-			target = Number3(0, 1.1 * Map.Scale.Y, 0),
-			distance = 3 * Map.Scale.Length,
-			rotation = Number3(0, math.pi * -0.75, 0)
+			distance = cameraStartPreviewDistance,
+			rotation = cameraStartPreviewRotation
 		}
 	}
-
 	cameraCurrentState = cameraStates.item
 	
-	editSubmode = { add = 1, remove = 2, paint = 3, mirror = 4, max = 4 }
-	editSubmodeName = { "add", "remove", "paint", "mirror" }
-	
-	pointsSubmode = { move = 1, rotate = 2, max = 2}
-	pointsSubmodeName = { "Move", "Rotate"}
+	-- input
 
-	currentMode = nil
-	currentEditSubmode = nil
-	currentPointsSubmode = pointsSubmode.move -- points sub mode
-	previousEditSubmode = editSubmode.add
+	dragging = false -- drag motion active
+    dragging2 = false -- drag2 motion active
+    dPad = { x = 0.0, y = 0.0 }
+
+    -- mirror mode
+
+    mirrorShape = nil
+    mirrorAxes = { x = 1, y = 2, z = 3}
+    mirrorCoords = Number3(0,0,0) -- mirror block coords
+    currentMirrorAxis = nil
+
+    -- other variables
 	
 	gridEnabled = 0
-
+	displayedModeUIElements = {} -- displayed UI elements specific to current mode
+	editModeButtons = {}
+	currentFacemode = false
+    picking = false
 	changesSinceLastSave = false
 	autoSaveDT = 0.0
-	saveTrigger = 60 -- 60 seconds
-
-	-- Drag info (rotate)
-	drag = nil
-	dragFriction = 2.0
-
-	-- Drag2 info (pan)
-	drag2 = { dragging = false, dx = 0, dy = 0 }
-
-	dPad = { x = 0.0, y = 0.0 }
-
-	cameraModes = { aroundBlock = 1, aroundCamera = 2 }
-	cameraMode = nil
-
-	-- displayed UI elements specific to current mode
-	displayedModeUIElements = {}
-
-	editModeButtons = {}
-
-	darkTextColor = Color(100, 100, 100)
-	darkTextColorDisabled = Color(100, 100, 100, 20)
-	lightTextColor = Color(255, 255, 255)
-	selectedButtonColor = Color(100, 100, 100)
-
-	currentFacemode = false
-	picking = false
-
-	-- mirror mode
-	mirrorShape = nil
-	mirrorAxes = { x = 1, y = 2, z = 3}
-	mirrorCoords = Number3(0,0,0) -- mirror block coords
-	currentMirrorAxis = nil
-	mirrorMargin = 1.0 -- the mirror is x block larger than the item
-	mirrorThickness = 1.0/4.0
-
-	arrowScale = 0.4
-	arrowMargin = 1 -- the arrow is n block away from the item
-	arrowSpace = 2 -- the arrow is n block away from the item
-
-	hideArrowThreshold = 0.9
-	showArrowThreshold = 0.3 -- for rot arrows
-
-	----------------------------
-	-- FUNCTIONS
-	----------------------------
-
-	initClientFunctions()
-
-	----------------------------
-	-- AMBIENCE
-	----------------------------
-
-	TimeCycle.On = false
-	Time.Current = Time.Noon
-	Clouds.On = false
-    Fog.On = false
-
-	----------------------------
-	-- COMPONENTS
-	----------------------------
-
-	-- half of map voxel size in world
-    halfMapVoxel = Map.Scale * 0.5
-	
-	-- color picker
+	halfVoxel = Number3(0.5, 0.5, 0.5)
 	picker = nil
-	pickerColorIndex = 157
+    pickerColorIndex = 157
+    poiActiveName = "Hand"
+
+	----------------------------
+	-- OBJECTS & UI ELEMENTS
+	----------------------------
 
 	-- edited item
 	-- getItemResource is defined in C++ for the item editor only
 	item = MutableShape(getItemResource())
 	item.History = true -- enable history for the edited item
-	Map:AddChild(item)
-	item.Position = Number3(0, 0, 0)
+	item:SetParent(World)
 
-	poiActiveName = "Hand"
+	-- long press + drag
+	blocksAddedWithDrag = {}
+	blocksRemovedWithDrag = {}
+	blocksReplacedWithDrag = {}
+	continuousEdition = false
+	itemCopy = item:Copy()
+	itemCopy:SetParent(World)
+	itemCopy.Position = item.Position
+	itemCopy.IsHidden = true
 
 	-- a cube to show where the camera is looking at
-	cameraTargetShape = MutableShape(Items.cube_selector)
-	cameraTargetShape.PrivateDrawMode = 2 + (gridEnabled * 8) -- highlight
-	cameraTargetShape.Scale = Map.Scale / (cameraTargetShape.Width - 1)
-
-	----
-    -- edit mode buttons
-    ----
+	blockHighlight = MutableShape(Items.cube_selector)
+	blockHighlight.PrivateDrawMode = 2 + (gridEnabled * 8) -- highlight
+	blockHighlight.Scale = 1 / (blockHighlight.Width - 1)
+	blockHighlight:SetParent(World)
+	blockHighlight.IsHidden = true
 
     -- edit mode controls
     -- buttons are nil by default, set when the mode is selected
@@ -170,9 +189,6 @@ Client.OnStart = function()
 	local c = editModeButtons[editSubmode.add].Color
 	defaultButtonColor = Color(c.R, c.G, c.B, c.A)
 	defaultButtonColorDisabled = Color(c.R, c.G, c.B, 20)
-
-	modeButtonColor = Color(50, 149, 201)
-	modeButtonColorSelected = Color(94, 192, 242)
 
 	-- remove
 	editModeButtons[editSubmode.remove] = Button("➖", Anchor.Left)
@@ -230,11 +246,7 @@ Client.OnStart = function()
 	end
 	poiResetBtn:Remove()
 
-	----
-	-- mode independent buttons
-	----
-
-	-- mode toggle
+	-- item editor mode toggle
 	editModeBtn, poiModeBtn = Private:ItemEditorCreateModeSwitch()
 	editModeBtn.OnRelease = function()
 		setMode(mode.edit, nil)
@@ -243,50 +255,33 @@ Client.OnStart = function()
 		setMode(mode.points, nil)
 	end
 
-	setFacemode(false)
-
-	refreshUndoRedoGridButtons()
-
-	refreshScreenshotAndSaveButtons()
-
 	----------------------------
 	-- INIT
 	----------------------------
 
-    Pointer:Show()
-
+	initClientFunctions()
 	initRotationArrows()
-	initMoveArrows()
+    initMoveArrows()
+	setFacemode(false)
+    refreshUndoRedoGridButtons()
+    refreshScreenshotAndSaveButtons()
 
-	Camera:SetModeSatellite(Number3(0,0,0))
-	setMode(mode.edit, editSubmode.add)
+    Pointer:Show()
+    UI.Crosshair = false
 
-	Camera:SetModeFree()
-	cameraRotation = Number3(0.32, -0.81, 0.0)
-	Camera.Rotation = cameraRotation
+    -- initial camera positioning using FitToScreen
+    local targetPoint = item:BlockToWorld(item.Center)
+    Camera.Position = targetPoint
+	Camera.Rotation = cameraStartRotation
+	Camera:FitToScreen(item, 0.8, true) -- sets camera back
 
-	Camera:FitToScreen(item, 0.8, true)
+    -- initialize camera satellite mode
+    local distance = (Camera.Position - targetPoint).Length
+    setCamera(cameraStartRotation, targetPoint, distance, false)
 
-	cameraMode = cameraModes.aroundBlock
-	Camera.target = item:PositionLocalToWorld(item.Center)
-	Camera.dist = (Camera.Position - Camera.target).Length
-	Camera:SetModeSatellite(Camera.target, Camera.dist)
-
+	refreshBlockHighlight()
 	cameraStateSave()
-end
-
-Pointer.Zoom = function(zoomValue)
-	if cameraMode == cameraModes.aroundBlock or currentMode == mode.points then
-		if Camera.target == nil then return end
-		Camera.dist = Camera.dist + zoomValue * kZoomSpeed
-		if Camera.dist < 1 then
-			Camera.dist = 1
-		end
-    	
-    	Camera:SetModeSatellite(Camera.target, Camera.dist)
-	else
-		Camera.Position = Camera.Position + Camera.Forward * -zoomValue * kZoomSpeed
-	end
+	setMode(mode.edit, editSubmode.add)
 end
 
 Client.Action1 = nil
@@ -303,8 +298,8 @@ end
 
 Client.Tick = function(dt)
 	
-	-- autosave only while in edit mode
 	if currentMode == mode.edit then
+		-- autosave only while in edit mode
 		if changesSinceLastSave then
 			autoSaveDT = autoSaveDT + dt
 			if autoSaveDT > saveTrigger then
@@ -313,159 +308,70 @@ Client.Tick = function(dt)
 		end
 	end
 
-	-- only consider drag2 when manipuling the item
-	if currentMode ~= mode.points then
+	-- if camera target moved last frame, refresh block highlight
+	if blockHighlightDirty then
+        refreshBlockHighlight()
+    end
 
-		if drag2 ~= nil then
-			if drag2.dragging and UI.Crosshair == false then
-				UI.Crosshair = true
-			elseif not drag2.dragging and UI.Crosshair == true then
-				UI.Crosshair = false
-			end
-			
-			-- pan
-			if drag2.dragging and (drag2.dx ~= 0.0 or drag2.dy ~= 0.0) then
-
-				-- take care of the highlighted cube
-				local impact = Camera:CastRay(item)
-				if impact.Block ~= nil then
-					cameraTargetShape.Position = impact.Block.Position + halfMapVoxel - Number3(0.05, 0.05, 0.05)
-					World:AddChild(cameraTargetShape)
-				else
-					cameraTargetShape:RemoveFromParent()
-				end
-				
-				-- move camera
-				if cameraMode == cameraModes.aroundBlock then
-
-					local dist = Camera.dist
-					local dx = drag2.dx * dist * 0.0017
-					local dy = drag2.dy * dist * 0.0017
-					Camera.target = Camera.target - Camera.Right * dx - Camera.Up * dy
-
-				elseif cameraMode == cameraModes.aroundCamera then
-
-					local dx = drag2.dx * 0.2
-					local dy = drag2.dy * 0.2
-					Camera.Position = Camera.Position - Camera.Right * dx - Camera.Up * dy
-				end
-				
-				drag2.dx = 0.0
-				drag2.dy = 0.0
-			end
-		end
-
+	-- up/down directional pad can be used as an alternative to mousewheel on desktop
+	if dPad.y ~= 0 then
+	    zoomVelocity = zoomVelocity - dPad.y * dPadZoomSpeed * getCameraDistanceFactor()
+	end
+	-- right/left directional pad maps to lateral camera pan
+	if dPad.x ~= 0 then
+	    cameraVelocity = cameraVelocity + Camera.Right * dPad.x * cameraDPadSpeed
 	end
 
-	if cameraMode == cameraModes.aroundCamera then
-		Camera.Position = Camera.Position +
-						Camera.Forward * dPad.y * kCameraSpeed * dt +
-						Camera.Right * dPad.x * kCameraSpeed * dt
-	end
+    if cameraFree then
+        -- consume camera angular velocity
+        cameraRotation = cameraRotation + angularVelocity * dt * dPadAngularFactor
+        angularVelocity = dragging and Number3(0, 0, 0) or (angularVelocity * angularVelocityDrag)
+        Camera.Rotation = cameraRotation
 
-	if drag ~= nil then
-		
-		if drag.dragging == true then
+        -- in free mode, set camera position directly
+        Camera.Position = Camera.Position + (cameraVelocity + Camera.Backward * zoomVelocity) * dt
+        cameraVelocity = dragging2 and Number3(0, 0, 0) or (cameraVelocity * cameraVelocityDrag)
+        zoomVelocity = zoomVelocity * zoomVelocityDrag
+	else
+        -- consume camera angular velocity
+        local rotation = cameraRotation + angularVelocity * dt
+        angularVelocity = dragging and Number3(0, 0, 0) or (angularVelocity * angularVelocityDrag)
 
-			local dx = drag.dx * 0.01
-			local dy = drag.dy * 0.01
-			local rotX = cameraRotation.X - dy
-			local rotY = cameraRotation.Y + dx
+        local target = nil
+        local distance = nil
+        if autosnapTimer < 0 then
+            -- consume camera target velocity and refresh block highlight
+            target = Camera.target + cameraVelocity * dt
+            cameraVelocity = dragging2 and Number3(0, 0, 0) or (cameraVelocity * cameraVelocityDrag)
+            blockHighlightDirty = n3Equals(target, Camera.target, 0.001) == false
 
-			-- keep rotX/Y between PI and -PI
-			while rotX > math.pi do
-				rotX = rotX - (math.pi * 2.0)
-			end
-			while rotX < -math.pi do
-				rotX = rotX + (math.pi * 2.0)
-			end
-			while rotY > math.pi do
-				rotY = rotY - (math.pi * 2.0)
-			end
-			while rotY < -math.pi do
-				rotY = rotY + (math.pi * 2.0)
-			end
+            -- consume camera zoom velocity
+            distance = math.max(zoomMin, Camera.distance + zoomVelocity * dt)
+            zoomVelocity = zoomVelocity * zoomVelocityDrag
+        else -- execute autosnap
+            autosnapTimer = autosnapTimer - dt
+            if autosnapTimer <= 0.0 then
+                target = autosnapToTarget
+                distance = autosnapToDistance
+                autosnapTimer = -1.0
+            else
+                local v = easingQuadOut(1.0 - autosnapTimer / autosnapDuration)
+                target = lerp(autosnapFromTarget, autosnapToTarget, v)
+                distance = lerp(autosnapFromDistance, autosnapToDistance, v)
+            end
+            cameraVelocity = Number3(0, 0, 0)
+            zoomVelocity = 0
+        end
 
-			-- clamp rotation between 90° and -90° on X
-			if rotX < -math.pi * 0.4999 then
-				rotX = -math.pi * 0.4999
-			elseif rotX > math.pi * 0.4999 then
-				rotX = math.pi * 0.4999
-			end
+        setCamera(rotation, target, distance, false)
+    end
+end
 
-			-- compute speed
-			drag.speedX = (rotX - cameraRotation.X) / dt * 0.5
-			drag.speedY = (rotY - cameraRotation.Y) / dt * 0.5
-			
-			-- apply rotation
-			cameraRotation = Number3(rotX, rotY, 0)
-			Camera.Rotation = cameraRotation
-			
-			-- consume drag delta
-			drag.dx = 0
-			drag.dy = 0
-		else
-			-- not dragging, apply speed
-			if drag.speedX > 0 then
-				drag.speedX = drag.speedX - (dragFriction * dt * drag.speedX)
-				if drag.speedX < 0.2 then
-					drag.speedX = 0	
-				end
-			elseif drag.speedX < 0 then
-				drag.speedX = drag.speedX - (dragFriction * dt * drag.speedX)
-				if drag.speedX > -0.2 then
-					drag.speedX = 0
-				end
-			end
-
-			if drag.speedY > 0 then
-				drag.speedY = drag.speedY - (dragFriction * dt * drag.speedY)
-				if drag.speedY < 0.2 then
-					drag.speedY = 0
-				end
-			else
-				drag.speedY = drag.speedY - (dragFriction * dt * drag.speedY)
-				if drag.speedY > -0.2 then
-					drag.speedY = 0
-				end
-			end
-
-			if drag.speedX == 0 and drag.speedY == 0 then return end
-
-			local rotX = cameraRotation.X + (drag.speedX * dt)
-			local rotY = cameraRotation.Y + (drag.speedY * dt)
-
-			-- keep rotX/Y between PI and -PI
-			while rotX > math.pi do
-				rotX = rotX - (math.pi * 2.0)
-			end
-			while rotX < -math.pi do
-				rotX = rotX + (math.pi * 2.0)
-			end
-			while rotY > math.pi do
-				rotY = rotY - (math.pi * 2.0)
-			end
-			while rotY < -math.pi do
-				rotY = rotY + (math.pi * 2.0)
-			end
-
-			-- clamp rotation between 90° and -90° on X
-			if rotX < -math.pi * 0.4999 then
-				rotX = -math.pi * 0.4999
-			elseif rotX > math.pi * 0.4999 then
-				rotX = math.pi * 0.4999
-			end
-
-			cameraRotation = Number3(rotX, rotY, 0)
-			Camera.Rotation = cameraRotation
-		end
-	end
+Pointer.Zoom = function(zoomValue)
+    zoomVelocity = clamp(zoomVelocity + zoomValue * zoomSpeed * getCameraDistanceFactor(), -zoomSpeedMax, zoomSpeedMax)
 end
 
 Pointer.Down = function(e)
-
-	drag = nil
-
 	if currentMode == mode.points then
 		moveArrows.unselect()
 		rotArrows.unselect()
@@ -475,42 +381,24 @@ Pointer.Down = function(e)
 			rotArrows.select(e)
 		end
 	end
-
-	if moveArrows.selected == nil and rotArrows.selected == nil then
-		-- did not touch any arrow, start moving camera
-		drag = {
-			dragging = false,
-			dx = 0,
-			dy = 0,
-			speedX = 0,
-			speedY = 0
-		}
-		return
-	end
-
 end
 
 Pointer.Up = function(e)
-
-	if currentMode == mode.edit and drag ~= nil and drag.dragging == false then
-
+	if currentMode == mode.edit and dragging == false then
 		local impact = e:CastRay(item)
-
 		if picking then
 			pickCubeColor(impact)
-		elseif currentEditSubmode == editSubmode.add then
+		elseif currentEditSubmode == editSubmode.add and not continuousEdition then
 			addBlockWithImpact(impact, currentFacemode)
-		elseif currentEditSubmode == editSubmode.remove then
+		elseif currentEditSubmode == editSubmode.remove and not continuousEdition then
 			removeBlockWithImpact(impact, currentFacemode)
-		elseif currentEditSubmode == editSubmode.paint then
+		elseif currentEditSubmode == editSubmode.paint and not continuousEdition then
 			replaceBlockWithImpact(impact, currentFacemode)
 		elseif currentEditSubmode == editSubmode.mirror and not mirrorPlaced then
 			placeMirror(impact)
 		end
-	end
-
-	if drag ~= nil and drag.dragging == true then
-		drag.dragging = false
+		checkAutoSave()
+		refreshUndoRedoGridButtons()
 	end
 
 	if currentMode == mode.points then
@@ -520,51 +408,169 @@ Pointer.Up = function(e)
 		rotArrows.unselect()
 		
 		updateArrows()
+
+	elseif currentMode == mode.edit then
+		if continuousEdition then
+			-- show the original
+			item.IsHidden = false
+			itemCopy.IsHidden = true
+			if mirrorShape ~= nil then
+				mirrorShape:SetParent(item)
+				mirrorShape.IsHidden = false
+			end
+
+			continuousEdition = false
+			if currentEditSubmode == editSubmode.add then
+				-- apply changes done in the copy
+				for k, b in pairs(blocksAddedWithDrag) do
+					item:AddBlock(b.PaletteIndex, b.Coords)
+				end
+				blocksAddedWithDrag = {}
+
+			elseif currentEditSubmode == editSubmode.remove then
+				for k, c in pairs(blocksRemovedWithDrag) do
+					item:GetBlock(c):Remove()
+						end
+				blocksRemovedWithDrag = {}
+			elseif currentEditSubmode == editSubmode.paint then
+				for k, b in pairs(blocksReplacedWithDrag) do
+					item:GetBlock(b.Coords):Replace(Block(b.PaletteIndex))
+					end
+				blocksReplacedWithDrag = {}
+				end
+			updateMirror()
+			checkAutoSave()
+			refreshUndoRedoGridButtons()
+		end
+	end
+
+	dragging = false
+end
+
+Pointer.LongPress = function (e)
+	if currentMode == mode.edit and not currentFacemode then
+
+		local impact = nil
+		if mirrorShape ~= nil then
+			impact = e:CastRay(itemCopy, mirrorShape)
+		else
+			impact = e:CastRay(itemCopy)
+		end
+		if impact.Block ~= nil then
+			-- show the copy
+			itemCopy.IsHidden = false
+			item.IsHidden = true
+			if mirrorShape ~= nil then
+				mirrorShape:SetParent(itemCopy)
+				mirrorShape.IsHidden = false
+			end
+
+			continuousEdition = true
+
+			-- add / remove / paint first block
+			if currentEditSubmode == editSubmode.add then
+				local addedBlock = addBlockWithImpact(impact, false)
+				table.insert(blocksAddedWithDrag, addedBlock)
+	
+			elseif currentEditSubmode == editSubmode.remove then
+				removeBlockWithImpact(impact, false)
+	
+			elseif currentEditSubmode == editSubmode.paint then
+				replaceBlockWithImpact(impact, false)
+			end
+		end
 	end
 end
 
-
 Pointer.Drag = function(e)
-
 	if moveArrows.selected ~= nil then
 		moveArrows.moveItem(e)
+	elseif not continuousEdition then
+		angularVelocity = angularVelocity + Number3(-e.DY * angularSpeed, e.DX * angularSpeed, 0)
+	end
 
-	elseif drag ~= nil then
+	dragging = true
 
-		drag.speedX = 0
-		drag.speedY = 0
-		drag.dx = drag.dx + e.DX
-		drag.dy = drag.dy + e.DY
+	if continuousEdition and currentMode == mode.edit then
+		local impact = nil
+		if mirrorShape ~= nil then
+			impact = e:CastRay(itemCopy, mirrorShape)
+		else
+			impact = e:CastRay(itemCopy)
+		end
 
-		if drag.dragging == false then
-			drag.dragging = true
+		if impact.Block ~= nil then
+			if currentEditSubmode == editSubmode.add then
+				local canBeAdded = true
+				for k, b in pairs(blocksAddedWithDrag) do
+						if impact.Block.Coords == b.Coords then
+						-- do not add on top of added blocks
+						canBeAdded = false
+						break
+					end
+				end
+				if canBeAdded then
+				local addedBlock = addBlockWithImpact(impact, false)
+				table.insert(blocksAddedWithDrag, addedBlock)
+				end
+
+			elseif currentEditSubmode == editSubmode.remove then
+					-- check if the block can be removed
+				local impactOnOriginal = e:CastRay(item, mirrorShape)
+				if impact.Distance <= impactOnOriginal.Distance then
+					removeBlockWithImpact(impact, false)
+					end
+
+			elseif currentEditSubmode == editSubmode.paint then
+				replaceBlockWithImpact(impact, false)
+			end
 		end
 	end
 end
 
 Pointer.Drag2 = function(e)
-	if currentMode ~= mode.points then
+    -- in edit mode, Drag2 performs camera pan
+	if currentMode == mode.edit then
+        local dx = e.DX * cameraSpeed * getCameraDistanceFactor()
+        local dy = e.DY * cameraSpeed * getCameraDistanceFactor()
+        cameraVelocity = cameraVelocity - Camera.Right * dx - Camera.Up * dy
 
-		drag2.dx = drag2.dx + e.DX
-		drag2.dy = drag2.dy + e.DY
-		
-		if drag2.dragging == false then
-			drag2.dragging = true
-			item.PrivateDrawMode = 1 + (gridEnabled * 8)
+        -- restore satellite mode if dPad was in use
+        if cameraFree then
+            cameraFree = false
+            blockHighlightDirty = true
+            Camera.target = Camera.Position + Camera.Forward * Camera.distance
+            Camera:SetModeSatellite(Camera.target, Camera.distance)
+        end
+
+		-- TODO: put this in Drag2Begin
+		if dragging2 == false then
+			dragging2 = true
+			UI.Crosshair = true
+			item.PrivateDrawMode = 1 + (gridEnabled * 8) -- enable transparent draw mode
 		end
 	end
 end
 
 Pointer.OnDrag2End = function(e)
-	-- recenters on cube if hitting a cube
-	-- + go to aroundCube mode if needed
-	recenterOnCubeAfterPan()
-	
-	-- change draw mode back to 0 only in EDIT mode
-	-- (in POINTS mode, the item stays transparent)
-	if currentMode == mode.edit then
-		item.PrivateDrawMode = 0 + (gridEnabled * 8)
-	end
+	-- snaps to nearby block center after drag2 (camera pan)
+	if dragging2 then
+        local impact = Camera:CastRay(item)
+        if impact.Block ~= nil then
+            autosnapFromTarget = Camera.target
+            autosnapFromDistance = Camera.distance
+
+            -- both distance & target will need to be animated to emulate a camera translation
+            autosnapToTarget = impact.Block.Position + halfVoxel
+            autosnapToDistance = (autosnapToTarget - Camera.Position).Length
+
+            autosnapTimer = autosnapDuration
+        end
+
+        dragging2 = false
+        UI.Crosshair = false
+        item.PrivateDrawMode = 0 + (gridEnabled * 8) -- disable transparent draw mode
+    end
 end
 
 --------------------------------------------------
@@ -572,7 +578,6 @@ end
 --------------------------------------------------
 
 initClientFunctions = function()
-
 	function getCurrentColor()
 		return ColorPicker:GetColorAt(pickerColorIndex)
 	end
@@ -587,9 +592,8 @@ initClientFunctions = function()
 		picking = false
 		if pickBtn ~= nil then pickBtn.Color = defaultButtonColor end
 
-		-- going form one mode to another
+		-- going from one mode to another
 		if updatingMode then
-
 			if newMode < 1 or newMode > mode.max then
 				error("setMode - invalid change:" .. newMode .. " " .. newSubmode)
 				return
@@ -600,7 +604,7 @@ initClientFunctions = function()
 			currentMode = newMode
 
 			if currentMode == mode.edit then
-
+				-- unequip Player
 				if poiActiveName == "Hand" then
 					Player:EquipRightHand(nil)
 				elseif poiActiveName == "Hat" then
@@ -612,37 +616,29 @@ initClientFunctions = function()
 				-- remove avatar and arrows
 				Player:RemoveFromParent()
 
-				Map:AddChild(item)
+				item:SetParent(World)
+                item.LocalPosition = { 0, 0, 0 }
+                item.LocalRotation = { 0, 0, 0 }
 
-				-- restore item state
-				item.Position = editedItemState.position
-				item.Rotation = editedItemState.rotation
-				item.Pivot = editedItemState.itemPivot
+				itemCopy = item:Copy()
+				itemCopy:SetParent(World)
+                itemCopy.LocalPosition = { 0, 0, 0 }
+                itemCopy.LocalRotation = { 0, 0, 0 }
+				itemCopy.IsHidden = true
+				itemCopy.PrivateDrawMode = item.PrivateDrawMode
 
-				Client.DirectionalPad = function(x, y)
-					if currentMode == mode.edit then
-						Camera:SetModeFree()
-						cameraMode = cameraModes.aroundCamera
-						dPad.x = x
-						dPad.y = y
-						
-						cameraTargetShape:RemoveFromParent()
-					end
-				end
-				
+                -- in edit mode, using dPad will set camera free
+                Client.DirectionalPad = function(x, y)
+                    dPad.x = x
+                    dPad.y = y
+                    blockHighlight.IsHidden = true
+                    Camera.distance = cameraDistThreshold -- reset distance, make dist scaling neutral
+                    cameraFree = true
+                    Camera:SetModeFree()
+                end
 			else -- place item points / preview
-
-				-- save item state
-				editedItemState.position = item.Position:Copy()
-				editedItemState.rotation = item.Rotation:Copy()
-				editedItemState.itemPivot = item.Pivot:Copy()
-				
-				-- hide the item
-				Map:RemoveChild(item)
-
 				-- make player appear in front of camera with item in hand
-				Map:AddChild(Player)
-				Player.LocalPosition = {0, 0, 0}
+				Player:SetParent(World)
 				Player.Physics = false
 				
 				if poiActiveName == "Hand" then
@@ -655,7 +651,8 @@ initClientFunctions = function()
 
 				Client.DirectionalPad = nil
 			end
-			
+
+			refreshUndoRedoGridButtons()
 			cameraStateSetToExpected()
 		end -- end updating node
 
@@ -690,7 +687,6 @@ initClientFunctions = function()
 		end
 
 		if updatingMode or updatingSubMode then
-
 			if currentMode == mode.points then
 				if currentPointsSubmode == pointsSubmode.move then
 					initMoveArrows()
@@ -703,8 +699,8 @@ initClientFunctions = function()
 			else
 				if moveArrows.destroy ~= nil then moveArrows.destroy() end
 				if rotArrows.destroy ~= nil then rotArrows.destroy() end
+				blockHighlightDirty = true
 			end
-
 
 			updateUI()
 			updateArrows()
@@ -780,7 +776,6 @@ initClientFunctions = function()
 	end
 
 	function setEditControls()
-
 		-- reset control buttons
 		colorPaletteBtn = nil
 		pickBtn = nil
@@ -868,7 +863,6 @@ initClientFunctions = function()
 	end
 
 	function setMirrorControls()
-
 		if mirrorRotateBtn ~= nil then
 			mirrorRotateBtn.OnRelease = function()
 				if currentMirrorAxis == mirrorAxes.x then
@@ -924,7 +918,6 @@ initClientFunctions = function()
 	end
 
 	updateUI = function()
-
 		removeAllModeElements()
 		removePointsSwitchControls()
 
@@ -966,9 +959,7 @@ initClientFunctions = function()
 			end
 
 			setEditControls() -- refreshes edit controls
-
 		elseif currentMode == mode.points then
-
 			editModeBtn.Color = modeButtonColor
 			poiModeBtn.Color = modeButtonColorSelected
 
@@ -998,26 +989,6 @@ initClientFunctions = function()
 		end
 	end
 
-	recenterOnCubeAfterPan = function()
-		if drag2.dragging then
-			local impact = Camera:CastRay(item)
-			
-			if impact.Block ~= nil then
-				-- switch to aroundBlock mode if there's a block impact
-				cameraMode = cameraModes.aroundBlock
-				-- "impact.Block.Position" is the corner of the cube.
-				-- We add halfMapVoxel so that the Camera center of rotation is at the center of the cube.
-				Camera.target = impact.Block.Position + halfMapVoxel
-				Camera.dist = (Camera.Position - Camera.target).Length
-				Camera:SetModeSatellite(Camera.target, Camera.dist)
-				cameraMode = cameraModes.aroundBlock
-			end
-			drag2.dragging = false
-			drag2.dx = 0.0
-			drag2.dy = 0.0
-		end
-	end
-
 	function checkAutoSave()
 		if changesSinceLastSave == false then
 			changesSinceLastSave = true
@@ -1029,29 +1000,30 @@ initClientFunctions = function()
 	function save()
 		if mirrorShape ~= nil then mirrorShape.IsHidden = true end
 
-		local wasInPointsMode = false
-
 		cameraStateSave()
 
-		cameraTargetShape.IsHidden = true
+		local wasInPointsMode = false
+		if currentMode == mode.points then
+            wasInPointsMode = true
+            setMode(mode.edit, nil)
+        end
+
+		local highlightHidden = blockHighlight.IsHidden
+		blockHighlight.IsHidden = true
+
 		moveArrows.hide()
 		rotArrows.hide()
 
-		if currentMode == mode.points then
-			wasInPointsMode = true
-			setMode(mode.edit, nil)
-		end
-		
 		-- force drawmode 0 for save (needed for screenshot)
 		local drawmode = item.PrivateDrawMode
 		item.PrivateDrawMode = 0
 
-		cameraRotation = {0.32, -0.81, 0.0}
-		Camera.Rotation = cameraRotation
-		Camera:FitToScreen(item, 0.8, false) -- sets Camera Position
+        Camera.Position = Camera.target
+		Camera.Rotation = cameraThumbnailRotation
+		Camera:FitToScreen(item, 0.8, false) -- sets camera back
 		item:Save(Config.editedItemName)
 
-		cameraStateSet(expectedCameraStateForCurrentState())
+		cameraStateSetToExpected(true) -- force refresh camera
 
 		changesSinceLastSave = false
 		autoSaveDT = 0.0
@@ -1065,7 +1037,7 @@ initClientFunctions = function()
 
 		-- show mirror again
 		if mirrorShape ~= nil then mirrorShape.IsHidden = false end
-		cameraTargetShape.IsHidden = false
+		blockHighlight.IsHidden = highlightHidden
 	end
 
 	addBlockWithImpact = function(impact, facemode)
@@ -1111,33 +1083,52 @@ initClientFunctions = function()
 		end
 
 		updateMirror()
-		checkAutoSave()
-		refreshUndoRedoGridButtons()
+
+		return addedBlock
 	end
 
 	addSingleBlock = function(block, faceTouched)
+		-- block is either from item or itemCopy
 		local addedBlock = block:AddNeighbor(Block(getCurrentColorIndex()), faceTouched)
+		if not continuousEdition and addedBlock ~= nil then
+			itemCopy:AddBlock(addedBlock.PaletteIndex, addedBlock.Coordinates)
+		end
 
 		if addedBlock ~= nil and mirrorShape ~= nil then
 			local mirrorBlockCoords = mirrorCoords - {0.5, 0.5, 0.5}
+			local mirrorBlock = nil
+			local currentShape = nil
+			if continuousEdition then
+				currentShape = itemCopy
+			else
+				currentShape = item
+			end
 
 			if currentMirrorAxis == mirrorAxes.x then
-				item:AddBlock(getCurrentColorIndex(),
+				mirrorBlock = currentShape:AddBlock(getCurrentColorIndex(),
 					mirrorBlockCoords.X - (addedBlock.Coordinates.X - mirrorBlockCoords.X),
 					addedBlock.Coordinates.Y,
 					addedBlock.Coordinates.Z)
 
 			elseif currentMirrorAxis == mirrorAxes.y then
-				item:AddBlock(getCurrentColorIndex(),
+				mirrorBlock = currentShape:AddBlock(getCurrentColorIndex(),
 					addedBlock.Coordinates.X,
 					mirrorBlockCoords.Y - (addedBlock.Coordinates.Y - mirrorBlockCoords.Y),
 					addedBlock.Coordinates.Z)
 
 			elseif currentMirrorAxis == mirrorAxes.z then
-				item:AddBlock(getCurrentColorIndex(),
+				mirrorBlock = currentShape:AddBlock(getCurrentColorIndex(),
 					addedBlock.Coordinates.X,
 					addedBlock.Coordinates.Y,
 					mirrorBlockCoords.Z - (addedBlock.Coordinates.Z - mirrorBlockCoords.Z))
+			end
+
+			if mirrorBlock ~= nil then
+				if continuousEdition then
+				table.insert(blocksAddedWithDrag, mirrorBlock)
+				else
+					itemCopy:AddBlock(mirrorBlock.PaletteIndex, mirrorBlock.Coordinates)
+				end
 			end
 		end
 
@@ -1192,33 +1183,52 @@ initClientFunctions = function()
 		end
 
 		updateMirror()
-		checkAutoSave()
-		refreshUndoRedoGridButtons()
 	end
 
 	removeSingleBlock = function(block)
+		if continuousEdition then
+			table.insert(blocksRemovedWithDrag, block.Coordinates:Copy())
+		else
+		itemCopy:GetBlock(block.Coordinates):Remove()
+		end
 		block:Remove()
 
 		if mirrorShape ~= nil then
 			local mirrorBlockCoords = mirrorCoords - {0.5, 0.5, 0.5}
+			local mirrorBlock = nil
+			local currentShape = nil
+			if continuousEdition then
+				currentShape = itemCopy
+			else
+				currentShape = item
+			end
 
 			if currentMirrorAxis == mirrorAxes.x then
-				item:GetBlock(
+				mirrorBlock = currentShape:GetBlock(
 					mirrorBlockCoords.X - (block.Coordinates.X - mirrorBlockCoords.X),
 					block.Coordinates.Y,
-					block.Coordinates.Z):Remove()
+					block.Coordinates.Z)
 
 			elseif currentMirrorAxis == mirrorAxes.y then
-				item:GetBlock(
+				mirrorBlock = currentShape:GetBlock(
 					block.Coordinates.X,
 					mirrorBlockCoords.Y - (block.Coordinates.Y - mirrorBlockCoords.Y),
-					block.Coordinates.Z):Remove()
+					block.Coordinates.Z)
 
 			elseif currentMirrorAxis == mirrorAxes.z then
-				item:GetBlock(
+				mirrorBlock = currentShape:GetBlock(
 					block.Coordinates.X,
 					block.Coordinates.Y,
-					mirrorBlockCoords.Z - (block.Coordinates.Z - mirrorBlockCoords.Z)):Remove()
+					mirrorBlockCoords.Z - (block.Coordinates.Z - mirrorBlockCoords.Z))
+			end
+
+			if mirrorBlock ~= nil then
+				if continuousEdition then
+					table.insert(blocksRemovedWithDrag, mirrorBlock.Coordinates:Copy())
+				else
+					itemCopy:GetBlock(mirrorBlock.Coordinates):Remove()
+				end
+				mirrorBlock:Remove()
 			end
 		end
 	end
@@ -1272,35 +1282,52 @@ initClientFunctions = function()
 				end
 			end
 		end
-
-		updateMirror()
-		checkAutoSave()
-		refreshUndoRedoGridButtons()
 	end
 
 	replaceSingleBlock = function(block)
 		block:Replace(Block(getCurrentColorIndex()))
+		if continuousEdition then
+			table.insert(blocksReplacedWithDrag, block)
+		else
+		itemCopy:GetBlock(block.Coordinates):Replace(Block(getCurrentColorIndex()))
+		end
 
 		if mirrorShape ~= nil then
 			local mirrorBlockCoords = mirrorCoords - {0.5, 0.5, 0.5}
+			local mirrorBlock = nil
+			local currentShape = nil
+			if continuousEdition then
+				currentShape = itemCopy
+			else
+				currentShape = item
+			end
 
 			if currentMirrorAxis == mirrorAxes.x then
-				item:GetBlock(
+				mirrorBlock = currentShape:GetBlock(
 					mirrorBlockCoords.X - (block.Coordinates.X - mirrorBlockCoords.X),
 					block.Coordinates.Y,
-					block.Coordinates.Z):Replace(Block(getCurrentColorIndex()))
+					block.Coordinates.Z)
 
 			elseif currentMirrorAxis == mirrorAxes.y then
-				item:GetBlock(
+				mirrorBlock = currentShape:GetBlock(
 					block.Coordinates.X,
 					mirrorBlockCoords.Y - (block.Coordinates.Y - mirrorBlockCoords.Y),
-					block.Coordinates.Z):Replace(Block(getCurrentColorIndex()))
+					block.Coordinates.Z)
 
 			elseif currentMirrorAxis == mirrorAxes.z then
-				item:GetBlock(
+				mirrorBlock = currentShape:GetBlock(
 					block.Coordinates.X,
 					block.Coordinates.Y,
-					mirrorBlockCoords.Z - (block.Coordinates.Z - mirrorBlockCoords.Z)):Replace(Block(getCurrentColorIndex()))
+					mirrorBlockCoords.Z - (block.Coordinates.Z - mirrorBlockCoords.Z))
+			end
+
+			if mirrorBlock ~= nil then
+				if continuousEdition then
+					table.insert(blocksReplacedWithDrag, mirrorBlock)
+				else
+					itemCopy:GetBlock(mirrorBlock.Coordinates):Replace(Block(getCurrentColorIndex()))
+				end
+				mirrorBlock:Replace(Block(getCurrentColorIndex()))
 			end
 		end
 	end
@@ -1321,6 +1348,11 @@ initClientFunctions = function()
 		-- destroy existing buttons if any
 		Private:ItemEditorClearUndoRedoAndGrid()
 
+		-- show these buttons only on edit mode
+		if currentMode ~= mode.edit then
+			return
+		end
+
 		-- construct new buttons
 		local showUndoRedo = item.CanUndo or item.CanRedo
 		undoBtn, redoBtn, gridModeBtn = Private:ItemEditorCreateUndoRedoAndGrid(showUndoRedo)
@@ -1328,6 +1360,7 @@ initClientFunctions = function()
 		gridModeBtn.TextColor = darkTextColor
 		gridModeBtn.OnRelease = function()
 			item.PrivateDrawMode = gridModeToggle(item.PrivateDrawMode)
+			itemCopy.PrivateDrawMode = item.PrivateDrawMode
 		end
 		gridModeBtnRefresh()
 
@@ -1337,6 +1370,13 @@ initClientFunctions = function()
 			undoBtn.OnRelease = function()
 				if item ~= nil and item.CanUndo then
 					item:Undo()
+					itemCopy:RemoveFromParent()
+					itemCopy = item:Copy()
+					itemCopy:SetParent(World)
+					itemCopy.Position = item.Position
+					itemCopy.IsHidden = true
+					itemCopy.PrivateDrawMode = item.PrivateDrawMode
+					updateMirror()
 					checkAutoSave()
 					refreshUndoRedoGridButtons()
 				end
@@ -1354,6 +1394,13 @@ initClientFunctions = function()
 			redoBtn.OnRelease = function()
 				if item ~= nil and item.CanRedo then
 					item:Redo()
+					itemCopy:RemoveFromParent()
+					itemCopy = item:Copy()
+					itemCopy:SetParent(World)
+					itemCopy.Position = item.Position
+					itemCopy.IsHidden = true
+					itemCopy.PrivateDrawMode = item.PrivateDrawMode
+					updateMirror()
 					checkAutoSave()
 					refreshUndoRedoGridButtons()
 				end
@@ -1376,7 +1423,6 @@ initClientFunctions = function()
 		end
 
 		screenshotBtn.OnRelease = function()
-
 			local drawmode = item.PrivateDrawMode
 			
 			-- temporary hide the mirror before taking the screenshot
@@ -1388,8 +1434,9 @@ initClientFunctions = function()
 				rotArrows.hide()
 			end
 
-			cameraTargetShape.IsHidden = true
-			
+            local highlightHidden = blockHighlight.IsHidden
+			blockHighlight.IsHidden = true
+
 			item.PrivateDrawMode = 0
 			item:Capture()
 			item.PrivateDrawMode = drawmode
@@ -1399,15 +1446,13 @@ initClientFunctions = function()
 				mirrorShape.IsHidden = false
 			end
 
-			-- show camera target shape again
-			cameraTargetShape.IsHidden = false
+			blockHighlight.IsHidden = highlightHidden
 			
 			moveArrows.show()
 			rotArrows.show()
 		end
 	end
 
-	
 	placeMirror = function(impact)
 		-- a block has been touched, place the mirror
 		if impact ~= nil and impact.Block ~= nil then
@@ -1445,7 +1490,6 @@ initClientFunctions = function()
 				mirrorRotateBtn, mirrorMove1Btn, mirrorMove2Btn, mirrorRemoveBtn = Private:ItemEditorCreateMirrorControls(true)
 
 				setMirrorControls()
-
 			else
 				-- place the mirror in another block, keeping same orientation
 				mirrorCoords = impact.Block.Coordinates + {0.5, 0.5, 0.5}
@@ -1488,11 +1532,17 @@ initClientFunctions = function()
 	-- updates the dimension of the mirror when adding/removing cubes
 	updateMirror = function()
 		if mirrorShape ~= nil then
-			local width = item.Width + mirrorMargin
-			local height = item.Height + mirrorMargin
-			local depth = item.Depth + mirrorMargin
-			local center = item.Center
-			local mirrorLocalPosition = item:BlockToLocal(mirrorCoords)
+			local parentShape = nil
+			if continuousEdition then
+				parentShape = itemCopy
+			else
+				parentShape = item
+			end
+			local width = parentShape.Width + mirrorMargin
+			local height = parentShape.Height + mirrorMargin
+			local depth = parentShape.Depth + mirrorMargin
+			local center = parentShape:BlockToLocal(parentShape.Center)
+			local mirrorLocalPosition = parentShape:BlockToLocal(mirrorCoords)
 			
 			if currentMirrorAxis == mirrorAxes.x then
 				mirrorShape.LocalScale = { mirrorThickness, height, depth }
@@ -1531,103 +1581,89 @@ initClientFunctions = function()
 	end
 
 	getAlignment = function(normal)
-		local n = normal:Copy()
-		local camera = Camera.Forward:Copy()
-		n:Normalize()
-		camera:Normalize()
-		return math.abs(n:Dot(camera))
+		return math.abs(normal:Dot(Camera.Forward))
 	end
 
 	sqr_len = function(dx, dy)
 		return dx * dx + dy * dy
 	end
 
-	expectedCameraStateForCurrentState = function()
-		if currentMode == mode.points then
-			return cameraStates.preview
-		end
-		return cameraStates.item
-	end
-
 	cameraStateSave = function()
-
-		-- cameraRotation is common to all states
+		cameraCurrentState.target = Camera.target:Copy()
+        cameraCurrentState.distance = Camera.distance
 		cameraCurrentState.rotation = cameraRotation:Copy()
-
-		if currentMode == mode.edit then
-
-			cameraStates.item.mode = cameraMode
-
-			if cameraMode == cameraModes.aroundBlock then
-				cameraStates.item.target = Camera.target:Copy()
-				cameraStates.item.dist = Camera.dist
-
-				if cameraTargetShape:GetParent() ~= nil then
-					cameraStates.item.targetShapePos = cameraTargetShape.Position
-				else
-					cameraStates.item.targetShapePos = nil
-				end
-			else
-				-- aroundCamera only needs rotation + position
-				cameraStates.item.position = Camera.Position:Copy()
-			end
-		else
-			-- saving state from "points" mode
-			cameraStates.preview.target = Camera.target:Copy()
-			cameraStates.preview.dist = Camera.dist
-		end
 	end
 
 	cameraStateSet = function(state)
-
-		cameraRotation = state.rotation:Copy()
-		Camera.Rotation = cameraRotation
-
 		if state == cameraStates.preview then
-			
-			cameraTargetShape:RemoveFromParent()
+		    setCamera(state.rotation, Player.Head.Position, state.distance, false)
 
-			Camera.target = Player.Head.Position:Copy()
-
-			Camera.dist = cameraStates.preview.dist
-			if Camera.dist == nil then
-				Camera.dist = 75.0
-			end
-			
-			Camera:SetModeSatellite(Camera.target, Camera.dist)
-			Pointer:Show()
-			UI.Crosshair = false
-
+			blockHighlight.IsHidden = true
+            Pointer:Show()
+            UI.Crosshair = false
 		else
-			cameraMode = cameraStates.item.mode
-
-			if cameraMode == cameraModes.aroundBlock then
-
-				Camera.target = cameraStates.item.target:Copy()
-				Camera.dist = cameraStates.item.dist
-
-				Camera:SetModeSatellite(Camera.target, Camera.dist)
-				
-				if cameraStates.item.targetShapePos ~= nil then
-					World:AddChild(cameraTargetShape)
-					cameraTargetShape.Position = cameraStates.item.targetShapePos
-				end
-			else
-				Camera:SetModeFree()
-				Camera.Position = cameraStates.item.position
-			end
+            setCamera(state.rotation, state.target, state.distance, true) -- refresh camera immediately...
+            blockHighlightDirty = true -- so that highlight block can be refreshed asap
 		end
-
 		cameraCurrentState = state
 	end
 
-	cameraStateSetToExpected = function()
-		local expectedState = expectedCameraStateForCurrentState()
-		if expectedState ~= cameraCurrentState then
-			cameraStateSet(expectedState)
+	cameraStateSetToExpected = function(alwaysRefresh)
+	    local state = cameraStates.item
+		if currentMode == mode.points then
+            state = cameraStates.preview
+        end
+		if alwaysRefresh == nil or alwaysRefresh or state ~= cameraCurrentState then
+			cameraStateSet(state)
 		end
 	end
 
+	setCamera = function(rotation, target, distance, immediate)
+	    if rotation ~= nil then
+	        cameraRotation = rotation:Copy()
+
+	        -- clamp rotation between 90° and -90° on X
+            cameraRotation.X = clamp(cameraRotation.X, -math.pi * 0.4999, math.pi * 0.4999)
+
+	        Camera.Rotation = cameraRotation
+        end
+
+        -- store variables used for satellite mode, we need them to handle zoom&drag
+        if target ~= nil then
+            Camera.target = target:Copy()
+        end
+        if distance ~= nil then
+            Camera.distance = distance
+        end
+        Camera:SetModeSatellite(Camera.target, Camera.distance)
+
+        if immediate then
+            Camera.Position = target + Camera.Backward * distance
+        end
+	end
+
+	getCameraDistanceFactor = function()
+	    return 1 + math.max(0, cameraDistFactor * (Camera.distance - cameraDistThreshold))
+	end
+
+	applyDrag = function(velocity, drag, isZero)
+	    if isZero then
+	        velocity = Number3(0, 0, 0)
+        else
+            velocity = velocity * drag
+        end
+	end
+
+	refreshBlockHighlight = function()
+	    local impact = Camera:CastRay(item)
+        if impact.Block ~= nil then
+            blockHighlight.Position = impact.Block.Position + halfVoxel
+            blockHighlight.IsHidden = false
+        else
+            blockHighlight.IsHidden = true
+        end
+        blockHighlightDirty = false
+	end
 end
 
 function gridModeBtnRefresh()
@@ -1653,7 +1689,6 @@ gridModeToggle = function(currentDrawMode)
 end
 
 setFacemode = function(newFacemode)
-	
 	if newFacemode ~= currentFacemode then
 		currentFacemode = newFacemode	
 	end
@@ -1688,10 +1723,12 @@ targetBlockDeltaFromTouchedFace = function(faceTouched)
 end
 
 function initMoveArrows()
-
 	if moveArrows ~= nil then return end
 	if rotArrows.destroy ~= nil then rotArrows.destroy() end
 
+    -- standard colors for transformations gizmo: X is red, Y is green, Z is blue
+    -- Note: colors represents what transfo they apply, ie. for a local gizmo, colors will be wherever local axes are
+    -- TODO: recolor "arrow_up" green and "arrow_forward" blue
 	moveArrows = {
 		object = Object(), -- object placed at center of item (not parented)
 		arrowsUpDown = Object(),
@@ -1753,10 +1790,12 @@ function initMoveArrows()
 			moveArrows.object.Scale = item.Scale
 			moveArrows.object.LocalPosition = item.LocalPosition
 
-			local min = item:PositionLocalToWorld(item.Min)
-			local max = item:PositionLocalToWorld(item.Max)
-			min = moveArrows.object:PositionWorldToLocal(min)
-			max = moveArrows.object:PositionWorldToLocal(max)
+			local worldAABB = item:ComputeWorldBoundingBox()
+			local min = moveArrows.object:PositionWorldToLocal(worldAABB.Min)
+			local max = moveArrows.object:PositionWorldToLocal(worldAABB.Max)
+			-- Note: the resulting min/max isn't necessarily an axis-aligned box, just 2 local points (probably why the following code is here)
+			-- TODO: this will need to be improved if we want to allow rotations that arnt always aligned with an axis,
+			-- 2 solutions: use world pos w/ worldAABB or use item.Min/Max/Center if moveArrows is in same local space (see example for rotArrows)
 
 			-- ensure min < max
 			if min.X > max.X then
@@ -1857,7 +1896,6 @@ function initMoveArrows()
 			end
 
 			if impact == nil then error("impact should not be nil here") end
-
 				local arrow = nil
 
 				if impact == impactUp then arrow = moveArrows.arrowUp
@@ -1880,7 +1918,6 @@ function initMoveArrows()
 
 		moveItem = function(e)
 			local p = moveArrows.hitPlane(e)
-
 			if p == nil then return end
 
 			p = moveArrows.impact:PositionWorldToLocal(p)
@@ -1900,11 +1937,9 @@ function initMoveArrows()
 
 			item.Position = moveArrows.origin.Position + p - moveArrows.impact.Position
 			moveArrows.object.LocalPosition = item.LocalPosition
-
 		end,
 
 		select = function(e) -- see if an arrow is selected with pointer event
-
 			local impact = nil
 			moveArrows.selected, impact = moveArrows.hit(e)
 
@@ -1943,7 +1978,6 @@ function initMoveArrows()
 		end,
 
 		unselect = function()
-				
 			if moveArrows.selected ~= nil then
 				-- snap
 				item.LocalPosition.X = math.floor(item.LocalPosition.X * 2 + 0.5) * 0.5 - 0.001
@@ -1956,7 +1990,7 @@ function initMoveArrows()
 		end
 	}
 
-	Map:AddChild(moveArrows.impact) -- for transformations
+	moveArrows.impact:SetParent(World) -- for transformations
 
 	moveArrows.object:AddChild(moveArrows.arrowsUpDown)
 	moveArrows.object:AddChild(moveArrows.arrowsRightLeft)
@@ -1992,95 +2026,156 @@ function initMoveArrows()
 end
 
 function initRotationArrows()
-
 	if rotArrows ~= nil then return end
 	if moveArrows.destroy ~= nil then moveArrows.destroy() end
 
+    -- standard colors for transformations gizmo: X is red, Y is green, Z is blue
+    -- Note: colors represents what transfo they apply, ie. for a local gizmo, colors will be wherever local axes are
+    -- TODO: recolor "arrow_rot_forward_norm_1/2" blue and "arrow_rot_up_norm_1/2" green
 	rotArrows = {
-		object = Object(), -- object placed at center of item (not parented)
-		arrowsRightAxis = Object(), -- to rotate around right axis
-		arrowsUpAxis = Object(), -- to rotate around up axis
-		arrowsForwardAxis = Object(), -- to rotate around forward axis
-		arrowUp1 = Shape(Items.arrow_rot_up_norm_1),
-		arrowUp2 = Shape(Items.arrow_rot_up_norm_2),
-		arrowUp3 = Shape(Items.arrow_rot_up_norm_1),
-		arrowUp4 = Shape(Items.arrow_rot_up_norm_2),
-		arrowRight1 = Shape(Items.arrow_rot_right_norm_1),
-		arrowRight2 = Shape(Items.arrow_rot_right_norm_2),
-		arrowRight3 = Shape(Items.arrow_rot_right_norm_1),
-		arrowRight4 = Shape(Items.arrow_rot_right_norm_2),
-		arrowForward1 = Shape(Items.arrow_rot_forward_norm_1),
-		arrowForward2 = Shape(Items.arrow_rot_forward_norm_2),
-		arrowForward3 = Shape(Items.arrow_rot_forward_norm_1),
-		arrowForward4 = Shape(Items.arrow_rot_forward_norm_2),
+		root = Object(), -- root of the arrows groups
+		arrowsX = Object(), -- arrow group for X axis
+		arrowsY = Object(), -- arrow group for Y axis
+		arrowsZ = Object(), -- arrow group for Z axis
+		arrowX1 = Shape(Items.arrow_rot_right_norm_1),
+		arrowX2 = Shape(Items.arrow_rot_right_norm_2),
+		arrowX3 = Shape(Items.arrow_rot_right_norm_1),
+		arrowX4 = Shape(Items.arrow_rot_right_norm_2),
+		arrowY1 = Shape(Items.arrow_rot_up_norm_1),
+        arrowY2 = Shape(Items.arrow_rot_up_norm_2),
+        arrowY3 = Shape(Items.arrow_rot_up_norm_1),
+        arrowY4 = Shape(Items.arrow_rot_up_norm_2),
+        arrowZ1 = Shape(Items.arrow_rot_forward_norm_1),
+        arrowZ2 = Shape(Items.arrow_rot_forward_norm_2),
+        arrowZ3 = Shape(Items.arrow_rot_forward_norm_1),
+        arrowZ4 = Shape(Items.arrow_rot_forward_norm_2),
 		poiActiveName = "",
-		selected = nil, -- selected arrow, turns on pointer up while still on selected arrow
+		selected = nil, -- selected arrow, turns on PointerUp while still on selected arrow
 
 		destroy = function()
 			if rotArrows ~= nil then
-				rotArrows.object:RemoveFromParent()
+				rotArrows.root:RemoveFromParent()
 				rotArrows = nil
 			end
 		end,
 
 		hide = function()
-			rotArrows.object.IsHidden = true
+			rotArrows.root.IsHidden = true
 		end,
 
 		show = function()
-			rotArrows.object.IsHidden = false
+			rotArrows.root.IsHidden = false
 		end,
 
 		refresh = function()
-			rotArrows.arrowsRightAxis.IsHidden = false
-			rotArrows.arrowsUpAxis.IsHidden = false
-			rotArrows.arrowsForwardAxis.IsHidden = false
+			rotArrows.arrowsX.IsHidden = false
+			rotArrows.arrowsY.IsHidden = false
+			rotArrows.arrowsZ.IsHidden = false
 
 			-- hide arrows aligned with Camera
-			if getAlignment(rotArrows.object.Right) < showArrowThreshold then
-				rotArrows.arrowsRightAxis.IsHidden = true
+			if getAlignment(rotArrows.root.Right) < showArrowThreshold then
+				rotArrows.arrowsX.IsHidden = true
 			end
 
-			if getAlignment(rotArrows.object.Up) < showArrowThreshold then
-					rotArrows.arrowsUpAxis.IsHidden = true
+			if getAlignment(rotArrows.root.Up) < showArrowThreshold then
+				rotArrows.arrowsY.IsHidden = true
 			end
 
-			if getAlignment(rotArrows.object.Forward) < showArrowThreshold then			
-				rotArrows.arrowsForwardAxis.IsHidden = true
+			if getAlignment(rotArrows.root.Forward) < showArrowThreshold then
+				rotArrows.arrowsZ.IsHidden = true
 			end
+
+			---- The following uses LocalPosition to place rotArrows based on the local bounding box,
+			---- since rotArrows and item are in the same local space (ie. same parent)
+			local aabb = item:ComputeLocalBoundingBox()
+            local center = aabb.Center
+            
+            -- make sure arrows are in the same local space whatever sub-mode we're in
+            rotArrows.root:SetParent(item:GetParent())
+            rotArrows.root.LocalPosition = { 0, 0, 0 }
+
+            -- the item X axis is along the right of player's arm
+            rotArrows.arrowX1.LocalPosition = { aabb.Max.X + arrowMargin, center.Y, center.Z + arrowSpace }
+            rotArrows.arrowX2.LocalPosition = { aabb.Max.X + arrowMargin, center.Y, center.Z - arrowSpace }
+            rotArrows.arrowX3.LocalPosition = { aabb.Min.X - arrowMargin, center.Y, center.Z + arrowSpace }
+            rotArrows.arrowX4.LocalPosition = { aabb.Min.X - arrowMargin, center.Y, center.Z - arrowSpace }
+
+            -- the item Y axis is along player's arm, hand to shoulder
+            rotArrows.arrowY1.LocalPosition = { center.X + arrowSpace, aabb.Max.Y + arrowMargin, center.Z }
+            rotArrows.arrowY2.LocalPosition = { center.X - arrowSpace, aabb.Max.Y + arrowMargin, center.Z }
+            rotArrows.arrowY3.LocalPosition = { center.X + arrowSpace, aabb.Min.Y - arrowMargin, center.Z }
+            rotArrows.arrowY4.LocalPosition = { center.X - arrowSpace, aabb.Min.Y - arrowMargin, center.Z }
+
+            -- the item Z axis would be along player's thumb up
+            rotArrows.arrowZ1.LocalPosition = { center.X, center.Y + arrowSpace, aabb.Max.Z + arrowMargin }
+            rotArrows.arrowZ2.LocalPosition = { center.X, center.Y - arrowSpace, aabb.Max.Z + arrowMargin }
+            rotArrows.arrowZ3.LocalPosition = { center.X, center.Y + arrowSpace, aabb.Min.Z - arrowMargin }
+            rotArrows.arrowZ4.LocalPosition = { center.X, center.Y - arrowSpace, aabb.Min.Z - arrowMargin }
+
+            ---- The following is the equivalent using world Position to place rotArrows based on world bounding box,
+            ---- this is mainly for the example, but that means we could parent rotArrows anywhere
+			--[[
+			local aabb = item:ComputeWorldBoundingBox()
+			local center = aabb.Center
+			local scale = item.LossyScale
+
+            -- the item X axis is along the right of player's arm
+            local marginX = Player.RightArm.Right * arrowMargin * scale
+            local spaceX = Player.RightArm.Forward * arrowSpace * scale
+            rotArrows.arrowX1.Position = Number3(aabb.Max.X, center.Y, center.Z) + marginX + spaceX
+            rotArrows.arrowX2.Position = Number3(aabb.Max.X, center.Y, center.Z) + marginX - spaceX
+            rotArrows.arrowX3.Position = Number3(aabb.Min.X, center.Y, center.Z) - marginX + spaceX
+            rotArrows.arrowX4.Position = Number3(aabb.Min.X, center.Y, center.Z) - marginX - spaceX
+
+            -- the item Y axis is along player's arm, hand to shoulder
+            local marginY = Player.RightArm.Up * arrowMargin * scale
+            local spaceY = Player.RightArm.Right * arrowSpace * scale
+            rotArrows.arrowY1.Position = Number3(center.X, center.Y, aabb.Max.Z) - marginY + spaceY
+            rotArrows.arrowY2.Position = Number3(center.X, center.Y, aabb.Max.Z) - marginY - spaceY
+            rotArrows.arrowY3.Position = Number3(center.X, center.Y, aabb.Min.Z) + marginY + spaceY
+            rotArrows.arrowY4.Position = Number3(center.X, center.Y, aabb.Min.Z) + marginY - spaceY
+
+            -- the item Z axis would be along player's thumb up
+            local marginZ = Player.RightArm.Forward * arrowMargin * scale
+            local spaceZ = Player.RightArm.Up * arrowSpace * scale
+            rotArrows.arrowZ1.Position = Number3(center.X, aabb.Max.Y, center.Z) + marginZ + spaceZ
+            rotArrows.arrowZ2.Position = Number3(center.X, aabb.Max.Y, center.Z) + marginZ - spaceZ
+            rotArrows.arrowZ3.Position = Number3(center.X, aabb.Min.Y, center.Z) - marginZ + spaceZ
+            rotArrows.arrowZ4.Position = Number3(center.X, aabb.Min.Y, center.Z) - marginZ - spaceZ
+            ]]
 		end,
 
 		hit = function(e)
 			local impacts = {}
 
-			local impactUp1 = e:CastRay(rotArrows.arrowUp1)
-			if impactUp1 ~= nil then table.insert(impacts, impactUp1) end
-			local impactUp2 = e:CastRay(rotArrows.arrowUp2)
-			if impactUp2 ~= nil then table.insert(impacts, impactUp2) end
-			local impactUp3 = e:CastRay(rotArrows.arrowUp3)
-			if impactUp3 ~= nil then table.insert(impacts, impactUp3) end
-			local impactUp4 = e:CastRay(rotArrows.arrowUp4)
-			if impactUp4 ~= nil then table.insert(impacts, impactUp4) end
+			local impactY1 = e:CastRay(rotArrows.arrowY1)
+			if impactY1 ~= nil then table.insert(impacts, impactY1) end
+			local impactY2 = e:CastRay(rotArrows.arrowY2)
+			if impactY2 ~= nil then table.insert(impacts, impactY2) end
+			local impactY3 = e:CastRay(rotArrows.arrowY3)
+			if impactY3 ~= nil then table.insert(impacts, impactY3) end
+			local impactY4 = e:CastRay(rotArrows.arrowY4)
+			if impactY4 ~= nil then table.insert(impacts, impactY4) end
 
-			local impactRight1 = e:CastRay(rotArrows.arrowRight1)
-			if impactRight1 ~= nil then table.insert(impacts, impactRight1) end
-			local impactRight2 = e:CastRay(rotArrows.arrowRight2)
-			if impactRight2 ~= nil then table.insert(impacts, impactRight2) end
-			local impactRight3 = e:CastRay(rotArrows.arrowRight3)
-			if impactRight3 ~= nil then table.insert(impacts, impactRight3) end
-			local impactRight4 = e:CastRay(rotArrows.arrowRight4)
-			if impactRight4 ~= nil then table.insert(impacts, impactRight4) end
+			local impactX1 = e:CastRay(rotArrows.arrowX1)
+			if impactX1 ~= nil then table.insert(impacts, impactX1) end
+			local impactX2 = e:CastRay(rotArrows.arrowX2)
+			if impactX2 ~= nil then table.insert(impacts, impactX2) end
+			local impactX3 = e:CastRay(rotArrows.arrowX3)
+			if impactX3 ~= nil then table.insert(impacts, impactX3) end
+			local impactX4 = e:CastRay(rotArrows.arrowX4)
+			if impactX4 ~= nil then table.insert(impacts, impactX4) end
 
-			local impactForward1 = e:CastRay(rotArrows.arrowForward1)
-			if impactForward1 ~= nil then table.insert(impacts, impactForward1) end
-			local impactForward2 = e:CastRay(rotArrows.arrowForward2)
-			if impactForward2 ~= nil then table.insert(impacts, impactForward2) end
-			local impactForward3 = e:CastRay(rotArrows.arrowForward3)
-			if impactForward3 ~= nil then table.insert(impacts, impactForward3) end
-			local impactForward4 = e:CastRay(rotArrows.arrowForward4)
-			if impactForward4 ~= nil then table.insert(impacts, impactForward4) end
+			local impactZ1 = e:CastRay(rotArrows.arrowZ1)
+			if impactZ1 ~= nil then table.insert(impacts, impactZ1) end
+			local impactZ2 = e:CastRay(rotArrows.arrowZ2)
+			if impactZ2 ~= nil then table.insert(impacts, impactZ2) end
+			local impactZ3 = e:CastRay(rotArrows.arrowZ3)
+			if impactZ3 ~= nil then table.insert(impacts, impactZ3) end
+			local impactZ4 = e:CastRay(rotArrows.arrowZ4)
+			if impactZ4 ~= nil then table.insert(impacts, impactZ4) end
 
-			if #impacts == 0 then 
+			if #impacts == 0 then
 				return nil
 			end
 
@@ -2097,18 +2192,18 @@ function initRotationArrows()
 
 				local arrow = nil
 
-				if impact == impactUp1 then arrow = rotArrows.arrowUp1
-				elseif impact == impactUp2 then arrow = rotArrows.arrowUp2
-				elseif impact == impactUp3 then arrow = rotArrows.arrowUp3
-				elseif impact == impactUp4 then arrow= rotArrows.arrowUp4
-				elseif impact == impactRight1 then arrow = rotArrows.arrowRight1
-				elseif impact == impactRight2 then arrow = rotArrows.arrowRight2
-				elseif impact == impactRight3 then arrow = rotArrows.arrowRight3
-				elseif impact == impactRight4 then arrow= rotArrows.arrowRight4
-				elseif impact == impactForward1 then arrow = rotArrows.arrowForward1
-				elseif impact == impactForward2 then arrow = rotArrows.arrowForward2
-				elseif impact == impactForward3 then arrow = rotArrows.arrowForward3
-				elseif impact == impactForward4 then arrow= rotArrows.arrowForward4 end
+				if impact == impactY1 then arrow = rotArrows.arrowY1
+				elseif impact == impactY2 then arrow = rotArrows.arrowY2
+				elseif impact == impactY3 then arrow = rotArrows.arrowY3
+				elseif impact == impactY4 then arrow= rotArrows.arrowY4
+				elseif impact == impactX1 then arrow = rotArrows.arrowX1
+				elseif impact == impactX2 then arrow = rotArrows.arrowX2
+				elseif impact == impactX3 then arrow = rotArrows.arrowX3
+				elseif impact == impactX4 then arrow= rotArrows.arrowX4
+				elseif impact == impactZ1 then arrow = rotArrows.arrowZ1
+				elseif impact == impactZ2 then arrow = rotArrows.arrowZ2
+				elseif impact == impactZ3 then arrow = rotArrows.arrowZ3
+				elseif impact == impactZ4 then arrow= rotArrows.arrowZ4 end
 
 				return arrow
 			end,
@@ -2121,119 +2216,80 @@ function initRotationArrows()
 			if rotArrows.selected == nil then return end
 
 			if rotArrows.selected == rotArrows.hit(e) then
-					
+
 				local selected = rotArrows.selected
 
-				if selected == rotArrows.arrowUp1 then
+				if selected == rotArrows.arrowY1 or selected == rotArrows.arrowY2 then
 					item:RotateLocal({0, 1, 0}, -math.pi * 0.5)
-				elseif selected == rotArrows.arrowUp2 then
+				elseif selected == rotArrows.arrowY3 or selected == rotArrows.arrowY4 then
 					item:RotateLocal({0, 1, 0}, math.pi * 0.5)
-				elseif selected == rotArrows.arrowUp3 then
-					item:RotateLocal({0, 1, 0}, math.pi * 0.5)
-				elseif selected == rotArrows.arrowUp4 then
-					item:RotateLocal({0, 1, 0}, -math.pi * 0.5)
-				elseif selected == rotArrows.arrowRight1 then
+				elseif selected == rotArrows.arrowX1 or selected == rotArrows.arrowX2 then
 					item:RotateLocal({1, 0, 0}, -math.pi * 0.5)
-				elseif selected == rotArrows.arrowRight2 then
+				elseif selected == rotArrows.arrowX3 or selected == rotArrows.arrowX4 then
 					item:RotateLocal({1, 0, 0}, math.pi * 0.5)
-				elseif selected == rotArrows.arrowRight3 then
-					item:RotateLocal({1, 0, 0}, math.pi * 0.5)
-				elseif selected == rotArrows.arrowRight4 then
-					item:RotateLocal({1, 0, 0}, -math.pi * 0.5)
-				elseif selected == rotArrows.arrowForward1 then
+				elseif selected == rotArrows.arrowZ1 or selected == rotArrows.arrowZ2 then
 					item:RotateLocal({0, 0, 1}, -math.pi * 0.5)
-				elseif selected == rotArrows.arrowForward2 then
+				elseif selected == rotArrows.arrowZ3 or selected == rotArrows.arrowZ4 then
 					item:RotateLocal({0, 0, 1}, math.pi * 0.5)
-				elseif selected == rotArrows.arrowForward3 then
-					item:RotateLocal({0, 0, 1}, math.pi * 0.5)
-				elseif selected == rotArrows.arrowForward4 then
-					item:RotateLocal({0, 0, 1}, -math.pi * 0.5)
 				end
 
 				savePOI()
 			end
 		end,
-		
+
 		unselect = function()
 			rotArrows.selected = nil
 		end
 	}
 
-	-- local rotation gizmo, so arrows must be in the same local space ie. same parent
-	-- Note: we could have a world rotation gizmo mode using additional conversions
-	rotArrows.object:SetParent(item:GetParent())
-	rotArrows.object.LocalPosition = item.LocalPosition
+	-- we'll use local position to place arrows, so they must be in the same local space ie. same parent
+	-- Note: we could have a world rotation gizmo mode using additional conversions, or use world Position (see commented code above)
+	rotArrows.root:SetParent(item:GetParent())
+	rotArrows.root.LocalPosition = { 0, 0, 0 }
 
-	rotArrows.object:AddChild(rotArrows.arrowsRightAxis)
-	rotArrows.object:AddChild(rotArrows.arrowsUpAxis)
-	rotArrows.object:AddChild(rotArrows.arrowsForwardAxis)
+	rotArrows.root:AddChild(rotArrows.arrowsX)
+	rotArrows.root:AddChild(rotArrows.arrowsY)
+	rotArrows.root:AddChild(rotArrows.arrowsZ)
 
-	rotArrows.arrowsRightAxis:AddChild(rotArrows.arrowRight1)
-	rotArrows.arrowsRightAxis:AddChild(rotArrows.arrowRight2)
-	rotArrows.arrowsRightAxis:AddChild(rotArrows.arrowRight3)
-	rotArrows.arrowsRightAxis:AddChild(rotArrows.arrowRight4)
+	rotArrows.arrowsX:AddChild(rotArrows.arrowX1)
+	rotArrows.arrowsX:AddChild(rotArrows.arrowX2)
+	rotArrows.arrowsX:AddChild(rotArrows.arrowX3)
+	rotArrows.arrowsX:AddChild(rotArrows.arrowX4)
 
-	rotArrows.arrowsUpAxis:AddChild(rotArrows.arrowUp1)
-	rotArrows.arrowsUpAxis:AddChild(rotArrows.arrowUp2)
-	rotArrows.arrowsUpAxis:AddChild(rotArrows.arrowUp3)
-	rotArrows.arrowsUpAxis:AddChild(rotArrows.arrowUp4)
+	rotArrows.arrowsY:AddChild(rotArrows.arrowY1)
+	rotArrows.arrowsY:AddChild(rotArrows.arrowY2)
+	rotArrows.arrowsY:AddChild(rotArrows.arrowY3)
+	rotArrows.arrowsY:AddChild(rotArrows.arrowY4)
 
-	rotArrows.arrowsForwardAxis:AddChild(rotArrows.arrowForward1)
-	rotArrows.arrowsForwardAxis:AddChild(rotArrows.arrowForward2)
-	rotArrows.arrowsForwardAxis:AddChild(rotArrows.arrowForward3)
-	rotArrows.arrowsForwardAxis:AddChild(rotArrows.arrowForward4)
+	rotArrows.arrowsZ:AddChild(rotArrows.arrowZ1)
+	rotArrows.arrowsZ:AddChild(rotArrows.arrowZ2)
+	rotArrows.arrowsZ:AddChild(rotArrows.arrowZ3)
+	rotArrows.arrowsZ:AddChild(rotArrows.arrowZ4)
 
-	rotArrows.arrowRight1.Scale = arrowScale
-	rotArrows.arrowRight2.Scale = arrowScale
-	rotArrows.arrowRight3.Scale = arrowScale
-	rotArrows.arrowRight4.Scale = arrowScale
+	rotArrows.arrowX1.Scale = arrowScale
+	rotArrows.arrowX2.Scale = arrowScale
+	rotArrows.arrowX3.Scale = arrowScale
+	rotArrows.arrowX4.Scale = arrowScale
 
-	rotArrows.arrowUp1.Scale = arrowScale
-	rotArrows.arrowUp2.Scale = arrowScale
-	rotArrows.arrowUp3.Scale = arrowScale
-	rotArrows.arrowUp4.Scale = arrowScale
+	rotArrows.arrowY1.Scale = arrowScale
+	rotArrows.arrowY2.Scale = arrowScale
+	rotArrows.arrowY3.Scale = arrowScale
+	rotArrows.arrowY4.Scale = arrowScale
 
-	rotArrows.arrowForward1.Scale = arrowScale
-	rotArrows.arrowForward2.Scale = arrowScale
-	rotArrows.arrowForward3.Scale = arrowScale
-	rotArrows.arrowForward4.Scale = arrowScale
+	rotArrows.arrowZ1.Scale = arrowScale
+	rotArrows.arrowZ2.Scale = arrowScale
+	rotArrows.arrowZ3.Scale = arrowScale
+	rotArrows.arrowZ4.Scale = arrowScale
 
-	rotArrows.arrowRight1.Pivot.Z = 0
-	rotArrows.arrowRight2.Pivot.Z = 0
-	rotArrows.arrowRight3.Pivot.Z = 0
-	rotArrows.arrowRight4.Pivot.Z = 0
+	-- we want arrows to be flat against item's box, this depends on how the models were created
+	rotArrows.arrowX3.LocalRotation = { 0.0, 0.0, math.pi }
+	rotArrows.arrowX4.LocalRotation = { 0.0, 0.0, math.pi }
 
-	rotArrows.arrowUp1.Pivot.X = 0
-	rotArrows.arrowUp2.Pivot.X = 0
-	rotArrows.arrowUp3.Pivot.X = 0
-	rotArrows.arrowUp4.Pivot.X = 0
+	rotArrows.arrowY3.LocalRotation = { math.pi, 0.0, 0.0 }
+    rotArrows.arrowY4.LocalRotation = { math.pi, 0.0, 0.0 }
 
-	rotArrows.arrowForward1.Pivot.Y = 0
-	rotArrows.arrowForward2.Pivot.Y = 0
-	rotArrows.arrowForward3.Pivot.Y = 0
-	rotArrows.arrowForward4.Pivot.Y = 0
-
-	rotArrows.arrowRight1.Position = item:PositionLocalToWorld({ item.Center.X, item.Center.Y + arrowSpace, item.Max.Z + arrowMargin})
-	rotArrows.arrowRight2.Position = item:PositionLocalToWorld({ item.Center.X, item.Center.Y - arrowSpace, item.Max.Z + arrowMargin})
-	rotArrows.arrowRight3.Position = item:PositionLocalToWorld({ item.Center.X, item.Center.Y + arrowSpace, item.Min.Z - arrowMargin})
-	rotArrows.arrowRight3.LocalRotation = { 0.0, math.pi, 0.0 }
-	rotArrows.arrowRight4.Position = item:PositionLocalToWorld({ item.Center.X, item.Center.Y - arrowSpace, item.Min.Z - arrowMargin})
-	rotArrows.arrowRight4.LocalRotation = { 0.0, math.pi, 0.0 }
-
-	rotArrows.arrowUp1.Position = item:PositionLocalToWorld({ item.Max.X + arrowMargin, item.Center.Y, item.Center.Z + arrowSpace })
-	rotArrows.arrowUp2.Position = item:PositionLocalToWorld({ item.Max.X + arrowMargin, item.Center.Y, item.Center.Z - arrowSpace})
-	rotArrows.arrowUp3.Position = item:PositionLocalToWorld({ item.Min.X - arrowMargin, item.Center.Y, item.Center.Z + arrowSpace })
-	rotArrows.arrowUp3.LocalRotation = { 0.0, 0.0, math.pi }
-	rotArrows.arrowUp4.Position = item:PositionLocalToWorld({ item.Min.X - arrowMargin, item.Center.Y, item.Center.Z - arrowSpace })
-	rotArrows.arrowUp4.LocalRotation = { 0.0, 0.0, math.pi }
-
-	rotArrows.arrowForward1.Position = item:PositionLocalToWorld({ item.Center.X + arrowSpace, item.Max.Y + arrowMargin, item.Center.Z })
-	rotArrows.arrowForward2.Position = item:PositionLocalToWorld({ item.Center.X - arrowSpace, item.Max.Y + arrowMargin, item.Center.Z })
-	rotArrows.arrowForward3.Position = item:PositionLocalToWorld({ item.Center.X + arrowSpace, item.Min.Y - arrowMargin, item.Center.Z })
-	rotArrows.arrowForward3.LocalRotation = { math.pi, 0.0, 0.0 }
-	rotArrows.arrowForward4.Position = item:PositionLocalToWorld({ item.Center.X - arrowSpace, item.Min.Y - arrowMargin, item.Center.Z })
-	rotArrows.arrowForward4.LocalRotation = { math.pi, 0.0, 0.0 }
-
+    rotArrows.arrowZ3.LocalRotation = { 0.0, math.pi, 0.0 }
+    rotArrows.arrowZ4.LocalRotation = { 0.0, math.pi, 0.0 }
 end
 
 -- shows and places or hides arrows depending
@@ -2244,26 +2300,20 @@ updateArrows = function()
 end
 
 function savePOI()
-	
 	local anchor = Number3(0, 0, 0)
 
 	if poiActiveName == "Hand" then
-
 		anchor = Player.RightArm:GetPoint("hand").LocalPosition -- "hand" is stored in block coordinates
 		-- anchor = Player.RightArm:GetPoint("hand").Coords -- if "hand" becomes stored as a local position
 		if anchor == nil then
 			anchor = Player.RightArm:BlockToLocal(Number3(1, -7, 1)) -- use default value
 		end
-
 	elseif poiActiveName == "Hat" then
-
 		anchor = nil -- Player.Head:GetPoint("Hat").LocalPosition
 		if anchor == nil then
 			anchor = Number3(-0.5, 8.5, -0.5) -- use default value in LocalPosition
 		end
-		
 	elseif poiActiveName == "Backpack" then
-
 		anchor = nil -- Player.Body:GetPoint("Backpack").LocalPosition
 		if anchor == nil then
 			anchor = Number3(0.5, 2.5, -1.5) -- use default value in LocalPosition
@@ -2302,4 +2352,30 @@ end
 hideColorPicker = function()
 	picker:Remove()
 	picker = nil
+end
+
+clamp = function(v, min, max)
+    if v < min then
+        return min
+    elseif v > max then
+        return max
+    else
+        return v
+    end
+end
+
+n3Equals = function(v1, v2, epsilon)
+    return (v2 - v1).Length < epsilon
+end
+
+lerp = function(from, to, v)
+    return from + (to - from) * clamp(v, 0.0, 1.0)
+end
+
+easingQuadOut = function(v)
+    return 1.0 - (1.0 - v) * (1.0 - v);
+end
+
+bool2int = function(b)
+    return b and 1 or 0
 end

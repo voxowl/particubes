@@ -1,7 +1,16 @@
 keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Shape"
 extends: "Object"
-description: A [Shape] is an [Object] that carries and displays a set of [Block]s.
+description: |
+  A [Shape] is an [Object] that carries a voxel model made of [Block]s.
+
+  It introduces an additionnal coordinate system called model space i.e. relative to model origin.
+  Any point can be expressed in model space. If the point is expressed with integers, then it may represent a [Block] coordinates.
+
+  Note that under certain conditions, namely if the [This],
+  - is not mutable or is mutable but its model has not been changed,
+  - has a pivot set to zero,
+  then model space and local space become equivalent.
 
 constructors: 
   - description: "Creates a Shape with imported [Item]."
@@ -19,59 +28,65 @@ properties:
     - name: "Pivot"
       type: "Number3"
       description: |
-          `Pivot` is a point that you set as a way to specify what part of the [Shape] will be used when setting its [Position](/reference/shape#property-position).
-          
-          A [Shape] rotates around this point. The Pivot point can be outside your shape.
+          [This]'s pivot is a local point that acts as a reference for its transformations:
+          - translation is applied from its parent's pivot to its own pivot
+          - rotation is applied around the pivot
 
-          `Pivot` coordinates are local to the [Shape].
+          It is set by default to [This]'s geometric center.
 
-          As a convenience, `Pivot` can be set to a [Block], the [Number3] value is then set to represent its center.
-
+          You can override it with any point, even outside of the [This]'s bounding box, as a way to modify how transformations are applied.
+          Note that setting the pivot to zero effectively means you are using the [This]'s model origin as reference point for transformations.
       samples:
         - code: |
-            -- Anchor at the center of a 3x3x3 shape:
-            myShape.Anchor = {1.5, 1.5, 1.5}
-            -- same result:
-            myShape.Anchor = myShape:GetBlock(1,1,1)
+            -- set it to any arbitrary point
+            myShape.Pivot = { 2.3, 5.0, 1.5 }
+            -- set it to a specific block, it will use block's center (*)
+            myShape.Pivot = myShape:GetBlock(1, 1, 1)
+            -- doing this resets pivot to its default value (*)
+            myShape.Pivot = { myShape.Width * 0.5, myShape.Height * 0.5, myShape.Depth * 0.5 }
+            -- (*) both these use-cases are valid only if myShape is not mutable or is mutable but has not been changed,
+            -- otherwise, it is still possible: pivot must first be set to zero, then convert with myShape:BlockToLocal
 
     - name: "Depth"
       read-only: true
       type: "number"
-      description: "Returns [This]'s depth, measured in cubes."
+      description: "Returns [This]'s depth, measured in blocks."
 
     - name: "Height"
       read-only: true
       type: "number"
-      description: "Returns [This]'s height, measured in cubes."
+      description: "Returns [This]'s height, measured in blocks."
 
     - name: "Width"
       read-only: true
       type: "number"
-      description: "Returns [This]'s width, measured in cubes."
+      description: "Returns [This]'s width, measured in blocks."
 
     - name: "BoundingBox"
       read-only: true
       type: Box
       description: |
-          The BoundingBox represents the bounds of the [This]. It is the limits of the Shape's blocks.
+          The bounding box represents the bounds of the [This] in model space.
+
+          It is the smallest axis-aligned box that encompasses all of [This]'s blocks.
 
     - name: "Min"
       read-only: true
       type: Number3
       description: |
-          The coordinates of the min limit of the [This]'s BoundingBox.
+          The minimum point of the [This]'s BoundingBox.
 
     - name: "Center"
       read-only: true
       type: Number3
       description: |
-          The coordinates of the center of the [This]'s BoundingBox.
+          The center of the [This]'s BoundingBox.
 
     - name: "Max"
       read-only: true
       type: Number3
       description: |
-          The coordinates of the max limit of the [This]'s BoundingBox.
+          The maximum point of the [This]'s BoundingBox.
 
 functions:
     - name: "GetBlock"
@@ -95,7 +110,7 @@ functions:
         - type: "Block"
 
     - name: "BlockToWorld"
-      description: "Converts Block coordinates to world coordinate system."
+      description: "Converts Block coordinates from model space to world space."
       argument-sets: 
         -
           - name: "b"
@@ -107,7 +122,7 @@ functions:
         - type: "Number3"
 
     - name: "BlockToLocal"
-      description: "Converts Block coordinates to local coordinate system."
+      description: "Converts Block coordinates from model space to local space."
       argument-sets: 
         -
           - name: "b"
@@ -119,7 +134,7 @@ functions:
         - type: "Number3"
 
     - name: "WorldToBlock"
-      description: "Converts world coordinates to Block coordinate system."
+      description: "Converts a point from world space to model space."
       arguments: 
         - name: "n"
           type: "Number3"
@@ -127,9 +142,21 @@ functions:
         - type: "Number3"
 
     - name: "LocalToBlock"
-      description: "Converts local coordinates to Block coordinate system."
+      description: "Converts a point from local space to model space."
       arguments: 
         - name: "n"
           type: "Number3"
       return:
         - type: "Number3"
+
+    - name: "ComputeLocalBoundingBox"
+      description: |
+        Computes and returns the smallest axis-aligned box that encompasses all of [This]'s blocks, in local space.
+      return:
+        - type: "Box"
+
+    - name: "ComputeWorldBoundingBox"
+      description: |
+        Computes and returns the smallest axis-aligned box that encompasses all of [This]'s blocks, in world space.
+      return:
+        - type: "Box"
