@@ -82,22 +82,22 @@ properties:
             end
 
     - name: "Up"
-        type: function
-        description: "Triggered when the pointer is released."
-        samples:
-          - code: |
-              Pointer.Up = function(pointerEvent)
-                  print(pointerEvent.X, pointerEvent.Y)
-              end
+      type: function
+      description: "Triggered when the pointer is released."
+      samples:
+        - code: |
+            Pointer.Up = function(pointerEvent)
+                print(pointerEvent.X, pointerEvent.Y)
+            end
 
     - name: "DragBegin"
-        type: function
-        description: "Triggered when the pointer is moved while down, starting a drag motion."
-        samples:
-          - code: |
-              Pointer.DragBegin = function()
-                  -- initialize some variables
-              end
+      type: function
+      description: "Triggered when the pointer is moved while down, starting a drag motion."
+      samples:
+        - code: |
+            Pointer.DragBegin = function()
+                -- initialize some variables
+            end
 
     - name: "Drag"
       type: function
@@ -109,22 +109,22 @@ properties:
             end
 
     - name: "DragEnd"
-        type: function
-        description: "Triggered when the pointer is released during a drag motion, ending it."
-        samples:
-          - code: |
-              Pointer.DragEnd = function()
-                  -- cleanup some variables
-              end
+      type: function
+      description: "Triggered when the pointer is released during a drag motion, ending it."
+      samples:
+        - code: |
+            Pointer.DragEnd = function()
+                -- cleanup some variables
+            end
 
     - name: "Drag2Begin"
-        type: function
-        description: "Triggered when the pointer is moved with right mouse button or 2 touch fingers down, starting a drag2 motion."
-        samples:
-          - code: |
-              Pointer.Drag2Begin = function()
-                  -- initialize some variables
-              end
+      type: function
+      description: "Triggered when the pointer is moved with right mouse button or 2 touch fingers down, starting a drag2 motion."
+      samples:
+        - code: |
+            Pointer.Drag2Begin = function()
+                -- initialize some variables
+            end
 
     - name: "Drag2"
       type: function
@@ -136,13 +136,13 @@ properties:
             end
 
     - name: "Drag2End"
-        type: function
-        description: "Triggered when the pointer is released during a drag2 motion, ending it."
-        samples:
-          - code: |
-              Pointer.Drag2End = function()
-                  -- cleanup some variables
-              end
+      type: function
+      description: "Triggered when the pointer is released during a drag2 motion, ending it."
+      samples:
+        - code: |
+            Pointer.Drag2End = function()
+                -- cleanup some variables
+            end
 
     - name: "LongPress"
       type: function
@@ -169,13 +169,13 @@ properties:
             end
 
     - name: "Cancel"
-        type: function
-        description: "Triggered when the system interrupts the app during a pointer motion."
-        samples:
-          - code: |
-              Pointer.Cancel = function()
-                  -- cleanup some variables
-              end
+      type: function
+      description: "Triggered when the system interrupts the app during a pointer motion."
+      samples:
+        - code: |
+            Pointer.Cancel = function()
+                -- cleanup some variables
+            end
 
     - name: "IsHidden"
       type: "boolean"
