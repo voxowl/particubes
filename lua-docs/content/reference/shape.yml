@@ -88,6 +88,11 @@ properties:
       description: |
           The maximum point of the [This]'s BoundingBox.
 
+    - name: "Shadow"
+      type: boolean
+      description: |
+          Whether or not [This] should cast a shadow on the map, default is `true`.
+
 functions:
     - name: "GetBlock"
       description: |
