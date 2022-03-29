@@ -1,19 +1,29 @@
 name: Dagger/docs.particubes.com
-  
+
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_SHA: ${{ github.sha }}
+      SSH_PRIVATE_KEY_DOCKER_SWARM: ${{ secrets.SSH_PRIVATE_KEY_DOCKER_SWARM }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Install Dagger
+        uses: dagger/dagger-action@v2
         with:
-          lfs: true
-      - name: Dagger
-        uses: dagger/dagger-action@v1
-        with:
-          age-key: ${{ secrets.DAGGER_AGE_KEY }}
-          args: up -e docs
+          install-only: true
+
+      - name: Dagger poject update
+        run: dagger project update
+
+      - name: Dagger do test
+        run: dagger do test --log-format plain
+
+      - name: Dagger do deploy
+        run: dagger do deploy --log-format plain
