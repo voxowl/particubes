@@ -12,9 +12,9 @@ Explore many different worlds built by others, using your own custom avatar. Pla
 
 Use simple yet powerful tools to craft and publish items, maps, & avatars. Shared assets can be used by other builders and coders.
 
-### 🤓 Coders
+### 🤓 Code
 
-Customize sample scripts or script a full experence from scratch, in [Lua](https://www.lua.org)!
+Customize sample scripts or script a full experience from scratch, in [Lua](https://www.lua.org)!
 
 ## How to play?
 
