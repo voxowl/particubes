@@ -45,4 +45,10 @@ properties:
         - code: |
             TimeCycle.On = false
 
-    
+    - name: "RemoveMark"
+      type: "function"
+      description: |
+        Removes the given [TimeCycleMark] from the time cycle.
+      samples:
+        - code: |
+            TimeCycle:RemoveMark(TimeCycle.Marks[index])
