@@ -23,7 +23,7 @@ jobs:
         run: dagger project update
 
       - name: Dagger do test
-        run: dagger do test --log-format plain
+        run: dagger do test --log-format plain --plan ./lua-docs/docs.cue
 
       - name: Dagger do deploy
-        run: dagger do deploy --log-format plain
+        run: dagger do deploy --log-format plain --plan ./lua-docs/docs.cue
