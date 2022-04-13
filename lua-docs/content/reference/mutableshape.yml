@@ -18,7 +18,7 @@ functions:
       description: |
           Adds a [Block] to the [This].
           
-          Returns created [Block] (or [nil] if it fails).
+          Returns created [Block] (or [nil] if it fails) by default. You may pass the optional parameter `getBlock` to `false` if you do not need the return value, as an optimization.
       argument-sets:
         -
           - name: "block"
@@ -31,12 +31,30 @@ functions:
         -
           - name: "paletteIndex"
             type: "integer"
+          - name: "position"
+            type: "Number3"
+          - name: "getBlock"
+            type: "boolean"
+        -
+          - name: "paletteIndex"
+            type: "integer"
           - name: "X"
             type: "number"
           - name: "Y"
             type: "number"
           - name: "Z"
             type: "number"
+        -
+          - name: "paletteIndex"
+            type: "integer"
+          - name: "X"
+            type: "number"
+          - name: "Y"
+            type: "number"
+          - name: "Z"
+            type: "number"
+          - name: "getBlock"
+            type: "boolean"
       return: 
         - type: "Block"
       samples:
