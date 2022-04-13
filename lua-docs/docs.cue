@@ -18,8 +18,8 @@ dagger.#Plan & {
 			SSH_PRIVATE_KEY_DOCKER_SWARM: dagger.#Secret
 		}
 		filesystem: {
-			"./": read: contents:              dagger.#FS
-			"./merge.output": write: contents: actions.build.image.rootfs // Creates a build artifact for debug
+			"./lua-docs": read: contents:              dagger.#FS
+			//"./merge.output": write: contents: actions.build.image.rootfs // Creates an image build artifact for debug
 		}
 		network: "unix:///var/run/docker.sock": connect: dagger.#Socket // Docker daemon socket
 	}
