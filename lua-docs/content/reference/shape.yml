@@ -91,7 +91,8 @@ properties:
     - name: "Shadow"
       type: boolean
       description: |
-          Whether or not [This] should cast a shadow on the map, default is `true`.
+          Whether or not [This] should have a square shadow projected on the map, default is `false`.
+          The size of the shadow is based off [This]'s collision box.
 
 functions:
     - name: "GetBlock"

@@ -61,6 +61,11 @@ properties:
     description: |
       Indicates whether the [Player] object is the local `Player`.
       This is only valid on the [Client], not on the [Server].
+  - name: "Shadow"
+    type: boolean
+    description: |
+        Whether or not the [Player] should have a square shadow projected on the map, default is `true`.
+        The size of the shadow is based off [Player]'s collision box.
 
 functions:
   - name: "CastRay"
