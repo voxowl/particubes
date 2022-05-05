@@ -16,6 +16,7 @@ dagger.#Plan & {
 		env: {
 			GITHUB_SHA:                   string
 			SSH_PRIVATE_KEY_DOCKER_SWARM: dagger.#Secret
+			SSH_KNOWN_HOSTS:              dagger.#Secret
 		}
 		filesystem: {
 			"./lua-docs": read: contents:              dagger.#FS
@@ -137,10 +138,13 @@ dagger.#Plan & {
 			}
 
 			update: cli.#Run & {
-				host:   "ssh://ubuntu@3.139.83.217"
+				host: "ssh://ubuntu@3.139.83.217"
 				always: true
-				ssh: key: client.env.SSH_PRIVATE_KEY_DOCKER_SWARM
-				env: DEP: "\(publish.result)" // DEP created wth publish
+				ssh: {
+					key:        client.env.SSH_PRIVATE_KEY_DOCKER_SWARM
+					knownHosts: client.env.SSH_KNOWN_HOSTS
+				}
+				env: DEP: "\(publish.result)" // DEP created with publish
 				command: {
 					name: "sh"
 					flags: "-c": #"""
