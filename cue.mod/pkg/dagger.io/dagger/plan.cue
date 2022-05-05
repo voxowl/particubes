@@ -24,8 +24,8 @@ package dagger
 		}
 
 		// Access client network endpoints
-		network: [address=#Address]: _#clientNetwork & {
-			"address": address
+		network: [address=string]: _#clientNetwork & {
+			"address": _#address | *address
 		}
 
 		// Access client environment variables
@@ -43,9 +43,7 @@ package dagger
 	// platform?: string
 
 	// Execute actions in containers
-	actions: {
-		...
-	}
+	actions: _
 }
 
 _#clientFilesystemRead: {
@@ -58,11 +56,14 @@ _#clientFilesystemRead: {
 		// CUE type defines expected content:
 		//     string: contents of a regular file
 		//     #Secret: secure reference to the file contents
-		contents: string | #Secret
+		contents: {
+			@dagger(generated)
+			string | #Secret
+		}
 	} | {
 		// CUE type defines expected content:
 		//     #FS: contents of a directory
-		contents: #FS
+		contents: #FS @dagger(generated)
 
 		// Filename patterns to include
 		// Example: ["*.go", "Dockerfile"]
@@ -97,22 +98,28 @@ _#clientNetwork: {
 
 	// URL to the socket
 	// Example: unix:///var/run/docker.sock
-	address: #Address
+	address: _#address
 
 	{
 		// unix socket or npipe
-		connect: #Socket
+		connect: #Socket @dagger(generated)
 		// } | {
 		//  // FIXME: not yet implemented
 		//  listen: #Socket
 	}
 }
 
+// A network socket address
+_#address: string & =~"^(unix://|npipe://).+"
+
 _#clientEnv: {
 	$dagger: task: _name: "ClientEnv"
 
 	// CUE type defines expected content
-	[!~"\\$dagger"]: *string | #Secret
+	[!~"\\$dagger"]: {
+		@dagger(generated)
+		*string | #Secret
+	}
 }
 
 _#clientCommand: {
@@ -135,20 +142,29 @@ _#clientCommand: {
 	env: [string]: string | #Secret
 
 	// Capture standard output (as a string or secret)
-	stdout?: *string | #Secret
+	stdout?: {
+		@dagger(generated)
+		*string | #Secret
+	}
 
 	// Capture standard error (as a string or secret)
-	stderr?: *string | #Secret
+	stderr?: {
+		@dagger(generated)
+		*string | #Secret
+	}
 
 	// Inject standard input (from a string or secret)
-	stdin?: string | #Secret
+	stdin?: {
+		@dagger(generated)
+		string | #Secret
+	}
 }
 
 _#clientPlatform: {
 	$dagger: task: _name: "ClientPlatform"
 
 	// Operating system of the client machine
-	os: string
+	os: string @dagger(generated)
 	// Hardware architecture of the client machine
-	arch: string
+	arch: string @dagger(generated)
 }

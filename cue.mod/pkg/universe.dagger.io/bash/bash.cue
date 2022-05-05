@@ -42,6 +42,9 @@ import (
 	_mountpoint: "/bash/scripts"
 
 	docker.#Run & {
+		// ignore entrypoint from image config as it can
+		// create issues if it's not exec'ing to "$@"
+		entrypoint: []
 		command: {
 			name:   "bash"
 			"args": ["\(_mountpoint)/\(script._filename)"] + args

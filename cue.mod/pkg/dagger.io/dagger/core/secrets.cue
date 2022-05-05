@@ -13,7 +13,10 @@ import "dagger.io/dagger"
 	format: "json" | "yaml"
 
 	// A new secret or (map of secrets) derived from unmarshaling the input secret's plain text
-	output: dagger.#Secret | {[string]: output}
+	output: _ @dagger(generated)
+
+	// FIXME: See https://github.com/cue-lang/cue/issues/1671
+	// output: dagger.#Secret | {[string]: output} @dagger(generated)
 }
 
 // Create a new a secret from a filesystem tree
@@ -27,7 +30,7 @@ import "dagger.io/dagger"
 	// Whether to trim leading and trailing space characters from secret value
 	trimSpace: *true | false
 	// Contents of the secret
-	output: dagger.#Secret
+	output: dagger.#Secret @dagger(generated)
 }
 
 // Trim leading and trailing space characters from a secret
@@ -38,5 +41,5 @@ import "dagger.io/dagger"
 	input: dagger.#Secret
 
 	// New trimmed secret
-	output: dagger.#Secret
+	output: dagger.#Secret @dagger(generated)
 }
