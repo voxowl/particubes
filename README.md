@@ -22,7 +22,7 @@ The public Alpha is available on iOS, Android, Windows and Mac, you can download
 
 ## Is it open source?
 
-No, sorry, our engine is close source. We use this public repository for open source components somehow related to *Particubes* (tools, sample scripts, public websites, etc.).
+Not now, we will opensource it by parts.
 
 ## Other questions?
 
