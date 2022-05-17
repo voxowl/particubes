@@ -9,7 +9,7 @@ description: |
 functions:
     - name: "Get"
       description: |
-          Sends a Get HTTP request to the specified url. The request is asynchronous.
+          Sends a GET HTTP request to the specified url. The request is asynchronous.
           The callback is called after receiving a response from the server.
       argument-sets: 
         -
@@ -33,13 +33,13 @@ functions:
                 users,err = JSON:Decode(res.Body)
                 local user = users[1]
                 print(user.id, user.name, user.age)
-                -- prints 289734 Bob 28.0
+                -- prints 289734 Mike 15.0
               end)
 
 
     - name: "Post"
       description: |
-          Sends a Post HTTP request to the specified url. The request is asynchronous.
+          Sends a POST HTTP request to the specified url. The request is asynchronous.
           The callback is called after receiving a response from the server.
       argument-sets: 
         -

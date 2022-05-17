@@ -12,10 +12,10 @@ functions:
           This function handles basic types (number, string, boolean, tables) and skip functions.
       argument-sets: 
         -
-          - name: "encodedString"
-            type: "string"
+          - name: "data"
+            type: "table"
       return:
-        - type: "table"
+        - type: "string"
       samples:
           - code: |
               local playerInfo = {}
@@ -30,10 +30,10 @@ functions:
           Takes a string as parameter and returns a Lua table.
       argument-sets: 
         -
-          - name: "data"
-            type: "table"
+          - name: "encodedString"
+            type: "string"
       return:
-        - type: "string"
+        - type: "table"
       samples:
           - code: |
               local jsonstring = "{\"body\":\"A message.\",\"status_code\":200}"
