@@ -197,11 +197,7 @@ properties:
     - name: "Fog"
       type: "Fog"
       description: "See [Fog]."
-
-    - name: "Inputs"
-      type: "Inputs"
-      description: "See [Inputs]."
-
+    
     - name: "OnChat"
       type: "function"
       description: |
