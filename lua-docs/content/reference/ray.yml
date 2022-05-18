@@ -78,6 +78,18 @@ functions:
                     print("found something under the player, distance:", impact.Distance)
                 end
             end
+        - code: |
+            -- When a single Shape is provided
+            -- the Shape's internal block touched is provided
+            -- as part of the Impact object
+            Client.Action2 = function()
+                local ray = Ray(Camera.Position, Camera.Forward)
+                local impact = ray:Cast(myShape) -- only consider a Shape for collisions
+                -- impact.Block is Number3(0, 5, 12)
+                -- impact.Distance is 42,72234
+                -- impact.Object is the `myShape` Shape
+            end
+            
             
 properties:
     - name: "Origin"
