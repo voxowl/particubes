@@ -26,7 +26,7 @@ functions:
               
               HTTP:Get(url, function(res)
                 if res.StatusCode ~= 200 then
-                  print("Error "..str(res.StatusCode))
+                  print("Error " .. res.StatusCode)
                   return
                 end
                 -- body is [{"id": 289733, "name": "Mike", "age": 15}]
@@ -75,7 +75,7 @@ functions:
               
               HTTP:Post(url, headers, body, function(res)
                 if res.StatusCode ~= 200 then
-                  print("Error "..str(res.StatusCode))
+                  print("Error " .. res.StatusCode)
                   return
                 end
                 -- body is {"id": 289734, "name": "Bob", "age": 28}
