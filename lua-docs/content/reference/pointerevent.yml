@@ -78,12 +78,12 @@ properties:
   - name: "Position"
     type: "Number3"
     description: |
-        [PointerEvent]'s location, in world coordinate system.
+        The world space origin of the ray cast from the screen. This is equivalent to [Camera].[Position].
 
   - name: "Direction"
     type: "Number3"
     description: |
-        The direction in which a ray would go based on the [PointerEvent].
+        The direction of the ray cast from screen space [PointerEvent].[X] and [PointerEvent].[Y] into world space.
 
   - name: "Down"
     type: "boolean"
