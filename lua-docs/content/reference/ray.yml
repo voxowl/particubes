@@ -63,7 +63,7 @@ functions:
             -- cast rays from Camera's position to remove cubes in the map
             Client.Action2 = function()
                 local ray = Ray(Camera.Position, Camera.Forward)
-                ray:Cast(Map.CollisionGroups) -- only consider the map for collisions
+                local impact = ray:Cast(Map.CollisionGroups) -- only consider the map for collisions
                 if impact.Block ~= nil then
                   impact.Block:Remove()
                 end
@@ -73,7 +73,7 @@ functions:
             -- if there's something under it:
             Client.Action3 = function()
                 local ray = Ray(Player.Position, {0, -1, 0})
-                ray:Cast(nil, Player) -- filter out Player to avoid direct impacts with it
+                local impact = ray:Cast(nil, Player) -- filter out Player to avoid direct impacts with it
                 if impact ~= nil then
                     print("found something under the player, distance:", impact.Distance)
                 end
