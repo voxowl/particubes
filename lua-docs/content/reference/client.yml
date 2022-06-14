@@ -137,7 +137,7 @@ properties:
                 -- storing globals here for AnalogPad
                 -- to update Player.Motion
                 dpadX = x dpadY = y
-                Player.Motion = (Player.Forward * y + Player.Right * x) * 10
+                Player.Motion = (Player.Forward * y + Player.Right * x) * 50
             end
 
             Client.AnalogPad = function(dx, dy)
@@ -145,7 +145,7 @@ properties:
                 Player.LocalRotation.X = Player.LocalRotation.X + -dy * 0.01
 
                 if dpadX ~= nil and dpadY ~= nil then
-                    Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
+                    Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 50
                 end
             end
 
@@ -177,7 +177,7 @@ properties:
                 Player.LocalRotation.X = Player.LocalRotation.X + -dy * 0.01
 
                 if dpadX ~= nil and dpadY ~= nil then
-                    Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 10
+                    Player.Motion = (Player.Forward * dpadY + Player.Right * dpadX) * 50
                 end
             end
 
@@ -185,7 +185,7 @@ properties:
                 -- storing globals here for AnalogPad
                 -- to update Player.Motion
                 dpadX = x dpadY = y
-                Player.Motion = (Player.Forward * y + Player.Right * x) * 10
+                Player.Motion = (Player.Forward * y + Player.Right * x) * 50
             end
 
     - name: "APad"
