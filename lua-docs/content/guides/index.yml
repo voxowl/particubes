@@ -2,13 +2,21 @@ keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"
 title: "Guides"
 blocks:
     - text: |
-        Hey! We're still working on that section. 🏗
+        Hey! Step-by-step tutorials to help you create full games from scratch are coming soon. In the meantime, here are a few sample scripts to implement specific behaviors:
 
-        It will contain a few step-by-step tutorials.
+    - subtitle: Basic Multiplayer
 
-        Also, the platform is not released yet, but it won't be long until we start distributing the beta.
+    - media: "/media/basic_multiplayer.mp4"
 
-        You can register on [the website](https://particubes.com) to get access as soon as possible. 
+    - text: |
+        An [Event] is a generic container that can be sent to / received from all connected actor (clients & server). Here's a short script that shows how you can use them to implement a real-time multiplayer chat:
+
+        ➡️ [basic_multiplayer.lua](https://github.com/voxowl/particubes/blob/master/lua-scripts/basic_multiplayer.lua)
+
+        
+
+
+
 
 
 
