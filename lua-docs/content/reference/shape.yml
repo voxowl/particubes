@@ -88,6 +88,12 @@ properties:
       description: |
           The maximum point of the [This]'s BoundingBox.
 
+    - name: "BlocksCount"
+      read-only: true
+      type: integer
+      description: |
+        The number of blocks in [This]'s model.
+
     - name: "Shadow"
       type: boolean
       description: |
