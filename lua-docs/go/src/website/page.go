@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/gosimple/slug"
 	"regexp"
 	"sort"
 	"strings"
+
+	"github.com/gosimple/slug"
 )
 
 // Page describes possible content for one page
@@ -220,6 +221,8 @@ type ContentBlock struct {
 	Title    string   `yaml:"title,omitempty"`
 	Subtitle string   `yaml:"subtitle,omitempty"`
 	// Can be a relative link to an image, a link to a youtube video...
+	Image string `yaml:"image,omitempty"`
+	// Can be a relative link to a movie, a link to a youtube video...
 	Media string `yaml:"media,omitempty"`
 }
 
