@@ -770,7 +770,32 @@ blocks:
 
     - media: "/media/guides/01-tutoworld_demo.mp4"
 
-    - title: "Final code"
+    - title: "Resources & links"
+
+    - subtitle: "API objects used in this tutorial:"
+
+    - text: |
+        - [`Button`](/reference/button)
+        - [`Client`](/reference/client)
+        - [`CollisionGroup`](/reference/collisiongroup)
+        - [`Color`](/reference/color)
+        - [`Config`](/reference/config)
+        - [`Impact`](/reference/impact)
+        - [`Items`](/reference/items)
+        - [`Label`](/reference/label)
+        - [`Map`](/reference/map)
+        - [`Number3`](/reference/number3)
+        - [`Object`](/reference/object) (indirectly)
+        - [`Player`](/reference/player)
+        - [`Pointer`](/reference/pointer)
+        - [`Ray`](/reference/ray) (indirectly)
+        - [`Shape`](/reference/shape)
+        - [`Time`](/reference/time)
+        - [`TimeCycle`](/reference/timecycle)
+        - [`UI`](/reference/ui)
+        - [`World`](/reference/world)
+
+    - subtitle: "Final code"
 
     - text : |
         As a reference, here is the final code of "Tutoworld" - remember that you can also check it out directly on Particubes by playing the game and clicking the "Read the code" button!
