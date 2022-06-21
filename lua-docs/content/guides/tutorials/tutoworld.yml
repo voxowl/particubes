@@ -117,8 +117,9 @@ blocks:
 
         For example, in my case, I prepared a small map called `minadune.tutoworld_map`:
 
-        // gif tutoworld map turnaround
+    - media: "/media/guides/01-tutoworld_map.mp4"
 
+    - text: |
         So I can simply update the `Config` in my "Tutoworld" game to use it instead of the default one:
 
     - code: |
