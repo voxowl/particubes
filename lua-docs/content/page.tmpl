@@ -99,6 +99,10 @@
 							<h2><a id="{{ GetAnchorLink .Title }}" href="#{{ GetAnchorLink .Title }}">{{ .Title }}</a></h2>
 						{{ else if .Subtitle }}
 							<h3><a id="{{ GetAnchorLink .Subtitle }}" href="#{{ GetAnchorLink .Subtitle }}">{{ .Subtitle }}</a></h3>
+						{{ else if .Image }}
+							<div class="centeredImage">
+								<img src="{{ .Image }}" style="width:100%;"></img>
+							</div>
 						{{ else if .Media }}
 							<div class="centeredVideo">
 								<video style="width:100%;" autoplay loop muted playsinline>

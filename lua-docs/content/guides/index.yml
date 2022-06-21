@@ -2,16 +2,36 @@ keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"
 title: "Guides"
 blocks:
     - text: |
-        Hey! We're still working on that section. 🏗
+        Are you more of a hands-on learner? Then this section is for you!
 
-        It will contain a few step-by-step tutorials.
+        Here, you'll find step-by-step tutorials of to learn the basics of Particubes by making small games.
 
-        Also, the platform is not released yet, but it won't be long until we start distributing the beta.
+        If you haven't installed Particubes yet, checkout [the download page](https://particubes.com/download).
 
-        You can register on [the website](https://particubes.com) to get access as soon as possible. 
+    - subtitle: "Tutorials"
 
+    - text: |
+        - [<b>Tutorial n°1: Tutoworld</b>](/guides/tutorials/tutoworld) - Discover the fundamentals of coding a Particubes game with this 10-minutes tutorial!
 
+    - subtitle: "Handy Lua Snippets"
 
+    - text: |
+        <b>Scene setup</b>
 
+        - [Setting a fixed in-game daytime](/guides/snippets/setup-scene#setting-a-fixed-in-game-daytime)
+        - [Instantiating an item](/guides/snippets/setup-scene#instantiating-an-item)
 
+        <b>User actions</b>
+
+        - [Disable movement](/guides/snippets/user-actions#disable-movement)
+ 
+        <b>Collisions/Triggers</b>
+
+        - [Setting the groups the player collides with](/guides/snippets/collisions-triggers#setting-the-groups-the-player-collides-with)
+        - [Detecting a collision between the player and an object](/guides/snippets/collisions-triggers#detecting-a-collision-between-the-player-and-an-object)
+        - [Basic raycasting (from player)](/guides/snippets/collisions-triggers#basic-raycasting-from-player)
+ 
+        <b>UI</b>
+
+        - [Toggling between the in-game and UI pointers](/guides/snippets/ui#toggling-between-the-in-game-and-ui-pointers)
     
