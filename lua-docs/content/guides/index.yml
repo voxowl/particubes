@@ -34,4 +34,8 @@ blocks:
         <b>UI</b>
 
         - [Toggling between the in-game and UI pointers](/guides/snippets/ui#toggling-between-the-in-game-and-ui-pointers)
+ 
+        <b>Miscellaneous</b>
+
+        - [Getting a random number in a range](/guides/snippets/misc#getting-a-random-number-in-a-range)
     
