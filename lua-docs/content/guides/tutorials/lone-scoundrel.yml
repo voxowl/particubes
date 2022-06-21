@@ -11,9 +11,7 @@ blocks:
     - title: "Foreword"
 
     - text: |
-        Just before we dive in, I need to point out something: in this game, I'm not using a map as we normally do in Particubes game; instead, I'll create it procedurally, "on the fly" when my game first starts. Also, I won't need any physics, be it for gravity or collisions, so I'll just disable it on all my objects.
-
-        That's why, at the very beginning, we'll just have our little avatar floating in the sky, completely still, and why we'll start with an empty [`Config`](/reference/config) object in our script!
+        Just before we dive in, I need to point out something: in this game, I'm not using a map as we normally do in Particubes game; instead, I'll create it procedurally, "on the fly" when my game first starts. Also, I won't need any physics, be it for gravity or collisions, so I'll just disable it on all my objects. That's why, at the very beginning, we'll just have our little avatar floating in the sky, completely still, and why we'll start with an empty [`Config`](/reference/config) object in our script!
 
     - code: |
         Config = {}
@@ -21,10 +19,13 @@ blocks:
         Client.OnStart = function()
         end
 
+    - text: |
+        Also, the various hardcoded values I show in the scripts like the ship speed, the number of coins and chests to generate, etc., are what we often call "magic numbers", because they are "magically" chosen by the programmer, totally arbitrarily. This means that you can tweak them to your liking to see how the game reacts, and that the live code on the Particubes server might have slightly different values compared to the snippets copied here... but don't panic, the overall behaviour will remain the same ;)
+
     - title: "Setting up the player camera"
 
     - text: |
-        One of the first things you might notice is that, in this game, we're not using the default third-person camera. Instead, we want to decouple the rotation of our avatar (the boat) from the camera's. This will let players better explore their surroundings and plan ahead their bearing without the ship instantly following the new trajectory.
+        One of the first things you might notice is that, in this game, we're not using the default third-person camera. Instead, we want to decouple the rotation of our avatar (the ship) from the camera's. This will let players better explore their surroundings and plan ahead their bearing without the ship instantly following the new trajectory.
 
         To do this, the idea is basically to:
 
@@ -127,11 +128,11 @@ blocks:
             -- Remove gravity
             Player.Physics = false
 
-            -- Setup boat avatar
+            -- Setup ship avatar
             Player.avatar = Shape(Items.minadune.boat)
             Player:AddChild(Player.avatar)
 
-            -- Add light on boat
+            -- Add light on ship
             local l = Light()
             Player.avatar:AddChild(l)
             l.Position = Player.avatar.Position + { 0, 5, -1 }
@@ -159,14 +160,14 @@ blocks:
         function initPlayer()
             -- Setup camera...
             -- Remove gravity...
-            -- Setup boat avatar...
+            -- Setup ship avatar...
 
             -- Move normal avatar to hide it under the map,
-            -- then re-add matching offset to boat
+            -- then re-add matching offset to ship
             Player.Position = Number3(0, -5, 0) * Map.LossyScale
             Player.avatar.Position = Player.Position + { 0, 5 * Map.LossyScale.Y, 0 }
 
-            -- Add light on boat
+            -- Add light on ship
             local l = Light()
             Player.avatar:AddChild(l)
             l.Position = Player.avatar.Position + { 0, 5, -1 }
@@ -271,17 +272,17 @@ blocks:
         This feature is a quick one: we just need to store the current value of the X-axis of the `Client.DirectionalPad` (i.e. the left/right keys on a computer or the horizontal slides on the directional-button input on mobiles) and re-use it in the update method, the `Client.Tick`, to rotate the `Player` (and therefore the avatar linked to it) at a given speed:
     
     - code: |
-        local BOAT_ROTATION_SPEED = 0.65
-        local boatDirection = 0
+        local SHIP_ROTATION_SPEED = 0.65
+        local shipDirection = 0
 
         Client.Tick = function(dt)
-            if boatDirection ~= 0 then
-                Player.LocalRotation.Y = Player.LocalRotation.Y + boatDirection * BOAT_ROTATION_SPEED * dt
+            if shipDirection ~= 0 then
+                Player.LocalRotation.Y = Player.LocalRotation.Y + shipDirection * SHIP_ROTATION_SPEED * dt
             end
         end
 
         Client.DirectionalPad = function(x, y)
-            boatDirection = x
+            shipDirection = x
         end
 
     - text: |
@@ -476,7 +477,7 @@ blocks:
     - text: |
         To sum up, every time we call `spawnCoin()`, we'll do the following:
 
-        - first, we check if the all the objects in the pool are currently in use; if so, since we can't create any more, we'll "unspawn" the oldest one (that should be almost out of sight anyway). This shouldn't actually happen if you properly tweak the pool size according to your boat speed and the camera field, because collectibles should always disappear (and therefore be "unspawned") far before you reach the end of you pool, but you never know :)
+        - first, we check if the all the objects in the pool are currently in use; if so, since we can't create any more, we'll "unspawn" the oldest one (that should be almost out of sight anyway). This shouldn't actually happen if you properly tweak the pool size according to your ship speed and the camera field, because collectibles should always disappear (and therefore be "unspawned") far before you reach the end of you pool, but you never know :)
         - then, we take a new coin out of the unused ("dead") pool and make it "alive"
         - we also set its position using randomness and trigonometry
         - and finally, we update our `coinLastSpawnIndex` so that, next time we call the function, we don't try to re-use the same coin
@@ -545,10 +546,10 @@ blocks:
 
     - image: "/images/guides/02-lone-scoundrel_collectible-too-far.jpg"
 
-    - title: "Moving the boat... or not?"
+    - title: "Moving the ship... or not?"
 
     - text: |
-        We now have a way to add collectibles on the map, and we can steer in their direction... but wait - we aren't actually moving, right? Up to this point, we haven't coded anything to translate the boat?
+        We now have a way to add collectibles on the map, and we can steer in their direction... but wait - we aren't actually moving, right? Up to this point, we haven't coded anything to translate the ship?
 
         And that's the real trick: we are not going to move the ship.
 
@@ -564,17 +565,17 @@ blocks:
         This is done by looking at the collectibles in our `collectibles` list, ignoring the ones that are "dead", and moving all the others in the [`Player.Backward`](/reference/player#property-backward) direction at an arbitrary speed every tick. While we're at it, we'll also handle the "exiting the screen" disappearance. We just have to check if the item is behind the player and far away - if it is, then we'll "unspawn" it and re-spawn a new one of the same type in front of the ship, in the distance:
 
     - code: |
-        local BOAT_MOVE_SPEED = 12
+        local SHIP_MOVE_SPEED = 12
 
         Client.Tick = function(dt)
-            if boatDirection ~= 0 then
-                Player.LocalRotation.Y = Player.LocalRotation.Y + boatDirection * BOAT_ROTATION_SPEED * dt
+            if shipDirection ~= 0 then
+                Player.LocalRotation.Y = Player.LocalRotation.Y + shipDirection * SHIP_ROTATION_SPEED * dt
             end
 
             for _, c in ipairs(collectibles) do
                 if c.active then
                     -- Move on the map
-                    c.Position = c.Position + BOAT_MOVE_SPEED * Player.Backward * dt
+                    c.Position = c.Position + SHIP_MOVE_SPEED * Player.Backward * dt
 
                     -- If item is behind the player and far away,
                     -- remove it (= unspawn + re-spawn)
@@ -606,14 +607,14 @@ blocks:
         end
 
         Client.Tick = function(dt)
-            if boatDirection ~= 0 then
-                Player.LocalRotation.Y = Player.LocalRotation.Y + boatDirection * BOAT_ROTATION_SPEED * dt
+            if shipDirection ~= 0 then
+                Player.LocalRotation.Y = Player.LocalRotation.Y + shipDirection * SHIP_ROTATION_SPEED * dt
             end
 
             for _, c in ipairs(collectibles) do
                 if c.active then
                     -- Move on the map
-                    c.Position = c.Position + BOAT_MOVE_SPEED * Player.Backward * dt
+                    c.Position = c.Position + SHIP_MOVE_SPEED * Player.Backward * dt
 
                     -- If player collides with collectible: loot and remove
                     if collides(c) then
@@ -768,17 +769,17 @@ blocks:
         end
 
     - text: |
-        The islands are made of one to three "floors", with less and less chance of blocks appearing as you go higher - the algorithm never puts a block on an empty space uses either a `BROWN` or a `GREEN` depending on the "floor".
+        The islands are made of one to three "floors", with less and less chance of blocks appearing as you go higher - the algorithm never puts a block on an empty space and it uses either a `BROWN` or a `GREEN` depending on the "floor".
 
         After they're generated, we can move the islands like the coins and chests, and if they exit the screen, remove them from the game. Also, if the player collides with one, we'll trigger the `gameOver()` function that we'll fill in a second:
 
     - code: |
         Client.Tick = function(dt)
-            if boatDirection ~= 0 then ... end
+            if shipDirection ~= 0 then ... end
             
             for i, island in ipairs(islands) do
                 -- Move on the map
-                island.Position = island.Position + BOAT_MOVE_SPEED * Player.Backward * dt
+                island.Position = island.Position + SHIP_MOVE_SPEED * Player.Backward * dt
                 
                 -- On hit: game over!
                 if collides(island) then
@@ -937,7 +938,7 @@ blocks:
 
             if paused then return end
             
-            if boatDirection ~= 0 then ... end
+            if shipDirection ~= 0 then ... end
             
             time = time + dt
             for i, island in ipairs(islands) do ... end
@@ -1025,9 +1026,9 @@ blocks:
         local SEA_PATCH_W = 10
         local SEA_PATCH_H = 10
         -- -----------------------
-        local BOAT_MOVE_SPEED = 12
-        local BOAT_ROTATION_SPEED = 0.65
-        local boatDirection = 0
+        local SHIP_MOVE_SPEED = 12
+        local SHIP_ROTATION_SPEED = 0.65
+        local shipDirection = 0
         -- -----------------------
         local COINS_POOL_SIZE = 20
         local coins = {}
@@ -1042,10 +1043,10 @@ blocks:
         local collectibles = {}
         local islands = {}
 
-        -- ---------------------
+        -- -----------------------
         -- Base client functions
-        -- ---------------------
-        Client.OnStart = function()
+        -- -----------------------
+        Client.OnStart = function()    
             -- Add fog to hide map borders
             Fog.Near, Fog.Far = 80, 100
             Fog.LightAbsorption = 1
@@ -1084,14 +1085,14 @@ blocks:
             if paused then return end
             if time == nil then return end
             
-            if boatDirection ~= 0 then
-                Player.LocalRotation.Y = Player.LocalRotation.Y + boatDirection * BOAT_ROTATION_SPEED * dt
+            if shipDirection ~= 0 then
+                Player.LocalRotation.Y = Player.LocalRotation.Y + shipDirection * SHIP_ROTATION_SPEED * dt
             end
-            
+
             time = time + dt
             for i, island in ipairs(islands) do
                 -- Move on the map
-                island.Position = island.Position + BOAT_MOVE_SPEED * Player.Backward * dt
+                island.Position = island.Position + SHIP_MOVE_SPEED * Player.Backward * dt
                 
                 -- On hit: game over!
                 if collides(island) then
@@ -1109,7 +1110,7 @@ blocks:
             for _, c in ipairs(collectibles) do
                 if c.active then
                     -- Move on the map
-                    c.Position = c.Position + BOAT_MOVE_SPEED * Player.Backward * dt
+                    c.Position = c.Position + SHIP_MOVE_SPEED * Player.Backward * dt
                     
                     -- Add nice animation
                     if c.isChest then
@@ -1136,7 +1137,7 @@ blocks:
         end
 
         Client.DirectionalPad = function(x, y)
-            boatDirection = x
+            shipDirection = x
         end
 
         Client.AnalogPad = function(dx,dy)
@@ -1188,16 +1189,16 @@ blocks:
             -- Remove gravity
             Player.Physics = false
             
-            -- Setup boat avatar
+            -- Setup ship avatar
             Player.avatar = Shape(Items.minadune.boat)
             Player:AddChild(Player.avatar)
             
             -- Move normal avatar to hide it under the map,
-            -- then re-add matching offset to boat
+            -- then re-add matching offset to ship
             Player.Position = Number3(0, -5, 0) * Map.LossyScale
             Player.avatar.Position = Player.Position + { 0, 5 * Map.LossyScale.Y, 0 }
             
-            -- Add light on boat
+            -- Add light on ship
             local l = Light()
             Player.avatar:AddChild(l)
             l.Position = Player.avatar.Position + { 0, 5, -1 }
@@ -1211,7 +1212,7 @@ blocks:
         function loot(points)
             score = score + points
             ui.scoreLabel.Text = "Score: " .. score
-            avatar:TextBubble("+" .. points)
+            Player.avatar:TextBubble("+" .. points)
         end
 
         function gameOver()
@@ -1250,9 +1251,9 @@ blocks:
                 patch.Scale = Number3(SEA_PATCH_W, 0.1, SEA_PATCH_H) * Map.LossyScale
                 patch.Physics = false
                 patch.Position = Number3(
-                (ox - 0.5) * SEA_PATCH_W,
-                -1,
-                (oy - 0.5) * SEA_PATCH_H) * Map.LossyScale
+                    (ox - 0.5) * SEA_PATCH_W,
+                    -1,
+                    (oy - 0.5) * SEA_PATCH_H) * Map.LossyScale
                 World:AddChild(patch)
             end
             for y = -N_SEA_PATCH_Y, N_SEA_PATCH_Y do
@@ -1269,9 +1270,9 @@ blocks:
                 local a = randomBetween(math.pi / 5, 4 * math.pi / 5)
                 a = a - Player.LocalRotation.Y
                 local p = Player.avatar.Position + Number3(
-                r * math.cos(a),
-                0,
-                r * math.sin(a))
+                    r * math.cos(a),
+                    0,
+                    r * math.sin(a))
                 makeIsland(p.X, p.Z)
             end
         end
