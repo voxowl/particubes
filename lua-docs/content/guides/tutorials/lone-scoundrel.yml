@@ -638,7 +638,9 @@ blocks:
         end
 
     - text: |
-        The `collides()` utility is very similar to the one we used in the [`first tutorial`](/guides/tutorials/tutoworld), but this time we have to compute our player's bounding box around the ship avatar's position:
+        <i>Note: in the `loot()` function, I used the [`Player`](/reference/player).[`TextBubble`](/reference/player#functions-textbubble) method to pop a little text above the "head" of the ship with the points the item gave the player.</i>
+
+        The `collides()` utility is very similar to the one we used in the [first tutorial](/guides/tutorials/tutoworld), but this time we have to compute our player's bounding box around the ship avatar's position:
 
     - code: |
         Client.OnStart = function()
