@@ -12,6 +12,7 @@ blocks:
 
     - text: |
         - [<b>Tutorial n°1: Tutoworld</b>](/guides/tutorials/tutoworld) - Discover the fundamentals of coding a Particubes game with this 10-minutes tutorial!
+        - [<b>Tutorial n°2: Lone Scoundrel</b>](/guides/tutorials/lone-scoundrel) - Learn more advanced techniques in this intermediate tutorial, like procedural generation or object pooling
 
     - subtitle: "Handy Lua Snippets"
 
@@ -34,4 +35,8 @@ blocks:
         <b>UI</b>
 
         - [Toggling between the in-game and UI pointers](/guides/snippets/ui#toggling-between-the-in-game-and-ui-pointers)
+ 
+        <b>Miscellaneous</b>
+
+        - [Getting a random number in a range](/guides/snippets/misc#getting-a-random-number-in-a-range)
     

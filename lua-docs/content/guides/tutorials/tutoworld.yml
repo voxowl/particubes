@@ -765,7 +765,7 @@ blocks:
     - title: "Conclusion"
 
     - text: |
-        In this first tutorial, we made a simple solo-game, "Tutoworld" and we discussed quite a lot of Particubes features, among which: maps and items instantiation, collisions and triggers, raycasts and even a bit of UI!
+        In this first tutorial, we made a simple solo-game, "Tutoworld", and we discussed quite a lot of Particubes features, among which: maps and items instantiation, collisions and triggers, raycasts and even a bit of UI!
         
         You can find the game on Particubes (by going to the worlds list and searching for "Tutoworld") or re-create your own and then tweak it to your liking: feel free to share all your creations with us, we'd love to hear from you! :)
 
