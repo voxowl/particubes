@@ -581,7 +581,7 @@ blocks:
                     -- remove it (= unspawn + re-spawn)
                     local d = c.Position - Player.Position
                     if Player.Forward:Dot(d) < 0 and d.Length > 100 then
-                        spawnCollectible(c.isChest)
+                        if c.isChest then spawnChest() else spawnCoin() end
                         unspawnCollectible(c)
                     end
                 end
@@ -626,7 +626,7 @@ blocks:
                     -- remove it (= unspawn + re-spawn)
                     local d = c.Position - Player.Position
                     if Player.Forward:Dot(d) < 0 and d.Length > 100 then
-                        spawnCollectible(c.isChest)
+                        if c.isChest then spawnChest() else spawnCoin() end
                         unspawnCollectible(c)
                     end
                 end
@@ -961,15 +961,6 @@ blocks:
             end
         end
 
-
-
-
-
-
-
-
-
-
     - title: "Conclusion"
 
     - text: |
@@ -1129,7 +1120,7 @@ blocks:
                     -- remove it (= unspawn + re-spawn)
                     local d = c.Position - Player.Position
                     if Player.Forward:Dot(d) < 0 and d.Length > 100 then
-                        spawnCollectible(c.isChest)
+                        if c.isChest then spawnChest() else spawnCoin() end
                         unspawnCollectible(c)
                     end
                 end

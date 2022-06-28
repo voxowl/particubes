@@ -153,6 +153,8 @@ blocks:
         }
 
     - text: |
+        When you add a new item in a Lua table, like our `Config` object here, don't forget to separate each item by a comma `,` - for example, here, I've added a comma at the end of my `Map = "minadune.tutoworld_map"` line!
+
         <i>Note: although you could in theory list your items directly at the root of the `Config` object, it's best practice to group them in an inner `Items` object to make the code more readable ;)</i>
 
         Then, I can create an instance of my item by using the [`Shape`](/reference/shape) API object and passing it my item's path. I'll put this crate spawning process in a new function to make it easier to re-use:
