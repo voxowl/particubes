@@ -8,11 +8,17 @@ blocks:
 
         If you haven't installed Particubes yet, checkout [the download page](https://particubes.com/download).
 
+    - subtitle: "Quick know-hows"
+
+    - text: |
+        - [Testing a multi-player game](/guides/quick/testing-multiplayer-game)
+
     - subtitle: "Tutorials"
 
     - text: |
         - [<b>Tutorial n°1: Tutoworld</b>](/guides/tutorials/tutoworld) - Discover the fundamentals of coding a Particubes game with this 10-minutes tutorial!
         - [<b>Tutorial n°2: Lone Scoundrel</b>](/guides/tutorials/lone-scoundrel) - Learn more advanced techniques in this intermediate tutorial, like procedural generation or object pooling
+        - [<b>Tutorial n°3: Space Race</b>](/guides/tutorials/space-race) - Discover how to turn your Particubes game multiplayer :)
 
     - subtitle: "Handy Lua Snippets"
 
