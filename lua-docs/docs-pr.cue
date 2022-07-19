@@ -14,7 +14,7 @@ dagger.#Plan & {
 	client: {
 		env: {
 			GITHUB_SHA:                   string
-			DOMAIN:					              string | *docs.particubes.com
+			DOMAIN:					              string | *"docs.particubes.com"
 			PULL_REQUEST_ID:              string
 			SSH_PRIVATE_KEY_DOCKER_SWARM: dagger.#Secret
 			SSH_KNOWN_HOSTS:              dagger.#Secret
