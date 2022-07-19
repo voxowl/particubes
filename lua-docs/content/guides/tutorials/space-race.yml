@@ -220,7 +220,7 @@ blocks:
         ---------------
         function killPlayer(p)
             p.alive = false
-            p.avatar:TextBubble(p.Username .. " ☠", -1)
+            p.avatar:TextBubble(p.Username .. " ☠")
 
             clearPlayerLine(p)
         end
@@ -816,12 +816,8 @@ blocks:
         end
 
         Client.OnPlayerLeave = function(p)
-            p.avatar:ClearTextBubble()
             killPlayer(p)
             p.avatar:RemoveFromParent()
-            if p ~= nil then
-                p:RemoveFromParent()
-            end
         end
 
     - text: |
@@ -1510,12 +1506,8 @@ blocks:
         end
 
         Client.OnPlayerLeave = function(p)
-            p.avatar:ClearTextBubble()
             killPlayer(p)
             p.avatar:RemoveFromParent()
-            if p ~= nil then
-                p:RemoveFromParent()
-            end
         end
 
         Client.AnalogPad = function(dx,dy)
@@ -1695,7 +1687,7 @@ blocks:
         ---------------
         function killPlayer(p)
             p.alive = false
-            p.avatar:TextBubble(p.Username .. " ☠", -1)
+            p.avatar:TextBubble(p.Username .. " ☠")
 
             clearPlayerLine(p)
         end

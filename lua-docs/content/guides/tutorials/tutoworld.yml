@@ -255,7 +255,7 @@ blocks:
     - image: "/images/guides/01-tutoworld_crate-no-collision.jpg"
 
     - text: |
-        This is not very natural, and we should rather make sure the player collides with these crates. In Particubes, this collision system works with [`CollisionGroup`](/reference/collidegroup)s: you can assign objects to one or more groups, and then set which groups the player should collider with. This way, you can have some item on your map block the player, as if she/he was witting an invisible wall when trying to get close to this object.
+        This is not very natural, and we should rather make sure the player collides with these crates. In Particubes, this collision system works with [`CollisionGroup`](/reference/collidegroup)s: you can assign objects to one or more groups, and then set which groups the player should collide with. This way, you can have some item on your map block the player, as if she/he was hitting an invisible wall when trying to get close to this object.
 
         <i>Note: at the moment, items can only have a box-shaped collision box.</i>
 
@@ -358,7 +358,7 @@ blocks:
     - media: "/media/guides/01-tutoworld_swingright.mp4"
 
     - text: |
-        Of course, for now, this "attack" isn't actually doing anything... we need to check if the player is currently facing a crate and close enough when she/he hits the `Action1` button. To do this, we have to use the [`Ray`](/reference/ray) object and do a "raycast": in short, we're going to project a virtual invisible ray from the point of the player's avatar to infinity in its forward direction and look for any "impacts" on objects in the world:
+        Of course, for now, this "attack" isn't actually doing anything... we need to check if the player is currently facing a crate and close enough when she/he hits the `Action1` button. To do this, we have to use the [`Ray`](/reference/ray) object and do a "raycast": in short, we're going to project a virtual invisible ray from the player's avatar to infinity in its forward direction and look for any "impacts" on objects in the world:
 
     - image: "/images/guides/01-tutoworld_raycast.jpg"
 
@@ -566,7 +566,7 @@ blocks:
     - title: "Adding a basic UI & handling the end of the game"
 
     - text: |
-        We're almost there! The last things we need to do is add some UI label on our screen to show the score we just computed and design the end screen to let players easily replay our game.
+        We're almost there! The last thing we need to do is add some UI label on our screen to show the score we just computed and design the end screen to let players easily replay our game.
 
         Particubes allows us to create simple interfaces using its [`UI`](/reference/ui) API. For example, we can create a label and anchor it at the top center of the screen to display our score:
 
@@ -604,7 +604,7 @@ blocks:
     - image: ""
 
     - text: |
-        Overall, it's just about adding more elements to our UI and enabling or disabling the right ones when need be. But we also have to make sure our pointer is in the proper mode (we can toggle whether it is in "game pointer mode" or a default mouse pointer with the [`Pointer`](/reference/pointer) API, and whether the pointer is a crosshair or not with the [`UI`](/reference/ui).[`Crosshair`](/reference/ui#property-crosshair)):
+        Overall, it's just about adding more elements to our UI and enabling or disabling the right ones when need be. We also have to make sure our pointer is in the proper mode (we can toggle whether it is in "game pointer mode" or a default mouse pointer with the [`Pointer`](/reference/pointer) API, and whether the pointer is a crosshair or not with the [`UI`](/reference/ui).[`Crosshair`](/reference/ui#property-crosshair) property):
 
     - code: |
         Client.OnStart = function()
