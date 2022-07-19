@@ -11,7 +11,7 @@ jobs:
       GITHUB_SHA: ${{ github.sha }}
       SSH_PRIVATE_KEY_DOCKER_SWARM: ${{ secrets.SSH_PRIVATE_KEY_DOCKER_SWARM }}
       SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
-      PULL_REQUEST_ID: ${{ github.event.issue.number }}
+      PULL_REQUEST_ID: ${{ github.event.number }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
