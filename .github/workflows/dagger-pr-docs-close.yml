@@ -1,0 +1,25 @@
+name: Dagger/docs.pr.down
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  undeploy:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_SHA: ${{ github.sha }}
+      SSH_PRIVATE_KEY_DOCKER_SWARM: ${{ secrets.SSH_PRIVATE_KEY_DOCKER_SWARM }}
+      SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+      PULL_REQUEST_ID: ${{ github.event.issue.number }}
+    steps:
+      - name: Install Dagger
+        uses: dagger/dagger-action@v2
+        with:
+          install-only: true
+
+      - name: Dagger project update
+        run: dagger project update
+
+      - name: Dagger do undeploy
+        run: dagger do undeploy --log-format plain --plan ./lua-docs/docs-pr.cue
