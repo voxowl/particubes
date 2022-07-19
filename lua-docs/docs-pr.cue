@@ -29,8 +29,8 @@ dagger.#Plan & {
 		params: {
 			image: {
 				ref:      "registry.particubes.com/lua-docs"
-				tag:      "pull-\#(client.env.PULL_REQUEST_ID)"
-				localTag: "lua-docs:pull-\#(client.env.PULL_REQUEST_ID)" // name of the image when being run locally
+				tag:      "pull-\(client.env.PULL_REQUEST_ID)"
+				localTag: "lua-docs:pull-\(client.env.PULL_REQUEST_ID)" // name of the image when being run locally
 			}
 		}
 
@@ -112,9 +112,9 @@ dagger.#Plan & {
 					flags: "-c": #"""
 						docker run \
 							--rm -d \
-							--name ci-docs-\#(client.env.PULL_REQUEST_ID) \
+							--name ci-docs-\(client.env.PULL_REQUEST_ID) \
 							-p "80" \
-							-e VIRTUAL_HOST="pull-\#(client.env.PULL_REQUEST_ID).\#(client.env.DOMAIN)" \
+							-e VIRTUAL_HOST="pull-\(client.env.PULL_REQUEST_ID).\(client.env.DOMAIN)" \
 							-e VIRTUAL_PORT=80 \
 							\(params.image.ref):\(params.image.tag)
 						"""#
@@ -140,7 +140,7 @@ dagger.#Plan & {
 				command: {
 					name: "sh"
 					flags: "-c": #"""
-						docker stop ci-docs-\#(client.env.PULL_REQUEST_ID)
+						docker stop ci-docs-\(client.env.PULL_REQUEST_ID)
 						"""#
 				}
 			}
