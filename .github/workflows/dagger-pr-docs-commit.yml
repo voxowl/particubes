@@ -2,8 +2,10 @@ name: Dagger/docs.pr.up
 
 on:
   pull_request:
-    types: [opened,synchronize,edited,reopened]
     branches-ignore: [master]
+  push:
+    branches-ignore: [master]
+    paths: [lua-docs/**]
 
 jobs:
   deploy:
