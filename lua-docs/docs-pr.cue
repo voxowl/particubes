@@ -128,7 +128,7 @@ dagger.#Plan & {
 
 			verify: #_verifyGithubSHA & {
 				env: {
-					URL: "https://docs.particubes.com/github_sha"
+					URL: "https://pull-\(client.env.PULL_REQUEST_ID)/docs.particubes.com/github_sha"
 					DEP: "\(update.success)" // DEP created wth run
 				}
 			}
