@@ -6,6 +6,8 @@ description: |
 
     There are currently 3 types of light: point, spot, and directional.
 
+    A code example of `Light`'s various fields can be found in the world `Lights Tests`.
+
     Note: shadow features are under development and will be available soon.
 
 constructors: 
@@ -75,3 +77,8 @@ properties:
           For example, if your game features a light torch that the player carries, you could place it in `PriorityGroup` `0` to ensure it is always rendered first and leave other lights that are part of the environment in a lower group.
 
           You can assign as many lights as you want per group, however only groups order is garanteed, lights within a given group are rendered unordered.
+
+    - name: "Layers"
+      type: "table"
+      description: |
+          Integer or table of integers between 1 and 8. The light will affect other objects in the rendering camera's layers.
