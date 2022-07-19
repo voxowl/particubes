@@ -109,7 +109,7 @@ dagger.#Plan & {
 				env: {
 					DOCKER_NAME:				 "ci-docs-\(client.env.PULL_REQUEST_ID)"
 					DOCKER_VIRTUAL_HOST: "\(client.env.PULL_REQUEST_ID).\(client.env.DOMAIN)"
-					IMAGE_NAME: 				 "\(params.image.ref)/\(params.image.localTag)"
+					IMAGE_NAME: 				 "\(params.image.ref):\(params.image.tag)"
 					DEP:        				 "\(publish.result)" // DEP created with publish
 				}
 				command: {
