@@ -1,7 +1,6 @@
 name: Dagger/docs.pr.up
 
 on:
-  pull_request:
   push:
     branches-ignore: [master]
 

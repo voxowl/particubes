@@ -129,7 +129,7 @@ dagger.#Plan & {
 			}
 		}
 
-		undeploy {
+		undeploy: {
 			stopContainer: cli.#Run & {
 				host: "ssh://ubuntu@3.139.83.217"
 				always: true
