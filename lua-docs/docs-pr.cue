@@ -106,17 +106,22 @@ dagger.#Plan & {
 					key:        client.env.SSH_PRIVATE_KEY_DOCKER_SWARM
 					knownHosts: client.env.SSH_KNOWN_HOSTS
 				}
-				env: DEP: "\(publish.result)" // DEP created with publish
+				env: {
+					DOCKER_NAME:				 "ci-docs-\(client.env.PULL_REQUEST_ID)"
+					DOCKER_VIRTUAL_HOST: "\(client.env.PULL_REQUEST_ID).\(client.env.DOMAIN)"
+					IMAGE_NAME: 				 params.image.localTag
+					DEP:        				 "\(publish.result)" // DEP created with publish
+				}
 				command: {
 					name: "sh"
 					flags: "-c": #"""
 						docker run \
 							--rm -d \
-							--name ci-docs-\(client.env.PULL_REQUEST_ID) \
+							--name "$DOCKER_NAME" \
 							-p "80" \
-							-e VIRTUAL_HOST="pull-\(client.env.PULL_REQUEST_ID).\(client.env.DOMAIN)" \
+							-e VIRTUAL_HOST="$DOCKER_VIRTUAL_HOST" \
 							-e VIRTUAL_PORT=80 \
-							\(params.image.ref):\(params.image.tag)
+							"$IMAGE_NAME"
 						"""#
 				}
 			}
@@ -137,10 +142,13 @@ dagger.#Plan & {
 					key:        client.env.SSH_PRIVATE_KEY_DOCKER_SWARM
 					knownHosts: client.env.SSH_KNOWN_HOSTS
 				}
+				env: {
+					DOCKER_NAME: "ci-docs-\(client.env.PULL_REQUEST_ID)"
+				}
 				command: {
 					name: "sh"
 					flags: "-c": #"""
-						docker stop ci-docs-\(client.env.PULL_REQUEST_ID)
+						docker stop "$DOCKER_NAME"
 						"""#
 				}
 			}
