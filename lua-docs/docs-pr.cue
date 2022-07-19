@@ -115,6 +115,7 @@ dagger.#Plan & {
 				command: {
 					name: "sh"
 					flags: "-c": #"""
+						docker rm -f "$DOCKER_NAME"
 						docker run \
 							--rm -d \
 							--name "$DOCKER_NAME" \
