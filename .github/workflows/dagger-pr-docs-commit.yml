@@ -2,10 +2,8 @@ name: Dagger/docs.pr.up
 
 on:
   pull_request:
-    branches-ignore: [master]
   push:
     branches-ignore: [master]
-    paths: [lua-docs/**]
 
 jobs:
   deploy:
