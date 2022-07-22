@@ -55,7 +55,7 @@ properties:
       description: |
           Far plane of the camera projection.
 
-    - name: "Mode"
+    - name: "Projection"
       type: "ProjectionMode"
       description: |
           The projection mode can be one of `ProjectionMode.Perspective` (by default) or `ProjectionMode.Orthographic`.
