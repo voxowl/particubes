@@ -220,7 +220,7 @@ type ContentBlock struct {
 	List     []string `yaml:"list,omitempty"`
 	Title    string   `yaml:"title,omitempty"`
 	Subtitle string   `yaml:"subtitle,omitempty"`
-	// Can be a relative link to an image, a link to a youtube video...
+	// Can be a relative link to an image (png / jpeg)
 	Image string `yaml:"image,omitempty"`
 	// Can be a relative link to a movie, a link to a youtube video...
 	Media string `yaml:"media,omitempty"`

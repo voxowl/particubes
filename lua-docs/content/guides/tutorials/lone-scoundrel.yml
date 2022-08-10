@@ -62,15 +62,19 @@ blocks:
 
             -- Remove gravity
             Player.Physics = false
+
+            Player.init = true
         end
 
     - text: |
+        We'll also mark the `Player` object as "initialised" (by adding the `init` property on the spot) to enable the camera movement: this avoids running updates if there is nothing to see! :)
+
         If you re-publish the game at this point, you'll get a basic orbital camera centered around the origin of the world (which is also where our avatar is standing) that rotates whenever you move the mouse (on a computer) or use the top-left analog-axis button (on mobiles):
 
     - media: "/media/guides/02-lone-scoundrel_orbital-camera-00.mp4"
 
     - text: |
-        Of course, we actually want our camera to be a bit higher and look down at the player to we get a more "strategy-game" view, so set the camera's `LocalPosition` and `LocalRotation`:
+        Of course, we actually want our camera to be a bit higher and look down at the player to we get a more "strategy-game" view, so let's set the camera's `LocalPosition` and `LocalRotation`:
 
     - code: |
         function initPlayer()
@@ -86,6 +90,8 @@ blocks:
 
             -- Remove gravity
             Player.Physics = false
+
+            Player.init = true
         end
 
     - media: "/media/guides/02-lone-scoundrel_orbital-camera-01.mp4"
@@ -98,7 +104,7 @@ blocks:
     - image: "/images/guides/02-lone-scoundrel_ship.jpg"
 
     - text: |
-        Ok - we want this ship to essentially "become" our avatar in "Lone Scoundrel". In other words, once it's been instantiated and parented in the world, it should follow the position of the player exactly to act as a real controllable thing. There are two ways we can do that:
+        Ok - we want this ship to essentially become our avatar in "Lone Scoundrel". In other words, once it's been instantiated and parented in the world, it should follow the position of the player exactly to act as a real controllable thing. There are two ways we can do that:
         
         1. either we use the `Client.Tick` function to continuously update the translation or rotation of the ship and have it match the ones of the default avatar
         2. or we parent the ship to the [`Player`](/reference/player) object and then cleverly move the original one out of sight
@@ -333,8 +339,7 @@ blocks:
         So what can we do to trick the players into thinking there is an endless sea of coins and chests before them with a computer-friendly usage of the memory? Should we keep on instantiating and destroying objects like we did in the last tutorial?
 
         In fact, the better solution is to use a common game dev pattern: the object pooling technique.
-
-        To put it simply, this pattern is meant to counteract an irritating problem: overall, creating and destroying objects is costly. Continuously re-instantiating and deleting stuff means that you're doing a lot of memory allocations, deallocations and re-allocations which is always inefficient. This is mostly due to caching and the way that computers sort objects in memory: they always prefer to have objects in neatly consecutive chunks of memory, but destroying an object means deleting a chunk, which leaves a hole - this is the problem of memory fragmentation:
+        To put it simply, this pattern is meant to counteract an irritating problem: overall, creating and destroying objects is costly. Continuously re-instantiating and deleting stuff means that you're doing a lot of memory allocations, deallocations and re-allocations which is always inefficient. This is mostly due to caching and the way that computers sort objects in memory: they always prefer to have objects in neatly consecutive chunks of memory, but destroying an object means deleting a chunk, which leaves a hole - this is the problem of memory fragmentation.
 
     - image: ""
 
@@ -433,7 +438,7 @@ blocks:
 
         That's where we need to answer one of the questions listed previously: where should we "spawn" our coins and chests? How can we get random and yet controlled positions?
 
-        Well, if you think about it, the part of the sea we're most interesting in is the cone currently in front of the ship - ideally, we should spawn our collectibles somewhere in-between this two diagonals:
+        Well, if you think about it, the part of the sea we're most interested in is the cone currently in front of the ship - ideally, we should spawn our collectibles somewhere in-between this two diagonals:
 
     - image: "/images/guides/02-lone-scoundrel_spawn-cone.jpg"
 
@@ -447,12 +452,21 @@ blocks:
             return math.random() * (b - a) + a
         end
 
+        function spawnCoins()
+            for _ = 1, math.floor(randomBetween(3, 7)) do
+                spawnCoin()
+            end
+        end
+
         function spawnCoin()
             if activeCoins == #coins then
                 unspawnCollectible(coins[1])
             end
 
             local newSpawnIndex = coinLastSpawnIndex + 1
+            if newSpawnIndex == COINS_POOL_SIZE then
+                newSpawnIndex = 1
+            end
             local coin = coins[newSpawnIndex]
             coin.active = true
 
@@ -466,9 +480,6 @@ blocks:
                 0,
                 r * math.sin(a)) * Map.LossyScale
 
-            if newSpawnIndex == COINS_POOL_SIZE then
-                newSpawnIndex = 1
-            end
             coinLastSpawnIndex = newSpawnIndex
 
             activeCoins = activeCoins + 1
@@ -498,6 +509,9 @@ blocks:
             end
 
             local newSpawnIndex = chestLastSpawnIndex + 1
+            if newSpawnIndex == CHESTS_POOL_SIZE then
+                newSpawnIndex = 1
+            end
             local chest = chests[newSpawnIndex]
             chest.active = true
 
@@ -511,9 +525,6 @@ blocks:
                 -0.6,
                 r * math.sin(a)) * Map.LossyScale
 
-            if newSpawnIndex == CHESTS_POOL_SIZE then
-                newSpawnIndex = 1
-            end
             chestLastSpawnIndex = newSpawnIndex
 
             activeChests = activeChests + 1
@@ -555,7 +566,7 @@ blocks:
 
         Yes, you heard me: we are going to dupe the players and give them the illusion of movement, but the ship will stay totally fixed to the origin point :)
 
-        It's the same idea as when you're in a train that is starting to move, and you feel like it's the trainstation that is gliding away. Movement is relative to anchors and visual referentials, so if you don't have anything else telling you what is static and what is moving, you can't tell the difference between a ship sailing towards an island, and an island translating towards a ship.
+        It's the same idea as when you're in a train that is starting to move, and you feel like it's the train station that is gliding away. Movement is relative to anchors and visual points of reference, so if you don't have anything else telling you what is static and what is moving, you can't tell the difference between a ship sailing towards an island, and an island translating towards a ship.
 
         This is how we are going to simulate an endless movement: we will move everything but the ship opposite its direction, which will look like the ship is sailing forward.
 
@@ -581,7 +592,7 @@ blocks:
                     -- remove it (= unspawn + re-spawn)
                     local d = c.Position - Player.Position
                     if Player.Forward:Dot(d) < 0 and d.Length > 100 then
-                        spawnCollectible(c.isChest)
+                        if c.isChest then spawnChest() else spawnCoin() end
                         unspawnCollectible(c)
                     end
                 end
@@ -626,7 +637,7 @@ blocks:
                     -- remove it (= unspawn + re-spawn)
                     local d = c.Position - Player.Position
                     if Player.Forward:Dot(d) < 0 and d.Length > 100 then
-                        spawnCollectible(c.isChest)
+                        if c.isChest then spawnChest() else spawnCoin() end
                         unspawnCollectible(c)
                     end
                 end
@@ -711,25 +722,6 @@ blocks:
         -- -----------------------
         local islands = {}
 
-        function makeSea()
-            local makeSeaPatch = function (ox, oy)
-                patch = MutableShape()
-                patch:AddBlock(BLUE, 0, 0, 0)
-                patch.Scale = Number3(SEA_PATCH_W, 0.1, SEA_PATCH_H) * Map.LossyScale
-                patch.Physics = false
-                patch.Position = Number3(
-                (ox - 0.5) * SEA_PATCH_W,
-                -1,
-                (oy - 0.5) * SEA_PATCH_H) * Map.LossyScale
-                World:AddChild(patch)
-            end
-            for y = -N_SEA_PATCH_Y, N_SEA_PATCH_Y do
-                for x = -N_SEA_PATCH_X, N_SEA_PATCH_X do
-                    makeSeaPatch(x, y)
-                end
-            end
-        end
-
         function makeIslands()
             local n = math.floor(randomBetween(0, 4))
             for _ = 1, 4 + n do
@@ -769,9 +761,9 @@ blocks:
         end
 
     - text: |
-        The islands are made of one to three "floors", with less and less chance of blocks appearing as you go higher - the algorithm never puts a block on an empty space and it uses either a `BROWN` or a `GREEN` depending on the "floor".
+        The islands are made of one to three "floors", with less and less chance of blocks appearing as you go higher - the algorithm never puts a block on an empty space and it uses either a `BROWN` or a `GREEN` colour depending on the "floor" level.
 
-        After they're generated, we can move the islands like the coins and chests, and if they exit the screen, remove them from the game. Also, if the player collides with one, we'll trigger the `gameOver()` function that we'll fill in a second:
+        After they've been generated, we can move the islands like the coins and chests, and if they exit the screen, remove them from the game. Also, if the player collides with one, we'll trigger the `gameOver()` function that we'll fill in a second:
 
     - code: |
         Client.Tick = function(dt)
@@ -961,15 +953,6 @@ blocks:
             end
         end
 
-
-
-
-
-
-
-
-
-
     - title: "Conclusion"
 
     - text: |
@@ -1129,7 +1112,7 @@ blocks:
                     -- remove it (= unspawn + re-spawn)
                     local d = c.Position - Player.Position
                     if Player.Forward:Dot(d) < 0 and d.Length > 100 then
-                        spawnCollectible(c.isChest)
+                        if c.isChest then spawnChest() else spawnCoin() end
                         unspawnCollectible(c)
                     end
                 end
@@ -1369,6 +1352,9 @@ blocks:
             end
             
             local newSpawnIndex = coinLastSpawnIndex + 1
+            if newSpawnIndex == COINS_POOL_SIZE then
+                newSpawnIndex = 1
+            end
             local coin = coins[newSpawnIndex]
             coin.active = true
             
@@ -1382,9 +1368,6 @@ blocks:
                 0,
                 r * math.sin(a)) * Map.LossyScale
             
-            if newSpawnIndex == COINS_POOL_SIZE then
-                newSpawnIndex = 1
-            end
             coinLastSpawnIndex = newSpawnIndex
             
             activeCoins = activeCoins + 1
@@ -1396,6 +1379,9 @@ blocks:
             end
             
             local newSpawnIndex = chestLastSpawnIndex + 1
+            if newSpawnIndex == CHESTS_POOL_SIZE then
+                newSpawnIndex = 1
+            end
             local chest = chests[newSpawnIndex]
             chest.active = true
             
@@ -1409,9 +1395,6 @@ blocks:
                 -0.6,
                 r * math.sin(a)) * Map.LossyScale
             
-            if newSpawnIndex == CHESTS_POOL_SIZE then
-                newSpawnIndex = 1
-            end
             chestLastSpawnIndex = newSpawnIndex
             
             activeChests = activeChests + 1
