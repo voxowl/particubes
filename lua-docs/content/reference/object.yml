@@ -196,14 +196,23 @@ properties:
     - name: "IsHidden"
       type: "boolean"
       description: |
-          Can be set to `true` for the [This] to be hidden.
+          Can be set to `true` for the [This] to be hidden recursively, meaning [This] and all of its children are hidden.
+
+          Nothing else changes, the [This] remains in the scene and it keeps being affected by the simulation (collisions, etc.).
+
+    - name: "IsHiddenSelf"
+      type: "boolean"
+      description: |
+          Can be set to `true` for the [This] to be hidden individually.
+
           Nothing else changes, the [This] remains in the scene and it keeps being affected by the simulation (collisions, etc.).
 
     - name: "LocalPosition"
       type: "Number3"
       description: |
-        Position of the [This] in its parent.
-        In other words, `LocalPosition` refers to the position of the [This] relative to the `{0,0,0}` position of its parent.
+          Local position of the [This] relative to its parent.
+
+          All of [This]'s ancestors local transformations are combined to obtain the [This] "world position" ([Object.Position](#property-position)), the [Object]'s final position.
 
     - name: "Rotation"
       type: "Number3"
@@ -237,9 +246,9 @@ properties:
     - name: "LocalRotation"
       type: "Number3"
       description: |
-          Rotation of the [This] in its parent.
+          Local rotation of the [This] relative to its parent.
 
-          Nested [Object] local rotations are combined to obtain the "world rotation" ([Object.Rotation](#property-rotation)), the [Object]'s final on-screen rotation.
+          All of [This]'s ancestors local transformations are combined to obtain the "world rotation" ([Object.Rotation](#property-rotation)), the [Object]'s final rotation.
     
     - name: "Velocity"
       type: "Number3"

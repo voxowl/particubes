@@ -66,6 +66,10 @@ properties:
     description: |
         Whether or not the [Player] should have a square shadow projected on the map, default is `true`.
         The size of the shadow is based off [Player]'s collision box.
+  - name: "Layers"
+    type: "table"
+    description: |
+        Integer or table of integers between 1 and 8. Cameras only render objects corresponding to their layers.
 
 functions:
   - name: "CastRay"
