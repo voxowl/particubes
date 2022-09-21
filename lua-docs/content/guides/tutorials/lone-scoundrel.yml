@@ -212,7 +212,7 @@ blocks:
         Config = { ... }
 
         -- -----------------------
-        local BLUE = 181
+        local BLUE = Color(76, 215, 255)
         -- -----------------------
         local N_SEA_PATCH_X = 1
         local N_SEA_PATCH_Y = 1
@@ -251,9 +251,7 @@ blocks:
         The code to generate this grid is fairly short and simple overall, but it does use a few new Particubes features that need explaining:
 
         - instead of using the [`Shape`](/reference/shape) API like in [the "Tutoworld" tutorial](/guides/tutorials/tutoworld), we use the [`MutableShape`](/reference/mutableshape): this other type of object allows us to dynamically add, remove or re-color voxels of an item. It can optionally take in an item reference - this lets you load an item and edit in your game for futher customisation.
-        - when we add the block of our patch, we give it a `BLUE` colour: this value is actually the index of the blue colour in [our current map palette](/reference/map#property-localpalette), among those ones:
-
-    - image: "/images/guides/pcubes-palette.png"
+        - when we add the block of our patch, we give it a `BLUE` colour
 
     - text: |
         Re-publish the game and you'll get a little blue patch in the middle of the screen, between the avatar and the ship:
@@ -716,9 +714,9 @@ blocks:
 
     - code: |
         -- -----------------------
-        local BROWN = 43
-        local GREEN = 133
-        local BLUE = 181
+        local BROWN = Color(50, 65, 0)
+        local GREEN = Color(20, 160, 17)
+        local BLUE = Color(76, 215, 255)
         -- -----------------------
         local islands = {}
 
@@ -1000,9 +998,9 @@ blocks:
         }
 
         -- -----------------------
-        local BROWN = 43
-        local GREEN = 133
-        local BLUE = 181
+        local BROWN = Color(50, 65, 0)
+        local GREEN = Color(20, 160, 17)
+        local BLUE = Color(76, 215, 255)
         -- -----------------------
         local N_SEA_PATCH_X = 10
         local N_SEA_PATCH_Y = 10

@@ -34,12 +34,22 @@ blocks:
         }
 
         ---------------------------------
-        local COLOR_WHITE = 229
-        local COLOR_RED = 55
-        local COLOR_RED_DARK = 49
-        local COLOR_GRAY = 226
-        local COLOR_GRAY_DARK = 220
-        local PLAYER_COLORS = { 31, 7, 136, 94, 52, 181, 160, 55 }
+        local COLOR_BLACK = Color(0, 0, 0)
+        local COLOR_WHITE = Color(255, 255, 255)
+        local COLOR_RED = Color(255, 50, 50)
+        local COLOR_RED_DARK = Color(150, 5, 5)
+        local COLOR_GRAY = Color(180, 180, 180)
+        local COLOR_GRAY_DARK = Color(60, 60, 60)
+        local PLAYER_COLORS = {
+            Color(255, 0, 255),
+            Color(150, 0, 180),
+            Color(10, 235, 10),
+            Color(255, 255, 0),
+            Color(255, 0, 0),
+            Color(80, 80, 255),
+            Color(120, 180, 255),
+            Color(255, 50, 50)
+        }
         local SHIP_SPEED = 240
         local BULLET_RELATIVE_SPEED = 100
         ---------------------------------
@@ -162,7 +172,7 @@ blocks:
             end
             -- add race road
             local road = MutableShape()
-            road:AddBlock(211, 0, 0, 0)
+            road:AddBlock(COLOR_BLACK, 0, 0, 0)
             road.Scale = Number3(3, 0.5, 300) * Map.LossyScale
             road.Position = Number3(p.Position.X - 7.5, -2.5, -150 * Map.LossyScale.Z)
             World:AddChild(road)
@@ -203,6 +213,9 @@ blocks:
         end
 
         function spawnBullet(p, isSpecial)
+            -- prevent bullet spamming
+            if #bullets == 3 then return end
+
             local bullet = MutableShape()
             bullet.isSpecial = isSpecial
             bullet.pID = p.ID
@@ -311,9 +324,15 @@ blocks:
                 local destroyed = false
                 if walls[b.pID] ~= nil then
                     for j, w in pairs(walls[b.pID]) do
-                        if collides(b, w) and b.isSpecial == w.isSpecial then
-                            w:RemoveFromParent()
-                            table.remove(walls[b.pID], j)
+                        if collides(b, w) then
+                            if b.isSpecial == w.isSpecial then
+                                if Player.playSolo then
+                                    score = score + 1
+                                    waitingLabel.Text = "Score: " .. score
+                                end
+                                w:RemoveFromParent()
+                                table.remove(walls[b.pID], j)
+                            end
                             b:RemoveFromParent()
                             table.remove(bullets, i)
                             destroyed = true
@@ -1350,7 +1369,7 @@ blocks:
             for _, side in pairs(plotsSpawnSides) do
                 for i = -PLOTS_N_HALF, PLOTS_N_HALF do
                     local plot = MutableShape()
-                    plot:AddBlock(211, 0, 0, 0)
+                    plot:AddBlock(COLOR_BLACK, 0, 0, 0)
                     plot.Scale = Number3(0.5, 2, 0.5) * Map.LossyScale
                     local x = p.Position.X + side * 2 * Map.LossyScale.X
                     if side == -1 then x = x - 0.5 * Map.LossyScale.X end
@@ -1443,12 +1462,22 @@ blocks:
         }
 
         ---------------------------------
-        local COLOR_WHITE = 229
-        local COLOR_RED = 55
-        local COLOR_RED_DARK = 49
-        local COLOR_GRAY = 226
-        local COLOR_GRAY_DARK = 220
-        local PLAYER_COLORS = { 31, 7, 136, 94, 52, 181, 160, 55 }
+        local COLOR_BLACK = Color(0, 0, 0)
+        local COLOR_WHITE = Color(255, 255, 255)
+        local COLOR_RED = Color(255, 50, 50)
+        local COLOR_RED_DARK = Color(150, 5, 5)
+        local COLOR_GRAY = Color(180, 180, 180)
+        local COLOR_GRAY_DARK = Color(60, 60, 60)
+        local PLAYER_COLORS = {
+            Color(255, 0, 255),
+            Color(150, 0, 180),
+            Color(10, 235, 10),
+            Color(255, 255, 0),
+            Color(255, 0, 0),
+            Color(80, 80, 255),
+            Color(120, 180, 255),
+            Color(255, 50, 50)
+        }
         local SHIP_SPEED = 210
         local BULLET_RELATIVE_SPEED = 100
         ---------------------------------
@@ -1611,7 +1640,7 @@ blocks:
             end
             -- add race road
             local road = MutableShape()
-            road:AddBlock(211, 0, 0, 0)
+            road:AddBlock(COLOR_BLACK, 0, 0, 0)
             road.Scale = Number3(3, 0.5, 300) * Map.LossyScale
             road.Position = Number3(p.Position.X - 7.5, -2.5, -150 * Map.LossyScale.Z)
             World:AddChild(road)
@@ -1626,7 +1655,7 @@ blocks:
             for _, side in pairs(plotsSpawnSides) do
                 for i = -PLOTS_N_HALF, PLOTS_N_HALF do
                     local plot = MutableShape()
-                    plot:AddBlock(211, 0, 0, 0)
+                    plot:AddBlock(COLOR_BLACK, 0, 0, 0)
                     plot.Scale = Number3(0.5, 2, 0.5) * Map.LossyScale
                     local x = p.Position.X + side * 2 * Map.LossyScale.X
                     if side == -1 then x = x - 0.5 * Map.LossyScale.X end
@@ -1667,6 +1696,8 @@ blocks:
         end
 
         function spawnBullet(p, isSpecial)
+            if #bullets == 3 then return end
+
             local bullet = MutableShape()
             bullet.isSpecial = isSpecial
             bullet.pID = p.ID
@@ -1793,9 +1824,15 @@ blocks:
                 local destroyed = false
                 if walls[b.pID] ~= nil then
                     for j, w in pairs(walls[b.pID]) do
-                        if collides(b, w) and b.isSpecial == w.isSpecial then
-                            w:RemoveFromParent()
-                            table.remove(walls[b.pID], j)
+                        if collides(b, w) then
+                            if b.isSpecial == w.isSpecial then
+                                if Player.playSolo then
+                                    score = score + 1
+                                    waitingLabel.Text = "Score: " .. score
+                                end
+                                w:RemoveFromParent()
+                                table.remove(walls[b.pID], j)
+                            end
                             b:RemoveFromParent()
                             table.remove(bullets, i)
                             destroyed = true
