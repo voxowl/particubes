@@ -12,6 +12,7 @@ blocks:
 
     - text: |
         - [Testing a multi-player game](/guides/quick/testing-multiplayer-game)
+        - [Converting from default colors (0.0.46 -> 0.0.47)](/guides/quick/converting-from-default-colors)
 
     - subtitle: "Tutorials"
 
