@@ -46,7 +46,7 @@ properties:
       description: |
           Block's palette index. (first index is `1`)
 
-          ⚠️ [Block.Properties](#property-properties) remains [nil] if the block does not belong to a [Shape] or [MutableShape] (instances owning a [Palette]).
+          ⚠️ This has no effect if the block does not belong to a [Shape] or [MutableShape] (instances owning a [Palette]).
       samples:
           - code: |
               local b = someMutableShape:GetBlock(1, 2, 3)
@@ -59,7 +59,7 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Block's coordinates in [Shape] or [MutableShape].
+          Block's coordinates in the [Shape] or [MutableShape] model.
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
@@ -95,7 +95,7 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Position of [Block]'s center in local coordinates (local to parent [Shape] or [MutableShape])
+          Position of [Block]'s center in local space, i.e. relative to the [Shape]'s or [MutableShape]'s parent.
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
@@ -159,15 +159,21 @@ functions:
     - name: "Replace"
       blocks:
       description: |
-          Replaces the `Block` with the one passed as parameter. The position remains the same, [Block.PaletteIndex](#property-paletteindex) is the only property being set.
+          Replaces the `Block` visual properties to be either: identical to the ones from the given [Block], to the given [Color], or to the ones located at given palette index.
+        
+          The position remains the same.
 
-          `block:Replace(otherBlock)` actually has the same effect as `block.PaletteIndex = otherBlock.PaletteIndex`
-
-          ⚠️ Won't work with `read-only` Blocks.
-
-      arguments:
-        - name: "block"
-          type: "Block"
+          ⚠️ Only works with blocks from a [MutableShape], not [Shape].
+      argument-sets:
+        -
+          - name: "block"
+            type: "Block"
+        -
+          - name: "color"
+            type: "Color"
+        -
+          - name: "paletteIndex"
+            type: "integer"
       samples:
         - code: |
             -- replace block when Action2 is triggered
