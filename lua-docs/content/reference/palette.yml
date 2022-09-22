@@ -7,7 +7,7 @@ description: |
     The entries of a palette can be changed at runtime with a few specific caveats:
     - only colors that are unused by the shape can be removed from its palette,
     - setting an entry's color directly may affect other shapes in the scene unless the owner shape was created with `sharedColors = false` or after setting [Palette.SharedColors](#property-sharedcolors) to `false`,
-    - changing the [BlockProperties.Light] or [BlockProperties.Color]'s alpha values will only be reflected on the baked lighting after calling `shape:ComputeBakedLighting` (as of 0.0.47, only relevant for [Map])
+    - changing the [BlockProperties.Light] or [BlockProperties.Color]'s alpha values will only be reflected on the baked lighting after calling `shape:ComputeBakedLight` (as of 0.0.47, only relevant for [Map])
     
 properties:
     - name: "SharedColors"
