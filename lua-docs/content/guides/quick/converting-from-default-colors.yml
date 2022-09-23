@@ -15,7 +15,8 @@ blocks:
         local BLUE = 181
         -- 0.0.47
         local BLUE = DefaultColors[181]
- 
+
+    - text: |
         2. custom and efficient: define the variable with a specific RGB(A) tint by using the `Color` API and passing it 3 (RGB) or 4 (RGBA) values
            
            For example:
