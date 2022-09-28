@@ -1,4 +1,4 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
 title: "Snippets > Collisions/Triggers"
 blocks:
     - title: "Setting the groups the player collides with"

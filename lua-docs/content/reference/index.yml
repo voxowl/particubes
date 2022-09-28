@@ -1,8 +1,8 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world"]
 title: "Reference"
-description: "This page documents all objects, functions and properties available in Particubes scripting environment."
+description: "This page documents all objects, functions and properties available in Cubzh scripting environment."
 blocks:
-    - text: "Here's a list of all top level objects in Particubes scripting environment:"
+    - text: "Here's a list of all top level objects in Cubzh scripting environment:"
     - list:
         - "<a href=\"/reference/anchor\">Anchor</a>"
         - "<a href=\"/reference/block\">Block</a>"
