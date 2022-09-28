@@ -1,4 +1,4 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Screen"
 description: |
     Screen represents the area on which the app is rendered.

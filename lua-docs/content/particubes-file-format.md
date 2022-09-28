@@ -1,15 +1,15 @@
 ---
-description: Particubes
-keywords: particubes, game, mobile, scripting, cube, voxel, world
+description: Cubzh
+keywords: cubzh, game, mobile, scripting, cube, voxel, world
 ---
 
-# .particubes file structure (V5)
+# .cubzh file structure (V5)
 
 ### Header
 
 |Bytes|Type|Value|
 |-----|----|-----|
-|1x11|char|"PARTICUBES!"|
+|1x6|char|"CUBZH!"|
 |4|uint32|version number: 5|
 |1|uint8|compression algo|
 |4|uint32|compressed size|
@@ -161,7 +161,7 @@ A chunk can contain anything, including child chunks.
 	
 - Source metadata
 
-	Can be used to represent raw source metadata. Data that's not being considered by Particubes when importing from a different file format (like Magicavoxel .vox). We want to keep this to be able to rewrite it if the file gets exported back to its original format. 
+	Can be used to represent raw source metadata. Data that's not being considered by Cubzh when importing from a different file format (like Magicavoxel .vox). We want to keep this to be able to rewrite it if the file gets exported back to its original format. 
 	
 	Note: one metadata chunk can contain metadata from different sources.
 	

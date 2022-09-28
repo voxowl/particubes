@@ -34,7 +34,7 @@ var (
 
 //
 func redirectTLS(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://docs.particubes.com:443"+r.RequestURI, http.StatusMovedPermanently)
+	http.Redirect(w, r, "https://docs.cu.bzh:443"+r.RequestURI, http.StatusMovedPermanently)
 }
 
 //
@@ -58,7 +58,7 @@ func main() {
 
 	http.HandleFunc("/", httpHandler)
 
-	fmt.Println("✨ Particubes documentation running...")
+	fmt.Println("✨ Cubzh documentation running...")
 
 	if envSecureTransport {
 		// listen on 80 for traffic to redirect

@@ -1,20 +1,20 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
 title: "Tutorials > Tutorial n°1: Tutoworld"
 blocks:
     - text: |
-        In this first tutorial, we're going to learn to make a simple but well-featured [Particubes](https://particubes.com) solo-game: "Tutoworld"! We'll see the basics of coding a game in Particubes, and we'll explore quite a few important concepts for using the engine like a pro. Here's a little mouth-wathering demo of the finished thing:
+        In this first tutorial, we're going to learn to make a simple but well-featured [Cubzh](https://cu.bzh) solo-game: "Tutoworld"! We'll see the basics of coding a game in Cubzh, and we'll explore quite a few important concepts for using the engine like a pro. Here's a little mouth-wathering demo of the finished thing:
 
     - media: "/media/guides/01-tutoworld_demo.mp4"
 
     - text: |
-        As you'll see very soon, this is actually quite straight-forward to do thanks to the various built-ins in Particubes's API!
+        As you'll see very soon, this is actually quite straight-forward to do thanks to the various built-ins in Cubzh's API!
 
         So, ready to get started? Let's dive in and create our new world :)
 
     - title: "Creating a new world"
 
     - text: |
-        To create a new world of your own, open the [Particubes](https://particubes.com) app and, in the main screen, click on the `🏗 Build` button at the bottom of the screen:
+        To create a new world of your own, open the [Cubzh](https://cu.bzh) app and, in the main screen, click on the `🏗 Build` button at the bottom of the screen:
 
     - image: "/images/guides/main-screen_build.jpg"
 
@@ -24,7 +24,7 @@ blocks:
     - image: "/images/guides/create-screen_sections.jpg"
 
     - text: |
-        For now, let's click on the `✨ New world! ✨` button. This makes a new Particubes world, gives it some default map and code and publishes it to the rest of the world. Since you are the author, you can now access its edit page and fill some info like the title and the description, or jump into it to actually edit its data! But because every new world is generated with some sample code that already allows you to move around, jump and explore a little voxel land, you'll see that if you click the `Edit` button you'll be directly teleported in the new world with some basic controls:
+        For now, let's click on the `✨ New world! ✨` button. This makes a new Cubzh world, gives it some default map and code and publishes it to the rest of the world. Since you are the author, you can now access its edit page and fill some info like the title and the description, or jump into it to actually edit its data! But because every new world is generated with some sample code that already allows you to move around, jump and explore a little voxel land, you'll see that if you click the `Edit` button you'll be directly teleported in the new world with some basic controls:
 
     - image: "/images/guides/edit-screen_world.jpg"
 
@@ -81,7 +81,7 @@ blocks:
         end
 
     - text: |
-        The code is quite self-explanatory for the most part, and you can also check out the [Beginner's Guide](https://particubes.com/beginners-guide) for a quick peek at the overall structure... but don't worry: throughout the rest of this tutorial, we'll modify or expand on this snippet and gradually dive into its different parts.
+        The code is quite self-explanatory for the most part, and you can also check out the [Beginner's Guide](https://cu.bzh/beginners-guide) for a quick peek at the overall structure... but don't worry: throughout the rest of this tutorial, we'll modify or expand on this snippet and gradually dive into its different parts.
 
     - title: "Setting the world's map"
 
@@ -96,10 +96,10 @@ blocks:
     - text: |
         This [Config](/reference/config) object is where we set the global parameters of our world, and most importantly the map to use and the items to import. By default, the auto-generated code loads one of the maps made by the team, which is referenced by the code: `aduermael.hills`.
 
-        This is a good opportunity to say two important things about map and items in Particubes:
+        This is a good opportunity to say two important things about map and items in Cubzh:
 
-        1. they are all shared to every user in Particubes - this means that, as soon as you know the reference of an asset, you can import and use it in your own game directly
-        2. all map or item references in Particubes are built with the same format: `creator_name.item_name`. So, here, `aduermael` is the creator, and `hills` is the name of the map to import.
+        1. they are all shared to every user in Cubzh - this means that, as soon as you know the reference of an asset, you can import and use it in your own game directly
+        2. all map or item references in Cubzh are built with the same format: `creator_name.item_name`. So, here, `aduermael` is the creator, and `hills` is the name of the map to import.
 
         If you want to get started quickly, you can use some of the maps already prepared by our team:
 
@@ -111,7 +111,7 @@ blocks:
         - `claire.desert`
         - `claire.market`
 
-        But, of course, you can also create your own! To do so, just go to the Item editor and assemble voxels to your liking as explained in the [Beginner's Guide](https://particubes.com/beginners-guide) :)
+        But, of course, you can also create your own! To do so, just go to the Item editor and assemble voxels to your liking as explained in the [Beginner's Guide](https://cu.bzh/beginners-guide) :)
 
         <i>Note: at this time, there isn't a dedicated map editor yet. So you simply make a map "item", and then import it as the map of your world using the [`Config`](/reference/config) object.</i>
 
@@ -177,7 +177,7 @@ blocks:
     - text: |
         Finally, we need to make sure that our instance is actually a part of our world! Because, for now, it is just floating about, completely unanchored...
 
-        Like most game engines and 3D software, [Particubes](https://particubes.com) relies on a system of hierarchy: you have a root node, the world, and then inside you have children nodes like the map, and then inside those children nodes you can have more nodes, and so on.
+        Like most game engines and 3D software, [Cubzh](https://cu.bzh) relies on a system of hierarchy: you have a root node, the world, and then inside you have children nodes like the map, and then inside those children nodes you can have more nodes, and so on.
 
         Right now, our new crate instance isn't parented to any node in this hierarchy, so it's effectively "disconnected" from the game's world. We can solve this by adding it as a child of the [`World`](/reference/world) object, or the [`Map`](/reference/map):
     
@@ -255,7 +255,7 @@ blocks:
     - image: "/images/guides/01-tutoworld_crate-no-collision.jpg"
 
     - text: |
-        This is not very natural, and we should rather make sure the player collides with these crates. In Particubes, this collision system works with [`CollisionGroup`](/reference/collidegroup)s: you can assign objects to one or more groups, and then set which groups the player should collide with. This way, you can have some item on your map block the player, as if she/he was hitting an invisible wall when trying to get close to this object.
+        This is not very natural, and we should rather make sure the player collides with these crates. In Cubzh, this collision system works with [`CollisionGroup`](/reference/collidegroup)s: you can assign objects to one or more groups, and then set which groups the player should collide with. This way, you can have some item on your map block the player, as if she/he was hitting an invisible wall when trying to get close to this object.
 
         <i>Note: at the moment, items can only have a box-shaped collision box.</i>
 
@@ -293,7 +293,7 @@ blocks:
     - text: |
         Now that the map is initialised properly, time to actually add some cool action in this game! As shown in the demo above, what I want to do is have a sword in my right hand and use one of the available user actions to "attack" and break the crates.
 
-        Luckily, Particubes has lots of nice quick-wins to help us to do all of that :)
+        Luckily, Cubzh has lots of nice quick-wins to help us to do all of that :)
 
         First, let's equip a word: we just have to import a matching item by its reference (for example, the `aduermael.wooden_sword`) and then use the readily available `EquipRightHand()` method on our [`Player`](/reference/player) object:
 
@@ -326,7 +326,7 @@ blocks:
     - text: |
         The next step is to call another handy function of the `Player`, `SwingRight()`, to display a short attack animation when the user triggers a given action.
 
-        Particubes has 5 types of action that are totally cross-platform:
+        Cubzh has 5 types of action that are totally cross-platform:
 
         - `Action1`
         - `Action2`
@@ -344,7 +344,7 @@ blocks:
 
         <b>Mobiles</b>
 
-    - image: "https://particubes.com/files/5cf2be2360c68f86d8b666a54b36e831e5ca43ae.png"
+    - image: "https://cu.bzh/files/5cf2be2360c68f86d8b666a54b36e831e5ca43ae.png"
 
     - text: |
         Here, the most intuitive action to use is the `Action2`; so let's define it and, inside, call `Player:SwingRight()`:
@@ -424,7 +424,7 @@ blocks:
         end
 
     - text: |
-        But then, how to animate this item? Particubes doesn't yet have too much in terms of animation, so we're going to do it by hand by using the `Client.Tick` function to gradually update the rotations and positions of the gems currently present in the world. This means that:
+        But then, how to animate this item? Cubzh doesn't yet have too much in terms of animation, so we're going to do it by hand by using the `Client.Tick` function to gradually update the rotations and positions of the gems currently present in the world. This means that:
         
         - we need to keep track of the gems we create in a table and then iterate through it
         - we should also keep track of the current in-game time to create a periodic movement using a trigonometric function
@@ -568,7 +568,7 @@ blocks:
     - text: |
         We're almost there! The last thing we need to do is add some UI label on our screen to show the score we just computed and design the end screen to let players easily replay our game.
 
-        Particubes allows us to create simple interfaces using its [`UI`](/reference/ui) API. For example, we can create a label and anchor it at the top center of the screen to display our score:
+        Cubzh allows us to create simple interfaces using its [`UI`](/reference/ui) API. For example, we can create a label and anchor it at the top center of the screen to display our score:
 
     - code: |
         Client.OnStart = function()
@@ -767,9 +767,9 @@ blocks:
     - title: "Conclusion"
 
     - text: |
-        In this first tutorial, we made a simple solo-game, "Tutoworld", and we discussed quite a lot of Particubes features, among which: maps and items instantiation, collisions and triggers, raycasts and even a bit of UI!
+        In this first tutorial, we made a simple solo-game, "Tutoworld", and we discussed quite a lot of Cubzh features, among which: maps and items instantiation, collisions and triggers, raycasts and even a bit of UI!
         
-        You can find the game on Particubes (by going to the worlds list and searching for "Tutoworld") or re-create your own and then tweak it to your liking: feel free to share all your creations with us, we'd love to hear from you! :)
+        You can find the game on Cubzh (by going to the worlds list and searching for "Tutoworld") or re-create your own and then tweak it to your liking: feel free to share all your creations with us, we'd love to hear from you! :)
 
     - media: "/media/guides/01-tutoworld_demo.mp4"
 
@@ -801,7 +801,7 @@ blocks:
     - subtitle: "Final code"
 
     - text : |
-        As a reference, here is the final code of "Tutoworld" - remember that you can also check it out directly on Particubes by playing the game and clicking the "Read the code" button!
+        As a reference, here is the final code of "Tutoworld" - remember that you can also check it out directly on Cubzh by playing the game and clicking the "Read the code" button!
 
     - code: |
         Config = {

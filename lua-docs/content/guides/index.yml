@@ -1,12 +1,12 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
 title: "Guides"
 blocks:
     - text: |
         Are you more of a hands-on learner? Then this section is for you!
 
-        Here, you'll find step-by-step tutorials of to learn the basics of Particubes by making small games.
+        Here, you'll find step-by-step tutorials of to learn the basics of Cubzh by making small games.
 
-        If you haven't installed Particubes yet, checkout [the download page](https://particubes.com/download).
+        If you haven't installed Cubzh yet, checkout [the download page](https://cu.bzh/download).
 
     - subtitle: "Quick know-hows"
 
@@ -17,9 +17,9 @@ blocks:
     - subtitle: "Tutorials"
 
     - text: |
-        - [<b>Tutorial n°1: Tutoworld</b>](/guides/tutorials/tutoworld) - Discover the fundamentals of coding a Particubes game with this 10-minutes tutorial!
+        - [<b>Tutorial n°1: Tutoworld</b>](/guides/tutorials/tutoworld) - Discover the fundamentals of coding a Cubzh game with this 10-minutes tutorial!
         - [<b>Tutorial n°2: Lone Scoundrel</b>](/guides/tutorials/lone-scoundrel) - Learn more advanced techniques in this intermediate tutorial, like procedural generation or object pooling
-        - [<b>Tutorial n°3: Space Race</b>](/guides/tutorials/space-race) - Discover how to turn your Particubes game multiplayer :)
+        - [<b>Tutorial n°3: Space Race</b>](/guides/tutorials/space-race) - Discover how to turn your Cubzh game multiplayer :)
 
     - subtitle: "Handy Lua Snippets"
 

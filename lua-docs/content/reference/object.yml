@@ -1,4 +1,4 @@
-keywords: ["particubes", "game", "mobile", "scripting", "object", "voxel"]
+keywords: ["cubzh", "game", "mobile", "scripting", "object", "voxel"]
 type: "Object"
 description: |
   An `Object` is the most basic thing that can be added to the game 3D scene.

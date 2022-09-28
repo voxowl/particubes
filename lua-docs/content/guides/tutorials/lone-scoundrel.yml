@@ -1,8 +1,8 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
 title: "Tutorials > Tutorial n°2: Lone Scoundrel"
 blocks:
     - text: |
-        The [first tutorial](/guides/tutorials/tutoworld) was a quick peek at several important features of [Particubes](https://particubes.com): we talked about the world, the map and the items; we discussed how to instantiate things from a reference, how to detect collisions with raycasts and how to create a simple UI. Today, we are going to go in further: we'll build on these concepts and introduce more advanced scripting techniques to make a more complex game: "Lone Scoundrel".
+        The [first tutorial](/guides/tutorials/tutoworld) was a quick peek at several important features of [Cubzh](https://cu.bzh): we talked about the world, the map and the items; we discussed how to instantiate things from a reference, how to detect collisions with raycasts and how to create a simple UI. Today, we are going to go in further: we'll build on these concepts and introduce more advanced scripting techniques to make a more complex game: "Lone Scoundrel".
 
         In this game, you steer a small ship on an infinite sea and your goal is to scavenge as many coins and chests as possible to increase your score without shipwrecking on an island:
 
@@ -11,7 +11,7 @@ blocks:
     - title: "Foreword"
 
     - text: |
-        Just before we dive in, I need to point out something: in this game, I'm not using a map as we normally do in Particubes game; instead, I'll create it procedurally, "on the fly" when my game first starts. Also, I won't need any physics, be it for gravity or collisions, so I'll just disable it on all my objects. That's why, at the very beginning, we'll just have our little avatar floating in the sky, completely still, and why we'll start with an empty [`Config`](/reference/config) object in our script!
+        Just before we dive in, I need to point out something: in this game, I'm not using a map as we normally do in Cubzh game; instead, I'll create it procedurally, "on the fly" when my game first starts. Also, I won't need any physics, be it for gravity or collisions, so I'll just disable it on all my objects. That's why, at the very beginning, we'll just have our little avatar floating in the sky, completely still, and why we'll start with an empty [`Config`](/reference/config) object in our script!
 
     - code: |
         Config = {}
@@ -20,7 +20,7 @@ blocks:
         end
 
     - text: |
-        Also, the various hardcoded values I show in the scripts like the ship speed, the number of coins and chests to generate, etc., are what we often call "magic numbers", because they are "magically" chosen by the programmer, totally arbitrarily. This means that you can tweak them to your liking to see how the game reacts, and that the live code on the Particubes server might have slightly different values compared to the snippets copied here... but don't panic, the overall behaviour will remain the same ;)
+        Also, the various hardcoded values I show in the scripts like the ship speed, the number of coins and chests to generate, etc., are what we often call "magic numbers", because they are "magically" chosen by the programmer, totally arbitrarily. This means that you can tweak them to your liking to see how the game reacts, and that the live code on the Cubzh server might have slightly different values compared to the snippets copied here... but don't panic, the overall behaviour will remain the same ;)
 
     - title: "Setting up the player camera"
 
@@ -99,7 +99,7 @@ blocks:
     - title: "Instantiating our ship avatar"
 
     - text: |
-        In this Particubes game, we're not going to show the usual humanoid avatar of the player; instead, the players will control a basic ship - I made this item in the voxel editor, and as usual you should feel free to import it and re-use it if your games if you want :)
+        In this Cubzh game, we're not going to show the usual humanoid avatar of the player; instead, the players will control a basic ship - I made this item in the voxel editor, and as usual you should feel free to import it and re-use it if your games if you want :)
 
     - image: "/images/guides/02-lone-scoundrel_ship.jpg"
 
@@ -248,7 +248,7 @@ blocks:
         end
 
     - text: |
-        The code to generate this grid is fairly short and simple overall, but it does use a few new Particubes features that need explaining:
+        The code to generate this grid is fairly short and simple overall, but it does use a few new Cubzh features that need explaining:
 
         - instead of using the [`Shape`](/reference/shape) API like in [the "Tutoworld" tutorial](/guides/tutorials/tutoworld), we use the [`MutableShape`](/reference/mutableshape): this other type of object allows us to dynamically add, remove or re-color voxels of an item. It can optionally take in an item reference - this lets you load an item and edit in your game for futher customisation.
         - when we add the block of our patch, we give it a `BLUE` colour
@@ -299,7 +299,7 @@ blocks:
     - text: |
         Now that we've prepared all of our player motion logic, we can extend the sea patches to fill the entire screen... and add another cool effect: a fog! This fog will be useful for two reasons: one, it will emphasise the feeling that you're playing on an infinite map; two, it will help us as developers hide the objects spawning point and maintain the illusion ;)
 
-        With Particubes, it's just two lines of code to call the [`Fog`](/reference/fog) API:
+        With Cubzh, it's just two lines of code to call the [`Fog`](/reference/fog) API:
 
     - code: |
         local N_SEA_PATCH_X = 10
@@ -325,7 +325,7 @@ blocks:
     - text: |
         Okay, we've now set up the game environment - that's nice, but if you try to play, this new world is gonna feel both pretty empty and pretty endless! So how are we going to get this nicer look from the demo above, with all these coins and chests floating about that you can pick up to increase your score?
 
-        Since we saw last time how to add and remove objects from a Particubes world, you technically have all the tools you need to do something like this. But there are still several questions to answer, such as: where do we spawn the objects? how many can we/should we spawn? do we need to keep all of them, even when they've gotten out of sight?
+        Since we saw last time how to add and remove objects from a Cubzh world, you technically have all the tools you need to do something like this. But there are still several questions to answer, such as: where do we spawn the objects? how many can we/should we spawn? do we need to keep all of them, even when they've gotten out of sight?
 
         We're going to discuss all of this, step-by-step.
 
@@ -793,7 +793,7 @@ blocks:
     - title: "Setting up the UI & game over logic"
 
     - text: |
-        We're almost done - time to add a score label to tell the players how many points they have, and prepare an end screen for the game over. If you're not yet familiar with Particubes's [`UI`](/reference/ui) API, don't hesitate to have a look at [the end of the "Tutoworld" tutorial](/guides/tutorials/tutoworld#adding-a-basic-ui-and-handling-the-end-of-the-game). I'll also take this opportunity to regroup all of my initialisation code in a dedicated function, `initGame()`, so I can use it as a callback for my "Replay" button:
+        We're almost done - time to add a score label to tell the players how many points they have, and prepare an end screen for the game over. If you're not yet familiar with Cubzh's [`UI`](/reference/ui) API, don't hesitate to have a look at [the end of the "Tutoworld" tutorial](/guides/tutorials/tutoworld#adding-a-basic-ui-and-handling-the-end-of-the-game). I'll also take this opportunity to regroup all of my initialisation code in a dedicated function, `initGame()`, so I can use it as a callback for my "Replay" button:
 
     - code: |
         Client.OnStart = function()
@@ -956,7 +956,7 @@ blocks:
     - text: |
         In this second tutorial, we made a more advanced solo-game, "Lone Scoundrel", and we discovered various dev patterns like procedural generation or object pooling!
         
-        You can find the game on Particubes (by going to the worlds list and searching for "Lone Scoundrel") or re-create your own and then tweak it to your liking: feel free to share all your creations with us, we'd love to hear from you! :)
+        You can find the game on Cubzh (by going to the worlds list and searching for "Lone Scoundrel") or re-create your own and then tweak it to your liking: feel free to share all your creations with us, we'd love to hear from you! :)
 
     - media: "/media/guides/02-lone-scoundrel_demo.mp4"
 
@@ -986,7 +986,7 @@ blocks:
     - subtitle: "Final code"
 
     - text : |
-        As a reference, here is the final code of "Lone Scoundrel" - remember that you can also check it out directly on Particubes by playing the game and clicking the "Read the code" button!
+        As a reference, here is the final code of "Lone Scoundrel" - remember that you can also check it out directly on Cubzh by playing the game and clicking the "Read the code" button!
 
     - code: |
         Config = {

@@ -69,7 +69,7 @@ dagger.#Plan & {
 				input:    luaDocs.output.rootfs
 				path:     "/www/github_sha.yml"
 				contents: #"""
-					keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "docs"]
+					keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "docs"]
 					title: "Github SHA"
 					blocks:
 					    - text: "\#(client.env.GITHUB_SHA)"
@@ -155,7 +155,7 @@ dagger.#Plan & {
 
 			verify: #_verifyGithubSHA & {
 				env: {
-					URL: "https://docs.particubes.com/github_sha"
+					URL: "https://docs.cu.bzh/github_sha"
 					DEP: "\(update.success)" // DEP created wth run
 				}
 			}

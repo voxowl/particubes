@@ -1,4 +1,4 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Client"
 description: |
     Client is storing variables and running functions on all connected user devices (clients). It contains everything needed for the local simulation.

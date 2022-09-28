@@ -1,15 +1,15 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
 title: "Introduction"
 blocks:
     - text: |
-        [Particubes](https://particubes.com) is an all-in-one application for players and game creators (artists, developers).
+        [Cubzh](https://cu.bzh) is an all-in-one application for players and game creators (artists, developers).
 
         This documentation contains everything you need to know as a developer to create your own realtime multiplayer games. 👾
 
     - title: "Cubes"
 
     - text: |
-        In [Particubes](https://particubes.com), <u>everything</u> is made out of cubes. Terrain, avatars, items, vehicles... everything!
+        In [Cubzh](https://cu.bzh), <u>everything</u> is made out of cubes. Terrain, avatars, items, vehicles... everything!
 
         Mainly because it's quick and easy to create game assets with cubes:
 
@@ -23,7 +23,7 @@ blocks:
     - title: "Scripting language"
 
     - text: |
-        The scripting language we use in [Particubes](https://particubes.com) is [Lua](https://www.lua.org).
+        The scripting language we use in [Cubzh](https://cu.bzh) is [Lua](https://www.lua.org).
 
         Lua is very solid and lighweight scripting language, it's been around since 1993. It's easy to learn and already used by other popular video game platforms like [Roblox](https://www.roblox.com) or [Core](https://www.coregames.com).
     
@@ -31,7 +31,7 @@ blocks:
 
         Don't worry if you've never used it. You'll be able to define custom things for your games in minutes. ☺️
 
-        (Particubes uses Lua version [5.3](https://www.lua.org/manual/5.3/))
+        (Cubzh uses Lua version [5.3](https://www.lua.org/manual/5.3/))
 
     - subtitle: "Quick example: How to jump higher?"
 
@@ -64,7 +64,7 @@ blocks:
     - subtitle: "Uppercase variables"
 
     - text : |
-        The case of the first letter of a variable or function name has special meaning in [Particubes](https://particubes.com).
+        The case of the first letter of a variable or function name has special meaning in [Cubzh](https://cu.bzh).
 
         Basically, if it starts with an uppercase character, it means it's a built-in variable, exposed by the platform. It also means you'll find it defined somewhere in [the reference](/reference). Think about it when you read through open source code. 🤓
 
@@ -73,7 +73,7 @@ blocks:
     - title: "Realtime multiplayer environment"
 
     - text : |
-        Games in [Particubes](https://particubes.com) are realtime multiplayer games by default.
+        Games in [Cubzh](https://cu.bzh) are realtime multiplayer games by default.
 
         It means you don't need a single line of code to make that work. It also means you don't have to worry about servers.
 
@@ -88,7 +88,7 @@ blocks:
     - text : |
         No one should be left aside!
 
-        [Particubes](https://particubes.com) runs on Android, iOS, Mac & Windows. (Linux + web browsers coming next)
+        [Cubzh](https://cu.bzh) runs on Android, iOS, Mac & Windows. (Linux + web browsers coming next)
 
         While the game is cross-platform, we don't want developers to worry about making sure the game works fine on each one of them.
 

@@ -1,8 +1,8 @@
-keywords: ["particubes", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
 title: "Tutorials > Tutorial n°3: Space Race"
 blocks:
     - text: |
-        In the previous tutorials (["Tutoworld"](/guides/tutorials/tutoworld) and ["Lone Scoundrel"](/guides/tutorials/lone-scoundrel)), we learned the basic features of the [Particubes](https://particubes.com) engine and we discussed a few common dev patterns. Today, we're going to continue our journey and talk about multi-player :)
+        In the previous tutorials (["Tutoworld"](/guides/tutorials/tutoworld) and ["Lone Scoundrel"](/guides/tutorials/lone-scoundrel)), we learned the basic features of the [Cubzh](https://cu.bzh) engine and we discussed a few common dev patterns. Today, we're going to continue our journey and talk about multi-player :)
 
         We are going to make a simple 2-or more-player game called "Space Race"!
         
@@ -642,7 +642,7 @@ blocks:
     - text: |
         This notion of "sharing a world" also directly leads to another fundamental multi-player programming concept: the notion of client and server.
 
-        As a Particubes player, when you edit or launch a game from the menu and get teleported in the world as your avatar, you exist in a world that is stored somewhere on a server. You yourself are a client, i.e. a "user" of this world: you can act upon it and modify it to some extent, but the data is not actually on your computer.
+        As a Cubzh player, when you edit or launch a game from the menu and get teleported in the world as your avatar, you exist in a world that is stored somewhere on a server. You yourself are a client, i.e. a "user" of this world: you can act upon it and modify it to some extent, but the data is not actually on your computer.
 
         Now, suppose other players connect into the same world - they will be registered as other clients of your server.
 
@@ -682,7 +682,7 @@ blocks:
     - text: |
         The server or the client that wants to communicate some info can obviously want to do so to multiple recipients at once (typically: if the player dies, the server should be informed but the other players too, because they'll need to update the dead player's avatar and/or state in their own version of the world).
 
-        But now the question is of course: how can we actually transfer this data between our server and clients? For now, we've seen various Particubes APIs to communicate between our client and the server, but we don't know how to make the server talk to the client(s), or the clients talk to each other! The solution is to use events! :)
+        But now the question is of course: how can we actually transfer this data between our server and clients? For now, we've seen various Cubzh APIs to communicate between our client and the server, but we don't know how to make the server talk to the client(s), or the clients talk to each other! The solution is to use events! :)
 
     - subtitle: "Events: the crux of data sharing"
 
@@ -694,7 +694,7 @@ blocks:
     - image: "/images/guides/server-client_06.jpg"
 
     - text: |
-        Creating events is very easy thanks to Particubes's [`Event`](/reference/event) API:
+        Creating events is very easy thanks to Cubzh's [`Event`](/reference/event) API:
 
     - code: |
         e = Event()
@@ -964,7 +964,7 @@ blocks:
 
         That's because, as you might remember, those walls are spawned and positioned randomly... and, up to this point, we kept all this code on the client side so, basically, each player just had its own random walls generated each time. Again, we need to move the code to the server; but remember how we cut the logic in multiple functions before, with our `prepareWalls()`, `makeWalls()` and `spawnWall()`? Now, this preparation will shine :)
 
-        What we want to do is take the `prepareWalls()` and `makeWalls()` functions and move with the rest of the server code; then, we'll rename them `serverPrepareWalls()` and `serverSendWalls()`, and we'll modify the second one a bit to send the result of the computation as an event to all the clients. However, as of today, Particubes [`Event`](/reference/event)s can't transfer Lua tables directly: they only support strings, numbers or booleans. So the trick is to encode our data using the built-in [`JSON`](/reference/json) encoder to turn it into a formatted string:
+        What we want to do is take the `prepareWalls()` and `makeWalls()` functions and move with the rest of the server code; then, we'll rename them `serverPrepareWalls()` and `serverSendWalls()`, and we'll modify the second one a bit to send the result of the computation as an event to all the clients. However, as of today, Cubzh [`Event`](/reference/event)s can't transfer Lua tables directly: they only support strings, numbers or booleans. So the trick is to encode our data using the built-in [`JSON`](/reference/json) encoder to turn it into a formatted string:
 
     - code: |
         function serverSpawnWalls()
@@ -1418,9 +1418,9 @@ blocks:
     - title: "Conclusion"
 
     - text: |
-        In this third tutorial, we made our first multi-player game: "Space Race"! This time, we re-used the Particubes's features we saw before, and discovered how to turn a solo-game into a multi-player one :)
+        In this third tutorial, we made our first multi-player game: "Space Race"! This time, we re-used the Cubzh's features we saw before, and discovered how to turn a solo-game into a multi-player one :)
         
-        You can find the game on Particubes (by going to the worlds list and searching for "Space Race") or re-create your own and then tweak it to your liking: feel free to share all your creations with us, we'd love to hear from you!
+        You can find the game on Cubzh (by going to the worlds list and searching for "Space Race") or re-create your own and then tweak it to your liking: feel free to share all your creations with us, we'd love to hear from you!
 
     - media: "/media/guides/03-space-race_demo-final.mp4"
 
@@ -1450,7 +1450,7 @@ blocks:
     - subtitle: "Final code"
 
     - text : |
-        As a reference, here is the final code of "Space Race" - remember that you can also check it out directly on Particubes by playing the game and clicking the "Read the code" button!
+        As a reference, here is the final code of "Space Race" - remember that you can also check it out directly on Cubzh by playing the game and clicking the "Read the code" button!
 
     - code: |
         Config = {
