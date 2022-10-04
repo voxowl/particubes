@@ -4,10 +4,34 @@ extends: "Shape"
 description: A [MutableShape] is an [Object] that carries and displays a set of [Block]s. The difference with [Shape] is that [MutableShape] [Block]s can be modified.
 
 constructors: 
-  - description: "Creates a MutableShape with imported [Item]."
-    arguments:
-    - name: "item"
-      type: "Item"
+  - description: |
+        Creates a MutableShape with shared [Palette] colors by default.
+      
+        The model can be empty, loaded from an imported [Item], or copied from an existing [Shape] or [MutableShape].
+    argument-sets:
+      -
+        - name: "sharedColors"
+          type: "boolean"
+          optional: true
+      -
+        - name: "item"
+          type: "Item"
+        - name: "sharedColors"
+          type: "boolean"
+          optional: true
+      -
+        - name: "copiedShape"
+          type: "Shape"
+        - name: "sharedColors"
+          type: "boolean"
+          optional: true
+      -
+        - name: "copiedMutableShape"
+          type: "MutableShape"
+        - name: "sharedColors"
+          type: "boolean"
+          optional: true
+      -
     samples:
       - code: local s = MutableShape(R.username.itemName)
 
