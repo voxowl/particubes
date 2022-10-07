@@ -65,6 +65,24 @@ blocks:
         as.StartAt = 200
         as.StopAt = 1000
 
+    - title: Playing around with the pitch
+
+    - text: |
+        To expand the audio library, you can also tweak the pitch of the sound file, i.e. how "high" or "low" it is perceived. This property works like this:
+
+        - `1.0` keeps the normal frequency, meaning the sound is as-is
+        - `0.5` halves the frequency, so the audio will sound lower
+        - `2.0` doubles the frequency, so the audio will sound higher
+
+        The pitch cannot be 0, but it can technically go up to +infinity. To change it, just set the `Pitch` option of the source:
+
+    - code: |
+        as = AudioSource()
+        as.Sound = "waterdrop_1"
+        as:SetParent(gun)
+
+        as.Pitch = 0.5 -- lower the sound
+
     - title: Tweaking or disabling spatialization
 
     - text: |
@@ -80,162 +98,155 @@ blocks:
         as.Spatialized = False
 
     - text: |
-        If you want to keep the spatialization but customize it in more details, you can force its pan to be more in the left or the right ear using the `Pan` setting:
+        If you want to keep the spatialization but customize it in more details, you can force its pan to be more in the left or the right ear using the `Pan` setting.
+
+        The `Pan` value goes from -1 (left ear only) to 1 (right ear only), with a default of 0 (equal in both ears):
 
     - code: |
         as = AudioSource()
         as.Sound = "gun_shot_1"
         as:SetParent(gun)
 
-        as.Pan = -0.5 -- from -1 to +1
-
-    - text: |        
-        Or you can change how far away the listener hears the source, you can play around with its `Radius` value:
-
-    - code: |
-        as = AudioSource()
-        as.Sound = "gun_shot_1"
-        as:SetParent(gun)
-
-        as.Radius = 10 -- (default: 10)
-
+        as.Pan = -0.5 -- "move the sound" slightly on the left
+    
     - title: List of available sounds
     
     - text: |
         Here is a list of all the sounds currently available in Cubzh (they should be pretty self-explanatory, but don't hesitate to try out some "surprising" effects to give a unique style to your world!):
-
-        - 440hz.mp3
-        - big_explosion_1.mp3
-        - big_explosion_2.mp3
-        - big_explosion_3.mp3
-        - broken_glass_1.mp3
-        - broken_glass_2.mp3
-        - broken_glass_3.mp3
-        - broken_glass_4.mp3
-        - broken_glass_5.mp3
-        - death_scream_guy_1.mp3
-        - death_scream_guy_2.mp3
-        - death_scream_guy_3.mp3
-        - death_scream_guy_4.mp3
-        - death_scream_guy_5.mp3
-        - death_scream_lady_1.mp3
-        - death_scream_lady_2.mp3
-        - death_scream_lady_3.mp3
-        - death_scream_lady_4.mp3
-        - death_scream_lady_5.mp3
-        - drinking_1.mp3
-        - drinking_2.mp3
-        - drinking_3.mp3
-        - eating_1.mp3
-        - eating_2.mp3
-        - eating_3.mp3
-        - eating_4.mp3
-        - eating_5.mp3
-        - fireworks_fireworks — child_1.mp3
-        - fireworks_fireworks — child_2.mp3
-        - fireworks_fireworks — child_3.mp3
-        - ground_digging_1.mp3
-        - ground_digging_2.mp3
-        - ground_digging_3.mp3
-        - gun_reload_1.mp3
-        - gun_reload_2.mp3
-        - gun_reload_3.mp3
-        - gun_shot_1.mp3
-        - gun_shot_2.mp3
-        - hurt_scream_female_1.mp3
-        - hurt_scream_female_2.mp3
-        - hurt_scream_female_3.mp3
-        - hurt_scream_female_4.mp3
-        - hurt_scream_female_5.mp3
-        - hurt_scream_male_1.mp3
-        - hurt_scream_male_2.mp3
-        - hurt_scream_male_3.mp3
-        - hurt_scream_male_4.mp3
-        - hurt_scream_male_5.mp3
-        - laser_gun_shot_1.mp3
-        - metal_clanging_1.mp3
-        - metal_clanging_2.mp3
-        - metal_clanging_3.mp3
-        - metal_clanging_4.mp3
-        - metal_clanging_5.mp3
-        - metal_clanging_6.mp3
-        - metal_clanging_7.mp3
-        - metal_clanging_8.mp3
-        - punch_1.mp3
-        - punch_2.mp3
-        - rain_1.mp3
-        - rain_2.mp3
-        - rain_3.mp3
-        - river_1.mp3
-        - small_explosion_1.mp3
-        - small_explosion_2.mp3
-        - small_explosion_3.mp3
-        - sword_impact_1.mp3
-        - sword_impact_2.mp3
-        - sword_impact_3.mp3
-        - sword_impact_4.mp3
-        - sword_impact_5.mp3
-        - sword_impact_6.mp3
-        - sword_impact_alt_1.mp3
-        - sword_impact_alt_2.mp3
-        - sword_impact_alt_3.mp3
-        - sword_impact_alt_4.mp3
-        - sword_impact_alt_5.mp3
-        - sword_impact_alt_6.mp3
-        - thunder_1.mp3
-        - thunder_2.mp3
-        - thunder_3.mp3
-        - twang_1.mp3
-        - twang_2.mp3
-        - twang_3.mp3
-        - twang_4.mp3
-        - walk_concrete_1.mp3
-        - walk_concrete_2.mp3
-        - walk_concrete_3.mp3
-        - walk_concrete_4.mp3
-        - walk_concrete_5.mp3
-        - walk_grass_1.mp3
-        - walk_grass_2.mp3
-        - walk_grass_3.mp3
-        - walk_grass_4.mp3
-        - walk_grass_5.mp3
-        - walk_gravel_1.mp3
-        - walk_gravel_2.mp3
-        - walk_gravel_3.mp3
-        - walk_gravel_4.mp3
-        - walk_gravel_5.mp3
-        - walk_sand_1.mp3
-        - walk_sand_2.mp3
-        - walk_sand_3.mp3
-        - walk_sand_4.mp3
-        - walk_sand_5.mp3
-        - walk_snow_1.mp3
-        - walk_snow_2.mp3
-        - walk_snow_3.mp3
-        - walk_snow_4.mp3
-        - walk_snow_5.mp3
-        - walk_wood_1.mp3
-        - walk_wood_2.mp3
-        - walk_wood_3.mp3
-        - walk_wood_4.mp3
-        - walk_wood_5.mp3
-        - water_impact_1.mp3
-        - water_impact_2.mp3
-        - water_impact_3.mp3
-        - waterdrop_1.mp3
-        - waterdrop_2.mp3
-        - waterdrop_3.mp3
-        - waterdrop_4.mp3
-        - whooshes_medium_1.mp3
-        - whooshes_medium_2.mp3
-        - whooshes_medium_3.mp3
-        - whooshes_small_1.mp3
-        - whooshes_small_2.mp3
-        - whooshes_small_3.mp3
-        - whooshes_small_4.mp3
-        - wind_wind_child_1.mp3
-        - wood_impact_1.mp3
-        - wood_impact_2.mp3
-        - wood_impact_3.mp3
-        - wood_impact_4.mp3
-        - wood_impact_5.mp3
+    
+    - audiolist:
+        - {file: "/audio/440hz.mp3", title: 440hz}
+        - {file: "/audio/big_explosion_1.mp3", title: big_explosion_1}
+        - {file: "/audio/big_explosion_2.mp3", title: big_explosion_2}
+        - {file: "/audio/big_explosion_3.mp3", title: big_explosion_3}
+        - {file: "/audio/broken_glass_1.mp3", title: broken_glass_1}
+        - {file: "/audio/broken_glass_2.mp3", title: broken_glass_2}
+        - {file: "/audio/broken_glass_3.mp3", title: broken_glass_3}
+        - {file: "/audio/broken_glass_4.mp3", title: broken_glass_4}
+        - {file: "/audio/broken_glass_5.mp3", title: broken_glass_5}
+        - {file: "/audio/death_scream_guy_1.mp3", title: death_scream_guy_1}
+        - {file: "/audio/death_scream_guy_2.mp3", title: death_scream_guy_2}
+        - {file: "/audio/death_scream_guy_3.mp3", title: death_scream_guy_3}
+        - {file: "/audio/death_scream_guy_4.mp3", title: death_scream_guy_4}
+        - {file: "/audio/death_scream_guy_5.mp3", title: death_scream_guy_5}
+        - {file: "/audio/death_scream_lady_1.mp3", title: death_scream_lady_1}
+        - {file: "/audio/death_scream_lady_2.mp3", title: death_scream_lady_2}
+        - {file: "/audio/death_scream_lady_3.mp3", title: death_scream_lady_3}
+        - {file: "/audio/death_scream_lady_4.mp3", title: death_scream_lady_4}
+        - {file: "/audio/death_scream_lady_5.mp3", title: death_scream_lady_5}
+        - {file: "/audio/drinking_1.mp3", title: drinking_1}
+        - {file: "/audio/drinking_2.mp3", title: drinking_2}
+        - {file: "/audio/drinking_3.mp3", title: drinking_3}
+        - {file: "/audio/eating_1.mp3", title: eating_1}
+        - {file: "/audio/eating_2.mp3", title: eating_2}
+        - {file: "/audio/eating_3.mp3", title: eating_3}
+        - {file: "/audio/eating_4.mp3", title: eating_4}
+        - {file: "/audio/eating_5.mp3", title: eating_5}
+        - {file: "/audio/fireworks_fireworks — child_1.mp3", title: fireworks_fireworks — child_1}
+        - {file: "/audio/fireworks_fireworks — child_2.mp3", title: fireworks_fireworks — child_2}
+        - {file: "/audio/fireworks_fireworks — child_3.mp3", title: fireworks_fireworks — child_3}
+        - {file: "/audio/ground_digging_1.mp3", title: ground_digging_1}
+        - {file: "/audio/ground_digging_2.mp3", title: ground_digging_2}
+        - {file: "/audio/ground_digging_3.mp3", title: ground_digging_3}
+        - {file: "/audio/gun_reload_1.mp3", title: gun_reload_1}
+        - {file: "/audio/gun_reload_2.mp3", title: gun_reload_2}
+        - {file: "/audio/gun_reload_3.mp3", title: gun_reload_3}
+        - {file: "/audio/gun_shot_1.mp3", title: gun_shot_1}
+        - {file: "/audio/gun_shot_2.mp3", title: gun_shot_2}
+        - {file: "/audio/hurt_scream_female_1.mp3", title: hurt_scream_female_1}
+        - {file: "/audio/hurt_scream_female_2.mp3", title: hurt_scream_female_2}
+        - {file: "/audio/hurt_scream_female_3.mp3", title: hurt_scream_female_3}
+        - {file: "/audio/hurt_scream_female_4.mp3", title: hurt_scream_female_4}
+        - {file: "/audio/hurt_scream_female_5.mp3", title: hurt_scream_female_5}
+        - {file: "/audio/hurt_scream_male_1.mp3", title: hurt_scream_male_1}
+        - {file: "/audio/hurt_scream_male_2.mp3", title: hurt_scream_male_2}
+        - {file: "/audio/hurt_scream_male_3.mp3", title: hurt_scream_male_3}
+        - {file: "/audio/hurt_scream_male_4.mp3", title: hurt_scream_male_4}
+        - {file: "/audio/hurt_scream_male_5.mp3", title: hurt_scream_male_5}
+        - {file: "/audio/laser_gun_shot_1.mp3", title: laser_gun_shot_1}
+        - {file: "/audio/metal_clanging_1.mp3", title: metal_clanging_1}
+        - {file: "/audio/metal_clanging_2.mp3", title: metal_clanging_2}
+        - {file: "/audio/metal_clanging_3.mp3", title: metal_clanging_3}
+        - {file: "/audio/metal_clanging_4.mp3", title: metal_clanging_4}
+        - {file: "/audio/metal_clanging_5.mp3", title: metal_clanging_5}
+        - {file: "/audio/metal_clanging_6.mp3", title: metal_clanging_6}
+        - {file: "/audio/metal_clanging_7.mp3", title: metal_clanging_7}
+        - {file: "/audio/metal_clanging_8.mp3", title: metal_clanging_8}
+        - {file: "/audio/punch_1.mp3", title: punch_1}
+        - {file: "/audio/punch_2.mp3", title: punch_2}
+        - {file: "/audio/rain_1.mp3", title: rain_1}
+        - {file: "/audio/rain_2.mp3", title: rain_2}
+        - {file: "/audio/rain_3.mp3", title: rain_3}
+        - {file: "/audio/river_1.mp3", title: river_1}
+        - {file: "/audio/small_explosion_1.mp3", title: small_explosion_1}
+        - {file: "/audio/small_explosion_2.mp3", title: small_explosion_2}
+        - {file: "/audio/small_explosion_3.mp3", title: small_explosion_3}
+        - {file: "/audio/sword_impact_1.mp3", title: sword_impact_1}
+        - {file: "/audio/sword_impact_2.mp3", title: sword_impact_2}
+        - {file: "/audio/sword_impact_3.mp3", title: sword_impact_3}
+        - {file: "/audio/sword_impact_4.mp3", title: sword_impact_4}
+        - {file: "/audio/sword_impact_5.mp3", title: sword_impact_5}
+        - {file: "/audio/sword_impact_6.mp3", title: sword_impact_6}
+        - {file: "/audio/sword_impact_alt_1.mp3", title: sword_impact_alt_1}
+        - {file: "/audio/sword_impact_alt_2.mp3", title: sword_impact_alt_2}
+        - {file: "/audio/sword_impact_alt_3.mp3", title: sword_impact_alt_3}
+        - {file: "/audio/sword_impact_alt_4.mp3", title: sword_impact_alt_4}
+        - {file: "/audio/sword_impact_alt_5.mp3", title: sword_impact_alt_5}
+        - {file: "/audio/sword_impact_alt_6.mp3", title: sword_impact_alt_6}
+        - {file: "/audio/thunder_1.mp3", title: thunder_1}
+        - {file: "/audio/thunder_2.mp3", title: thunder_2}
+        - {file: "/audio/thunder_3.mp3", title: thunder_3}
+        - {file: "/audio/twang_1.mp3", title: twang_1}
+        - {file: "/audio/twang_2.mp3", title: twang_2}
+        - {file: "/audio/twang_3.mp3", title: twang_3}
+        - {file: "/audio/twang_4.mp3", title: twang_4}
+        - {file: "/audio/walk_concrete_1.mp3", title: walk_concrete_1}
+        - {file: "/audio/walk_concrete_2.mp3", title: walk_concrete_2}
+        - {file: "/audio/walk_concrete_3.mp3", title: walk_concrete_3}
+        - {file: "/audio/walk_concrete_4.mp3", title: walk_concrete_4}
+        - {file: "/audio/walk_concrete_5.mp3", title: walk_concrete_5}
+        - {file: "/audio/walk_grass_1.mp3", title: walk_grass_1}
+        - {file: "/audio/walk_grass_2.mp3", title: walk_grass_2}
+        - {file: "/audio/walk_grass_3.mp3", title: walk_grass_3}
+        - {file: "/audio/walk_grass_4.mp3", title: walk_grass_4}
+        - {file: "/audio/walk_grass_5.mp3", title: walk_grass_5}
+        - {file: "/audio/walk_gravel_1.mp3", title: walk_gravel_1}
+        - {file: "/audio/walk_gravel_2.mp3", title: walk_gravel_2}
+        - {file: "/audio/walk_gravel_3.mp3", title: walk_gravel_3}
+        - {file: "/audio/walk_gravel_4.mp3", title: walk_gravel_4}
+        - {file: "/audio/walk_gravel_5.mp3", title: walk_gravel_5}
+        - {file: "/audio/walk_sand_1.mp3", title: walk_sand_1}
+        - {file: "/audio/walk_sand_2.mp3", title: walk_sand_2}
+        - {file: "/audio/walk_sand_3.mp3", title: walk_sand_3}
+        - {file: "/audio/walk_sand_4.mp3", title: walk_sand_4}
+        - {file: "/audio/walk_sand_5.mp3", title: walk_sand_5}
+        - {file: "/audio/walk_snow_1.mp3", title: walk_snow_1}
+        - {file: "/audio/walk_snow_2.mp3", title: walk_snow_2}
+        - {file: "/audio/walk_snow_3.mp3", title: walk_snow_3}
+        - {file: "/audio/walk_snow_4.mp3", title: walk_snow_4}
+        - {file: "/audio/walk_snow_5.mp3", title: walk_snow_5}
+        - {file: "/audio/walk_wood_1.mp3", title: walk_wood_1}
+        - {file: "/audio/walk_wood_2.mp3", title: walk_wood_2}
+        - {file: "/audio/walk_wood_3.mp3", title: walk_wood_3}
+        - {file: "/audio/walk_wood_4.mp3", title: walk_wood_4}
+        - {file: "/audio/walk_wood_5.mp3", title: walk_wood_5}
+        - {file: "/audio/water_impact_1.mp3", title: water_impact_1}
+        - {file: "/audio/water_impact_2.mp3", title: water_impact_2}
+        - {file: "/audio/water_impact_3.mp3", title: water_impact_3}
+        - {file: "/audio/waterdrop_1.mp3", title: waterdrop_1}
+        - {file: "/audio/waterdrop_2.mp3", title: waterdrop_2}
+        - {file: "/audio/waterdrop_3.mp3", title: waterdrop_3}
+        - {file: "/audio/waterdrop_4.mp3", title: waterdrop_4}
+        - {file: "/audio/whooshes_medium_1.mp3", title: whooshes_medium_1}
+        - {file: "/audio/whooshes_medium_2.mp3", title: whooshes_medium_2}
+        - {file: "/audio/whooshes_medium_3.mp3", title: whooshes_medium_3}
+        - {file: "/audio/whooshes_small_1.mp3", title: whooshes_small_1}
+        - {file: "/audio/whooshes_small_2.mp3", title: whooshes_small_2}
+        - {file: "/audio/whooshes_small_3.mp3", title: whooshes_small_3}
+        - {file: "/audio/whooshes_small_4.mp3", title: whooshes_small_4}
+        - {file: "/audio/wind_wind_child_1.mp3", title: wind_wind_child_1}
+        - {file: "/audio/wood_impact_1.mp3", title: wood_impact_1}
+        - {file: "/audio/wood_impact_2.mp3", title: wood_impact_2}
+        - {file: "/audio/wood_impact_3.mp3", title: wood_impact_3}
+        - {file: "/audio/wood_impact_4.mp3", title: wood_impact_4}
+        - {file: "/audio/wood_impact_5.mp3", title: wood_impact_5}
