@@ -81,7 +81,7 @@ blocks:
         end
 
     - text: |
-        The code is quite self-explanatory for the most part, and you can also check out the [Beginner's Guide](https://cu.bzh/beginners-guide) for a quick peek at the overall structure... but don't worry: throughout the rest of this tutorial, we'll modify or expand on this snippet and gradually dive into its different parts.
+        The code is quite self-explanatory for the most part... but don't worry: throughout the rest of this tutorial, we'll modify or expand on this snippet and gradually dive into its different parts.
 
     - title: "Setting the world's map"
 
@@ -103,15 +103,17 @@ blocks:
 
         If you want to get started quickly, you can use some of the maps already prepared by our team:
 
-        - `aduermael.hills`
         - `aduermael.mountains_cabin`
         - `aduermael.lovely_castle`
         - `aduermael.red_planet`
         - `aduermael.rockies`
+        - `aduermael.unicorn_land`
         - `claire.desert`
-        - `claire.market`
+        - `claire.city`
+        - `claire.camping_site`
+        - `minadune.islands_map`
 
-        But, of course, you can also create your own! To do so, just go to the Item editor and assemble voxels to your liking as explained in the [Beginner's Guide](https://cu.bzh/beginners-guide) :)
+        But, of course, you can also create your own! To do so, just go to the Item editor and assemble voxels to your liking :)
 
         <i>Note: at this time, there isn't a dedicated map editor yet. So you simply make a map "item", and then import it as the map of your world using the [`Config`](/reference/config) object.</i>
 
@@ -157,7 +159,7 @@ blocks:
 
         <i>Note: although you could in theory list your items directly at the root of the `Config` object, it's best practice to group them in an inner `Items` object to make the code more readable ;)</i>
 
-        Then, I can create an instance of my item by using the [`Shape`](/reference/shape) API object and passing it my item's path. I'll put this crate spawning process in a new function to make it easier to re-use:
+        Then, I can create an instance of my item by using the [`Shape`](/reference/shape) API object and passing it my item's path. I'll put this crate spawning process in a new function at the root of the script (meaning below the `Client.Action1` function, at the same level) to make it easier to re-use:
 
     - code: |
         function spawnCrate()
@@ -943,7 +945,7 @@ blocks:
             ui.win.restartButton:Remove()
 
             Pointer:Hide()
-            UI:Crosshair = true
+            UI.Crosshair = true
         end
 
         function spawnCrate(x, y, z)
@@ -988,7 +990,7 @@ blocks:
 
             -- switch to pointer mode
             Pointer:Show()
-            UI:Crosshair = false
+            UI.Crosshair = false
 
             -- Hide score
             ui.gemsLabel:Remove()
