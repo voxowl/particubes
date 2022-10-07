@@ -408,6 +408,15 @@ pre {
   margin-left: auto;
 }
 
+.audioPlayer {
+  display: flex;
+  align-items: center;
+}
+.audioPlayer audio {
+  margin-right: 1rem;
+  max-height: 40px;
+}
+
 .extension {
   border: thin solid #DDD;
   /*background-color: #F2F2F2;*/

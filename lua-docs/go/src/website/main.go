@@ -27,7 +27,7 @@ var (
 	debug                 bool = true
 	pages                 map[string]*Page
 	pageTemplate          *template.Template
-	staticFileDirectories = []string{"js", "style", "images", "media"}
+	staticFileDirectories = []string{"js", "style", "audio", "images", "media"}
 	// key: the type, value: the page where it is described
 	typeRoutes map[string]string
 )

@@ -224,6 +224,14 @@ type ContentBlock struct {
 	Image string `yaml:"image,omitempty"`
 	// Can be a relative link to a movie, a link to a youtube video...
 	Media string `yaml:"media,omitempty"`
+	// Keys couple:
+	//  title: Display name for the audio player
+	//  file: Relative link to a sound file (.mp3)
+	Audio map[string]string `yaml:"audio,omitempty"`
+	// List of key couples:
+	//  title: Display name for the audio player
+	//  file: Relative link to a sound file (.mp3)
+	AudioList []map[string]string `yaml:"audiolist,omitempty"`
 }
 
 // Returns best possible title for page
