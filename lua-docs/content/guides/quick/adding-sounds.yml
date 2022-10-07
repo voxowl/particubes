@@ -1,0 +1,241 @@
+keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world", "Minecraft", "Roblox", "code", "documentation", "docs"]
+title: "Quick know-how > Adding sounds to your game"
+blocks:
+    - text: |
+        Starting from the version 0.0.47, [Cubzh](https://cu.bzh/) has implemented a sound system to help you improve the ambience of your games. You can now pick from a library of built-in musics and sound effects to bring your worlds to life!
+
+        In a nutshell, the sound system works as follows:
+
+        - First, you have to place a listener somewhere in your scene: this is basically a microphone-like object that captures the sounds from all the sources around it and outputs the result to your speakers. It is unique and readily available using the `AudioListener` variable.
+        - Then, to add a new sound source in the game, you have to create a new instance of the `AudioSource` class, assign it a reference to a sound file (among the list of built-in ones, see below) and parent it somewhere in the world's hierarchy.
+
+        All this can be done via a code snippet like this one:
+
+    - code: |
+        Client.OnStart = function()
+            -- add the AudioListener to the player's head
+            -- to "glue the microphone" to this object
+            Player.Head:AddChild(AudioListener)
+
+            -- create a new source
+            as = AudioSource()
+            as.Sound = "death_scream_guy_1"
+            as:SetParent(Player.Head)
+        end
+
+    - text: |
+        You can create as many sources as you want, keeping in mind that one source can only play one sound at a time. And since both the `AudioListener` and `AudioSource` classes inherit from the [`Object`](/reference/object) base, you can set their transform and parent-dependencies like you're used to :)
+
+        Once initialized like this, your `AudioSource` instance can be turned on by calling its `Play` method, and off by calling its `Stop` method:
+
+    - code: |
+        gameOver = function()
+            as:Play()
+
+            Timer(2, false, function()
+                as:Stop()
+            end)
+        end
+
+    - text: |
+        The whole trick is then to properly choose your sounds and musics, and to tweak their parameters to better integrate them to the context! Let's see some additional tricks!
+
+    - title: Changing the volume of your AudioSource
+
+    - text: |
+        The most commonly used option is the `Volume`. This value goes from 0 (full silence) to 1 (full volume) and makes it easy to level the various sources according to one another.
+
+    - code: |
+        as = AudioSource()
+        as.Sound = "gun_shot_1"
+        as:SetParent(gun)
+
+        as.Volume = 0.3
+
+    - title: Taking an excerpt of the sound
+
+    - text: |
+        Our most creative contributors have already managed to go above and beyond and make their own sounds by playing around with the existing ones and chopping them up in clever ways! If you too want to try and remix the raw material, have some fun with the `StartAt` and `StopAt` properties of your `AudioSource` (both expressed in milliseconds):
+
+    - code: |
+        as = AudioSource()
+        as.Sound = "waterdrop_1"
+        as:SetParent(gun)
+
+        as.StartAt = 200
+        as.StopAt = 1000
+
+    - title: Tweaking or disabling spatialization
+
+    - text: |
+        Another interesting features of the sounds in Cubzh is that, by default, they are spatialized. This means that you won't hear your `AudioSource` the same depending on where the listener is. For example, the sound will be louder when the listener is closer to it, and you will get a left/right pan effect as the angle between the source and the listener changes. This is a great way to make really believable positional sound source in your world in a flash!
+
+        But of course, sometimes, you might want one of your `AudioSource` instances to be just some ambient sound, or a background music. In that case, the sound should not be spatialized, because it is independent of the position of the listener. This is easy to setup: just turn the `Spatialized` property off like this:
+
+    - code: |
+        as = AudioSource()
+        as.Sound = "gun_shot_1"
+        as:SetParent(gun)
+
+        as.Spatialized = False
+
+    - text: |
+        If you want to keep the spatialization but customize it in more details, you can force its pan to be more in the left or the right ear using the `Pan` setting:
+
+    - code: |
+        as = AudioSource()
+        as.Sound = "gun_shot_1"
+        as:SetParent(gun)
+
+        as.Pan = -0.5 -- from -1 to +1
+
+    - text: |        
+        Or you can change how far away the listener hears the source, you can play around with its `Radius` value:
+
+    - code: |
+        as = AudioSource()
+        as.Sound = "gun_shot_1"
+        as:SetParent(gun)
+
+        as.Radius = 10 -- (default: 10)
+
+    - title: List of available sounds
+    
+    - text: |
+        Here is a list of all the sounds currently available in Cubzh (they should be pretty self-explanatory, but don't hesitate to try out some "surprising" effects to give a unique style to your world!):
+
+        - 440hz.mp3
+        - big_explosion_1.mp3
+        - big_explosion_2.mp3
+        - big_explosion_3.mp3
+        - broken_glass_1.mp3
+        - broken_glass_2.mp3
+        - broken_glass_3.mp3
+        - broken_glass_4.mp3
+        - broken_glass_5.mp3
+        - death_scream_guy_1.mp3
+        - death_scream_guy_2.mp3
+        - death_scream_guy_3.mp3
+        - death_scream_guy_4.mp3
+        - death_scream_guy_5.mp3
+        - death_scream_lady_1.mp3
+        - death_scream_lady_2.mp3
+        - death_scream_lady_3.mp3
+        - death_scream_lady_4.mp3
+        - death_scream_lady_5.mp3
+        - drinking_1.mp3
+        - drinking_2.mp3
+        - drinking_3.mp3
+        - eating_1.mp3
+        - eating_2.mp3
+        - eating_3.mp3
+        - eating_4.mp3
+        - eating_5.mp3
+        - fireworks_fireworks — child_1.mp3
+        - fireworks_fireworks — child_2.mp3
+        - fireworks_fireworks — child_3.mp3
+        - ground_digging_1.mp3
+        - ground_digging_2.mp3
+        - ground_digging_3.mp3
+        - gun_reload_1.mp3
+        - gun_reload_2.mp3
+        - gun_reload_3.mp3
+        - gun_shot_1.mp3
+        - gun_shot_2.mp3
+        - hurt_scream_female_1.mp3
+        - hurt_scream_female_2.mp3
+        - hurt_scream_female_3.mp3
+        - hurt_scream_female_4.mp3
+        - hurt_scream_female_5.mp3
+        - hurt_scream_male_1.mp3
+        - hurt_scream_male_2.mp3
+        - hurt_scream_male_3.mp3
+        - hurt_scream_male_4.mp3
+        - hurt_scream_male_5.mp3
+        - laser_gun_shot_1.mp3
+        - metal_clanging_1.mp3
+        - metal_clanging_2.mp3
+        - metal_clanging_3.mp3
+        - metal_clanging_4.mp3
+        - metal_clanging_5.mp3
+        - metal_clanging_6.mp3
+        - metal_clanging_7.mp3
+        - metal_clanging_8.mp3
+        - punch_1.mp3
+        - punch_2.mp3
+        - rain_1.mp3
+        - rain_2.mp3
+        - rain_3.mp3
+        - river_1.mp3
+        - small_explosion_1.mp3
+        - small_explosion_2.mp3
+        - small_explosion_3.mp3
+        - sword_impact_1.mp3
+        - sword_impact_2.mp3
+        - sword_impact_3.mp3
+        - sword_impact_4.mp3
+        - sword_impact_5.mp3
+        - sword_impact_6.mp3
+        - sword_impact_alt_1.mp3
+        - sword_impact_alt_2.mp3
+        - sword_impact_alt_3.mp3
+        - sword_impact_alt_4.mp3
+        - sword_impact_alt_5.mp3
+        - sword_impact_alt_6.mp3
+        - thunder_1.mp3
+        - thunder_2.mp3
+        - thunder_3.mp3
+        - twang_1.mp3
+        - twang_2.mp3
+        - twang_3.mp3
+        - twang_4.mp3
+        - walk_concrete_1.mp3
+        - walk_concrete_2.mp3
+        - walk_concrete_3.mp3
+        - walk_concrete_4.mp3
+        - walk_concrete_5.mp3
+        - walk_grass_1.mp3
+        - walk_grass_2.mp3
+        - walk_grass_3.mp3
+        - walk_grass_4.mp3
+        - walk_grass_5.mp3
+        - walk_gravel_1.mp3
+        - walk_gravel_2.mp3
+        - walk_gravel_3.mp3
+        - walk_gravel_4.mp3
+        - walk_gravel_5.mp3
+        - walk_sand_1.mp3
+        - walk_sand_2.mp3
+        - walk_sand_3.mp3
+        - walk_sand_4.mp3
+        - walk_sand_5.mp3
+        - walk_snow_1.mp3
+        - walk_snow_2.mp3
+        - walk_snow_3.mp3
+        - walk_snow_4.mp3
+        - walk_snow_5.mp3
+        - walk_wood_1.mp3
+        - walk_wood_2.mp3
+        - walk_wood_3.mp3
+        - walk_wood_4.mp3
+        - walk_wood_5.mp3
+        - water_impact_1.mp3
+        - water_impact_2.mp3
+        - water_impact_3.mp3
+        - waterdrop_1.mp3
+        - waterdrop_2.mp3
+        - waterdrop_3.mp3
+        - waterdrop_4.mp3
+        - whooshes_medium_1.mp3
+        - whooshes_medium_2.mp3
+        - whooshes_medium_3.mp3
+        - whooshes_small_1.mp3
+        - whooshes_small_2.mp3
+        - whooshes_small_3.mp3
+        - whooshes_small_4.mp3
+        - wind_wind_child_1.mp3
+        - wood_impact_1.mp3
+        - wood_impact_2.mp3
+        - wood_impact_3.mp3
+        - wood_impact_4.mp3
+        - wood_impact_5.mp3
