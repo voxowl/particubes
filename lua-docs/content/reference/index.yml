@@ -5,6 +5,7 @@ blocks:
     - text: "Here's a list of all top level objects in Cubzh scripting environment:"
     - list:
         - "<a href=\"/reference/anchor\">Anchor</a>"
+        - "<a href=\"/reference/audiolistener\">AudioListener</a>"
         - "<a href=\"/reference/block\">Block</a>"
         - "<a href=\"/reference/box\">Box</a>"
         - "<a href=\"/reference/blockproperties\">BlockProperties</a>"
