@@ -24,7 +24,12 @@ blocks:
     - image: "/images/guides/create-screen_sections.jpg"
 
     - text: |
-        For now, let's click on the `✨ New world! ✨` button. This makes a new Cubzh world, gives it some default map and code and publishes it to the rest of the world. Since you are the author, you can now access its edit page and fill some info like the title and the description, or jump into it to actually edit its data! But because every new world is generated with some sample code that already allows you to move around, jump and explore a little voxel land, you'll see that if you click the `Edit` button you'll be directly teleported in the new world with some basic controls:
+        For now, let's click on the `✨ New world! ✨` button. This makes a new Cubzh world, gives it some default map and code and publishes it to the rest of the world. Since you are the author, you can now access its edit page and fill some info like the title and the description, or jump into it to actually edit its data! For example, to change the title, click on this icon in the top-right corner:
+
+    - image: "/images/guides/01-tutoworld_change-world-name.png"
+        
+    - text: |
+        Because every new world is generated with some sample code that already allows you to move around, jump and explore a little voxel land, you'll see that if you click the `Edit` button you'll be directly teleported in the new world with some basic controls:
 
     - image: "/images/guides/edit-screen_world.jpg"
 
