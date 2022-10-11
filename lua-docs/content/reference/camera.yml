@@ -4,7 +4,7 @@ extends: "Object"
 description: |
   A `Camera` is an object that can be placed in the scene to render all or select elements based on their layers.
 
-  The global instance `Camera` corresponds to the default main camera that renders to fullscreen. Additional cameras are rendered on top, according to their view order.
+  The global instance `Camera` corresponds to the default main camera that renders to fullscreen. Additional cameras are rendered on top, according to their view order. Their output can optionally be displayed inside a custom screen rectangle, called a target.
 
   All camera modes listed on this page are implemented in Lua, it's totally possible to implement custom ones.
 
@@ -12,6 +12,7 @@ description: |
   - `Camera Projection Modes`
   - `Radar FX Example`
   - `Multi Camera UI Example`
+  - `Minimap Example`
 
 properties:
     - name: "FieldOfView"
@@ -61,6 +62,26 @@ properties:
           The projection mode can be one of `ProjectionMode.Perspective` (by default) or `ProjectionMode.Orthographic`.
 
           Note that it can be changed at any time.
+
+    - name: "TargetX"
+      type: "number"
+      description: |
+          X component of the camera screen target bottom-left corner, expressed in screen points.
+
+    - name: "TargetY"
+      type: "number"
+      description: |
+          Y component of the camera screen target bottom-left corner, expressed in screen points.
+
+    - name: "TargetWidth"
+      type: "number"
+      description: |
+          Width of the camera screen target, expressed in screen points.
+
+    - name: "TargetHeight"
+      type: "number"
+      description: |
+          Height of the camera screen target, expressed in screen points.
 
     - name: "Color"
       type: "Color"

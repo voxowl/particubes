@@ -2,24 +2,34 @@ keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "BlockProperties"
 creatable: true # indicates that instances can be created, even if there's no constructor
 description: |
-    `BlockProperties` describes possible properties for a [Block].
+    A `BlockProperties` entry describes the visual properties of a [Block]. It is stored in a [Shape]'s [Palette] where it can be referred to by its palette index.
 
-    In most cases, [BlockProperties] are `read-only`.
-
-    Except entries in [Config.MapPaletteOverrides](/reference/config#property-mappaletteoverrides), to override map block properties for a game.
-
-    [BlockProperties] in [Map.LocalPalette](/reference/map#property-localpalette) can also be set at any time as long as the block is opaque and not light emissive.
+    A `BlockProperties` entry can only be removed from its palette if it is currently not used by any blocks in its owner shape.
 
 properties:
     - name: "Color"
       type: "Color"
-      description: |
-          [Block]'s color.
+      description: "Color of the blocks using this [This]."
 
     - name: "Light"
       type: "boolean"
-      description: "Indicates if the [Block] is light emissive. Light color is tight to the color of the [Block]."
+      description: "Indicates if blocks using this [This] emit light. Light color is tied to [BlockProperties.Color](#property-color)."
 
-    - name: "ID"
+    - name: "PaletteIndex"
       type: "number"
-      description: "BlockProperties' index in the [Palette] or [array] it belongs to."
+      description: "[This]' index in the [Palette] it belongs to."
+
+    - name: "BlocksCount"
+      type: "number"
+      description: "How many blocks are currently using [This]."
+
+functions:
+    - name: "IsUsed"
+      description: "Returns whether or not [This] is currently used by its owner shape."
+      return:
+        - type: "boolean"
+
+    - name: "Remove"
+      description: "Removes the [This] entry from its palette, if it is unused. Returns `true` if it was removed."
+      return:
+        - type: "boolean"

@@ -2,5 +2,39 @@ keywords: ["cubzh", "game", "mobile", "scripting", "cube", "voxel", "world"]
 type: "Palette"
 creatable: true # indicates that instances can be created, even if there's no constructor
 description: |
-    A Palette is an [array] of [BlockProperties].
+    A `Palette` is a list of [BlockProperties] entries describing the visual properties of its owner [Shape]'s blocks.
+    
+    The entries of a palette can be changed at runtime with a few specific caveats:
+    - only colors that are unused by the shape can be removed from its palette,
+    - setting an entry's color directly may affect other shapes in the scene unless the owner shape was created with `sharedColors = false` or after setting [Palette.SharedColors](#property-sharedcolors) to `false`,
+    - changing the [BlockProperties.Light] or [BlockProperties.Color]'s alpha values will only be reflected on the baked lighting after calling `shape:ComputeBakedLight` (as of 0.0.47, only relevant for [Map])
+    
+properties:
+    - name: "SharedColors"
+      type: "boolean"
+      description: |
+          Indicates whether colors in [This] can be shared with other shapes in the scene. This optimization feature is `true` by default.
+          
+          If you intend on changing [BlockProperties]' color at runtime, you may consider creating your shape using `sharedColors = false`.
+          
+          Alternatively, you can set [This.SharedColors] to `false` and only changing colors added _after_ the shape creation will be non-shared.
 
+    - name: "MaximumEntries"
+      type: "integer"
+      description: "Maximum number of [BlockProperties] entries in a [This]. Imported shapes or shapes from previous versions may exceed this limit but no new entry can be added."
+
+functions:
+    - name: "AddColor"
+      description: "Adds a new [BlockProperties] entry with the given color, if it is not already in the [This]. Returns palette index at which it was added."
+      return:
+        - type: "integer"
+
+    - name: "RemoveColor"
+      description: "Removes the [BlockProperties] entry at given index, if it is unused. Returns `true` if it was removed."
+      return:
+        - type: "boolean"
+
+    - name: "GetIndex"
+      description: "Returns the palette index of given color, `nil` if not found."
+      return:
+        - type: "integer"
