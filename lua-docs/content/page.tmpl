@@ -110,6 +110,18 @@
 								Your browser does not support the video tag.
 								</video>
 							</div>
+						{{ else if .Audio }}
+							<div class="audioPlayer">
+								<audio controls src="{{ .Audio.file }}"></audio>
+								{{ .Audio.title }}
+							</div>
+						{{ else if .AudioList }}
+							{{ range .AudioList }}
+								<div class="audioPlayer">
+									<audio controls src="{{ .file }}"></audio>
+									{{ .title }}
+								</div>
+							{{ end }}
 						{{ else if .Code }}
 							<pre>{{ .Code }}</pre>
 						{{ else if .List }}
