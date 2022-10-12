@@ -374,25 +374,16 @@ properties:
 
 functions:
     - name: "AddChild"
-      argument-sets:
-        - 
-          - name: "child"
-            type: "Object"
-        - 
-          - name: "child"
-            type: "Object"
-          - name: "keepWorld"
-            type: "boolean"
+      arguments:
+        - name: "child"
+          type: "Object"
+        - name: "keepWorld"
+          type: "boolean"
+          optional: true
       description: |
-          Adds given [Object] as a child.
-
-          [Object] extensions like [Shape] or [MutableShape] are naturally accepted too.
-
-          By default, when using AddChild, the child maintains it's [LocalPosition](/reference/object#property-localposition). But since the local position remains the same in the new parent, it means the child's world position may change.
-
-          The `keepWorld` optional parameter, `false` by default, can be used to maintain the child's [Position](/reference/object#property-position) (world position) instead. 
-
-          It's also a good practice to set child/parent relationships before setting positions.
+          Adds given [Object] as a child. [Object] extensions like [Shape] or [MutableShape] are naturally accepted too.
+        
+          The `keepWorld` optional parameter, `true` by default, dictates whether to maintain the child's world [Position](/reference/object#property-position) or [LocalPosition](/reference/object#property-localposition). Keeping its world position will ensure the object doesn't move in the scene, adjusting its local position accordingly; keeping its local position instead will have the object move in the scene in order to maintain an equivalent local position relative to its new parent.
 
       samples:
         - code: |
@@ -400,15 +391,28 @@ functions:
             local myShape = Shape(Items.someuser.someitem)
             o:AddChild(myShape)
     - name: "RemoveChild"
-      description: "Unsets parent/child relationship with child parameter. The child ends up being deleted if it has no other references."
+      description: |
+          Unsets parent/child relationship with child parameter. The child ends up being deleted if it has no other references.
+        
+          The `keepWorld` optional parameter, `true` by default, dictates whether to maintain the child's world [Position](/reference/object#property-position) or [LocalPosition](/reference/object#property-localposition). Keeping its world position will ensure the object doesn't move in the scene, adjusting its local position accordingly; keeping its local position instead will have the object move in the scene in order to maintain an equivalent local position relative to its new parent.
       arguments: 
         - name: "child"
           type: "Object"
+        - name: "keepWorld"
+          type: "boolean"
+          optional: true
       samples:
         - code: |
             o:RemoveChild(someChildObject)
     - name: "RemoveChildren"
-      description: "Unsets parent/child relationship with all children. Individual children end up being deleted if they have no other references."
+      description: |
+          Unsets parent/child relationship with all children. Individual children end up being deleted if they have no other references.
+        
+          The `keepWorld` optional parameter, `true` by default, dictates whether to maintain the child's world [Position](/reference/object#property-position) or [LocalPosition](/reference/object#property-localposition). Keeping its world position will ensure the object doesn't move in the scene, adjusting its local position accordingly; keeping its local position instead will have the object move in the scene in order to maintain an equivalent local position relative to its new parent.
+      arguments:
+        - name: "keepWorld"
+          type: "boolean"
+          optional: true
       samples:
         - code: |
             o:RemoveChildren()
@@ -434,21 +438,16 @@ functions:
       description: |
           Sets parent/child relationship with parent parameter. [nil] can be used to remove the [Object] from its parent.
 
-          By default, when using SetParent, the child maintains it's [LocalPosition](/reference/object#property-localposition). But since the local position remains the same in the new parent, it means the child's world position may change.
-
-          The `keepWorld` optional parameter, `false` by default, can be used to maintain the child's [Position](/reference/object#property-position) (world position) instead. 
+          The `keepWorld` optional parameter, `true` by default, dictates whether to maintain the child's world [Position](/reference/object#property-position) or [LocalPosition](/reference/object#property-localposition). Keeping its world position will ensure the object doesn't move in the scene, adjusting its local position accordingly; keeping its local position instead will have the object move in the scene in order to maintain an equivalent local position relative to its new parent.
 
           It's also a good practice to set child/parent relationships before setting positions.
 
-      argument-sets:
-        - 
-          - name: "parent"
-            type: "Object"
-        - 
-          - name: "parent"
-            type: "Object"
-          - name: "keepWorld"
-            type: "boolean"
+      arguments:
+        - name: "parent"
+          type: "Object"
+        - name: "keepWorld"
+          type: "boolean"
+          optional: true
       samples:
         - code: |
             local o = Object()
@@ -456,7 +455,15 @@ functions:
             -- (Map is an extension of Object)
 
     - name: "RemoveFromParent"
-      description: "Removes the [This] from its parent. Doesn't do anything if the [This] has no parent."
+      description: |
+          Removes the [This] from its parent. Doesn't do anything if the [This] has no parent.
+        
+          The `keepWorld` optional parameter, `true` by default, dictates whether to maintain the child's world [Position](/reference/object#property-position) or [LocalPosition](/reference/object#property-localposition). Keeping its world position will ensure the object doesn't move in the scene, adjusting its local position accordingly; keeping its local position instead will have the object move in the scene in order to maintain an equivalent local position relative to its new parent.
+        
+      arguments:
+        - name: "keepWorld"
+          type: "boolean"
+          optional: true
       samples:
         - code: |
             o:RemoveFromParent()
