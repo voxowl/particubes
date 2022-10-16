@@ -351,7 +351,7 @@ blocks:
 
         <b>Mobiles</b>
 
-    - image: "https://cu.bzh/files/5cf2be2360c68f86d8b666a54b36e831e5ca43ae.png"
+    - image: "/images/guides/01-tutoworld_action_buttons_mobile.png"
 
     - text: |
         Here, the most intuitive action to use is the `Action2`; so let's define it and, inside, call `Player:SwingRight()`:
