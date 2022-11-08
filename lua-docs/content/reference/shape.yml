@@ -129,6 +129,11 @@ properties:
       description: |
           Integer or table of integers between 1 and 8. Cameras only render objects corresponding to their layers.
 
+    - name: "IsUnlit"
+      type: "boolean"
+      description: |
+          Whether or not the [This] should ignore scene lighting, `false` by default.
+
 functions:
     - name: "GetBlock"
       description: |

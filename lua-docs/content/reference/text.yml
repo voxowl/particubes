@@ -11,9 +11,9 @@ description: |
     By default, a [This] is set to `TextType.World`.
   
     If you were using the deprecated `Object:TextBubble` and `Object:ClearTextBubble` functions prior to 0.0.48, you may use the "textbubble.lua" module. It contains the following functions which use [This] objects instead,
-    - import the module with `require("textbubble.lua")`
-    - `textBubble(object, text, duration, offset, color, backgroundColor, tail)`
-    - `clearTextBubble(object)`
+    - import the module with `tb = require("textbubble.lua")`
+    - `tb.set(object, text, duration, offset, color, backgroundColor, tail)`
+    - `tb.clear(object)`
 
 constructors: 
   - description: "Creates a Text with default properties."
@@ -24,6 +24,7 @@ constructors:
           -- change text properties
           t.Text = "Hello world!"
           t.Type = TextType.Screen
+          t.IsUnlit = true
           t.Tail = true
 
           -- use it as a normal object in the scene
