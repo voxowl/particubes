@@ -14,32 +14,19 @@ description: |
 
 constructors: 
   - description: |
-        Creates a Shape with shared [Palette] colors by default.
-        
-        The model can be empty, loaded from an imported [Item], or copied from an existing [Shape] or [MutableShape].
+        Creates a Shape which model can be empty, loaded from an imported [Item], or copied from an existing [Shape] or [MutableShape].
     argument-sets:
       -
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
+        
       -
         - name: "item"
           type: "Item"
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
       -
         - name: "copiedShape"
           type: "Shape"
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
       -
         - name: "copiedMutableShape"
           type: "MutableShape"
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
       -
     samples:
       - code: |
