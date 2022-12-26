@@ -14,32 +14,19 @@ description: |
 
 constructors: 
   - description: |
-        Creates a Shape with shared [Palette] colors by default.
-        
-        The model can be empty, loaded from an imported [Item], or copied from an existing [Shape] or [MutableShape].
+        Creates a Shape which model can be empty, loaded from an imported [Item], or copied from an existing [Shape] or [MutableShape].
     argument-sets:
       -
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
+        
       -
         - name: "item"
           type: "Item"
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
       -
         - name: "copiedShape"
           type: "Shape"
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
       -
         - name: "copiedMutableShape"
           type: "MutableShape"
-        - name: "sharedColors"
-          type: "boolean"
-          optional: true
       -
     samples:
       - code: |
@@ -128,6 +115,11 @@ properties:
       type: "table"
       description: |
           Integer or table of integers between 1 and 8. Cameras only render objects corresponding to their layers.
+
+    - name: "IsUnlit"
+      type: "boolean"
+      description: |
+          Whether or not the [This] should ignore scene lighting, `false` by default.
 
 functions:
     - name: "GetBlock"

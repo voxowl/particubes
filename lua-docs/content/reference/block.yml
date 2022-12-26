@@ -9,44 +9,33 @@ description: |
 
 constructors: 
   - description: |
-      Creates a `Block` with `{0,0,0}` coordinates. ([Block.Position](#property-position))
+      Creates a `Block` with given color and optional coordinates, `{ 0, 0, 0 }` by default.
 
-      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
-
-    arguments:
-    - name: "paletteIndex"
-      type: "integer"
-  - description: |
-      Creates a `Block` with `{x,y,z}` coordinates. ([Block.Position](#property-position))
-
-      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
-    arguments:
-    - name: "paletteIndex"
-      type: "integer"
-    - name: "x"
-      type: "number"
-    - name: "y"
-      type: "number"
-    - name: "z"
-      type: "number"
-        
-  - description: |
-      Creates a `Block` with `position` coordinates. ([Block.Position](#property-position))
-
-      [Block.PaletteIndex](#property-paletteindex) is set to `paletteIndex`, but [Block.Properties](#property-properties) remains [nil] before the block is added to a [MutableShape] (owns the [Palette]).
-    arguments: 
-    - name: "paletteIndex"
-      type: "integer"
-    - name: "position"
-      type: "Number3"
+    argument-sets:
+    -
+      - name: "color"
+        type: "Color"
+      - name: "coordinates"
+        type: "Number3"
+        optional: true
+    -
+      - name: "color"
+        type: "Color"
+      - name: "x"
+        type: "number"
+      - name: "y"
+        type: "number"
+      - name: "z"
+        type: "number"
+    -
 
 properties:
     - name: "PaletteIndex"
       type: "integer"
       description: |
-          Block's palette index. (first index is `1`)
+          Block's [Palette] index in its original [Shape]. (first index is `1`)
 
-          ⚠️ This has no effect if the block does not belong to a [Shape] or [MutableShape] (instances owning a [Palette]).
+          ⚠️ This has no effect if the block does not belong to a [Shape] or [MutableShape].
       samples:
           - code: |
               local b = someMutableShape:GetBlock(1, 2, 3)
@@ -59,7 +48,7 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Block's coordinates in the [Shape] or [MutableShape] model.
+          Block's coordinates in the [Shape] or [MutableShape] model. Block's origin is its bottom-left-down corner.
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
@@ -77,7 +66,7 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Position of [Block]'s negative X-Y-Z corner in world coordinates.
+          [Block]'s coordinates converted in world space.
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
@@ -95,7 +84,7 @@ properties:
       read-only: true
       type: "Number3"
       description: |
-          Position of [Block]'s center in local space, i.e. relative to the [Shape]'s or [MutableShape]'s parent.
+          [Block]'s coordinates converted in local space, i.e. relative to the [Shape]'s or [MutableShape]'s parent.
       samples:
           - code: |
               local b = someShape:GetBlock(1, 2, 3)
@@ -103,31 +92,34 @@ properties:
                 print(b.LocalPosition)
               end
 
-    - name: "Properties"
-      read-only: true
-      type: "BlockProperties"
-      description: |
-          Returns Block's [BlockProperties].
-
-          [nil] if the [Block] does not belong to a [Shape] or [MutableShape].
-
 functions:
     - name: "AddNeighbor"
       description: |
-          Adds a [Block], adjacent to the face passed as parameter.
+          Adds a [Block] to the [This] adjacent to the face passed as parameter. You may provide a [Block], a palette index to an existing color in the original [Shape]'s [Palette], or any color which will be added automatically to the [Shape]'s [Palette] if needed.
 
-          Returns created [Block] (or [nil] if it fails).
+          Returns `true` if a block was successfully added.
 
           ⚠️ Won't work with `read-only` Blocks.
 
-
-      arguments:
-        - name: "block"
-          type: "Block"
-        - name: "face"
-          type: "Face"
+      argument-sets:
+        -
+          - name: "block"
+            type: "Block"
+          - name: "face"
+            type: "Face"
+        -
+          - name: "paletteIndex"
+            type: "integer"
+          - name: "face"
+            type: "Face"
+        -
+          - name: "color"
+            type: "Color"
+          - name: "face"
+            type: "Face"
+        -
       return: 
-        - type: "Block"
+        - type: "boolean"
       samples:
         - code: |
             -- add block when Action2 is triggered
@@ -136,7 +128,7 @@ functions:
               local impact = Player:CastRay()
               if impact.Block ~= nil then
                 -- add block, adjacent to the face that's been touched
-                impact.Block:AddNeighbor(Block(1), impact.FaceTouched)
+                impact.Block:AddNeighbor(Color(200, 0, 200), impact.FaceTouched)
               end
             end
           media: "/media/block-add-neighbor.mp4"

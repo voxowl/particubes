@@ -532,61 +532,6 @@ functions:
       return:
         - type: "Number3"
 
-    - name: "TextBubble"
-      description: |
-          Adds a text bubble at [Object]'s position. For a [Shape] or [Player], the text bubble will appear above its bounding box.
-
-          You may use a duration of `-1` to set a permanent text bubble.
-      argument-sets:
-        - 
-          - name: "text"
-            type: "string"
-        - 
-          - name: "text"
-            type: "string"
-          - name: "duration"
-            type: "number"
-        - 
-          - name: "text"
-            type: "string"
-          - name: "duration"
-            type: "number"
-          - name: "offset"
-            type: "number"
-        - 
-          - name: "text"
-            type: "string"
-          - name: "duration"
-            type: "number"
-          - name: "offset"
-            type: "number"
-          - name: "color"
-            type: "Color"
-        - 
-          - name: "text"
-            type: "string"
-          - name: "duration"
-            type: "number"
-          - name: "offset"
-            type: "number"
-          - name: "color"
-            type: "Color"
-          - name: "bgColor"
-            type: "Color"
-        - 
-          - name: "text"
-            type: "string"
-          - name: "duration"
-            type: "number"
-          - name: "offset"
-            type: "number"
-          - name: "color"
-            type: "Color"
-          - name: "bgColor"
-            type: "Color"
-          - name: "tail"
-            type: "boolean"
-
     - name: "CollidesWith"
       description: "Returns `true` if the two [Object]s may collide with each other."
       arguments: 
@@ -604,9 +549,3 @@ functions:
           type: "Object"
         - name: "value"
           type: "Number3"
-  
-    - name: "ClearTextBubble"
-      description: "Instantaneously remove any ongoing text bubble."
-      arguments: 
-        - name: "self"
-          type: "Object"
