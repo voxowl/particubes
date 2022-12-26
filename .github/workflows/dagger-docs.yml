@@ -22,9 +22,6 @@ jobs:
         with:
           install-only: true
 
-      - name: Dagger poject update
-        run: dagger project update
-
       - name: Dagger do test
         run: dagger do test --log-format plain --plan ./lua-docs/docs.cue
 
