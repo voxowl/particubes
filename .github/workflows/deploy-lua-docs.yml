@@ -8,7 +8,7 @@ jobs:
 
   # Deploy Lua documentation
   # -------------------------------------------------- 
-  core_unit_tests:
+  deploy_lua_docs:
     name: Deploy Lua documentation
     if: ${{ github.event.issue.pull_request && github.event.comment.body == '/test'}}
     runs-on: ubuntu-latest
