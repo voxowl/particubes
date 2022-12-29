@@ -30,5 +30,8 @@ jobs:
         run: go build -v ./...
 
       - name: Run Dagger program
+        env: # Or as an environment variable
+          LUA_DOCS_SRV_SSH_PRIVATEKEY: ${{ secrets.SSH_PRIVATE_KEY_DOCKER_SWARM }}
+          LUA_DOCS_SRV_SSH_KNOWNHOSTS: ${{ secrets.LUA_DOCS_SRV_SSH_KNOWNHOSTS }}
         working-directory: ./deploy-lua-docs
         run: ./deploy

@@ -1,8 +1,11 @@
-module cu.bzh/luadoc/deploy
+module cu.bzh/luadocs/deploy
 
 go 1.19
 
-require dagger.io/dagger v0.4.2
+require (
+	dagger.io/dagger v0.4.2
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+)
 
 require (
 	github.com/Khan/genqlient v0.5.0 // indirect
