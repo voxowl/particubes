@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello docs deploy! 🙂")
+	fmt.Println("Hello docs deploy! 🙂🙂")
 
 	err := deployLuaDocs()
 	if err != nil {
