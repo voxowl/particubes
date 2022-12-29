@@ -27,8 +27,8 @@ jobs:
 
       - name: Build Dagger program
         working-directory: ./deploy-lua-docs
-        run: go build -v ./... -o ./deploy-lua-docs
+        run: go build -v ./...
 
       - name: Run Dagger program
         working-directory: ./deploy-lua-docs
-        run: ./deploy-lua-docs
+        run: ./deploy
