@@ -11,35 +11,40 @@ import (
 
 	"dagger.io/dagger"
 	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/knownhosts"
 )
 
 const (
 	LUA_DOCS_DOCKER_IMAGE_NAME string = "registry.particubes.com/lua-docs"
 	LUA_DOCS_DOCKER_IMAGE_TAG  string = "latest"
-	LUA_DOCS_SERVER_SSH_URL    string = "ssh://ubuntu@3.139.83.217:22" // TODO: secret
+	KNOWNHOSTS_LOCAL_FILEPATH  string = "./known_hosts"
 )
 
 var (
+	LUA_DOCS_SRV_SSH_URL        string = os.Getenv("LUA_DOCS_SRV_SSH_URL")
 	LUA_DOCS_SRV_SSH_PRIVATEKEY string = os.Getenv("LUA_DOCS_SRV_SSH_PRIVATEKEY")
 	LUA_DOCS_SRV_SSH_KNOWNHOSTS string = os.Getenv("LUA_DOCS_SRV_SSH_KNOWNHOSTS")
-	LUA_DOCS_SRV_SSH_USER       string = "ubuntu"
-	LUA_DOCS_SRV_SSH_HOST       string = "3.139.83.217"
-	LUA_DOCS_SRV_SSH_PORT       string = "22"
+	LUA_DOCS_SRV_SSH_USER       string
+	LUA_DOCS_SRV_SSH_HOST       string
+	LUA_DOCS_SRV_SSH_PORT       string
 )
 
 func main() {
-	fmt.Println("⭐️ Deploying Cubzh Lua docs... ⭐️")
+	fmt.Println("⭐️ Deploying Cubzh Lua docs... ")
 
-	urlRes, err := url.Parse(LUA_DOCS_SERVER_SSH_URL)
-	if err != nil {
-		fmt.Println("ERROR:", err.Error())
-		return
+	// Parse SSH connection URL
+	{
+		urlRes, err := url.Parse(LUA_DOCS_SRV_SSH_URL)
+		if err != nil {
+			fmt.Println("ERROR:", err.Error())
+			return
+		}
+		LUA_DOCS_SRV_SSH_USER = urlRes.User.String()
+		LUA_DOCS_SRV_SSH_HOST = urlRes.Hostname()
+		LUA_DOCS_SRV_SSH_PORT = urlRes.Port()
 	}
-	fmt.Println("User:", urlRes.User)
-	fmt.Println("Host:", urlRes.Hostname())
-	fmt.Println("Port:", urlRes.Port())
 
-	err = deployLuaDocs()
+	err := deployLuaDocs()
 	if err != nil {
 		fmt.Println("Failure. Error:", err.Error())
 		os.Exit(1)
@@ -99,77 +104,44 @@ func deployLuaDocs() error {
 	// Update Swarm service with new image
 	// --------------------------------------------------
 	{
-		out, err := remoteRun(
+		// write known_hosts file
+		err := os.WriteFile(KNOWNHOSTS_LOCAL_FILEPATH, []byte(LUA_DOCS_SRV_SSH_KNOWNHOSTS), 0600)
+		if err != nil {
+			return err
+		}
+
+		// execute remote command
+		output, err := remoteRun(
 			LUA_DOCS_SRV_SSH_USER,
 			LUA_DOCS_SRV_SSH_HOST,
 			LUA_DOCS_SRV_SSH_PORT,
 			LUA_DOCS_SRV_SSH_PRIVATEKEY,
-			"docker service update --image registry.particubes.com/lua-docs:latest lua-docs")
+			KNOWNHOSTS_LOCAL_FILEPATH,
+			"docker version",
+			// "docker service update --image registry.particubes.com/lua-docs:latest lua-docs"
+		)
 		if err != nil {
+			fmt.Println("❌ ssh call failed:", err.Error())
 			return err
 		}
+
+		// remove known_hosts file
+		err = os.Remove(KNOWNHOSTS_LOCAL_FILEPATH)
+		if err != nil {
+			fmt.Println("❌ failed to remove temporary known_hosts file")
+			return err
+		}
+
+		fmt.Println(output)
 		fmt.Println("✅ docker service update OK")
-		fmt.Println("✅", out)
 	}
-
-	// // mount host directory to container and go into it
-	// ciContainer = ciContainer.WithMountedDirectory("/project", src)
-	// ciContainer = ciContainer.WithWorkdir("/project/core/tests/cmake")
-
-	// execute build commands
-	// docsContainer = docsContainer.WithExec([]string{})
-	// code, err := docsContainer.ExitCode(ctx)
-	// if err != nil {
-	// 	return err
-	// }
-	// if code != 0 {
-	// 	outErr, err := docsContainer.Stderr(ctx)
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// 	fmt.Println(outErr)
-	// 	return errors.New("echo error")
-	// }
-
-	// fmt.Println("Running tests in container...")
-	// ciContainer = ciContainer.WithExec([]string{"cmake", "--build", ".", "--clean-first"})
-	// code, err = ciContainer.ExitCode(ctx)
-	// if err != nil {
-	// 	return err
-	// }
-	// if code != 0 {
-	// 	outErr, err := ciContainer.Stderr(ctx)
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// 	fmt.Println(outErr)
-	// 	return errors.New("cmake --build error")
-	// }
-
-	// // exec compiled unit tests program
-	// ciContainer = ciContainer.WithExec([]string{"./unit_tests"})
-	// output, err := ciContainer.Stdout(ctx)
-	// time.Sleep(time.Second * 1) // sleep needed when tests fail (race condition?)
-	// if err != nil {
-	// 	return err
-	// }
-	// fmt.Println(output)
-
-	// code, err = ciContainer.ExitCode(ctx)
-	// time.Sleep(time.Second * 1) // sleep needed when tests fail (race condition?)
-	// if err != nil {
-	// 	return err
-	// }
-	// if code != 0 {
-	// 	return errors.New("running error")
-	// }
 
 	fmt.Println("✅ Lua docs deployment done!")
 	return nil
 }
 
-// e.g. output, err := remoteRun("root", "MY_IP", "22", "PRIVATE_KEY", "ls")
-func remoteRun(user, addr, port, privateKey, cmd string) (string, error) {
+// e.g. output, err := remoteRun("root", <my_IP>, "22", <private_key>, <known_hosts>, "ls")
+func remoteRun(user, addr, port, privateKey, knownhostsFilepath, cmd string) (string, error) {
 	// privateKey could be read from a file, or retrieved from another storage
 	// source, such as the Secret Service / GNOME Keyring
 	key, err := ssh.ParsePrivateKey([]byte(privateKey))
@@ -177,13 +149,15 @@ func remoteRun(user, addr, port, privateKey, cmd string) (string, error) {
 		return "", err
 	}
 
+	hostKeyCallback, err := knownhosts.New(knownhostsFilepath)
+	if err != nil {
+		return "", err
+	}
+
 	// Authentication
 	config := &ssh.ClientConfig{
-		User: user,
-		// https://github.com/golang/go/issues/19767
-		// as clientConfig is non-permissive by default
-		// you can set ssh.InsercureIgnoreHostKey to allow any host
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(), // TODO: use authorized host keys
+		User:            user,
+		HostKeyCallback: hostKeyCallback, // ssh.InsercureIgnoreHostKey to allow any host
 		Auth: []ssh.AuthMethod{
 			ssh.PublicKeys(key),
 		},
