@@ -3,6 +3,9 @@ name: Deploy Lua documentation
 on:
   issue_comment:
     types: [created, edited]
+  pull_request:
+    branches:
+      - main
 
 jobs:
 

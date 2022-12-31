@@ -29,8 +29,6 @@ var (
 
 func main() {
 	fmt.Println("⭐️ Deploying Cubzh Lua docs...")
-	fmt.Println("LUA_DOCS_SRV_SSH_PRIVATEKEY:", LUA_DOCS_SRV_SSH_PRIVATEKEY)
-	fmt.Println("LUA_DOCS_SRV_SSH_KNOWNHOSTS:", LUA_DOCS_SRV_SSH_KNOWNHOSTS)
 
 	urlRes, err := url.Parse(LUA_DOCS_SERVER_SSH_URL)
 	if err != nil {
