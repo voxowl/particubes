@@ -1,11 +1,9 @@
 name: Deploy Lua documentation
 
 on:
-  issue_comment:
-    types: [created, edited]
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
 
@@ -13,7 +11,7 @@ jobs:
   # -------------------------------------------------- 
   deploy_lua_docs:
     name: Deploy Lua documentation
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/test'}}
+    # if: ${{ github.event.issue.pull_request && github.event.comment.body == '/test'}}
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -38,3 +36,7 @@ jobs:
           LUA_DOCS_SRV_SSH_KNOWNHOSTS: ${{ secrets.LUA_DOCS_SRV_SSH_KNOWNHOSTS }}
         working-directory: ./deploy-lua-docs
         run: ./deploy
+
+  # push:
+    # branches: 
+      # - master
