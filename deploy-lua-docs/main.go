@@ -28,7 +28,7 @@ var (
 )
 
 func main() {
-	fmt.Println("⭐️ Deploying Cubzh Lua docs...")
+	fmt.Println("⭐️ Deploying Cubzh Lua docs... ⭐️")
 
 	urlRes, err := url.Parse(LUA_DOCS_SERVER_SSH_URL)
 	if err != nil {
