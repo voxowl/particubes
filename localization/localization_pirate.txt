@@ -1,0 +1,39 @@
+// GENERIC
+generic_by : by
+generic_Cancel : Cancel
+generic_Close : Close
+generic_LoadingWithDots : Loadin'...
+generic_Send : Send
+generic_wip : Work in progress
+generic_wipText : We be still buildin' this here part, come aft later!
+
+// ERROR POPUPS
+errorPopup_genericTitle : ❌
+errorPopup_genericText : An error occurred, ye 'ave been redirected to the main menu.
+errorPopup_connectionText : Failed to connect, please check yer internet connection.
+
+// SPLASHSCREEN
+splashscreen_pressAnywhere : Press anywhere
+
+// MAIN MENU
+mainmenu_FeaturedBtnCaption : 🏆 Featured
+mainmenu_NewBtnCaption : ✨ New
+mainmenu_ExploreBtnCaption : 🌎 Explore
+mainmenu_BuildBtnCaption : 🏗 Build
+mainmenu_BackBtnCaption : ⬅️ Aft
+mainmenu_LaunchBtnCaption : Launch
+mainmenu_ServersBtnCaption : Servers
+
+// MAIN MENU - BUILD - WORLD
+mainmenu_build_world_NewPageTitle : ✨ New world! ✨
+// ...
+
+// MAIN MENU - BUILD - ITEM
+mainmenu_build_item_NewPageTitle : ✨ New item! ✨
+// ...
+
+// HELP / FEEDBACK
+help_title : 💬 'elp / feedback
+help_discordIntro : Discord be the best place to find support an' submit yer ideas:
+help_discordBtnCaption : 👾 Open Discord
+help_feedbackTextIntro : Or say what ye 'ave to say 'ere:
